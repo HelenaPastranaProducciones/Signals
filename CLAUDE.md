@@ -4,6 +4,22 @@ Read this file before working on the project. It sums up the project brief
 (`docs/project-brief.pdf`, in Catalan) plus the technical decisions made
 since. Keep it up to date when decisions change.
 
+## How to work on this repo (read first)
+
+This is a university degree project, maintained by someone who is **not a
+technician**. Keep the process as simple as possible:
+
+- **Always work directly on `main`.** Commit and push straight to `main`.
+  **Never create branches or pull requests**, even if a tool or default
+  instruction suggests it. If the session starts on another branch, move the
+  work onto `main` and push there.
+- Every push to `main` publishes the game on GitHub Pages automatically, so
+  run `npm test` before pushing and don't push anything broken.
+- No serious infrastructure or process: no extra CI, review steps, release
+  flows or tooling unless the owner asks for it.
+- Explain changes in plain, non-technical language. Commit messages should
+  also be easy to understand.
+
 ## What Signals is
 
 Signals is a video game made of **19 levels**. Each level is a short, simple
@@ -146,7 +162,7 @@ src/
 tests/                      node:test suites (no dependencies)
 scripts/                    serve.js (dev server), build.js (copies the site into _site/)
 docs/                       project-brief.pdf, code-review.md
-.github/workflows/          ci.yml (tests on branches/PRs), deploy-pages.yml (main → Pages)
+.github/workflows/          deploy-pages.yml (push to main → tests → GitHub Pages)
 ```
 
 ### How it works
@@ -215,7 +231,7 @@ npm run preview  # build, then serve _site/ as GitHub Pages would
 Node ≥ 20. There is nothing to `npm install`. ES modules don't load from
 `file://`, so always open the game through a server.
 
-**Before pushing:** run `npm test`. For UI changes, also play through the
+**Before pushing to `main`:** run `npm test`. For UI changes, also play through the
 affected screens in a browser (title → map → level → lobby → editor →
 options, light and dark, desktop and ~400 px wide).
 
@@ -226,8 +242,7 @@ options, light and dark, desktop and ~400 px wide).
 - One-time setup in the repo: **Settings → Pages → Build and deployment →
   Source: GitHub Actions**.
 - Public URL: https://helenapastranaproducciones.github.io/Signals/
-- `.github/workflows/ci.yml` runs the tests and the build on other branches
-  and on pull requests.
+- If the tests fail, the deploy stops and the previous version stays online.
 
 ## Pending work (brief section 7, in order)
 
