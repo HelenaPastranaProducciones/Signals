@@ -1,0 +1,198 @@
+/* Full-screen centred layout: title, intro and level loading screens */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  gap: 10px;
+}
+
+.splash p {
+  max-width: 580px;
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.splash .hint {
+  font-size: 14px;
+}
+
+.game-title {
+  font-size: clamp(48px, 9vw, 96px);
+}
+
+.splash-avatar {
+  width: min(260px, 60vw);
+}
+
+.signal-title {
+  font-size: clamp(30px, 5vw, 56px);
+  max-width: 900px;
+}
+
+.skip-button {
+  margin-top: 14px;
+}
+
+/* Level map */
+.map-progress {
+  min-width: 220px;
+}
+
+.level-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.level-tile {
+  position: relative;
+  min-height: 120px;
+  padding: 10px 6px;
+  border-radius: 22px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1.1;
+  color: var(--ink-on-pastel);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.12);
+  transition: transform 0.12s;
+}
+
+.level-tile b {
+  display: block;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.level-tile:not(.is-locked):hover {
+  transform: translateY(-4px);
+}
+
+.level-tile.is-locked {
+  filter: grayscale(1);
+  opacity: 0.45;
+  cursor: default;
+}
+
+.level-tile.is-done::after {
+  content: "✓";
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 17px;
+}
+
+/* Lobby */
+.lobby-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 500px) 1fr;
+  gap: 34px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.nickname-input {
+  font: inherit;
+  font-size: clamp(34px, 5vw, 54px);
+  font-weight: 800;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 3px dashed var(--line);
+  width: 100%;
+  padding: 0 0 4px;
+  letter-spacing: -1px;
+}
+
+.nickname-input:focus {
+  outline: 0;
+  border-bottom-color: var(--accent);
+}
+
+.nickname-hint {
+  margin-bottom: 14px;
+}
+
+.lobby-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 22px;
+  max-width: 320px;
+}
+
+.lobby-menu .btn {
+  text-align: left;
+}
+
+/* Avatar editor */
+.editor-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 380px) 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.option {
+  border-radius: 16px;
+  background: var(--card);
+  padding: 8px 2px;
+  font-size: 12px;
+  font-weight: 700;
+  min-height: 62px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border: 3px solid transparent;
+}
+
+.option.is-selected {
+  border-color: var(--accent);
+}
+
+.option.is-locked {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.option .swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: block;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.18);
+}
+
+/* Options */
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .lobby-layout,
+  .editor-layout {
+    grid-template-columns: 1fr;
+  }
+}

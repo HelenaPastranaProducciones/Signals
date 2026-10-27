@@ -1,0 +1,61 @@
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { createProgress, completeLevel } from "../src/game/progress.js";
+import { escapeHtml } from "../src/ui/html.js";
+import { introScreen } from "../src/ui/screens/intro.js";
+import { levelIntroScreen } from "../src/ui/screens/level-intro.js";
+import { levelScreen } from "../src/ui/screens/level.js";
+import { lobbyScreen } from "../src/ui/screens/lobby.js";
+import { mapScreen } from "../src/ui/screens/map.js";
+import { titleScreen } from "../src/ui/screens/title.js";
+
+const makeState = (ui = {}) => ({
+  progress: createProgress(),
+  ui: { screen: "map", level: 1, levelFinished: false, lobbyOpen: false, lobbyView: "main", avatarCategory: "skin", confirmingReset: false, ...ui },
+});
+
+const assertClean = (html, where) => assert.doesNotMatch(html, /undefined|NaN|\[object/, where);
+
+test("every screen renders for every level", () => {
+  const state = makeState();
+  assertClean(titleScreen(state), "title");
+  assertClean(introScreen(state), "intro");
+  assertClean(mapScreen(state), "map");
+  for (let level = 1; level <= 19; level++) {
+    for (const levelFinished of [false, true]) {
+      const levelState = makeState({ level, levelFinished });
+      assertClean(levelIntroScreen(levelState), `level intro ${level}`);
+      assertClean(levelScreen(levelState), `level ${level}`);
+    }
+  }
+});
+
+test("every lobby view and avatar category renders", () => {
+  for (const lobbyView of ["main", "avatar", "options"]) {
+    assertClean(lobbyScreen(makeState({ lobbyView })), lobbyView);
+  }
+  for (const avatarCategory of ["skin", "hair", "acc", "bg"]) {
+    assertClean(lobbyScreen(makeState({ lobbyView: "avatar", avatarCategory })), avatarCategory);
+  }
+});
+
+test("the last level has no Next signal button", () => {
+  assert.match(levelScreen(makeState({ level: 18, levelFinished: true })), /Next signal/);
+  assert.doesNotMatch(levelScreen(makeState({ level: 19, levelFinished: true })), /Next signal/);
+});
+
+test("the map locks levels beyond the next one", () => {
+  const state = makeState();
+  completeLevel(state.progress, 2);
+  const html = mapScreen(state);
+  assert.equal((html.match(/is-done/g) ?? []).length, 2);
+  assert.equal((html.match(/ disabled/g) ?? []).length, 16);
+});
+
+test("the nickname is escaped in the lobby", () => {
+  const state = makeState();
+  state.progress.nickname = `"><img src=x>`;
+  const html = lobbyScreen(state);
+  assert.ok(html.includes(`value="${escapeHtml(state.progress.nickname)}"`));
+  assert.ok(!html.includes("<img"));
+});

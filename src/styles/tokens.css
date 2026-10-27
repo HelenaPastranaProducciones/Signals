@@ -1,0 +1,31 @@
+/* Colour tokens. Dark mode follows the OS unless the player forces a theme
+   from Options, which sets data-theme on <html> (src/ui/browser.js). */
+:root {
+  --bg: #eef1f6;
+  --card: #fff;
+  --ink: #23243a;
+  --muted: #6c6f86;
+  --accent: #ff5a3c;
+  --accent-2: #ffe36b;
+  --line: #dcdfeb;
+  /* Ink on pastel surfaces (level tiles, yellow buttons) that stay light in both themes. */
+  --ink-on-pastel: #23243a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1b1c2b;
+    --card: #272940;
+    --ink: #f1f2fa;
+    --muted: #a3a6c4;
+    --line: #3a3d5c;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #1b1c2b;
+  --card: #272940;
+  --ink: #f1f2fa;
+  --muted: #a3a6c4;
+  --line: #3a3d5c;
+}
