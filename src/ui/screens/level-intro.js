@@ -1,4 +1,4 @@
-import { getLevel, TOTAL_LEVELS } from "../../data/levels.js";
+import { getLevel, TOTAL_LEVELS } from "../../levels/index.js";
 import { SHOW_SKIP_BUTTON } from "../../config.js";
 import { loader } from "../components.js";
 import { pad } from "../html.js";

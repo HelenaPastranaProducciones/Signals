@@ -1,5 +1,5 @@
 import { renderAvatar } from "../avatar/render-avatar.js";
-import { TOTAL_LEVELS } from "../data/levels.js";
+import { TOTAL_LEVELS } from "../levels/index.js";
 
 /**
  * Markup pieces shared by several screens. Buttons declare what they do with

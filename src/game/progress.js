@@ -1,5 +1,5 @@
 import { AVATAR_CATEGORIES, DEFAULT_AVATAR, findOption, getCategory } from "../data/avatar-catalog.js";
-import { TOTAL_LEVELS } from "../data/levels.js";
+import { TOTAL_LEVELS } from "../levels/index.js";
 import { DEFAULT_NICKNAME, NICKNAME_MAX_LENGTH } from "../config.js";
 
 /**

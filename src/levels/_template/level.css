@@ -1,0 +1,40 @@
+/* Every rule starts with the level's class so it can't affect other screens.
+   When copying, replace .level-00 with the level's class, e.g. .level-07. */
+
+.level-00 .board {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(#d6e6ff, #f6d8f0);
+}
+
+.level-00 .me {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  width: 110px;
+  transform: translateX(-50%);
+  text-align: center;
+  font-weight: 800;
+  color: var(--ink-on-pastel);
+}
+
+.level-00 .me svg {
+  display: block;
+  width: 100%;
+}
+
+.level-00 .bubble {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, #fff 0 18%, #ff7ab0 19% 70%, #d94f8c 100%);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.15);
+  animation: level-00-pop-in 0.25s ease-out;
+}
+
+@keyframes level-00-pop-in {
+  from {
+    transform: scale(0.2);
+  }
+}

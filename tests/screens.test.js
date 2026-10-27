@@ -11,7 +11,7 @@ import { titleScreen } from "../src/ui/screens/title.js";
 
 const makeState = (ui = {}) => ({
   progress: createProgress(),
-  ui: { screen: "map", level: 1, levelFinished: false, lobbyOpen: false, lobbyView: "main", avatarCategory: "skin", confirmingReset: false, ...ui },
+  ui: { screen: "map", level: 1, levelResult: null, levelMessage: "", lobbyOpen: false, lobbyView: "main", avatarCategory: "skin", confirmingReset: false, testMode: false, ...ui },
 });
 
 const assertClean = (html, where) => assert.doesNotMatch(html, /undefined|NaN|\[object/, where);
@@ -22,8 +22,8 @@ test("every screen renders for every level", () => {
   assertClean(introScreen(state), "intro");
   assertClean(mapScreen(state), "map");
   for (let level = 1; level <= 19; level++) {
-    for (const levelFinished of [false, true]) {
-      const levelState = makeState({ level, levelFinished });
+    for (const levelResult of [null, "won", "lost"]) {
+      const levelState = makeState({ level, levelResult });
       assertClean(levelIntroScreen(levelState), `level intro ${level}`);
       assertClean(levelScreen(levelState), `level ${level}`);
     }
@@ -40,8 +40,8 @@ test("every lobby view and avatar category renders", () => {
 });
 
 test("the last level has no Next signal button", () => {
-  assert.match(levelScreen(makeState({ level: 18, levelFinished: true })), /Next signal/);
-  assert.doesNotMatch(levelScreen(makeState({ level: 19, levelFinished: true })), /Next signal/);
+  assert.match(levelScreen(makeState({ level: 18, levelResult: "won" })), /Next signal/);
+  assert.doesNotMatch(levelScreen(makeState({ level: 19, levelResult: "won" })), /Next signal/);
 });
 
 test("the map locks levels beyond the next one", () => {
@@ -58,4 +58,20 @@ test("the nickname is escaped in the lobby", () => {
   const html = lobbyScreen(state);
   assert.ok(html.includes(`value="${escapeHtml(state.progress.nickname)}"`));
   assert.ok(!html.includes("<img"));
+});
+
+test("a lost level shows its message and a Try again button", () => {
+  const html = levelScreen(makeState({ level: 1, levelResult: "lost", levelMessage: "Your friends left the chat." }));
+  assert.match(html, /Your friends left the chat\./);
+  assert.match(html, /data-action="restart-level"/);
+});
+
+test("levels without a minigame show the coming soon card", () => {
+  assert.match(levelScreen(makeState({ level: 1 })), /Mini-game coming soon/);
+});
+
+test("test mode opens every level on the map", () => {
+  const html = mapScreen(makeState({ testMode: true }));
+  assert.doesNotMatch(html, / disabled/);
+  assert.match(html, /Test mode/);
 });

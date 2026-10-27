@@ -7,8 +7,11 @@
   "scripts": {
     "start": "node scripts/serve.js",
     "test": "node --test",
+    "status": "node scripts/level-status.js",
+    "check": "node scripts/check-level.js",
     "build": "node scripts/build.js",
-    "preview": "npm run build && node scripts/serve.js _site"
+    "preview": "npm run build && node scripts/serve.js _site",
+    "wait-deploy": "node scripts/wait-for-deploy.js"
   },
   "engines": {
     "node": ">=20"

@@ -12,8 +12,10 @@ export const state = {
     screen: "title",
     /** Level being loaded or played. */
     level: 1,
-    /** Whether the current level shows its completion card. */
-    levelFinished: false,
+    /** Result of the current attempt: null while playing, then "won" or "lost". */
+    levelResult: null,
+    /** Message the level gave when it was lost (e.g. "Time's up!"). */
+    levelMessage: "",
     /** The lobby opens over the map from the floating house button. */
     lobbyOpen: false,
     /** @type {"main" | "avatar" | "options"} */
@@ -22,5 +24,7 @@ export const state = {
     avatarCategory: "skin",
     /** "Reset progress" needs a second click to confirm. */
     confirmingReset: false,
+    /** Test mode (address ending in ?test or ?level=N): every level is open. */
+    testMode: false,
   },
 };

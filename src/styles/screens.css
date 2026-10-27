@@ -196,3 +196,63 @@
     grid-template-columns: 1fr;
   }
 }
+
+.test-notice {
+  margin-top: 8px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* Level screen while playing: the bar on top, the stage fills the rest. */
+main:has(.level-frame) {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 22px;
+}
+
+.level-frame {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.level-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.level-hud {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.level-controls {
+  display: flex;
+  gap: 8px;
+}
+
+/* The box every minigame draws into. Level styles go in the level's level.css,
+   with every rule starting with the level's class, e.g. `.level-07 .card { … }`. */
+.level-stage {
+  position: relative;
+  flex: 1;
+  min-height: 420px;
+  border-radius: 28px;
+  background: var(--card);
+  overflow: hidden;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.level-error {
+  padding: 30px;
+  text-align: center;
+}

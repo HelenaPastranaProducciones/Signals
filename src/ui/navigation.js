@@ -13,7 +13,7 @@ let loadingTimer;
  */
 export function goTo(screen, level) {
   clearTimeout(loadingTimer);
-  Object.assign(state.ui, { screen, lobbyOpen: false, levelFinished: false });
+  Object.assign(state.ui, { screen, lobbyOpen: false, levelResult: null, levelMessage: "" });
   if (level) state.ui.level = level;
   if (screen === "intro") startLoading(INTRO_LOADING_MS, "map");
   if (screen === "level-intro") startLoading(LEVEL_LOADING_MS, "level");

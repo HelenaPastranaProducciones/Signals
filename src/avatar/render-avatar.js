@@ -235,10 +235,8 @@ export const DRAWERS = {
 const draw = (table, option, k, a) => (table[option] ? table[option](k, a) : "");
 
 function open(k, a, label) {
-  return `<svg viewBox="0 0 200 220" role="img" aria-label="${label}"><defs>` +
-    `<radialGradient id="${k.ids.light}" cx=".3" cy=".22" r=".75"><stop offset="0" stop-color="#fff" stop-opacity=".7"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/></radialGradient>` +
-    `<radialGradient id="${k.ids.shade}" cx=".5" cy=".45" r=".6"><stop offset=".62" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".28"/></radialGradient>` +
-    `<clipPath id="${k.ids.bodyClip}"><path d="${BODY}"/></clipPath></defs>` +
+  return `<svg viewBox="0 0 200 220" role="img" aria-label="${label}">` +
+    k.defs(`<clipPath id="${k.ids.bodyClip}"><path d="${BODY}"/></clipPath>`) +
     `<rect width="200" height="220" rx="30" fill="${a.bg}"/>` + k.circle(100, 110, 86, "#fff", ".3") +
     `<ellipse cx="100" cy="213" rx="72" ry="8" fill="#000" opacity=".13"/>`;
 }

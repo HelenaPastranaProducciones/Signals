@@ -1,4 +1,4 @@
-import { TOTAL_LEVELS } from "../../data/levels.js";
+import { TOTAL_LEVELS } from "../../levels/index.js";
 import { NICKNAME_MAX_LENGTH } from "../../config.js";
 import { avatarStage, backButton, progressBar, screenHeader } from "../components.js";
 import { escapeHtml } from "../html.js";

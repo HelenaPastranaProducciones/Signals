@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { AVATAR_CATEGORIES, DEFAULT_AVATAR, findOption, unlocksForLevel } from "../src/data/avatar-catalog.js";
-import { TOTAL_LEVELS } from "../src/data/levels.js";
+import { TOTAL_LEVELS } from "../src/levels/index.js";
 
 /** Unlock table from the project brief (section 5), as "category key: option label". */
 const BRIEF_UNLOCKS = {

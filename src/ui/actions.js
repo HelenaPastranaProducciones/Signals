@@ -16,13 +16,19 @@ const { progress, ui } = state;
 const ACTIONS = {
   start: () => goTo("intro"),
   "open-level": ({ level }) => {
-    if (isLevelAvailable(progress, Number(level))) goTo("level-intro", Number(level));
+    if (ui.testMode || isLevelAvailable(progress, Number(level))) goTo("level-intro", Number(level));
   },
   skip: () => goTo("level"),
   "to-map": () => goTo("map"),
+  /** "Complete (demo)" on levels whose minigame is not built yet. */
   "complete-level": () => {
     completeLevel(progress, ui.level);
-    ui.levelFinished = true;
+    ui.levelResult = "won";
+  },
+  /** Re-rendering the playing frame starts a fresh attempt (see level-session.js). */
+  "restart-level": () => {
+    ui.levelResult = null;
+    ui.levelMessage = "";
   },
 
   "toggle-lobby": () => {

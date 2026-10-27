@@ -20,8 +20,14 @@ const lobbyButton = (open) =>
   `<button class="lobby-button" data-action="toggle-lobby" aria-label="${open ? "Back to map" : "Open lobby"}">${open ? "🗺️" : "🏠"}</button>`;
 
 /** Identifies what is on screen; scroll and focus are kept while it stays the same. */
-const viewKey = ({ screen, lobbyOpen, lobbyView, level, levelFinished }) =>
-  [screen, lobbyOpen && lobbyView, level, levelFinished].join("|");
+const viewKey = ({ screen, lobbyOpen, lobbyView, level, levelResult }) =>
+  [screen, lobbyOpen && lobbyView, level, levelResult].join("|");
+
+/** @type {Array<{ beforeRender?: () => void, afterRender?: (app: HTMLElement) => void }>} */
+const hooks = [];
+
+/** Lets another module run code around every redraw (main.js registers the level session). */
+export const addRenderHook = (hook) => hooks.push(hook);
 
 /** Selector that finds the same action button after the markup is rebuilt. */
 function selectorFor(element) {
@@ -44,10 +50,12 @@ export function render() {
   const scrollTop = sameView ? (app.querySelector("main")?.scrollTop ?? 0) : 0;
   const focus = sameView ? selectorFor(document.activeElement) : null;
 
+  for (const hook of hooks) hook.beforeRender?.();
   app.innerHTML = `<main>${SCREENS[ui.screen](state)}</main>${ui.screen === "map" ? lobbyButton(ui.lobbyOpen) : ""}`;
 
   app.querySelector("main").scrollTop = scrollTop;
   if (focus) app.querySelector(focus)?.focus({ preventScroll: true });
   applyTheme(state.progress.settings.theme);
   lastView = view;
+  for (const hook of hooks) hook.afterRender?.(app);
 }
