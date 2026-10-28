@@ -71,6 +71,11 @@ Cada nivell té una **llibreta** amb la idea acordada, les decisions, el
 progrés i on ho vam deixar. La porta Claude i l'actualitza cada vegada.
 Així, en la sessió següent, Claude sap exactament per on anàvem.
 
+A més, el document **HISTORIAL.md** recull sessió a sessió tot el que hem
+fet, decidit i descartat. Si canvies d'ordinador o de conversa, Claude el
+llegeix per continuar on ho vam deixar. Tu també el pots llegir quan vulguis.
+Per exemple: "llegeix-me l'historial".
+
 ## Si alguna cosa no va bé
 
 - Explica-ho amb les teves paraules: "el botó no fa res", "surt la pantalla

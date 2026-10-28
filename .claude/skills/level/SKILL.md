@@ -126,6 +126,8 @@ her plainly that this change isn't online yet and what you're doing about it.
 When she says she's done, or the conversation winds down:
 - Update "Where we left off" with one or two sentences: what was done today
   and the next step.
+- Add an entry for today to `HISTORIAL.md` (what was done, decided and
+  rejected, in plain Catalan) and update its "On som ara" section.
 - Make sure everything is saved and published.
 - Tell her in one line what you'll pick up next time.
 

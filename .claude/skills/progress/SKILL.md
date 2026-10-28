@@ -5,7 +5,8 @@ description: Show Helena how far the Signals game is, level by level, and sugges
 
 # Where the project stands
 
-1. Run `npm run status`. It reads each level's notebook
+1. Run `git pull` (the project may have changed on another computer), read
+   the "On som ara" section of `HISTORIAL.md`, then run `npm run status`. It reads each level's notebook
    (`src/levels/NN-name/README.md`) and lists the six-step progress and where
    each started level was left.
 2. Tell Helena, in her language and in plain words:

@@ -4,6 +4,14 @@ Read this file before doing anything in this project. It holds the project
 brief (`docs/project-brief.pdf`, in Catalan), the decisions taken since, and
 how to work here. Keep it up to date when decisions change.
 
+**Then read `HISTORIAL.md`** (in Catalan): the session-by-session history of
+what was done, decided and rejected with Helena, and where things stand now.
+It exists so work continues correctly on another computer or in another
+conversation, and so rejected ideas are not brought back. **At the end of
+every session, add an entry** (date, what was done, what was decided, what was
+rejected) and update its "On som ara" section. If the project may have been
+changed from another computer, run `git pull` before touching anything.
+
 ## How to work on this repo (read first)
 
 This is a university degree project, maintained by someone who is **not a
@@ -384,3 +392,4 @@ online.
   visuals and avatar output; the code review is in `docs/code-review.md`.
 - The level engine and one folder per level were added so each level can be
   built and refined on its own with Helena.
+- Since 28/10/2026 every session with Helena is logged in `HISTORIAL.md`.
