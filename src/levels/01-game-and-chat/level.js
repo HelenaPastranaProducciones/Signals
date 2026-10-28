@@ -45,6 +45,7 @@ export default defineLevel({
     let extraJumps = 0;
     let unanswered = 0;
     let replied = 0;
+    let started = false;
 
     game.root.innerHTML = `
       <div class="world">
@@ -56,14 +57,16 @@ export default defineLevel({
         </div>
         <div class="runner">${game.avatar()}<span>${escapeHtml(game.player.nickname)}</span></div>
         <div class="chat"></div>
-        <div class="hint">Tap or press Space to jump · tap messages to reply</div>
+        <div class="start">
+          <b>Tap or press Space to start</b>
+          <span>Tap or Space to jump · tap messages to reply</span>
+        </div>
       </div>`;
     const world = game.root.querySelector(".world");
     const runner = world.querySelector(".runner");
     const finish = world.querySelector(".finish");
     const chat = world.querySelector(".chat");
     const progressFill = world.querySelector(".track-progress-fill");
-    game.after(4000, () => world.querySelector(".hint")?.remove());
 
     const showScore = () => {
       const extra = extraJumps ? ` · Extra jumps ${extraJumps}` : "";
@@ -80,9 +83,21 @@ export default defineLevel({
       obstacles.push({ t, el, warned: false });
     }
 
+    // Nothing moves until the player taps or presses Space for the first time.
+    const start = () => {
+      started = true;
+      world.querySelector(".start").remove();
+      game.after(s.firstMessageSeconds * 1000, () => {
+        sendMessage();
+        game.every(s.secondsBetweenMessages * 1000, sendMessage);
+      });
+    };
+
     // Jumping: on the ground, or in the air if a friend gave you an extra jump.
     const jump = () => {
-      if (height <= 0) {
+      if (!started) {
+        start();
+      } else if (height <= 0) {
         speedUp = jumpSpeed;
       } else if (extraJumps > 0) {
         extraJumps -= 1;
@@ -146,17 +161,12 @@ export default defineLevel({
         game.after(2500, () => bubble.remove());
       });
     };
-    game.after(s.firstMessageSeconds * 1000, () => {
-      sendMessage();
-      game.every(s.secondsBetweenMessages * 1000, sendMessage);
-    });
-
     // Every frame: move the avatar and the track, check crashes and the finish.
     game.onFrame((dt) => {
       const width = game.root.clientWidth;
       const pixelsPerSecond = width * s.runSpeed;
       const runnerX = width * 0.15;
-      elapsed += dt;
+      if (started) elapsed += dt;
 
       speedUp -= gravity * dt;
       height = Math.max(0, height + speedUp * dt);
