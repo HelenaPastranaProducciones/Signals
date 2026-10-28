@@ -3,43 +3,14 @@ import { AVATAR_CATEGORIES } from "../../data/avatar-catalog.js";
 import { pick } from "../../engine/random.js";
 
 /**
- * Drawings for level 1: the running character (an avatar with arms and
- * legs), the obstacles and the landscape layers. Simple clay-style SVG.
+ * Drawings for level 1: the obstacles and the landscape layers, in the
+ * clay style. The runner itself is in character.js.
  */
 
 const kit = createSvgKit("level-01");
 
 /** Gradients shared by every drawing of this level; put once in the stage. */
 export const sharedDefs = () => `<svg width="0" height="0" aria-hidden="true" style="position:absolute">${kit.defs()}</svg>`;
-
-/**
- * A full-body character: the avatar's head and torso with hips, legs, shoes
- * and arms. The parts have classes so level.css can animate them
- * (.legs .leg-front/.leg-back, .arm-front/.arm-back, .upper).
- *
- * @param {string} avatarSvg  Markup from game.avatar(avatar, { backdrop: false }).
- * @param {Record<string, string>} avatar
- */
-export function character(avatarSvg, avatar) {
-  const trousers = "#3a3f66";
-  const shoes = avatar.acC;
-  const torso = avatarSvg.replace("<svg ", '<svg x="0" y="0" width="200" height="220" ');
-  const leg = (cls, x) =>
-    `<g class="leg ${cls}">${kit.stroke(`M${x} 222L${x} 280`, trousers, 22)}` +
-    `${kit.clay(`M${x - 13} 290Q${x - 13} 276 ${x + 4} 276Q${x + 22} 278 ${x + 22} 290Z`, shoes)}</g>`;
-  const arm = (cls, x) =>
-    `<g class="arm ${cls}">${kit.stroke(`M${x} 186L${x} 232`, avatar.topC, 18)}${kit.circle(x, 240, 10, avatar.skin)}</g>`;
-  return `<svg class="character" viewBox="0 0 200 300" aria-hidden="true">
-    <ellipse class="shadow" cx="100" cy="292" rx="46" ry="7" fill="#000" opacity=".12"/>
-    <g class="upper">
-      <g class="legs">${leg("leg-back", 108)}${leg("leg-front", 92)}</g>
-      ${kit.clay("M60 204Q100 196 140 204L138 238Q100 246 62 238Z", trousers)}
-      ${arm("arm-back", 146)}
-      ${torso}
-      ${arm("arm-front", 54)}
-    </g>
-  </svg>`;
-}
 
 /** A random look for a friend, from every avatar piece. */
 export function randomAvatar() {
@@ -90,8 +61,9 @@ export const FLYING_OBSTACLES = [
   },
 ];
 
-/** Wraps a drawing in an <svg> of its size. */
-export const obstacleSvg = (o) => `<svg viewBox="0 0 ${o.width} ${o.height}" width="${o.width}" height="${o.height}">${o.svg()}</svg>`;
+/** Wraps a drawing in an <svg>, `scale` times its drawn size. */
+export const obstacleSvg = (o, scale) =>
+  `<svg viewBox="0 0 ${o.width} ${o.height}" width="${o.width * scale}" height="${o.height * scale}">${o.svg()}</svg>`;
 
 // Landscape tiles, repeated sideways and scrolled at different speeds.
 const tile = (width, height, body) =>

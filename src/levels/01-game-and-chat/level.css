@@ -9,7 +9,6 @@
   inset: 0;
   overflow: hidden;
   background: linear-gradient(var(--skyTop), var(--skyBottom));
-  cursor: pointer;
 }
 
 /* Landscape layers, scrolled sideways from level.js. */
@@ -62,7 +61,7 @@
 }
 
 .level-01 .obstacle.flying {
-  bottom: calc(18% + 96px);
+  bottom: calc(18% + 106px);
 }
 
 .level-01 .obstacle svg {
@@ -93,9 +92,9 @@
   white-space: nowrap;
 }
 
-/* The runner: an avatar with arms and legs. */
+/* The runner: a side-on character (character.js). */
 .level-01 .runner {
-  width: 84px;
+  width: 90px;
   z-index: 2;
 }
 
@@ -107,7 +106,7 @@
 
 .level-01 .runner > span {
   position: absolute;
-  bottom: calc(100% + 2px);
+  bottom: calc(100% + 4px);
   left: 50%;
   transform: translateX(-50%);
   padding: 0 8px;
@@ -119,62 +118,115 @@
   white-space: nowrap;
 }
 
-.level-01 .character .upper,
-.level-01 .character .leg,
-.level-01 .character .arm {
-  transform-box: view-box;
-  transition: transform 0.12s ease-out;
+/* Limbs turn around their joint: each group's own (0, 0). */
+.level-01 .character .body,
+.level-01 .character .thigh,
+.level-01 .character .shin,
+.level-01 .character .upperarm,
+.level-01 .character .forearm {
+  transform-origin: 0 0;
+  transition: transform 0.1s ease-out;
 }
 
-.level-01 .character .leg-front { transform-origin: 92px 222px; }
-.level-01 .character .leg-back { transform-origin: 108px 222px; }
-.level-01 .character .arm-front { transform-origin: 54px 188px; }
-.level-01 .character .arm-back { transform-origin: 146px 188px; }
-
-/* Running: legs and arms swing in opposite directions, the body bobs. */
-.level-01 .runner .upper {
-  animation: level-01-bob 0.17s ease-in-out infinite alternate;
+.level-01 .character .body {
+  transform-origin: 72px 206px;
 }
 
-.level-01 .runner .leg-front,
-.level-01 .runner .arm-back {
-  animation: level-01-swing 0.34s ease-in-out infinite alternate;
+/* Running cycle: legs and arms in opposite phase, the body bobs twice per stride. */
+.level-01 .runner .body { animation: level-01-bob 0.21s ease-in-out infinite alternate; }
+.level-01 .runner .thigh-front { animation: level-01-thigh 0.42s linear infinite; }
+.level-01 .runner .shin-front { animation: level-01-shin 0.42s linear infinite; }
+.level-01 .runner .thigh-back { animation: level-01-thigh 0.42s linear -0.21s infinite; }
+.level-01 .runner .shin-back { animation: level-01-shin 0.42s linear -0.21s infinite; }
+.level-01 .runner .upperarm-front { animation: level-01-upperarm 0.42s ease-in-out -0.21s infinite; }
+.level-01 .runner .upperarm-back { animation: level-01-upperarm 0.42s ease-in-out infinite; }
+.level-01 .runner .forearm { transform: rotate(-80deg); }
+
+/* Standing still before the start, and at the finish. */
+.level-01 .runner.waiting *,
+.level-01 .runner.in-air *,
+.level-01 .runner.ducking *,
+.level-01 .celebrating .runner * {
+  animation: none !important;
 }
 
-.level-01 .runner .leg-back,
-.level-01 .runner .arm-front {
-  animation: level-01-swing 0.34s ease-in-out infinite alternate-reverse;
+.level-01 .runner.waiting .forearm { transform: rotate(-20deg); }
+
+/* Jumping: front knee up, back leg trailing, arms reaching up. */
+.level-01 .runner.in-air .thigh-front { transform: rotate(-75deg); }
+.level-01 .runner.in-air .shin-front { transform: rotate(85deg); }
+.level-01 .runner.in-air .thigh-back { transform: rotate(25deg); }
+.level-01 .runner.in-air .shin-back { transform: rotate(55deg); }
+.level-01 .runner.in-air .upperarm-front { transform: rotate(-150deg); }
+.level-01 .runner.in-air .upperarm-back { transform: rotate(-120deg); }
+.level-01 .runner.in-air .forearm { transform: rotate(-20deg); }
+
+/* Double jump: a spin in the air. */
+.level-01 .runner.double-jump .character {
+  animation: level-01-flip 0.45s ease-out;
 }
 
-/* Before starting: standing still. */
-.level-01 .runner.waiting .upper,
-.level-01 .runner.waiting .leg,
-.level-01 .runner.waiting .arm {
-  animation: none;
+/* Ducking: a low crouch, body forward. */
+.level-01 .runner.ducking .body { transform: translateY(40px) rotate(8deg); }
+.level-01 .runner.ducking .thigh-front { transform: rotate(-85deg); }
+.level-01 .runner.ducking .shin-front { transform: rotate(115deg); }
+.level-01 .runner.ducking .thigh-back { transform: rotate(-40deg); }
+.level-01 .runner.ducking .shin-back { transform: rotate(120deg); }
+.level-01 .runner.ducking .upperarm-front { transform: rotate(-50deg); }
+.level-01 .runner.ducking .upperarm-back { transform: rotate(30deg); }
+.level-01 .runner.ducking .forearm { transform: rotate(-90deg); }
+
+/* Double jumps to spend. */
+.level-01 .double-jumps {
+  position: absolute;
+  top: 34px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px 4px 4px;
+  border-radius: 999px;
+  background: #fff;
+  color: #23243a;
+  font-weight: 800;
+  font-size: 15px;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+  z-index: 3;
 }
 
-/* Jumping: knees forward, arms up. */
-.level-01 .runner.in-air .upper,
-.level-01 .runner.in-air .leg,
-.level-01 .runner.in-air .arm {
-  animation: none;
+.level-01 .double-jumps-icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #ffe36b;
+  font-size: 18px;
 }
 
-.level-01 .runner.in-air .leg-front { transform: rotate(-45deg); }
-.level-01 .runner.in-air .leg-back { transform: rotate(25deg); }
-.level-01 .runner.in-air .arm-front { transform: rotate(140deg); }
-.level-01 .runner.in-air .arm-back { transform: rotate(-140deg); }
-
-/* Ducking: the body drops and the legs open. */
-.level-01 .runner.ducking .upper {
-  animation: none;
-  transform: translateY(55px);
+.level-01 .double-jumps b {
+  display: grid;
+  place-items: center;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 6px;
+  border-radius: 15px;
+  background: #ff5a3c;
+  color: #fff;
+  font-size: 18px;
 }
 
-.level-01 .runner.ducking .leg-front { animation: none; transform: rotate(-70deg); }
-.level-01 .runner.ducking .leg-back { animation: none; transform: rotate(70deg); }
-.level-01 .runner.ducking .arm-front { animation: none; transform: rotate(50deg); }
-.level-01 .runner.ducking .arm-back { animation: none; transform: rotate(-50deg); }
+.level-01 .double-jumps.empty {
+  opacity: 0.6;
+}
+
+.level-01 .double-jumps.empty b {
+  background: #b7b7c4;
+}
+
+.level-01 .double-jumps.bump {
+  animation: level-01-bump 0.35s ease-out;
+}
 
 /* The finish: an arch and the friends waiting. */
 .level-01 .finish {
@@ -230,32 +282,27 @@
   font-size: 13px;
 }
 
-.level-01 .friend .arm-front {
-  animation: level-01-wave 0.5s ease-in-out infinite alternate;
+.level-01 .friend .character {
+  transform: scaleX(-1);
 }
 
-.level-01 .friend:nth-child(2n) .arm-front {
-  animation-delay: -0.25s;
-}
+.level-01 .friend .forearm { transform: rotate(-45deg); }
+.level-01 .friend .upperarm-front { transform: rotate(-120deg); animation: level-01-wave 0.5s ease-in-out infinite alternate; }
+.level-01 .friend:nth-child(2n) .upperarm-front { animation-delay: -0.25s; }
 
 /* Reaching the finish: everybody jumps for joy. */
-.level-01 .celebrating .runner .upper,
-.level-01 .celebrating .runner .leg,
-.level-01 .celebrating .runner .arm {
-  animation: none;
-}
-
-.level-01 .celebrating .runner .arm-front,
-.level-01 .celebrating .friend .arm-front { transform: rotate(150deg); animation: none; }
-.level-01 .celebrating .runner .arm-back,
-.level-01 .celebrating .friend .arm-back { transform: rotate(-150deg); }
+.level-01 .celebrating .runner .upperarm-front,
+.level-01 .celebrating .friend .upperarm-front { transform: rotate(-125deg); animation: none; }
+.level-01 .celebrating .runner .upperarm-back,
+.level-01 .celebrating .friend .upperarm-back { transform: rotate(-100deg); }
+.level-01 .celebrating .runner .forearm { transform: rotate(-45deg); }
 
 .level-01 .celebrating .runner .character,
-.level-01 .celebrating .friend .character {
+.level-01 .celebrating .friend {
   animation: level-01-cheer 0.4s ease-in-out infinite alternate;
 }
 
-.level-01 .celebrating .friend:nth-child(2n) .character {
+.level-01 .celebrating .friend:nth-child(2n) {
   animation-delay: -0.2s;
 }
 
@@ -385,7 +432,22 @@
 
 .level-01 .start span {
   font-size: 15px;
-  opacity: 0.75;
+  color: #4a4b63;
+}
+
+.level-01 .start span b {
+  font-size: inherit;
+}
+
+.level-01 .start kbd {
+  display: inline-block;
+  min-width: 26px;
+  padding: 0 6px;
+  border-radius: 6px;
+  background: #eef0f6;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
+  font: inherit;
+  font-weight: 800;
 }
 
 @keyframes level-01-pulse {
@@ -395,27 +457,42 @@
 }
 
 @keyframes level-01-bob {
-  to {
-    transform: translateY(-6px);
-  }
+  from { transform: translateY(0); }
+  to { transform: translateY(-5px); }
 }
 
-@keyframes level-01-swing {
-  from {
-    transform: rotate(-32deg);
-  }
-  to {
-    transform: rotate(32deg);
-  }
+@keyframes level-01-thigh {
+  0% { transform: rotate(-45deg); }
+  50% { transform: rotate(35deg); }
+  100% { transform: rotate(-45deg); }
+}
+
+@keyframes level-01-shin {
+  0% { transform: rotate(15deg); }
+  35% { transform: rotate(20deg); }
+  55% { transform: rotate(40deg); }
+  75% { transform: rotate(105deg); }
+  100% { transform: rotate(15deg); }
+}
+
+@keyframes level-01-upperarm {
+  0% { transform: rotate(45deg); }
+  50% { transform: rotate(-50deg); }
+  100% { transform: rotate(45deg); }
 }
 
 @keyframes level-01-wave {
-  from {
-    transform: rotate(120deg);
-  }
-  to {
-    transform: rotate(160deg);
-  }
+  from { transform: rotate(-100deg); }
+  to { transform: rotate(-140deg); }
+}
+
+@keyframes level-01-flip {
+  from { transform: rotate(0); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes level-01-bump {
+  50% { transform: scale(1.18); }
 }
 
 @keyframes level-01-cheer {

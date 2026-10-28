@@ -3,17 +3,19 @@ import { chance, pick, randomBetween } from "../../engine/random.js";
 import { escapeHtml } from "../../ui/html.js";
 import {
   FLYING_OBSTACLES, GROUND_OBSTACLES, LANDSCAPE, PALETTES,
-  character, obstacleSvg, randomAvatar, sharedDefs,
+  obstacleSvg, randomAvatar, sharedDefs,
 } from "./art.js";
+import { runnerCharacter } from "./character.js";
 
 /**
  * Level 1 · Game & Chat
  * Design notes, progress and decisions: README.md in this folder.
  *
- * A runner: the player's avatar runs by itself towards a finish line where
- * the friends wait. Jump over things on the ground, duck under things that
- * fly. Group chat messages pop up over the game: reply in time and that
- * friend helps you (warns about the next obstacle or gives an extra jump);
+ * A runner: a character with the player's avatar look runs by itself
+ * towards a finish line where the friends wait. Keyboard: jump over things on
+ * the ground, duck under things that fly. The mouse only replies to group
+ * chat messages that pop up over the game: reply in time and that friend
+ * helps you (warns about the next obstacle or gives a double jump to keep);
  * ignore it and the friend gets sad. Crash, or ignore too many messages,
  * and you lose.
  */
@@ -29,8 +31,9 @@ export default defineLevel({
   settings: {
     trackSeconds: 45, // seconds of running until the finish line
     runSpeed: 0.45, // how fast the track moves, in screen widths per second
-    jumpHeight: 130, // how high a jump goes, in pixels
-    jumpSeconds: 0.75, // how long a jump lasts in the air
+    jumpHeight: 170, // how high a jump goes, in pixels
+    jumpSeconds: 0.8, // how long a jump lasts in the air
+    obstacleSize: 1.5, // how big obstacles are (1 = their drawn size)
     minGapSeconds: 1.2, // shortest time between two obstacles
     maxGapSeconds: 2.3, // longest time between two obstacles
     flyingShare: 0.3, // share of obstacles that fly (duck under them)
@@ -49,14 +52,13 @@ export default defineLevel({
     let height = 0; // the runner's height above the ground, in pixels
     let speedUp = 0; // the runner's vertical speed
     let ducking = false;
-    let extraJumps = 0;
+    let doubleJumps = 0;
     let unanswered = 0;
     let replied = 0;
     let started = false;
     let finished = false;
 
     const friends = FRIENDS.map((friend) => ({ ...friend, avatar: randomAvatar() }));
-    const body = (avatar, label) => character(game.avatar(avatar, { label, backdrop: false }), avatar);
 
     game.root.innerHTML = `
       <div class="world">
@@ -69,20 +71,25 @@ export default defineLevel({
           <div class="finish-arch"><span>FINISH</span></div>
           <div class="finish-spot"></div>
           <div class="finish-friends">
-            ${friends.map((f) => `<div class="friend">${body(f.avatar, f.name)}<span style="background:${f.colour}">${f.name}</span></div>`).join("")}
+            ${friends.map((f) => `<div class="friend">${runnerCharacter(f.avatar)}<span style="background:${f.colour}">${f.name}</span></div>`).join("")}
           </div>
         </div>
-        <div class="runner">${body(game.player.avatar, "You")}<span>${escapeHtml(game.player.nickname)}</span></div>
+        <div class="runner">${runnerCharacter(game.player.avatar)}<span>${escapeHtml(game.player.nickname)}</span></div>
         <div class="track-progress"><div class="track-progress-fill"></div><span>🏁</span></div>
+        <div class="double-jumps" title="Double jumps to spend: press Space again in the air">
+          <span class="double-jumps-icon">⇈</span><span class="double-jumps-label">Double jumps</span><b>0</b>
+        </div>
         <div class="start">
-          <b>Tap or press Space to start</b>
-          <span>Jump: tap or Space · Duck: tap the ground or ↓ · Reply: tap the messages</span>
+          <b>Press Space to start</b>
+          <span><kbd>Space</kbd> or <kbd>↑</kbd> jump · again in the air: double jump</span>
+          <span><kbd>↓</kbd> duck · <b>Click</b> the messages to reply</span>
         </div>
       </div>`;
     const world = game.root.querySelector(".world");
     const runner = world.querySelector(".runner");
     const finish = world.querySelector(".finish");
     const progressFill = world.querySelector(".track-progress-fill");
+    const doubleJumpsBox = world.querySelector(".double-jumps");
     const ground = world.querySelector(".ground");
     const clouds = world.querySelector(".clouds");
     const hills = world.querySelector(".hills");
@@ -92,8 +99,15 @@ export default defineLevel({
     scenes.forEach((el, i) => (el.style.backgroundImage = LANDSCAPE.scenes[i].image));
 
     const showScore = () => {
-      const extra = extraJumps ? ` · Extra jumps ${extraJumps}` : "";
-      game.showInfo(`Replies ${replied} · Ignored ${unanswered} / ${s.unansweredToLose}${extra}`);
+      game.showInfo(`Replies ${replied} · Ignored ${unanswered} / ${s.unansweredToLose}`);
+      doubleJumpsBox.querySelector("b").textContent = doubleJumps;
+      doubleJumpsBox.classList.toggle("empty", doubleJumps === 0);
+    };
+    /** Makes the double-jump counter pop when it changes. */
+    const bumpCounter = () => {
+      doubleJumpsBox.classList.remove("bump");
+      void doubleJumpsBox.offsetWidth;
+      doubleJumpsBox.classList.add("bump");
     };
     showScore();
 
@@ -105,9 +119,9 @@ export default defineLevel({
       const kind = pick(flying ? FLYING_OBSTACLES : GROUND_OBSTACLES);
       const el = document.createElement("div");
       el.className = `obstacle${flying ? " flying" : ""}`;
-      el.innerHTML = obstacleSvg(kind);
+      el.innerHTML = obstacleSvg(kind, s.obstacleSize);
       world.insertBefore(el, runner);
-      obstacles.push({ t, el, flying, width: kind.width, height: kind.height, warned: false });
+      obstacles.push({ t, el, flying, width: kind.width * s.obstacleSize, height: kind.height * s.obstacleSize, warned: false });
       count += 1;
     }
 
@@ -121,7 +135,7 @@ export default defineLevel({
       });
     };
 
-    // Jumping: on the ground, or in the air if a friend gave you an extra jump.
+    // Jumping: on the ground, or in the air by spending a double jump.
     const jump = () => {
       if (!started) {
         start();
@@ -129,10 +143,14 @@ export default defineLevel({
         return;
       } else if (height <= 0) {
         speedUp = jumpSpeed;
-      } else if (extraJumps > 0) {
-        extraJumps -= 1;
+      } else if (doubleJumps > 0) {
+        doubleJumps -= 1;
         speedUp = jumpSpeed;
+        runner.classList.remove("double-jump");
+        void runner.offsetWidth;
+        runner.classList.add("double-jump");
         showScore();
+        bumpCounter();
       }
     };
     // Ducking: in the air it also makes you fall faster.
@@ -142,14 +160,7 @@ export default defineLevel({
       if (on && height > 0) speedUp = Math.min(speedUp, -jumpSpeed);
     };
 
-    game.listen(world, "pointerdown", (event) => {
-      if (event.target.closest(".bubble")) return;
-      const tappedGround = event.clientY > ground.getBoundingClientRect().top;
-      if (started && tappedGround) duck(true);
-      else jump();
-    });
-    game.listen(window, "pointerup", () => duck(false));
-    game.listen(window, "pointercancel", () => duck(false));
+    // The keyboard plays; the mouse only replies to messages.
     game.listen(window, "keydown", (event) => {
       if (["Space", "ArrowUp", "KeyW"].includes(event.code)) {
         event.preventDefault();
@@ -172,9 +183,10 @@ export default defineLevel({
         next.el.dataset.from = `${friend.name}: ${next.flying ? "duck!" : "jump!"}`;
         return "watch out for the next one!";
       }
-      extraJumps += 1;
+      doubleJumps += 1;
       showScore();
-      return "here's an extra jump 🦘";
+      bumpCounter();
+      return "here's a double jump for you ⇈";
     };
 
     // Chat messages from friends, in random places over the sky, never over the path.
@@ -266,7 +278,7 @@ export default defineLevel({
       scenes.forEach((el, i) => (el.style.backgroundPositionX = `${-distance * LANDSCAPE.scenes[i].speed}px`));
       paintLandscape(world, scenes, elapsed / s.trackSeconds);
 
-      const runnerScale = runner.offsetWidth / 200;
+      const runnerScale = runner.offsetWidth / 140;
       const runnerTop = height + (ducking && height === 0 ? DUCKING_TOP : STANDING_TOP) * runnerScale;
       for (const o of obstacles) {
         const x = runnerX + (o.t - elapsed) * pixelsPerSecond;
@@ -274,7 +286,7 @@ export default defineLevel({
         o.el.hidden = x < -80 || x > width + 80;
         if (finished) continue;
         const bottom = o.flying ? FLYING_BOTTOM : 0;
-        const overlapsX = x + 4 < runnerX + runner.offsetWidth * 0.72 && x + o.width - 4 > runnerX + runner.offsetWidth * 0.28;
+        const overlapsX = x + 4 < runnerX + runner.offsetWidth * 0.78 && x + o.width - 4 > runnerX + runner.offsetWidth * 0.3;
         const overlapsY = height < bottom + o.height - 6 && runnerTop > bottom + 4;
         if (overlapsX && overlapsY) {
           game.vibrate([60, 40, 60]);
@@ -291,11 +303,11 @@ export default defineLevel({
   },
 });
 
-// Heights (in the runner drawing's units, 300 tall) of the top of the head, standing and ducking.
-const STANDING_TOP = 270;
-const DUCKING_TOP = 215;
+// Heights of the runner's head top above its feet, in character.js drawing units (140 wide).
+const STANDING_TOP = 190;
+const DUCKING_TOP = 150;
 // Pixels above the ground where flying obstacles pass: ducking fits under, standing doesn't.
-const FLYING_BOTTOM = 96;
+const FLYING_BOTTOM = 106;
 // Room kept free for the path above the ground, and above the progress bar.
 const PATH_CLEARANCE = 200;
 const TOP_MARGIN = 36;

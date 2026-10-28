@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-28/10/2026: idea agreed (step 1). First playable version, then a second round after Helena played it: the avatar has arms and legs and runs, jumps and ducks; varied obstacles on the ground and flying ones to duck under; the landscape changes from park to city to the friends' neighbourhood; bigger chat bubbles with the friend's face, in random places above the path; 45 s; friends with random looks wait at the finish and cheer. Next: Helena plays it again (to tick step 2) and we tune the difficulty (step 3).
+29/10/2026: third version after Helena's feedback: the runner is a side-on platformer character with the avatar's look; keyboard to jump and duck, mouse only replies; bigger obstacles and higher jump; double jumps you collect by replying and spend when you want, with a counter. Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
 
 ## The idea
 
@@ -51,12 +51,17 @@ Split screen: Flappy/tap runner and a group chat. You tap to jump and also tap f
   - Chat bubbles are bigger and appear in random places on the screen, never covering the path.
   - The run lasts 45 seconds.
   - The friends waiting at the finish are avatars like yours, with random looks.
+- 29/10/2026 (after playing the second version):
+  - The mouse only replies to messages (clicking a message made you jump by accident). Jump and duck with the keyboard.
+  - The runner is its own character, drawn side-on like in 2D platform games, with better proportions; it keeps the avatar's choices (skin, hair, hat, glasses, clothes…) but isn't the lobby picture with arms and legs.
+  - Bigger, easier-to-see obstacles, with a higher jump to match.
+  - Double jumps add up: you collect them by replying and spend them whenever you want, with a counter showing how many you have.
 
 ## Open questions
 
-_None yet._
+- On phones there is no keyboard: how will you jump and duck there? (To decide when we adapt the game to mobile.)
 
 ## Try it
 
 - Online: https://helenapastranaproducciones.github.io/Signals/?level=1
-- Files: `level.js` (texts, settings and the minigame), `art.js` (drawings: character, obstacles, landscape), `level.css` (its look and animations)
+- Files: `level.js` (texts, settings and the minigame), `character.js` (the runner and the friends), `art.js` (obstacles, landscape), `level.css` (its look and animations)
