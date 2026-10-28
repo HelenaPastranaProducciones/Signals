@@ -1,0 +1,222 @@
+/* Level 1 · Game & Chat. First playable version: simple shapes. */
+
+.level-01 .world {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: linear-gradient(#d8e6ff, #f6d8f0);
+  cursor: pointer;
+}
+
+.level-01 .ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 18%;
+  background: #dff5d6;
+  border-top: 4px solid #a9d99a;
+}
+
+/* Everything that runs on the ground sits on this line (top of .ground). */
+.level-01 .runner,
+.level-01 .obstacle,
+.level-01 .finish {
+  position: absolute;
+  left: 0;
+  bottom: 18%;
+  will-change: transform;
+}
+
+.level-01 .runner {
+  width: 72px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--ink-on-pastel);
+  z-index: 2;
+}
+
+.level-01 .runner svg {
+  display: block;
+  width: 100%;
+  animation: level-01-bob 0.3s ease-in-out infinite alternate;
+}
+
+.level-01 .runner.in-air svg {
+  animation: none;
+}
+
+.level-01 .runner span {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.level-01 .obstacle {
+  width: 34px;
+  height: 46px;
+  border-radius: 10px 10px 4px 4px;
+  background: #ff5a3c;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.15);
+}
+
+.level-01 .obstacle.warned {
+  outline: 4px solid #ffe36b;
+  outline-offset: 3px;
+}
+
+.level-01 .obstacle.warned::after {
+  content: attr(data-from);
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: #ffe36b;
+  color: #23243a;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.level-01 .finish {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.level-01 .finish-flag {
+  font-size: 42px;
+  line-height: 1;
+}
+
+.level-01 .finish-friends {
+  display: flex;
+  gap: 4px;
+}
+
+.level-01 .finish-friends span {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 800;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+}
+
+.level-01 .track-progress {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  width: min(40%, 260px);
+  height: 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 3;
+}
+
+.level-01 .track-progress-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 6px;
+  background: #ff5a3c;
+}
+
+.level-01 .track-progress span {
+  position: absolute;
+  right: -26px;
+  top: -8px;
+  font-size: 20px;
+}
+
+/* The group chat, over the game (top right). */
+.level-01 .chat {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: min(46%, 280px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 4;
+}
+
+.level-01 .bubble {
+  display: block;
+  padding: 8px 12px;
+  border: 3px solid var(--friend, #ff7ab0);
+  border-radius: 16px 16px 16px 4px;
+  background: #fff;
+  color: #23243a;
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  animation: level-01-pop-in 0.25s ease-out;
+}
+
+.level-01 .bubble b {
+  color: var(--friend, #ff7ab0);
+}
+
+.level-01 .bubble small {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.level-01 .bubble.replied {
+  border-color: #7bd389;
+  border-radius: 16px 16px 4px 16px;
+  background: #f1fbec;
+}
+
+.level-01 .bubble.replied b {
+  color: #3c9a4c;
+}
+
+.level-01 .bubble.ignored {
+  border-color: #b7b7c4;
+  background: #ececf2;
+  color: #6b6b7e;
+}
+
+.level-01 .bubble.ignored b {
+  color: #6b6b7e;
+}
+
+.level-01 .hint {
+  position: absolute;
+  left: 50%;
+  bottom: 6%;
+  transform: translateX(-50%);
+  padding: 4px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #23243a;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  z-index: 3;
+}
+
+@keyframes level-01-bob {
+  to {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes level-01-pop-in {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+}
