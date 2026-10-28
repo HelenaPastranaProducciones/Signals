@@ -61,7 +61,7 @@
 }
 
 .level-01 .obstacle.flying {
-  bottom: calc(18% + 106px);
+  bottom: calc(18% + 112px);
 }
 
 .level-01 .obstacle svg {
@@ -92,13 +92,14 @@
   white-space: nowrap;
 }
 
-/* The runner: a side-on character (character.js). */
+/* The runner: the player's avatar, with its arms and legs animated. */
 .level-01 .runner {
-  width: 90px;
+  width: 96px;
   z-index: 2;
 }
 
-.level-01 .character {
+.level-01 .runner .avatar,
+.level-01 .friend .avatar {
   display: block;
   width: 100%;
   overflow: visible;
@@ -119,17 +120,17 @@
 }
 
 /* Limbs turn around their joint: each group's own (0, 0). */
-.level-01 .character .body,
-.level-01 .character .thigh,
-.level-01 .character .shin,
-.level-01 .character .upperarm,
-.level-01 .character .forearm {
+.level-01 .avatar .body,
+.level-01 .avatar .thigh,
+.level-01 .avatar .shin,
+.level-01 .avatar .upperarm,
+.level-01 .avatar .forearm {
   transform-origin: 0 0;
   transition: transform 0.1s ease-out;
 }
 
-.level-01 .character .body {
-  transform-origin: 72px 206px;
+.level-01 .avatar .body {
+  transform-origin: 84px 229px;
 }
 
 /* Running cycle: legs and arms in opposite phase, the body bobs twice per stride. */
@@ -157,17 +158,17 @@
 .level-01 .runner.in-air .shin-front { transform: rotate(85deg); }
 .level-01 .runner.in-air .thigh-back { transform: rotate(25deg); }
 .level-01 .runner.in-air .shin-back { transform: rotate(55deg); }
-.level-01 .runner.in-air .upperarm-front { transform: rotate(-150deg); }
-.level-01 .runner.in-air .upperarm-back { transform: rotate(-120deg); }
-.level-01 .runner.in-air .forearm { transform: rotate(-20deg); }
+.level-01 .runner.in-air .upperarm-front { transform: rotate(-100deg); }
+.level-01 .runner.in-air .upperarm-back { transform: rotate(-60deg); }
+.level-01 .runner.in-air .forearm { transform: rotate(-35deg); }
 
 /* Double jump: a spin in the air. */
-.level-01 .runner.double-jump .character {
+.level-01 .runner.double-jump .avatar {
   animation: level-01-flip 0.45s ease-out;
 }
 
 /* Ducking: a low crouch, body forward. */
-.level-01 .runner.ducking .body { transform: translateY(40px) rotate(8deg); }
+.level-01 .runner.ducking .body { transform: translateY(32px) rotate(6deg); }
 .level-01 .runner.ducking .thigh-front { transform: rotate(-85deg); }
 .level-01 .runner.ducking .shin-front { transform: rotate(115deg); }
 .level-01 .runner.ducking .thigh-back { transform: rotate(-40deg); }
@@ -267,7 +268,7 @@
 
 .level-01 .friend {
   position: relative;
-  width: 78px;
+  width: 84px;
 }
 
 .level-01 .friend span {
@@ -282,7 +283,7 @@
   font-size: 13px;
 }
 
-.level-01 .friend .character {
+.level-01 .friend .avatar {
   transform: scaleX(-1);
 }
 
@@ -297,7 +298,7 @@
 .level-01 .celebrating .friend .upperarm-back { transform: rotate(-100deg); }
 .level-01 .celebrating .runner .forearm { transform: rotate(-45deg); }
 
-.level-01 .celebrating .runner .character,
+.level-01 .celebrating .runner .avatar,
 .level-01 .celebrating .friend {
   animation: level-01-cheer 0.4s ease-in-out infinite alternate;
 }
@@ -366,7 +367,6 @@
 .level-01 .bubble-face svg {
   display: block;
   width: 100%;
-  transform: scale(1.35) translateY(10%);
 }
 
 .level-01 .bubble b {

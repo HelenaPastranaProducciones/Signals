@@ -6,12 +6,14 @@ import { introScreen } from "../src/ui/screens/intro.js";
 import { levelIntroScreen } from "../src/ui/screens/level-intro.js";
 import { levelScreen } from "../src/ui/screens/level.js";
 import { lobbyScreen } from "../src/ui/screens/lobby.js";
+import { EDITOR_GROUPS } from "../src/ui/screens/avatar-editor.js";
+import { AVATAR_CATEGORIES } from "../src/data/avatar-catalog.js";
 import { mapScreen } from "../src/ui/screens/map.js";
 import { titleScreen } from "../src/ui/screens/title.js";
 
 const makeState = (ui = {}) => ({
   progress: createProgress(),
-  ui: { screen: "map", level: 1, levelResult: null, levelMessage: "", lobbyOpen: false, lobbyView: "main", avatarCategory: "skin", confirmingReset: false, testMode: false, ...ui },
+  ui: { screen: "map", level: 1, levelResult: null, levelMessage: "", lobbyOpen: false, lobbyView: "main", avatarCategory: "face", confirmingReset: false, testMode: false, ...ui },
 });
 
 const assertClean = (html, where) => assert.doesNotMatch(html, /undefined|NaN|\[object/, where);
@@ -34,9 +36,14 @@ test("every lobby view and avatar category renders", () => {
   for (const lobbyView of ["main", "avatar", "options"]) {
     assertClean(lobbyScreen(makeState({ lobbyView })), lobbyView);
   }
-  for (const avatarCategory of ["skin", "hair", "acc", "bg"]) {
+  for (const avatarCategory of ["face", "hair", "hat", "extras", "clothes", "backdrop", "skin"]) {
     assertClean(lobbyScreen(makeState({ lobbyView: "avatar", avatarCategory })), avatarCategory);
   }
+});
+
+test("every avatar category is in exactly one editor tab", () => {
+  const keys = EDITOR_GROUPS.flatMap((group) => group.keys);
+  assert.deepEqual([...keys].sort(), AVATAR_CATEGORIES.map((category) => category.key).sort());
 });
 
 test("the last level has no Next signal button", () => {

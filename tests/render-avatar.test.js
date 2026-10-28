@@ -59,6 +59,17 @@ test("each render uses its own gradient ids", () => {
 });
 
 test("an avatar can be drawn without its backdrop card", () => {
-  assert.match(renderAvatar(DEFAULT_AVATAR), /<rect width="200" height="220"/);
-  assert.doesNotMatch(renderAvatar(DEFAULT_AVATAR, { backdrop: false }), /<rect width="200" height="220"/);
+  assert.match(renderAvatar(DEFAULT_AVATAR), /<rect width="160"/);
+  assert.doesNotMatch(renderAvatar(DEFAULT_AVATAR, { backdrop: false }), /<rect width="160"/);
 });
+
+test("an avatar can be framed to show only the head", () => {
+  assert.notEqual(viewBox(renderAvatar(DEFAULT_AVATAR, { crop: "head" })), viewBox(renderAvatar(DEFAULT_AVATAR)));
+});
+
+test("arms and legs can be animated by levels", () => {
+  const svg = renderAvatar(DEFAULT_AVATAR);
+  for (const part of ["body", "thigh-front", "shin-back", "upperarm-front", "forearm-back"]) assert.match(svg, new RegExp(`class="[^"]*${part}`), part);
+});
+
+const viewBox = (svg) => svg.match(/viewBox="([^"]+)"/)[1];

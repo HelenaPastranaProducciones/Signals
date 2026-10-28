@@ -21,7 +21,7 @@ export const state = {
     /** @type {"main" | "avatar" | "options"} */
     lobbyView: "main",
     /** Category tab selected in the avatar editor. */
-    avatarCategory: "skin",
+    avatarCategory: "face",
     /** "Reset progress" needs a second click to confirm. */
     confirmingReset: false,
     /** Test mode (address ending in ?test or ?level=N): every level is open. */

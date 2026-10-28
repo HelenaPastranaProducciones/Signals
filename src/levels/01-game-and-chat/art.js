@@ -4,7 +4,7 @@ import { pick } from "../../engine/random.js";
 
 /**
  * Drawings for level 1: the obstacles and the landscape layers, in the
- * clay style. The runner itself is in character.js.
+ * clay style. The runner is the player's avatar (src/avatar/render-avatar.js).
  */
 
 const kit = createSvgKit("level-01");

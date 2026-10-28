@@ -61,7 +61,7 @@ export default defineLevel({
 | `game.root` | The empty box (the stage) where the minigame draws itself. |
 | `game.settings` | The level's settings. |
 | `game.player` | `{ nickname, avatar }` of the player. |
-| `game.avatar(avatar?, { label })` | SVG markup of an avatar (the player's by default). |
+| `game.avatar(avatar?, { label, backdrop, crop })` | SVG markup of an avatar (the player's by default): a full-body figure whose arms and legs can be animated; `backdrop: false` without its card, `crop: "head"` just the head. |
 | `game.win()` | Ends the attempt as won: closing line, unlocked pieces, next level opens. |
 | `game.lose(message)` | Ends the attempt as lost, showing `message` with "Try again". |
 | `game.after(ms, fn)` / `game.every(ms, fn)` | Timers. Return a cancel function. |

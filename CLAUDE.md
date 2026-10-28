@@ -183,14 +183,31 @@ first proposal, to tune while playing.
 
 The avatar is the common thread of the game: you play, unlock pieces and see
 them in the lobby. It is drawn **procedurally as SVG** by
-`renderAvatar(avatar)` (`src/avatar/render-avatar.js`). The clay effect comes
+`renderAvatar(avatar, { backdrop, crop })` (`src/avatar/render-avatar.js`). The clay effect comes
 from two reused radial gradients (`src/avatar/svg-kit.js`): a highlight at
 the top left and a shadow at the edges. Levels can use the same kit for
 their art.
 
-- Layers, back to front: back hair, body and top, neck, ears and earrings,
-  head, cheeks and face marks, brows, eyes and nose, mouth, glasses, front
-  hair, cat ears, hat, head extras, neck/body accessory.
+- **Decided with Helena (29/10/2026):** the avatar must be *cute*. It is a
+  small full-body toy figure in a three-quarter view facing right (head about
+  a third of the height, big shiny eyes, blush, soft hair with a fringe,
+  short legs). The **same drawing** is used everywhere (title, lobby, editor,
+  inside levels), so what you build is exactly what plays. A first version
+  with a giant front-facing head and a separate side-on runner was rejected
+  as ugly.
+- Arms and legs are nested groups with classes (`.body`, `.thigh-*`,
+  `.shin-*`, `.upperarm-*`, `.forearm-*`, `-front`/`-back`) so levels can
+  animate them with CSS (see level 1's `level.css`). `crop: "head"` or
+  `"bust"` frames part of the figure (chat pictures, editor thumbnails);
+  `backdrop: false` leaves out the coloured card.
+- Layers, back to front: long hair, back arm and legs, top, neck,
+  accessories, back hair, ear and earrings, head, face (cheeks, marks, brows,
+  eyes, nose, mouth), front hair, cat ears, hat, head extras, glasses,
+  headphones, front arm.
+- **Editor:** tabs group the categories (Face, Hair, Hats, Glasses & extras,
+  Clothes, Background; `EDITOR_GROUPS` in `ui/screens/avatar-editor.js`).
+  Styles show as thumbnails of your own avatar wearing that piece; colours as
+  swatches.
 - **16 categories, 117 options** (`src/data/avatar-catalog.js`): skin, eyes,
   mouth, face (freckles, blush, sticker…), earrings, hair, hair colour, hat,
   hat colour, glasses, head extra (bows, cat ears…), neck & body (headphones,

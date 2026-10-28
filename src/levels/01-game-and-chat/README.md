@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-29/10/2026: third version after Helena's feedback: the runner is a side-on platformer character with the avatar's look; keyboard to jump and duck, mouse only replies; bigger obstacles and higher jump; double jumps you collect by replying and spend when you want, with a counter. Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
+29/10/2026: the whole avatar was redrawn to be cute (small full-body figure) and it is now the runner of this level too; the friends use it as well. Keyboard to jump/duck, mouse only replies, bigger obstacles, double jumps with a counter. Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
 
 ## The idea
 
@@ -56,6 +56,7 @@ Split screen: Flappy/tap runner and a group chat. You tap to jump and also tap f
   - The runner is its own character, drawn side-on like in 2D platform games, with better proportions; it keeps the avatar's choices (skin, hair, hat, glasses, clothes…) but isn't the lobby picture with arms and legs.
   - Bigger, easier-to-see obstacles, with a higher jump to match.
   - Double jumps add up: you collect them by replying and spend them whenever you want, with a counter showing how many you have.
+- 29/10/2026: the side-on runner looked ugly (giant head, bad hair). Decision: redo the avatar itself so it's cute, and use that same avatar to play (no separate runner drawing). The avatar editor was improved too.
 
 ## Open questions
 
@@ -64,4 +65,4 @@ Split screen: Flappy/tap runner and a group chat. You tap to jump and also tap f
 ## Try it
 
 - Online: https://helenapastranaproducciones.github.io/Signals/?level=1
-- Files: `level.js` (texts, settings and the minigame), `character.js` (the runner and the friends), `art.js` (obstacles, landscape), `level.css` (its look and animations)
+- Files: `level.js` (texts, settings and the minigame), `art.js` (obstacles, landscape; the runner is the player's avatar), `level.css` (its look and animations)
