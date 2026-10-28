@@ -36,10 +36,10 @@ function lockAttributes(option, unlocked) {
 function styleOption(category, option, progress, { crop, preview }) {
   const unlocked = isUnlocked(progress, option.unlockLevel);
   const selected = progress.avatar[category.key] === option.id;
-  const preview = renderAvatar({ ...progress.avatar, ...preview, [category.key]: option.id }, { label: option.label, backdrop: false, crop });
+  const picture = renderAvatar({ ...progress.avatar, ...preview, [category.key]: option.id }, { label: option.label, backdrop: false, crop });
   return `<button class="option option-thumb${selected ? " is-selected" : ""}${unlocked ? "" : " is-locked"}" data-action="avatar-part"
     data-key="${category.key}" data-value="${option.id}" aria-pressed="${selected}" title="${option.label}"${lockAttributes(option, unlocked)}>
-    <span class="option-preview option-preview-${crop}">${preview}</span>
+    <span class="option-preview">${picture}</span>
     <span class="option-label">${unlocked ? option.label : `🔒 Level ${option.unlockLevel}`}</span></button>`;
 }
 
