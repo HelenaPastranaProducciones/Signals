@@ -57,3 +57,8 @@ test("each render uses its own gradient ids", () => {
   assert.equal(first.length, 3);
   assert.equal(first.filter((id) => second.includes(id)).length, 0);
 });
+
+test("an avatar can be drawn without its backdrop card", () => {
+  assert.match(renderAvatar(DEFAULT_AVATAR), /<rect width="200" height="220"/);
+  assert.doesNotMatch(renderAvatar(DEFAULT_AVATAR, { backdrop: false }), /<rect width="200" height="220"/);
+});

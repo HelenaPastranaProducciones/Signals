@@ -26,7 +26,7 @@ import { renderAvatar } from "../avatar/render-avatar.js";
  * @property {(seconds: number, onTimeUp?: () => void) => { secondsLeft: number, stop: () => void }} countdown
  *   Shows a clock in the level bar and calls onTimeUp when it reaches 0.
  * @property {(text: string) => void} showInfo  Text in the level bar, e.g. "Replies 2 / 3".
- * @property {(avatar?: Record<string, string>, options?: { label?: string }) => string} avatar
+ * @property {(avatar?: Record<string, string>, options?: { label?: string, backdrop?: boolean }) => string} avatar
  *   SVG markup of an avatar (the player's by default).
  * @property {(pattern?: number | number[]) => void} vibrate  Vibrates on phones if the player allows it.
  */

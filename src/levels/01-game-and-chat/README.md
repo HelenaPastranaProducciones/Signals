@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-28/10/2026: idea agreed (step 1). First playable version built with simple shapes: runner with the player's avatar, red blocks as obstacles, chat bubbles top right, finish line with the friends after 50 s. Next: Helena plays it and says how it feels (to tick step 2), then tune it (step 3).
+28/10/2026: idea agreed (step 1). First playable version, then a second round after Helena played it: the avatar has arms and legs and runs, jumps and ducks; varied obstacles on the ground and flying ones to duck under; the landscape changes from park to city to the friends' neighbourhood; bigger chat bubbles with the friend's face, in random places above the path; 45 s; friends with random looks wait at the finish and cheer. Next: Helena plays it again (to tick step 2) and we tune the difficulty (step 3).
 
 ## The idea
 
@@ -44,6 +44,13 @@ Split screen: Flappy/tap runner and a group chat. You tap to jump and also tap f
 - 28/10/2026: social twist is a mix: ignored friends get upset (they don't leave), and friends you reply to help you in the game.
 - 28/10/2026: you lose by crashing into an obstacle or by leaving 3 messages unanswered.
 - 28/10/2026: no clock: you win by reaching a finish line where your friends wait for you, at most 1 minute away.
+- 28/10/2026 (after playing the first version):
+  - The avatar must look like a character: with arms and legs, and smooth running and jumping animations.
+  - The landscape changes little by little and is more developed; the obstacles are varied, not always the same.
+  - Mechanics inspired by the offline runner game in Chrome: you can also duck (for things flying at head height).
+  - Chat bubbles are bigger and appear in random places on the screen, never covering the path.
+  - The run lasts 45 seconds.
+  - The friends waiting at the finish are avatars like yours, with random looks.
 
 ## Open questions
 
@@ -52,4 +59,4 @@ _None yet._
 ## Try it
 
 - Online: https://helenapastranaproducciones.github.io/Signals/?level=1
-- Files: `level.js` (texts, settings and the minigame), `level.css` (its look, from step 2), `assets/` (images, if any)
+- Files: `level.js` (texts, settings and the minigame), `art.js` (drawings: character, obstacles, landscape), `level.css` (its look and animations)

@@ -1,11 +1,41 @@
-/* Level 1 · Game & Chat. First playable version: simple shapes. */
+/* Level 1 · Game & Chat. */
 
 .level-01 .world {
+  --skyTop: #bcd8ff;
+  --skyBottom: #f1e6ff;
+  --ground: #bfe8b0;
+  --groundEdge: #93cf83;
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: linear-gradient(#d8e6ff, #f6d8f0);
+  background: linear-gradient(var(--skyTop), var(--skyBottom));
   cursor: pointer;
+}
+
+/* Landscape layers, scrolled sideways from level.js. */
+.level-01 .layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-repeat: repeat-x;
+  background-position: 0 100%;
+  background-size: auto 100%;
+  pointer-events: none;
+}
+
+.level-01 .clouds {
+  top: 6%;
+  height: 26%;
+}
+
+.level-01 .hills {
+  bottom: 18%;
+  height: 34%;
+}
+
+.level-01 .scene {
+  bottom: 18%;
+  height: 30%;
 }
 
 .level-01 .ground {
@@ -14,11 +44,14 @@
   right: 0;
   bottom: 0;
   height: 18%;
-  background: #dff5d6;
-  border-top: 4px solid #a9d99a;
+  background-color: var(--ground);
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.1) 3px, transparent 4px);
+  background-size: 90px 40px;
+  background-position: 0 14px;
+  border-top: 6px solid var(--groundEdge);
 }
 
-/* Everything that runs on the ground sits on this line (top of .ground). */
+/* Everything on the track stands on this line (top of .ground). */
 .level-01 .runner,
 .level-01 .obstacle,
 .level-01 .finish {
@@ -28,88 +61,205 @@
   will-change: transform;
 }
 
-.level-01 .runner {
-  width: 72px;
-  text-align: center;
-  font-weight: 800;
-  font-size: 13px;
-  color: var(--ink-on-pastel);
-  z-index: 2;
+.level-01 .obstacle.flying {
+  bottom: calc(18% + 96px);
 }
 
-.level-01 .runner svg {
+.level-01 .obstacle svg {
   display: block;
-  width: 100%;
-  animation: level-01-bob 0.3s ease-in-out infinite alternate;
+  overflow: visible;
 }
 
-.level-01 .runner.in-air svg {
-  animation: none;
+.level-01 .obstacle.flying svg {
+  animation: level-01-hover 0.5s ease-in-out infinite alternate;
 }
 
-.level-01 .runner span {
-  position: absolute;
-  top: -18px;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-}
-
-.level-01 .obstacle {
-  width: 34px;
-  height: 46px;
-  border-radius: 10px 10px 4px 4px;
-  background: #ff5a3c;
-  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.15);
-}
-
-.level-01 .obstacle.warned {
-  outline: 4px solid #ffe36b;
-  outline-offset: 3px;
+.level-01 .obstacle.warned svg {
+  filter: drop-shadow(0 0 6px #ffe36b) drop-shadow(0 0 3px #ffe36b);
 }
 
 .level-01 .obstacle.warned::after {
   content: attr(data-from);
   position: absolute;
-  bottom: 60px;
+  bottom: calc(100% + 10px);
   left: 50%;
   transform: translateX(-50%);
-  padding: 2px 8px;
+  padding: 3px 10px;
   border-radius: 10px;
   background: #ffe36b;
   color: #23243a;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   white-space: nowrap;
 }
 
+/* The runner: an avatar with arms and legs. */
+.level-01 .runner {
+  width: 84px;
+  z-index: 2;
+}
+
+.level-01 .character {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+.level-01 .runner > span {
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.75);
+  color: #23243a;
+  font-weight: 800;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.level-01 .character .upper,
+.level-01 .character .leg,
+.level-01 .character .arm {
+  transform-box: view-box;
+  transition: transform 0.12s ease-out;
+}
+
+.level-01 .character .leg-front { transform-origin: 92px 222px; }
+.level-01 .character .leg-back { transform-origin: 108px 222px; }
+.level-01 .character .arm-front { transform-origin: 54px 188px; }
+.level-01 .character .arm-back { transform-origin: 146px 188px; }
+
+/* Running: legs and arms swing in opposite directions, the body bobs. */
+.level-01 .runner .upper {
+  animation: level-01-bob 0.17s ease-in-out infinite alternate;
+}
+
+.level-01 .runner .leg-front,
+.level-01 .runner .arm-back {
+  animation: level-01-swing 0.34s ease-in-out infinite alternate;
+}
+
+.level-01 .runner .leg-back,
+.level-01 .runner .arm-front {
+  animation: level-01-swing 0.34s ease-in-out infinite alternate-reverse;
+}
+
+/* Before starting: standing still. */
+.level-01 .runner.waiting .upper,
+.level-01 .runner.waiting .leg,
+.level-01 .runner.waiting .arm {
+  animation: none;
+}
+
+/* Jumping: knees forward, arms up. */
+.level-01 .runner.in-air .upper,
+.level-01 .runner.in-air .leg,
+.level-01 .runner.in-air .arm {
+  animation: none;
+}
+
+.level-01 .runner.in-air .leg-front { transform: rotate(-45deg); }
+.level-01 .runner.in-air .leg-back { transform: rotate(25deg); }
+.level-01 .runner.in-air .arm-front { transform: rotate(140deg); }
+.level-01 .runner.in-air .arm-back { transform: rotate(-140deg); }
+
+/* Ducking: the body drops and the legs open. */
+.level-01 .runner.ducking .upper {
+  animation: none;
+  transform: translateY(55px);
+}
+
+.level-01 .runner.ducking .leg-front { animation: none; transform: rotate(-70deg); }
+.level-01 .runner.ducking .leg-back { animation: none; transform: rotate(70deg); }
+.level-01 .runner.ducking .arm-front { animation: none; transform: rotate(50deg); }
+.level-01 .runner.ducking .arm-back { animation: none; transform: rotate(-50deg); }
+
+/* The finish: an arch and the friends waiting. */
 .level-01 .finish {
   display: flex;
   align-items: flex-end;
-  gap: 6px;
 }
 
-.level-01 .finish-flag {
-  font-size: 42px;
-  line-height: 1;
+.level-01 .finish-arch {
+  position: relative;
+  width: 110px;
+  height: 170px;
+  border: 10px solid #ff5a3c;
+  border-bottom: none;
+  border-radius: 55px 55px 0 0;
+}
+
+.level-01 .finish-arch span {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 2px 10px;
+  border-radius: 8px;
+  background: #ffe36b;
+  color: #23243a;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.level-01 .finish-spot {
+  width: 110px;
 }
 
 .level-01 .finish-friends {
   display: flex;
-  gap: 4px;
+  gap: 6px;
 }
 
-.level-01 .finish-friends span {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+.level-01 .friend {
+  position: relative;
+  width: 78px;
+}
+
+.level-01 .friend span {
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 8px;
+  border-radius: 8px;
   color: #fff;
   font-weight: 800;
-  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+  font-size: 13px;
 }
 
+.level-01 .friend .arm-front {
+  animation: level-01-wave 0.5s ease-in-out infinite alternate;
+}
+
+.level-01 .friend:nth-child(2n) .arm-front {
+  animation-delay: -0.25s;
+}
+
+/* Reaching the finish: everybody jumps for joy. */
+.level-01 .celebrating .runner .upper,
+.level-01 .celebrating .runner .leg,
+.level-01 .celebrating .runner .arm {
+  animation: none;
+}
+
+.level-01 .celebrating .runner .arm-front,
+.level-01 .celebrating .friend .arm-front { transform: rotate(150deg); animation: none; }
+.level-01 .celebrating .runner .arm-back,
+.level-01 .celebrating .friend .arm-back { transform: rotate(-150deg); }
+
+.level-01 .celebrating .runner .character,
+.level-01 .celebrating .friend .character {
+  animation: level-01-cheer 0.4s ease-in-out infinite alternate;
+}
+
+.level-01 .celebrating .friend:nth-child(2n) .character {
+  animation-delay: -0.2s;
+}
+
+/* Progress towards the finish. */
 .level-01 .track-progress {
   position: absolute;
   top: 12px;
@@ -135,52 +285,62 @@
   font-size: 20px;
 }
 
-/* The group chat, over the game (top right). */
-.level-01 .chat {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: min(46%, 280px);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  z-index: 4;
-}
-
+/* Chat messages from friends: big, anywhere above the path. */
 .level-01 .bubble {
-  display: block;
-  padding: 8px 12px;
-  border: 3px solid var(--friend, #ff7ab0);
-  border-radius: 16px 16px 16px 4px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: clamp(240px, 32%, 340px);
+  padding: 10px 16px 10px 10px;
+  border: 4px solid var(--friend, #ff5f9e);
+  border-radius: 22px 22px 22px 6px;
   background: #fff;
   color: #23243a;
   font: inherit;
-  font-size: 14px;
+  font-size: 18px;
+  line-height: 1.25;
   text-align: left;
-  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.15);
   cursor: pointer;
+  z-index: 4;
   animation: level-01-pop-in 0.25s ease-out;
 }
 
+.level-01 .bubble-face {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--friend, #ff5f9e) 22%, #fff);
+}
+
+.level-01 .bubble-face svg {
+  display: block;
+  width: 100%;
+  transform: scale(1.35) translateY(10%);
+}
+
 .level-01 .bubble b {
-  color: var(--friend, #ff7ab0);
+  color: var(--friend, #ff5f9e);
 }
 
 .level-01 .bubble small {
   display: block;
   margin-top: 2px;
-  font-size: 11px;
+  font-size: 13px;
   opacity: 0.7;
 }
 
 .level-01 .bubble.replied {
-  border-color: #7bd389;
-  border-radius: 16px 16px 4px 16px;
+  border-color: #3cb371;
+  border-radius: 22px 22px 6px 22px;
   background: #f1fbec;
 }
 
 .level-01 .bubble.replied b {
-  color: #3c9a4c;
+  color: #2e8b57;
 }
 
 .level-01 .bubble.ignored {
@@ -193,43 +353,80 @@
   color: #6b6b7e;
 }
 
+.level-01 .bubble.ignored .bubble-face {
+  filter: grayscale(1);
+}
+
+/* Start card. */
 .level-01 .start {
   position: absolute;
-  top: 38%;
+  top: 34%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding: 16px 24px;
-  border-radius: 20px;
+  gap: 6px;
+  width: max-content;
+  max-width: 90%;
+  padding: 18px 26px;
+  border-radius: 22px;
   background: #fff;
   color: #23243a;
-  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.15);
   text-align: center;
   z-index: 5;
   animation: level-01-pulse 1s ease-in-out infinite alternate;
 }
 
 .level-01 .start b {
-  font-size: 22px;
+  font-size: 24px;
 }
 
 .level-01 .start span {
-  font-size: 14px;
+  font-size: 15px;
   opacity: 0.75;
 }
 
 @keyframes level-01-pulse {
   to {
-    transform: translate(-50%, -50%) scale(1.05);
+    transform: translate(-50%, -50%) scale(1.04);
   }
 }
 
 @keyframes level-01-bob {
   to {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes level-01-swing {
+  from {
+    transform: rotate(-32deg);
+  }
+  to {
+    transform: rotate(32deg);
+  }
+}
+
+@keyframes level-01-wave {
+  from {
+    transform: rotate(120deg);
+  }
+  to {
+    transform: rotate(160deg);
+  }
+}
+
+@keyframes level-01-cheer {
+  to {
+    transform: translateY(-18px);
+  }
+}
+
+@keyframes level-01-hover {
+  to {
+    transform: translateY(-5px);
   }
 }
 

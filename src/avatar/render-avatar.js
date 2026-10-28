@@ -234,11 +234,13 @@ export const DRAWERS = {
 
 const draw = (table, option, k, a) => (table[option] ? table[option](k, a) : "");
 
-function open(k, a, label) {
+function open(k, a, label, backdrop) {
   return `<svg viewBox="0 0 200 220" role="img" aria-label="${label}">` +
     k.defs(`<clipPath id="${k.ids.bodyClip}"><path d="${BODY}"/></clipPath>`) +
-    `<rect width="200" height="220" rx="30" fill="${a.bg}"/>` + k.circle(100, 110, 86, "#fff", ".3") +
-    `<ellipse cx="100" cy="213" rx="72" ry="8" fill="#000" opacity=".13"/>`;
+    (backdrop
+      ? `<rect width="200" height="220" rx="30" fill="${a.bg}"/>` + k.circle(100, 110, 86, "#fff", ".3") +
+        `<ellipse cx="100" cy="213" rx="72" ry="8" fill="#000" opacity=".13"/>`
+      : "");
 }
 
 const neck = (k, a) => k.clay("M84 132H116V168Q100 178 84 168Z", a.skin) + k.stroke("M80 162Q100 184 120 162", "rgba(0,0,0,.25)", 3);
@@ -267,13 +269,15 @@ let instanceCount = 0;
  * placed next to other avatars on the same page.
  *
  * @param {Avatar} a Selected option id per category (see DEFAULT_AVATAR).
- * @param {{ label?: string }} [options]
+ * @param {{ label?: string, backdrop?: boolean }} [options]
+ *   `backdrop: false` leaves out the coloured card behind the avatar (for
+ *   levels that draw the avatar inside a scene).
  * @returns {string} SVG markup.
  */
-export function renderAvatar(a, { label = "Avatar" } = {}) {
+export function renderAvatar(a, { label = "Avatar", backdrop = true } = {}) {
   const k = createSvgKit(`avatar-${++instanceCount}`);
   return [
-    open(k, a, label),
+    open(k, a, label, backdrop),
     draw(HAIR_BACK, a.hair, k, a),
     draw(TOP_BACK, a.top, k, a),
     k.clay(BODY, a.topC),
