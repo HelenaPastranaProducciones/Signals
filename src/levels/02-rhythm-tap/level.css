@@ -355,22 +355,37 @@
 .level-02 .mood-low .member-svg { animation-duration: calc(var(--beat) * 2); }
 .level-02 .mood-low .wave { animation: none; transform: rotate(140deg); }
 
-/* The crowd at the front of the stage. */
+/* The crowd at the front of the stage, seen from behind: a row further back, smaller and in shadow, and a row up close. */
 .level-02 .crowd {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.level-02 .crowd-row {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -22px;
-  height: 16%;
+}
+
+.level-02 .crowd-row.back {
+  bottom: 2%;
+  filter: brightness(0.78) saturate(0.85);
+}
+
+.level-02 .crowd-row.front {
+  bottom: -9%;
 }
 
 .level-02 .fan {
   position: absolute;
   bottom: 0;
-  width: 7.5%;
-  min-width: 40px;
-  max-width: 70px;
+  scale: var(--s, 1);
+  transform-origin: 50% 100%;
 }
+
+.level-02 .back .fan { width: 6.6%; min-width: 34px; max-width: 64px; }
+.level-02 .front .fan { width: 9.2%; min-width: 46px; max-width: 92px; }
 
 .level-02 .fan svg {
   display: block;
@@ -380,6 +395,24 @@
 .level-02 .fan-arms {
   opacity: 0;
   transition: opacity 0.3s;
+}
+
+/* Phones and light sticks: held up while the party is on, lowered when it fades. */
+.level-02 .fan-item {
+  transition: transform 0.4s, opacity 0.4s;
+}
+
+.level-02 .mood-low .fan-item {
+  transform: translateY(26px);
+  opacity: 0;
+}
+
+.level-02 .fan-glow {
+  filter: drop-shadow(0 0 4px var(--glow));
+}
+
+.level-02 .fan-screen {
+  opacity: calc(0.2 + var(--mood) * 0.6);
 }
 
 .level-02 .playing .fan {

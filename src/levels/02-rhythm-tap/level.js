@@ -1,5 +1,7 @@
 import { defineLevel } from "../../engine/define-level.js";
 import { randomAvatar } from "../../data/avatar-catalog.js";
+import { randomFriends } from "../../data/friends.js";
+import { chance, pick, randomBetween } from "../../engine/random.js";
 import { escapeHtml } from "../../ui/html.js";
 import { drummer, fan, guitarist, keyboardist, singer } from "./band.js";
 import { buildSong, startBand } from "./music.js";
@@ -25,6 +27,7 @@ export default defineLevel({
   // Numbers that tune the level. First proposal: adjust while playing.
   settings: {
     bpm: 112, // song speed (beats per minute)
+    bpmVariation: 6, // each attempt plays up to this much faster or slower, at random
     introBars: 1, // bars the band plays before the first note
     bars: 12, // bars with notes (with the intro and ending, about 30 s)
     travelSeconds: 1.7, // time a note takes to fall to the line
@@ -49,14 +52,19 @@ export default defineLevel({
     let finished = false;
     const notes = song.notes.map((note) => ({ ...note, el: null, done: false }));
 
-    const friends = [
-      { name: "Mia", avatar: randomAvatar() },
-      { name: "Leo", avatar: randomAvatar() },
-      { name: "Nora", avatar: randomAvatar() },
-    ];
+    // Every attempt is a different show: another song (music.js), other friends in the band and another crowd.
+    const friends = randomFriends(3);
     const nickname = escapeHtml(game.player.nickname);
-    const fans = Array.from({ length: 14 }, (_, i) =>
-      `<div class="fan" style="--d:${(i * 0.37) % 1}s;left:${i * 7.4 - 2}%">${fan(FAN_COLOURS[i % FAN_COLOURS.length], FAN_SKINS[(i * 3) % FAN_SKINS.length])}</div>`).join("");
+    /** A row of fans seen from behind, spread across the stage with a little disorder. */
+    const crowdRow = (count) => Array.from({ length: count }, (_, i) => {
+      const hands = chance(0.3) ? pick(["phone", "stick"]) : "wave";
+      const left = ((i + randomBetween(-0.3, 0.3)) / count) * 104 - 4;
+      const style = `--d:${randomBetween(0, 1).toFixed(2)}s;--s:${randomBetween(0.9, 1.1).toFixed(2)};left:${left.toFixed(1)}%`;
+      // Mostly everyday skin tones in the crowd; now and then a fun one.
+      const look = { ...randomAvatar(), ...(chance(0.85) ? { skin: pick(CROWD_SKINS) } : {}) };
+      return `<div class="fan" style="${style}">${fan(look, hands, pick(GLOW_COLOURS))}</div>`;
+    }).join("");
+    const fans = `<div class="crowd-row back">${crowdRow(17)}</div><div class="crowd-row front">${crowdRow(12)}</div>`;
 
     game.root.innerHTML = `
       <div class="rhythm" style="--beat:${song.beat}s;--mood:${mood}">
@@ -168,7 +176,7 @@ export default defineLevel({
       rhythm.querySelector(".start")?.remove();
       document.activeElement?.blur?.();
       rhythm.classList.add("playing");
-      band = startBand({ enabled: game.sound, beat: song.beat, length: song.length });
+      band = startBand({ enabled: game.sound, song });
     };
 
     game.listen(window, "keydown", (event) => {
@@ -247,5 +255,7 @@ export default defineLevel({
 /** Where the hit line is, as a share of the lanes' height. */
 const HIT_LINE = 0.86;
 
-const FAN_COLOURS = ["#ff9fc0", "#9fc4ff", "#a8e6a1", "#ffd59e", "#c9b6f2", "#9fe3e0"];
-const FAN_SKINS = ["#f6c7a0", "#d49565", "#9a6240", "#f0b48a", "#5e3a2a"];
+const CROWD_SKINS = ["#f6c7a0", "#f0b48a", "#d49565", "#9a6240", "#5e3a2a"];
+
+/** Colours of the light sticks in the crowd. */
+const GLOW_COLOURS = ["#ff5fa8", "#5fd8ff", "#b6ff5f", "#ffe35f", "#c48bff"];

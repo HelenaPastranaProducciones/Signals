@@ -106,11 +106,95 @@ export function drummer(a, label) {
     avatarHead(k, a) + kitFront + `</svg>`;
 }
 
-/** Fictional fans in the crowd: a head and shoulders in a soft colour. */
-export function fan(colour, skin) {
-  return `<svg viewBox="0 0 60 70" aria-hidden="true">` +
-    `<path d="M4 70Q6 44 30 44Q54 44 56 70Z" fill="${colour}"/>` +
-    `<circle cx="30" cy="26" r="17" fill="${skin}"/><path d="M13 24Q14 6 30 6Q46 6 47 24Q40 14 30 14Q20 14 13 24Z" fill="${shade(colour, -0.35)}"/>` +
-    `<g class="fan-arms"><path d="M8 52L2 26" stroke="${colour}" stroke-width="8" stroke-linecap="round"/><circle cx="2" cy="24" r="5" fill="${skin}"/>` +
-    `<path d="M52 52L58 26" stroke="${colour}" stroke-width="8" stroke-linecap="round"/><circle cx="58" cy="24" r="5" fill="${skin}"/></g></svg>`;
+/*
+ * The crowd: fictional fans seen from behind, watching the band. Each one is
+ * drawn from a random avatar (hair, hat, headphones, clothes…) in the same
+ * clay style, so the crowd looks as detailed as the band.
+ *
+ * Drawing units: 70 × 96, head centred on (35, 30), shoulders at the bottom.
+ */
+
+const ball = (k, x, y, r, colour) => k.clay(`M${x} ${y - r}a${r} ${r} 0 1 0 .1 0Z`, colour);
+
+// The back of the head with hair, seen from behind.
+const HAIR_CAP = "M19 32C16 14 25 10 35 10C45 10 54 14 51 32Q50 42 45 46Q35 50 25 46Q20 42 19 32Z";
+const FAN_HAIR = {
+  short: (k, a) => k.clay(HAIR_CAP, a.hairC),
+  buzz: (k, a) => k.path("M20 30C19 17 26 14 35 14C44 14 51 17 50 30Q49 40 44 44Q35 47 26 44Q21 40 20 30Z", a.hairC, 'opacity=".85"'),
+  bob: (k, a) => k.clay("M17 32C14 12 25 8 35 8C45 8 56 12 53 32L55 50Q35 56 15 50Z", a.hairC),
+  long: (k, a) => k.clay("M17 32C14 12 25 8 35 8C45 8 56 12 53 32L56 72Q35 78 14 72Z", a.hairC) + k.stroke("M35 40V72", "rgba(0,0,0,.14)", 1.6),
+  bun: (k, a) => k.clay(HAIR_CAP, a.hairC) + ball(k, 35, 12, 8, a.hairC),
+  buns: (k, a) => k.clay(HAIR_CAP, a.hairC) + ball(k, 22, 14, 7, a.hairC) + ball(k, 48, 14, 7, a.hairC),
+  curls: (k, a) =>
+    k.clay(HAIR_CAP, shade(a.hairC, -0.1)) +
+    [[22, 22], [30, 15], [40, 15], [48, 22], [20, 34], [50, 34], [28, 28], [42, 28], [26, 42], [44, 42], [35, 36]]
+      .map(([x, y]) => ball(k, x, y, 6.5, a.hairC)).join(""),
+  afro: (k, a) => ball(k, 35, 28, 23, a.hairC),
+  mohawk: (k, a) =>
+    k.path("M20 30C19 17 26 14 35 14C44 14 51 17 50 30Q49 40 44 44Q35 47 26 44Q21 40 20 30Z", shade(a.hairC, -0.3), 'opacity=".8"') +
+    k.clay("M30 46V12L33 2L35 10L37 2L40 12V46Z", a.hairC),
+};
+
+// Hats and other things on the head, seen from behind.
+const FAN_DOME = "M18 30C17 14 26 10 35 10C44 10 53 14 52 30Q35 25 18 30Z";
+const FAN_HATS = {
+  cap: (k, a) => k.clay(FAN_DOME, a.hatC) + k.path("M31 25h8v5h-8z", "rgba(0,0,0,.3)") + k.circle(35, 11, 2.4, shade(a.hatC, -0.2)),
+  backcap: (k, a) => k.clay(FAN_DOME, a.hatC) + k.clay("M17 28Q35 40 53 28Q35 33 17 28Z", shade(a.hatC, -0.15)) + k.circle(35, 11, 2.4, shade(a.hatC, -0.2)),
+  beanie: (k, a) => k.clay("M18 30C17 10 26 4 35 4C44 4 53 10 52 30Q35 24 18 30Z", a.hatC) + k.clay("M17 26Q35 20 53 26V32Q35 26 17 32Z", shade(a.hatC, -0.14)) + ball(k, 35, 3, 4.5, "#fff"),
+  bucket: (k, a) => k.clay("M21 28C21 12 28 8 35 8C42 8 49 12 49 28Z", a.hatC) + k.clay("M10 31Q35 22 60 31Q60 36 52 36Q35 30 18 36Q10 36 10 31Z", shade(a.hatC, -0.1)),
+  bandana: (k, a) => k.clay(FAN_DOME, a.hatC) + k.clay("M33 28L27 40L33 38Z", a.hatC) + k.clay("M37 28L43 40L37 38Z", shade(a.hatC, -0.1)),
+};
+
+const FAN_EXTRAS = {
+  cat: (k, a) => k.clay("M20 20L18 2L32 12Z", a.hairC) + k.clay("M50 20L52 2L38 12Z", a.hairC),
+  bow: (k) => k.clay("M44 18L36 13V23Z", "#ff5c93") + k.clay("M44 18L52 13V23Z", "#ff5c93") + k.circle(44, 18, 2.6, "#e63e78"),
+  flower: (k) => [0, 1, 2, 3, 4].map((i) => k.circle(46 + Math.cos(i * 1.2566) * 3, 22 + Math.sin(i * 1.2566) * 3, 2.8, "#a174ff")).join("") + k.circle(46, 22, 2, "#ffe36b"),
+  stars: (k) => k.star(46, 24, 0.5, "#ffe36b") + k.star(24, 22, 0.45, "#7fe3c0"),
+};
+
+/** What the fan does with their hands: wave both, film with a phone or hold a light stick. */
+const FAN_ARMS = {
+  wave: (k, a) =>
+    `<g class="fan-arms">${k.stroke("M14 72L6 34", a.topC, 9)}${k.circle(6, 31, 5, a.skin)}` +
+    `${k.stroke("M56 72L64 34", a.topC, 9)}${k.circle(64, 31, 5, a.skin)}</g>`,
+  phone: (k, a) =>
+    `<g class="fan-item">${k.stroke("M56 72L60 30", a.topC, 9)}${k.circle(60, 28, 5, a.skin)}` +
+    `<rect x="53" y="8" width="14" height="22" rx="3" fill="#2b2233"/><rect x="55" y="10" width="10" height="17" rx="1.5" fill="#bfe3ff"/>` +
+    `<rect x="55" y="10" width="10" height="17" rx="1.5" fill="#fff" class="fan-screen"/></g>`,
+  stick: (k, a, glow) =>
+    `<g class="fan-item">${k.stroke("M14 72L8 30", a.topC, 9)}` +
+    `<rect x="5" y="2" width="6" height="28" rx="3" fill="${glow}" class="fan-glow" style="--glow:${glow}"/>${k.circle(8, 30, 5, a.skin)}</g>`,
+};
+
+/**
+ * One fan in the crowd, from behind.
+ * @param {Record<string, string>} a  A random avatar.
+ * @param {"wave" | "phone" | "stick"} hands
+ * @param {string} glow  Colour of the light stick.
+ */
+export function fan(a, hands, glow) {
+  const k = kit();
+  const back = a.top === "jersey"
+    ? `<text x="35" y="86" text-anchor="middle" font-size="13" font-weight="800" font-family="Arial Black,Arial,sans-serif" fill="${a.acC}">10</text>`
+    : a.top === "stripes" ? [74, 82, 90].map((y) => `<rect x="8" y="${y}" width="54" height="3.5" fill="${a.acC}"/>`).join("")
+    : a.top === "overalls" ? k.stroke("M22 62L46 96M48 62L24 96", a.acC, 5)
+    : "";
+  return `<svg viewBox="0 0 70 96" aria-hidden="true">${k.defs(`<clipPath id="${k.ids.bodyClip}"><path d="M4 96Q4 62 35 60Q66 62 66 96Z"/></clipPath>`)}` +
+    k.clay("M4 96Q4 62 35 60Q66 62 66 96Z", a.topC) +
+    `<g clip-path="url(#${k.ids.bodyClip})">${back}</g>` +
+    (a.top === "hoodie" ? k.clay("M20 66Q35 52 50 66Q35 76 20 66Z", shade(a.topC, -0.15)) : "") +
+    (a.acc === "bag" ? k.stroke("M12 66L58 94", "#2b2233", 3) : "") +
+    k.path("M29 48h12v14H29z", shade(a.skin, -0.12)) +
+    // A big head, like the avatars.
+    `<g transform="translate(35 40) scale(1.2) translate(-35 -40)">` +
+    k.circle(18, 34, 5, a.skin) + k.circle(52, 34, 5, a.skin) +
+    k.clay("M35 12C46 12 51 20 51 31C51 42 44 49 35 49C26 49 19 42 19 31C19 20 24 12 35 12Z", a.skin) +
+    (FAN_HAIR[a.hair] ? FAN_HAIR[a.hair](k, a) : "") +
+    (a.pin === "cat" ? FAN_EXTRAS.cat(k, a) : "") +
+    (FAN_HATS[a.hat] ? FAN_HATS[a.hat](k, a) : "") +
+    (a.pin !== "cat" && FAN_EXTRAS[a.pin] ? FAN_EXTRAS[a.pin](k, a) : "") +
+    (a.acc === "phones" ? k.stroke("M17 34C15 6 55 6 53 34", "#2b2233", 3.5) + k.clay("M12 28h8v13h-8zM50 28h8v13h-8z", a.acC) : "") +
+    `</g>` +
+    FAN_ARMS[hands](k, a, glow) +
+    `</svg>`;
 }

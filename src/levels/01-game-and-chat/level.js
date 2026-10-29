@@ -1,11 +1,8 @@
 import { defineLevel } from "../../engine/define-level.js";
-import { chance, pick, randomBetween } from "../../engine/random.js";
+import { chance, pick, randomBetween, shuffle } from "../../engine/random.js";
 import { escapeHtml } from "../../ui/html.js";
-import {
-  FLYING_OBSTACLES, GROUND_OBSTACLES, LANDSCAPE, PALETTES,
-  obstacleSvg, sharedDefs,
-} from "./art.js";
-import { randomAvatar } from "../../data/avatar-catalog.js";
+import { FLYING_OBSTACLES, GROUND_OBSTACLES, obstacleSvg, randomLandscape, sharedDefs } from "./art.js";
+import { randomFriends } from "../../data/friends.js";
 import { runnerAvatar } from "./runner.js";
 
 /**
@@ -35,6 +32,7 @@ export default defineLevel({
     jumpHeight: 170, // how high a jump goes, in pixels
     jumpSeconds: 0.8, // how long a jump lasts in the air
     obstacleSize: 1.5, // how big obstacles are (1 = their drawn size)
+    obstacleSizeVariation: 0.15, // ground obstacles are up to this much bigger or smaller, at random
     minGapSeconds: 1.2, // shortest time between two obstacles
     maxGapSeconds: 2.3, // longest time between two obstacles
     flyingShare: 0.3, // share of obstacles that fly (duck under them)
@@ -61,14 +59,18 @@ export default defineLevel({
     let started = false;
     let finished = false;
 
-    const friends = FRIENDS.map((friend) => ({ ...friend, avatar: randomAvatar() }));
+    // Every attempt is a different run: other friends, places, sky and obstacles.
+    const friends = randomFriends(4);
+    const land = randomLandscape();
+    let messages = [];
+    const nextMessage = () => (messages.length ? messages : (messages = shuffle(MESSAGES))).pop();
 
     game.root.innerHTML = `
       <div class="world">
         ${sharedDefs()}
         <div class="layer clouds"></div>
         <div class="layer hills"></div>
-        ${LANDSCAPE.scenes.map(() => `<div class="layer scene"></div>`).join("")}
+        ${land.scenes.map(() => `<div class="layer scene"></div>`).join("")}
         <div class="ground"></div>
         <div class="finish">
           <div class="finish-arch"><span>FINISH</span></div>
@@ -97,9 +99,9 @@ export default defineLevel({
     const clouds = world.querySelector(".clouds");
     const hills = world.querySelector(".hills");
     const scenes = [...world.querySelectorAll(".scene")];
-    clouds.style.backgroundImage = LANDSCAPE.clouds.image;
-    hills.style.backgroundImage = LANDSCAPE.hills.image;
-    scenes.forEach((el, i) => (el.style.backgroundImage = LANDSCAPE.scenes[i].image));
+    clouds.style.backgroundImage = land.clouds.image;
+    hills.style.backgroundImage = land.hills.image;
+    scenes.forEach((el, i) => (el.style.backgroundImage = land.scenes[i].image));
 
     const showScore = () => {
       game.showInfo(`Replies ${replied} · Ignored ${unanswered} / ${s.unansweredToLose}`);
@@ -120,11 +122,13 @@ export default defineLevel({
     for (let t = 2.5; t < s.trackSeconds - 2.5; t += randomBetween(s.minGapSeconds, s.maxGapSeconds)) {
       const flying = count >= 3 && chance(s.flyingShare);
       const kind = pick(flying ? FLYING_OBSTACLES : GROUND_OBSTACLES);
+      // Ground obstacles come in slightly different sizes; flying ones keep theirs so ducking always works.
+      const size = s.obstacleSize * (flying ? 1 : randomBetween(1 - s.obstacleSizeVariation, 1 + s.obstacleSizeVariation));
       const el = document.createElement("div");
       el.className = `obstacle${flying ? " flying" : ""}`;
-      el.innerHTML = obstacleSvg(kind, s.obstacleSize);
+      el.innerHTML = obstacleSvg(kind, size);
       world.insertBefore(el, runner);
-      obstacles.push({ t, el, flying, width: kind.width * s.obstacleSize, height: kind.height * s.obstacleSize, warned: false });
+      obstacles.push({ t, el, flying, width: kind.width * size, height: kind.height * size, warned: false });
       count += 1;
     }
 
@@ -207,7 +211,7 @@ export default defineLevel({
       bubble.className = "bubble";
       bubble.style.setProperty("--friend", friend.colour);
       const face = `<span class="bubble-face">${game.avatar(friend.avatar, { label: friend.name, crop: "head" })}</span>`;
-      bubble.innerHTML = `${face}<span class="bubble-text"><b>${friend.name}</b> ${pick(friend.messages)}<small>Tap to reply</small></span>`;
+      bubble.innerHTML = `${face}<span class="bubble-text"><b>${friend.name}</b> ${nextMessage()}<small>Tap to reply</small></span>`;
       world.append(bubble);
       placeBubble(bubble);
 
@@ -283,10 +287,10 @@ export default defineLevel({
 
       const distance = elapsed * pixelsPerSecond;
       ground.style.backgroundPositionX = `${-distance}px`;
-      clouds.style.backgroundPositionX = `${-distance * LANDSCAPE.clouds.speed}px`;
-      hills.style.backgroundPositionX = `${-distance * LANDSCAPE.hills.speed}px`;
-      scenes.forEach((el, i) => (el.style.backgroundPositionX = `${-distance * LANDSCAPE.scenes[i].speed}px`));
-      paintLandscape(world, scenes, elapsed / s.trackSeconds);
+      clouds.style.backgroundPositionX = `${-distance * land.clouds.speed}px`;
+      hills.style.backgroundPositionX = `${-distance * land.hills.speed}px`;
+      scenes.forEach((el, i) => (el.style.backgroundPositionX = `${-distance * land.scenes[i].speed}px`));
+      paintLandscape(world, scenes, land.palettes, elapsed / s.trackSeconds);
 
       const runnerScale = runner.offsetWidth / 140;
       const runnerTop = height + (ducking && height === 0 ? DUCKING_TOP : STANDING_TOP) * runnerScale;
@@ -327,10 +331,10 @@ const TOP_MARGIN = 36;
 const FINISH_ARCH_ROOM = 140;
 
 /** Sky, ground and middle layer for a point of the run (0 = start, 1 = finish). */
-function paintLandscape(world, scenes, progress) {
-  const position = progress * (PALETTES.length - 1);
-  const index = Math.min(Math.floor(position), PALETTES.length - 2);
-  const [from, to] = [PALETTES[index], PALETTES[index + 1]];
+function paintLandscape(world, scenes, palettes, progress) {
+  const position = progress * (palettes.length - 1);
+  const index = Math.min(Math.floor(position), palettes.length - 2);
+  const [from, to] = [palettes[index], palettes[index + 1]];
   for (const key of Object.keys(from)) world.style.setProperty(`--${key}`, mix(from[key], to[key], position - index));
 
   const scenePosition = progress * (scenes.length - 1);
@@ -343,12 +347,13 @@ function mix(a, b, t) {
   return `rgb(${[0, 1, 2].map((i) => Math.round(channel(a, i) + (channel(b, i) - channel(a, i)) * t)).join(",")})`;
 }
 
-// Fictional friends in the group chat; each attempt gives them a random look.
-const FRIENDS = [
-  { name: "Mia", colour: "#ff5f9e", messages: ["are you coming tonight?", "look at this 😂", "did you see my story?"] },
-  { name: "Leo", colour: "#3f8fff", messages: ["who's online?", "this level is impossible", "gg yesterday 🔥"] },
-  { name: "Nora", colour: "#3cb371", messages: ["help me pick a song", "I miss you guys", "wait for me!!"] },
-  { name: "Kai", colour: "#ff9a1f", messages: ["lol", "new skin dropped 👀", "brb, dinner"] },
+// What the friends write in the group chat. Each attempt shuffles them, so the chat is never the same.
+const MESSAGES = [
+  "are you coming tonight?", "look at this 😂", "did you see my story?", "who's online?", "this level is impossible",
+  "gg yesterday 🔥", "help me pick a song", "I miss you guys", "wait for me!!", "lol", "new skin dropped 👀",
+  "brb, dinner", "voice chat later?", "I got the rare one!!", "send me the link", "same team next round?",
+  "my mum says hi 😅", "who's got snacks", "plans for saturday?", "that video 💀", "rate my fit 1-10",
+  "I can't stop laughing", "you're online?? 👀", "pls carry me", "pizza at mine?", "omg did you hear",
 ];
 
-const REPLIES = ["haha yes!", "omw 🏃", "lol 😂", "same!", "❤️", "for real?"];
+const REPLIES = ["haha yes!", "omw 🏃", "lol 😂", "same!", "❤️", "for real?", "count me in", "10/10 🔥", "noooo 😭", "wait what", "yesss", "on it!"];

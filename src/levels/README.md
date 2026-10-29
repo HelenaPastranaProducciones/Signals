@@ -81,6 +81,9 @@ function from `play`.
 
 Other helpers:
 - `src/engine/random.js`: `randomInt`, `randomBetween`, `pick`, `shuffle`, `chance`.
+- `src/data/friends.js`: `randomFriends(n)` gives n fictional friends (name, colour, random avatar) from a pool of 12.
+
+**Every attempt is a different run (Helena, 29/10/2026).** Whatever can change without changing the rules should be random in each attempt: layouts, scenery, colours, which friends appear and how they look, texts from a list, the order of things. Keep the difficulty the same: vary the details, not how hard it is.
 - `src/avatar/svg-kit.js`: `createSvgKit()` draws shapes with the same
   vinyl/clay shading as the avatar (`kit.defs()` + `kit.clay(path, colour)`).
   Use it so the levels' art matches the avatar.

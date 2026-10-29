@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-29/10/2026: own side-view runner (runner.js) in the cute style; random somersaults; game over / level complete shown over the frozen game. Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
+29/10/2026: own side-view runner (runner.js) in the cute style; random somersaults; game over / level complete shown over the frozen game. Later the same day: every hair style, hat, earring, glasses and neck piece redrawn for the side view (ear always visible, glasses and headphones reach the ear, hair with a clean hairline), and every attempt is now a different run (places, their order, sky, friends, chat messages, obstacle sizes). Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
 
 ## The idea
 
@@ -58,6 +58,8 @@ Split screen: Flappy/tap runner and a group chat. You tap to jump and also tap f
   - Double jumps add up: you collect them by replying and spend them whenever you want, with a counter showing how many you have.
 - 29/10/2026: the side-on runner looked ugly (giant head, bad hair). Decision: redo the avatar itself so it's cute, and use that same avatar to play (no separate runner drawing). The avatar editor was improved too.
 - 29/10/2026 (later): Helena clarified that the editor avatar and the one you play with are different drawings of the same choices. This level has its own side-view runner (`runner.js`) in the cute style; the editor avatar faces front. Somersaults are now random (sometimes on a jump, more often on a double jump). Crashing shows a dizzy pose, then the game over appears over the frozen game.
+- 29/10/2026: many avatar pieces looked wrong from the side. Redrawn for the side view: hair with a clean hairline that leaves the ear visible, a proper afro and mohawk, earrings hanging from the ear, glasses and headphones reaching the ear, chunkier caps and bucket hat, neck pieces in front of the chest, the bag on the hip.
+- 29/10/2026: every attempt is a different run (Helena: "more random, different runs"). Random each time: which 3 places you run through (park, city, neighbourhood, shops) and in what order, where every tree, house or shop stands, the sky along the run (sunny day, morning, evening to night, cloudy), the clouds and hills, which 4 friends are in the chat (from a pool of 12) and their looks, the order of the chat messages (from a bigger list), and slightly different sizes for ground obstacles.
 
 ## Open questions
 

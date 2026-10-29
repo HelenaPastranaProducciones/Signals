@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-29/10/2026: idea agreed (step 1). First playable version built directly with full art (Helena asked to keep the same look and detail as level 1): Piano Tiles with the arrow keys on top; below, the band on a stage with lights, speakers and a crowd; an original song played live by the game (drums, bass, keyboard and vocals by themselves, your guitar when you hit); the party's colour, lights, crowd and band movement follow how well you play. Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
+29/10/2026: idea agreed (step 1). First playable version built directly with full art (Helena asked to keep the same look and detail as level 1): Piano Tiles with the arrow keys on top; below, the band on a stage with lights, speakers and a crowd; an original song played live by the game (drums, bass, keyboard and vocals by themselves, your guitar when you hit); the party's colour, lights, crowd and band movement follow how well you play. Later the same day: every attempt is a different show (song, band, crowd), and a bigger, more detailed crowd seen from behind. Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
 
 ## The idea
 
@@ -43,6 +43,8 @@ Piano Tiles with 4 lanes, each a band instrument (drums, bass, guitar, vocals). 
 - 29/10/2026: lives instead of a percentage: 3 mistakes allowed, the 4th loses.
 - 29/10/2026: played with the arrow keys on computers; tapping on phones (when we adapt the game to mobile).
 - 29/10/2026: keep the same look and level of detail as level 1 in everything: instruments, setting, music. The song is original and made by the game itself (no sound files).
+- 29/10/2026: every attempt is a different show (Helena: "more random, different runs"). Random each time: the chords, the key, the speed (a little faster or slower), the drum groove, the vocal melody and the notes to hit (still getting busier towards the end), which 3 friends are in the band and their looks, and the whole crowd.
+- 29/10/2026: the crowd looked cheap. Now two rows of fans seen from behind, drawn from random avatars (hair, hats, headphones, cat ears, clothes with numbers or stripes), in the same clay style; the back row smaller and in shadow. Some film with their phones or wave light sticks, and lower them when the party fades.
 
 ## Open questions
 

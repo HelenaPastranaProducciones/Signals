@@ -67,6 +67,7 @@ work and lead her through the process.
 - **Problems are yours.** If something breaks, fix it and tell her in one
   plain sentence. Never blame her or ask her to debug.
 - **Encourage.** Point out progress ("level 3 is now at step 4 of 6").
+- **Every attempt is a different run (her request, 29/10/2026).** Each time a level is played, the details change at random (scenery, layout, friends and their looks, texts, music) while the rules and difficulty stay the same. Build every level this way (see `src/levels/README.md`).
 - **Take the initiative on looks (her request, 29/10/2026).** She wants the
   game to look like a polished, finished commercial game. Don't wait for her
   to point out every detail: use what good casual and platform games do, and
@@ -265,6 +266,7 @@ src/
     random.js               randomInt, pick, shuffle…
   data/
     avatar-catalog.js       Avatar categories/options, unlock levels, DEFAULT_AVATAR
+    friends.js              The fictional friends (names, colours) and randomFriends(n)
   game/
     progress.js             Pure rules: level availability, unlocks, avatar changes, reset
   avatar/

@@ -21,8 +21,9 @@ Els detalls de cada nivell són a la seva llibreta
 ## On som ara (actualitzat el 29/10/2026)
 
 - **Nivell 1 (Game & Chat):** pas 2 de 6. Es pot jugar de principi a final.
-  Falta que Helena hi jugui i ho aprovi per donar el pas 2 per fet i passar a
-  ajustar la dificultat (pas 3).
+  Cada partida és diferent (llocs, cel, amics, missatges). L'avatar de perfil
+  s'ha redibuixat peça a peça. Falta que Helena hi jugui i ho aprovi per donar
+  el pas 2 per fet i passar a ajustar la dificultat (pas 3).
 - **Avatar:** refet de zero el 29/10 perquè sigui mono. Hi ha **dos
   dibuixos**: el de l'editor i el menú (de cara, de cos sencer) i el que juga
   a cada nivell (al nivell 1, de perfil i corrent). Tots dos fan servir les
@@ -33,7 +34,11 @@ Els detalls de cada nivell són a la seva llibreta
 - **Editor d'avatar:** nou, amb pestanyes i miniatures. Pendent que Helena el
   revisi.
 - **Nivell 2 (Rhythm Tap):** pas 2 de 6. La idea està acordada i ja hi ha
-  una versió jugable amb dibuixos i música. Falta que Helena hi jugui.
+  una versió jugable amb dibuixos i música. Cada partida té una cançó, una
+  banda i un públic diferents, i el públic és nou i més detallat. Falta que
+  Helena hi jugui.
+- **Norma per a tots els nivells:** cada partida ha de ser diferent (detalls
+  a l'atzar), però amb les mateixes regles i la mateixa dificultat.
 - **Nivells 3 a 19:** encara no s'han començat (pas 0). Només tenen la
   proposta inicial a la seva llibreta.
 - **Pendent general:** desar el progrés quan es tanca el joc, so, versió per
@@ -46,7 +51,7 @@ Els detalls de cada nivell són a la seva llibreta
 1. Obrir Claude Code i dir: *"vull treballar al projecte Signals"*. L'enllaç és
    https://github.com/HelenaPastranaProducciones/Signals.
 2. Claude descarrega el projecte en una carpeta (en aquest Mac és a
-   `Documents/Signals`).
+   `Documents/Signals`; al MacBook Air és a `~/Signals`).
 3. Per poder **publicar** canvis, Claude instal·la l'eina de GitHub (`gh`) i
    Helena inicia sessió amb el codi que surt a la pantalla, al navegador on ja
    tingui GitHub obert. El compte és **helenapastraana**.
@@ -186,6 +191,48 @@ Els detalls de cada nivell són a la seva llibreta
 - Els membres de la banda tenen el cap i la roba del seu avatar, amb
   postures pròpies tocant l'instrument (seguint la norma de "cada nivell
   dibuixa el seu avatar").
+
+### 29/10/2026: sessió al MacBook Air (segon ordinador)
+
+**Preparar l'ordinador**
+- El projecte es descarrega a `~/Signals`. S'hi instal·la git (les eines de
+  desenvolupament d'Apple; va caldre alliberar espai al disc) i Node, a la
+  carpeta de l'usuari (`~/.local/node`), sense tocar res més del sistema.
+- Abans de començar es baixen els canvis de l'altre ordinador (`git pull`).
+
+**Avatar de perfil (nivell 1): redibuixat peça a peça**
+- Helena: moltes peces de l'avatar es veien malament de perfil i s'havien de
+  refer totes.
+- Ara tots els cabells comparteixen la mateixa línia del cabell: deixen la
+  cara i **l'orella** a la vista. L'afro és una sola massa rodona (sense la
+  línia estranya que travessava la cara) i la cresta té la base rapada.
+- Les arracades pengen de l'orella, i les ulleres i els auriculars hi arriben.
+- Gorres i barret de pescador més gruixuts, collarets i càmera davant del pit,
+  i la bossa recolzada al maluc (abans flotava).
+
+**Cada partida és diferent**
+- Helena: cada vegada que jugues, ha de ser una "run" diferent, més
+  aleatòria, a tots els nivells.
+- **Norma nova per a tots els nivells:** els detalls canvien a l'atzar a cada
+  partida, però les regles i la dificultat es mantenen.
+- **Nivell 1:** a l'atzar, 3 llocs dels 4 possibles (parc, ciutat, barri de
+  cases, botigues) i en quin ordre, on és cada arbre, casa o botiga, el cel al
+  llarg del recorregut (dia de sol, matí, vespre fins a la nit, núvol), els
+  núvols i els turons, quins 4 amics surten (d'un grup de 12) i com són,
+  l'ordre dels missatges (d'una llista més llarga) i la mida dels obstacles.
+- **Nivell 2:** a l'atzar, els acords, el to, la velocitat (una mica més
+  ràpid o lent), el ritme de la bateria, la melodia de la veu i les notes que
+  cauen (sempre més intenses cap al final), quins 3 amics toquen i com són, i
+  tot el públic.
+
+**Nivell 2: el públic**
+- Helena: el públic es veia cutre; volia més detall, com els avatars, o més
+  gent perquè no es notés.
+- S'han fet les dues coses: dues files de gent vista d'esquena, feta amb
+  avatars a l'atzar (cabells, gorres, auriculars, orelles de gat, samarretes
+  amb números o ratlles), amb el mateix estil de plastilina. La fila del fons
+  és més petita i a l'ombra. Alguns graven amb el mòbil o porten barres de
+  llum, i les abaixen quan la festa decau.
 
 ---
 

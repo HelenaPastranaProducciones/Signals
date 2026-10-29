@@ -7,42 +7,69 @@
  * Times are in seconds from the start of the song.
  */
 
-/** C, G, Am, F: one chord per bar. Each chord lists the 4 guitar notes (one per lane, low to high) as MIDI numbers. */
-const CHORDS = [
-  { root: 48, lanes: [60, 64, 67, 72] }, // C
-  { root: 43, lanes: [59, 62, 67, 71] }, // G
-  { root: 45, lanes: [60, 64, 69, 72] }, // Am
-  { root: 41, lanes: [60, 65, 69, 72] }, // F
+import { chance, pick, randomBetween, randomInt, shuffle } from "../../engine/random.js";
+
+/** Chords: the bass root and the 4 guitar notes (one per lane, low to high), as MIDI numbers. */
+const CHORDS = {
+  C: { root: 48, lanes: [60, 64, 67, 72] },
+  G: { root: 43, lanes: [59, 62, 67, 71] },
+  Am: { root: 45, lanes: [60, 64, 69, 72] },
+  F: { root: 41, lanes: [60, 65, 69, 72] },
+  Em: { root: 40, lanes: [59, 64, 67, 71] },
+  Dm: { root: 38, lanes: [57, 62, 65, 69] },
+};
+
+/** Cheerful pop chord loops, one chord per bar. Each attempt picks one. */
+const PROGRESSIONS = [
+  ["C", "G", "Am", "F"],
+  ["Am", "F", "C", "G"],
+  ["C", "Am", "F", "G"],
+  ["F", "G", "Em", "Am"],
+  ["C", "F", "Am", "G"],
+  ["Dm", "G", "C", "Am"],
 ];
 
 /**
- * The guitar part, as lanes on the 8 eighth-note steps of a bar (null = rest).
- * Each section repeats its two patterns; it gets busier towards the end.
+ * One bar of the guitar part: a lane (0–3) or null (rest) on each of the 8
+ * eighth-note steps. `extra` is how many off-beat notes to add to the four
+ * on the beat. Lanes mostly move, rarely repeat.
  */
-const SECTIONS = [
-  [[0, null, 2, null, 1, null, 3, null], [3, null, 1, null, 2, null, 0, null]],
-  [[0, null, 2, 1, null, 3, null, null], [3, null, 2, null, 0, 1, null, null]],
-  [[0, 2, null, 1, 3, null, 2, null], [3, null, 1, 0, null, 2, 3, null]],
-];
-
-/** The vocal line: one long note per bar (MIDI), sung by the friend at the mic. */
-const VOCALS = [76, 74, 72, 72];
+function randomPattern(extra) {
+  const steps = new Set([0, 2, 4, 6]);
+  for (const step of shuffle([1, 3, 5, 7]).slice(0, extra)) steps.add(step);
+  let lane = randomInt(0, 3);
+  return Array.from({ length: 8 }, (_, step) => {
+    if (!steps.has(step)) return null;
+    if (chance(0.8)) lane = pick([0, 1, 2, 3].filter((l) => l !== lane));
+    return lane;
+  });
+}
 
 /**
- * @param {{ bpm: number, introBars: number, bars: number }} options
- * @returns {{ beat: number, length: number, notes: { time: number, lane: number, bar: number }[] }}
+ * A new song for one attempt: its own chords, key, speed, drum groove,
+ * melody and notes to hit. The song still gets busier towards the end.
+ *
+ * @param {{ bpm: number, bpmVariation: number, introBars: number, bars: number }} options
  */
-export function buildSong({ bpm, introBars, bars }) {
-  const beat = 60 / bpm;
+export function buildSong({ bpm, bpmVariation, introBars, bars }) {
+  const beat = 60 / (bpm + randomBetween(-bpmVariation, bpmVariation));
+  const key = randomInt(-2, 3);
+  const chords = pick(PROGRESSIONS).map((name) => {
+    const chord = CHORDS[name];
+    return { root: chord.root + key, lanes: chord.lanes.map((n) => n + key) };
+  });
+  // The friend at the mic sings one long chord note per bar.
+  const vocals = chords.map((chord) => pick(chord.lanes.map((n) => n + 12).filter((n) => n >= 69 && n <= 79)) ?? chord.lanes[3]);
+  // Three sections (calm, busier, busiest), each repeating two patterns.
+  const sections = [0, 1, 2].map((level) => [0, 1].map(() => randomPattern(randomInt(level, level + 1))));
   const notes = [];
   for (let bar = 0; bar < bars; bar += 1) {
-    const section = SECTIONS[Math.min(SECTIONS.length - 1, Math.floor((bar / bars) * SECTIONS.length))];
-    const pattern = section[bar % 2];
+    const pattern = sections[Math.min(2, Math.floor((bar / bars) * 3))][bar % 2];
     pattern.forEach((lane, step) => {
       if (lane !== null) notes.push({ time: (introBars + bar) * 4 * beat + step * (beat / 2), lane, bar: introBars + bar });
     });
   }
-  return { beat, length: (introBars + bars + 1) * 4 * beat, notes };
+  return { beat, length: (introBars + bars + 1) * 4 * beat, notes, chords, vocals, groove: pick(["pop", "dance", "halftime"]) };
 }
 
 const frequency = (midi) => 440 * 2 ** ((midi - 69) / 12);
@@ -51,9 +78,10 @@ const frequency = (midi) => 440 * 2 ** ((midi - 69) / 12);
  * Starts the band. When `enabled` is false (sound off in Options, or no
  * audio in the browser) nothing plays, but the clock still runs.
  *
- * @param {{ enabled: boolean, beat: number, length: number }} options
+ * @param {{ enabled: boolean, song: ReturnType<typeof buildSong> }} options
  */
-export function startBand({ enabled, beat, length }) {
+export function startBand({ enabled, song }) {
+  const { beat, length, chords, vocals, groove } = song;
   const Context = globalThis.AudioContext || globalThis.webkitAudioContext;
   const ctx = enabled && Context ? new Context() : null;
   const startedAt = performance.now();
@@ -134,15 +162,18 @@ export function startBand({ enabled, beat, length }) {
   function scheduleBackingTrack() {
     const bars = Math.round(length / (4 * beat));
     for (let bar = 0; bar < bars; bar += 1) {
-      const chord = CHORDS[bar % CHORDS.length];
+      const chord = chords[bar % chords.length];
       const barStart = t0 + bar * 4 * beat;
       const last = bar === bars - 1;
-      // Drums: kick on 1 and 3, snare on 2 and 4, hi-hat on every eighth.
+      // Drums, on the eighth-note steps of the bar. "pop": kick on 1 and 3, snare on 2 and 4;
+      // "dance": kick on every beat; "halftime": one snare in the middle, a looser kick.
       for (let step = 0; step < 8; step += 1) {
         const at = barStart + step * (beat / 2);
         if (last && step > 0) break;
-        if (step % 4 === 0) kick(at);
-        if (step % 4 === 2) noise({ at, duration: 0.18, volume: 0.35, highpass: 1500 });
+        const kickHere = groove === "dance" ? step % 2 === 0 : groove === "halftime" ? step === 0 || step === 5 : step % 4 === 0;
+        const snareHere = groove === "halftime" ? step === 4 : step % 4 === 2;
+        if (kickHere) kick(at);
+        if (snareHere) noise({ at, duration: 0.18, volume: 0.35, highpass: 1500 });
         noise({ at, duration: 0.05, volume: step % 2 ? 0.06 : 0.1, highpass: 7000 });
       }
       // Bass: the root on every beat.
@@ -158,7 +189,7 @@ export function startBand({ enabled, beat, length }) {
       }
       // Vocals: a soft "ooh" from the second bar on.
       if (bar > 0) {
-        tone({ at: barStart, midi: VOCALS[bar % VOCALS.length], type: "sine", duration: beat * (last ? 4 : 3.6), volume: 0.06, attack: 0.15, vibrato: 4 });
+        tone({ at: barStart, midi: vocals[bar % vocals.length], type: "sine", duration: beat * (last ? 4 : 3.6), volume: 0.06, attack: 0.15, vibrato: 4 });
       }
     }
   }
@@ -169,7 +200,7 @@ export function startBand({ enabled, beat, length }) {
     playGuitar(lane, time) {
       if (!ctx) return;
       const bar = Math.max(0, Math.floor(time / (4 * beat)));
-      const midi = CHORDS[bar % CHORDS.length].lanes[lane];
+      const midi = chords[bar % chords.length].lanes[lane];
       const at = ctx.currentTime;
       tone({ at, midi, type: "sawtooth", duration: 0.45, volume: 0.13, filter: 2400 });
       tone({ at, midi: midi + 12, type: "triangle", duration: 0.25, volume: 0.05 });
