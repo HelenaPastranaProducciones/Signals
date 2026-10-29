@@ -112,8 +112,8 @@ Els detalls de cada nivell són a la seva llibreta
 - Problema: el joc arrencava sol i xocaves abans de veure res. Ara espera
   que premis una tecla per començar.
 - Problema: el navegador de Helena ensenyava una versió antiga. Es pot
-  arreglar amb **Cmd+Shift+R**. La causa és una opció de GitHub Pages (vegeu
-  "Coses pendents de decidir").
+  arreglar amb **Cmd+Shift+R**. La causa és una opció de GitHub Pages (arreglat el
+  29/10/2026: ara GitHub publica només d'una manera).
 
 **Nivell 1: segona versió (després que Helena hi jugués)**
 - L'avatar amb braços i cames, que corre i salta.
@@ -309,13 +309,14 @@ Els detalls de cada nivell són a la seva llibreta
 - A la ronda més difícil, l'impostor porta la roba del grup i només una cosa
   el delata.
 
+**GitHub Pages arreglat**
+- Amb el permís de Helena, Claude ha canviat *Settings → Pages → Source* a
+  **GitHub Actions**. Ara el joc es publica d'una sola manera i el navegador
+  ja no hauria d'ensenyar versions antigues.
+
 ---
 
 ## Coses pendents de decidir
 
-- **GitHub Pages:** GitHub publica el joc de dues maneres i l'una trepitja
-  l'altra, per això a vegades es veu una versió antiga. Cal canviar
-  *Settings → Pages → Source* a **GitHub Actions**. Claude ho pot fer amb el
-  permís de Helena. Encara no s'ha fet.
 - **Mòbil:** com saltar i ajupir-se sense teclat al nivell 1.
 - Les preguntes obertes generals són a `CLAUDE.md`, a "Open questions".

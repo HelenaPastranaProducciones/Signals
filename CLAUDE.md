@@ -371,10 +371,10 @@ online.
   manually). It tests, builds `_site/` and deploys it to GitHub Pages.
 - The build puts the code in a folder named after the version
   (`_site/v-1a2b3c4d/`), so browsers never show stale files after an update.
-- Repo setting needed: **Settings → Pages → Build and deployment → Source:
-  GitHub Actions**. If it is still "Deploy from a branch", GitHub also
-  publishes the raw repo on each push, overwriting the built site. The game
-  still works, but stale files may be cached.
+- Repo setting: **Settings → Pages → Build and deployment → Source: GitHub
+  Actions** (set 29/10/2026 with Helena's OK). If it were "Deploy from a
+  branch", GitHub would also publish the raw repo on each push, overwriting
+  the built site.
 - Public URL: https://helenapastranaproducciones.github.io/Signals/
 - If the tests fail, the deploy stops and the previous version stays online.
 
