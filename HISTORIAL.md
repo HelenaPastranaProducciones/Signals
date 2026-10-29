@@ -342,6 +342,15 @@ Els detalls de cada nivell són a la seva llibreta
   rellotge), el xat de l'amic al costat i una safata amb els teus premis.
   Cada partida canvia els objectes, l'ordre, els colors i l'amic.
 
+**Prova de tipografies (només demo)**
+- Helena vol veure una combinació: títols en Bowlby One SC (majúscules),
+  missatges d'error en Inter SemiBold, botons en Inter Bold, puntuació i
+  rellotge en Space Grotesk Bold, ombres curtes i planes. Claude n'ha fet
+  una demo que només surt afegint `?fonts=demo` a l'adreça; el joc normal
+  continua amb Baloo 2 fins que Helena decideixi.
+- Arreglat: al nivell 3, quan perdies, alguns personatges tapaven el cartell
+  de "Game over".
+
 ---
 
 ## Coses pendents de decidir

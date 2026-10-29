@@ -3,6 +3,7 @@
 .level-03 .impostor {
   position: absolute;
   inset: 0;
+  isolation: isolate; /* keeps the people under the Game over / Level complete card */
   overflow: hidden;
   background: #e9e4f5;
   color: #23243a;

@@ -128,7 +128,10 @@ https://claude.ai/artifact/Kz5CaVyjyNMNNEcypQ6XRx
   reference avatars (Toy Faces, collectible figures): rounded shapes, soft
   volumes, gentle light and shade, saturated palette on pastel backgrounds,
   big heads and lots of accessories. Real 3D (Three.js) was rejected.
-- **Typography:** Baloo 2 (Google Fonts), rounded and playful.
+- **Typography:** Baloo 2 (Google Fonts), rounded and playful. Being tried
+  (29/10/2026, not decided): Bowlby One SC titles, Inter buttons and error
+  messages, Space Grotesk score and clock, short flat shadows. Demo only with
+  `?fonts=demo` (`src/styles/fonts-demo.css`).
 - **References** (avatar images, a yellow editorial poster) were only style
   inspiration. **Never copy real characters or brand logos.**
 

@@ -1,0 +1,95 @@
+/*
+ * Typography demo (Helena, 29/10/2026). Only loaded with ?fonts=demo in the
+ * address (see src/main.js), so the real game keeps Baloo 2 until she decides.
+ *
+ * Main titles: Bowlby One SC, capitals · Error messages: Inter SemiBold ·
+ * Buttons: Inter Bold · Score and clock: Space Grotesk Bold ·
+ * Effects: a short, flat shadow (no thick 3D).
+ */
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 500;
+}
+
+/* Main titles */
+h1, h2,
+.game-title,
+.signal-title,
+.result-title,
+.level-tile b,
+.level-stage .start > b,
+.level-04 .sign {
+  font-family: "Bowlby One SC", "Inter", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.game-title,
+.signal-title { text-shadow: 0 3px 0 rgba(0, 0, 0, 0.18); }
+
+.result-title {
+  letter-spacing: 0.04em;
+  text-shadow: 0 4px 0 #ff5a3c;
+}
+
+.is-won .result-title { text-shadow: 0 4px 0 #8a5cf5; }
+
+/* Error messages: when you lose, and anything that went wrong */
+.is-lost .card-title,
+.level-error,
+.level-error * {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.is-lost .card-title { font-size: 20px; line-height: 1.35; }
+
+/* The closing line when you win reads as a sentence, so it stays lowercase. */
+.is-won .card-title { text-transform: none; font-size: 22px; line-height: 1.25; }
+
+/* Buttons */
+.btn,
+.chips button,
+.lobby-button,
+.tag {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.btn { font-size: 18px; box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2); }
+.btn-secondary { font-size: 15px; box-shadow: 0 3px 0 var(--line); }
+.btn:active { transform: translateY(2px); }
+
+/* Score and clock */
+.level-hud,
+.hud-info,
+.hud-time,
+.map-progress {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Flat, short shadows everywhere else too */
+.level-tile { box-shadow: 0 3px 0 rgba(0, 0, 0, 0.14); }
+.result-card { box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2); }
+
+/* A small label so it's clear this is the demo */
+body::after {
+  content: "Font demo";
+  position: fixed;
+  left: 10px;
+  bottom: 10px;
+  z-index: 100;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #23243a;
+  color: #ffe36b;
+  font: 700 12px "Inter", sans-serif;
+  pointer-events: none;
+}
