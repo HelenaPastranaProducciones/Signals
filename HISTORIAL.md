@@ -234,6 +234,17 @@ Els detalls de cada nivell són a la seva llibreta
   és més petita i a l'ombra. Alguns graven amb el mòbil o porten barres de
   llum, i les abaixen quan la festa decau.
 
+**Nivell 2: "ara a la primera que falles et mors"**
+- Dues causes, totes dues arreglades. El públic nou feia anar el joc a salts
+  en pantalles grans, i mentre s'encallava passaven notes que comptaven com
+  a errors. Ara el públic és molt més lleuger de dibuixar i es veu igual.
+- Les cançons a l'atzar havien quedat més difícils (més notes i, a vegades,
+  més ràpides). Ara totes tenen la mateixa velocitat i les mateixes notes (52)
+  que la primera versió: només canvien els acords, el to, el ritme i l'ordre.
+- Nou: quan perds un cor, els altres parpellegen 1 segon i els errors en
+  aquell moment no en treuen cap més. Així un error no s'encadena amb els
+  següents.
+
 ---
 
 ## Coses pendents de decidir

@@ -171,6 +171,15 @@
   filter: grayscale(1);
 }
 
+/* Right after losing a heart the others blink: a short moment where misses don't cost another one. */
+.level-02 .lives.recovering b:not(.lost) {
+  animation: level-02-blink 0.25s steps(2) 4;
+}
+
+@keyframes level-02-blink {
+  50% { opacity: 0.3; }
+}
+
 .level-02 .combo {
   position: absolute;
   top: 34px;
@@ -370,6 +379,10 @@
 
 .level-02 .crowd-row.back {
   bottom: 2%;
+}
+
+/* The back row in shadow, further away. The filter goes on each still drawing, not on a moving row, so it stays cheap. */
+.level-02 .back .fan svg {
   filter: brightness(0.78) saturate(0.85);
 }
 
@@ -382,6 +395,8 @@
   bottom: 0;
   scale: var(--s, 1);
   transform-origin: 50% 100%;
+  /* Each fan moves on its own layer, so jumping doesn't redraw the whole stage. */
+  will-change: transform;
 }
 
 .level-02 .back .fan { width: 6.6%; min-width: 34px; max-width: 64px; }
@@ -405,10 +420,6 @@
 .level-02 .mood-low .fan-item {
   transform: translateY(26px);
   opacity: 0;
-}
-
-.level-02 .fan-glow {
-  filter: drop-shadow(0 0 4px var(--glow));
 }
 
 .level-02 .fan-screen {

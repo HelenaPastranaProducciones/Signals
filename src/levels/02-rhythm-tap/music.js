@@ -7,7 +7,7 @@
  * Times are in seconds from the start of the song.
  */
 
-import { chance, pick, randomBetween, randomInt, shuffle } from "../../engine/random.js";
+import { pick, randomInt, shuffle } from "../../engine/random.js";
 
 /** Chords: the bass root and the 4 guitar notes (one per lane, low to high), as MIDI numbers. */
 const CHORDS = {
@@ -31,28 +31,31 @@ const PROGRESSIONS = [
 
 /**
  * One bar of the guitar part: a lane (0–3) or null (rest) on each of the 8
- * eighth-note steps. `extra` is how many off-beat notes to add to the four
- * on the beat. Lanes mostly move, rarely repeat.
+ * eighth-note steps. The bar has `count` notes and starts on the first beat;
+ * the rest fall at random. A note never repeats the lane of the one before.
  */
-function randomPattern(extra) {
-  const steps = new Set([0, 2, 4, 6]);
-  for (const step of shuffle([1, 3, 5, 7]).slice(0, extra)) steps.add(step);
+function randomPattern(count) {
+  const steps = new Set([0, ...shuffle([1, 2, 3, 4, 5, 6, 7]).slice(0, count - 1)]);
   let lane = randomInt(0, 3);
   return Array.from({ length: 8 }, (_, step) => {
     if (!steps.has(step)) return null;
-    if (chance(0.8)) lane = pick([0, 1, 2, 3].filter((l) => l !== lane));
+    lane = pick([0, 1, 2, 3].filter((l) => l !== lane));
     return lane;
   });
 }
 
+/** Notes per bar in each section (calm, busier, busiest): as many as the first version, so it is just as hard. */
+const NOTES_PER_BAR = [4, 4, 5];
+
 /**
- * A new song for one attempt: its own chords, key, speed, drum groove,
- * melody and notes to hit. The song still gets busier towards the end.
+ * A new song for one attempt: its own chords, key, drum groove, melody and
+ * notes to hit. The speed and the number of notes stay the same, so every
+ * song is as hard as the others; it still gets busier towards the end.
  *
- * @param {{ bpm: number, bpmVariation: number, introBars: number, bars: number }} options
+ * @param {{ bpm: number, introBars: number, bars: number }} options
  */
-export function buildSong({ bpm, bpmVariation, introBars, bars }) {
-  const beat = 60 / (bpm + randomBetween(-bpmVariation, bpmVariation));
+export function buildSong({ bpm, introBars, bars }) {
+  const beat = 60 / bpm;
   const key = randomInt(-2, 3);
   const chords = pick(PROGRESSIONS).map((name) => {
     const chord = CHORDS[name];
@@ -61,7 +64,7 @@ export function buildSong({ bpm, bpmVariation, introBars, bars }) {
   // The friend at the mic sings one long chord note per bar.
   const vocals = chords.map((chord) => pick(chord.lanes.map((n) => n + 12).filter((n) => n >= 69 && n <= 79)) ?? chord.lanes[3]);
   // Three sections (calm, busier, busiest), each repeating two patterns.
-  const sections = [0, 1, 2].map((level) => [0, 1].map(() => randomPattern(randomInt(level, level + 1))));
+  const sections = NOTES_PER_BAR.map((count) => [0, 1].map(() => randomPattern(count)));
   const notes = [];
   for (let bar = 0; bar < bars; bar += 1) {
     const pattern = sections[Math.min(2, Math.floor((bar / bars) * 3))][bar % 2];

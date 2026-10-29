@@ -43,8 +43,9 @@ Piano Tiles with 4 lanes, each a band instrument (drums, bass, guitar, vocals). 
 - 29/10/2026: lives instead of a percentage: 3 mistakes allowed, the 4th loses.
 - 29/10/2026: played with the arrow keys on computers; tapping on phones (when we adapt the game to mobile).
 - 29/10/2026: keep the same look and level of detail as level 1 in everything: instruments, setting, music. The song is original and made by the game itself (no sound files).
-- 29/10/2026: every attempt is a different show (Helena: "more random, different runs"). Random each time: the chords, the key, the speed (a little faster or slower), the drum groove, the vocal melody and the notes to hit (still getting busier towards the end), which 3 friends are in the band and their looks, and the whole crowd.
+- 29/10/2026: every attempt is a different show (Helena: "more random, different runs"). Random each time: the chords, the key, the drum groove, the vocal melody and the notes to hit (still getting busier towards the end), which 3 friends are in the band and their looks, and the whole crowd.
 - 29/10/2026: the crowd looked cheap. Now two rows of fans seen from behind, drawn from random avatars (hair, hats, headphones, cat ears, clothes with numbers or stripes), in the same clay style; the back row smaller and in shadow. Some film with their phones or wave light sticks, and lower them when the party fades.
+- 29/10/2026: Helena: "now you die at the first mistake". Two causes, both fixed: the new crowd made the game stutter on big screens, so notes went by while it was stuck (the crowd is now much lighter to draw, same look); and the random songs had come out harder than the first version (more notes, sometimes faster). Now every song has the same speed and the same number of notes as the first version (52); only the chords, key, groove and order change. Also new: after losing a heart, the others blink for 1 second, and misses in that moment don't cost another heart, so one slip can't snowball into a game over.
 
 ## Open questions
 

@@ -27,13 +27,13 @@ export default defineLevel({
   // Numbers that tune the level. First proposal: adjust while playing.
   settings: {
     bpm: 112, // song speed (beats per minute)
-    bpmVariation: 6, // each attempt plays up to this much faster or slower, at random
     introBars: 1, // bars the band plays before the first note
     bars: 12, // bars with notes (with the intro and ending, about 30 s)
     travelSeconds: 1.7, // time a note takes to fall to the line
     hitWindow: 0.17, // seconds before or after the line that still count as a hit
     perfectWindow: 0.06, // seconds around the line that count as "Perfect!"
     mistakesAllowed: 3, // mistakes you can make; one more ends the song
+    graceSeconds: 1, // after a mistake, more misses during this time don't cost another heart
     moodPerHit: 0.06, // how much each hit livens up the party (0 to 1)
     moodPerMistake: 0.2, // how much each mistake dampens it
   },
@@ -101,6 +101,7 @@ export default defineLevel({
     const lanesBox = rhythm.querySelector(".lanes");
     const progress = rhythm.querySelector(".song-progress i");
     const lives = [...rhythm.querySelectorAll(".lives b")];
+    const livesBox = rhythm.querySelector(".lives");
     const comboBox = rhythm.querySelector(".combo");
     const flying = rhythm.querySelector(".notes-fly");
 
@@ -156,12 +157,20 @@ export default defineLevel({
       showInfo();
     };
 
+    // After losing a heart you get a moment to find the beat again: misses then don't cost another heart.
+    let safeUntil = -Infinity;
     const mistake = (lane) => {
-      mistakes += 1;
       combo = 0;
       comboBox.textContent = "";
       band.playMiss();
       popup(lane, "Miss", "miss");
+      const now = band.now();
+      if (now < safeUntil) return;
+      safeUntil = now + s.graceSeconds;
+      livesBox.classList.remove("recovering");
+      void livesBox.offsetWidth;
+      livesBox.classList.add("recovering");
+      mistakes += 1;
       game.vibrate(80);
       setMood(mood - s.moodPerMistake);
       const heart = lives[s.mistakesAllowed - mistakes];

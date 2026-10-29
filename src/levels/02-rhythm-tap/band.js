@@ -163,7 +163,7 @@ const FAN_ARMS = {
     `<rect x="55" y="10" width="10" height="17" rx="1.5" fill="#fff" class="fan-screen"/></g>`,
   stick: (k, a, glow) =>
     `<g class="fan-item">${k.stroke("M14 72L8 30", a.topC, 9)}` +
-    `<rect x="5" y="2" width="6" height="28" rx="3" fill="${glow}" class="fan-glow" style="--glow:${glow}"/>${k.circle(8, 30, 5, a.skin)}</g>`,
+    `<rect x="1" y="-2" width="14" height="36" rx="7" fill="${glow}" opacity=".3"/><rect x="5" y="2" width="6" height="28" rx="3" fill="${glow}"/>${k.circle(8, 30, 5, a.skin)}</g>`,
 };
 
 /**
