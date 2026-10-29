@@ -1,0 +1,364 @@
+/* Level 3 · Spot the Impostor. A tribe's place fills the stage; people stand on its floor. */
+
+.level-03 .impostor {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #e9e4f5;
+  color: #23243a;
+  user-select: none;
+}
+
+.level-03 .scene {
+  position: absolute;
+  inset: 0;
+}
+
+.level-03 .place-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- People ---------- */
+
+.level-03 .person {
+  position: absolute;
+  width: clamp(80px, 14%, 190px);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transform: translate(-50%, -96%) scale(calc(0.72 + var(--depth) * 0.36));
+  transform-origin: 50% 100%;
+  transition: transform 0.15s, filter 0.2s, opacity 0.3s;
+}
+
+.level-03 .person-svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+  animation: level-03-idle 2.4s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+.level-03 .person .arm-right,
+.level-03 .person .arm-left {
+  animation: level-03-sway 2.4s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+.level-03 .person:hover {
+  transform: translate(-50%, -100%) scale(calc(0.76 + var(--depth) * 0.36));
+}
+
+/* A wrong tap: they shake their head at you. */
+.level-03 .person.nope {
+  animation: level-03-nope 0.4s ease-out;
+}
+
+.level-03 .person.nope::after {
+  content: "✕";
+  position: absolute;
+  top: -6%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ff5a6a;
+  color: #fff;
+  font-weight: 800;
+  line-height: 32px;
+  animation: level-03-fade 0.9s ease-out forwards;
+}
+
+/* The impostor, found (or revealed when time runs out). */
+.level-03 .person.found {
+  z-index: 200 !important;
+  filter: drop-shadow(0 0 0 #fff) drop-shadow(0 0 10px #ffe36b);
+  animation: level-03-caught 0.5s ease-out;
+}
+
+.level-03 .person.found::after {
+  content: "!";
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #ffe36b;
+  color: #23243a;
+  font-weight: 900;
+  font-size: 22px;
+  line-height: 34px;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Everyone else turns to look, then cheers. */
+.level-03 .spotted .person:not(.found) .person-svg {
+  animation: level-03-hop 0.35s ease-out 2;
+}
+
+/* ---------- Banner, hearts and time ---------- */
+
+.level-03 .banner {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 20px 8px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+  font-weight: 800;
+  font-size: 20px;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 300;
+}
+
+.level-03 .banner:empty { display: none; }
+
+.level-03 .banner small {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #8a5cf5;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.level-03 .banner.pop { animation: level-03-pop 0.35s ease-out; }
+
+.level-03 .lives {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  display: flex;
+  gap: 4px;
+  font-size: 28px;
+  line-height: 1;
+  z-index: 300;
+}
+
+.level-03 .lives b {
+  color: #ff5a8a;
+  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s, opacity 0.3s, filter 0.3s;
+}
+
+.level-03 .lives b.lost {
+  transform: scale(0.7) rotate(-20deg);
+  opacity: 0.35;
+  filter: grayscale(1);
+}
+
+.level-03 .lives.recovering b:not(.lost) { animation: level-03-blink 0.25s steps(2) 4; }
+
+.level-03 .timer {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  width: min(420px, 60%);
+  height: 12px;
+  transform: translateX(-50%);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 300;
+}
+
+.level-03 .timer i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #ff5a8a, #ffb347);
+}
+
+/* ---------- Start card ---------- */
+
+.level-03 .start {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: max-content;
+  max-width: 90%;
+  padding: 18px 26px;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 400;
+  cursor: pointer;
+}
+
+.level-03 .start > b { font-size: 24px; }
+
+.level-03 .start span {
+  font-size: 15px;
+  color: #4a4b63;
+}
+
+/* ---------- The last round ---------- */
+
+.level-03 .awkward .person:not(.you) .person-svg { animation-name: level-03-stare; }
+.level-03 .person.you span,
+.level-03 .me span {
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  transform: translateX(-50%);
+  padding: 1px 10px;
+  border-radius: 10px;
+  background: #ff5a3c;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.level-03 .groups {
+  position: absolute;
+  inset: 70px 16px 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+.level-03 .group {
+  position: relative;
+  height: 64%;
+  min-height: 170px;
+  padding: 0;
+  border: 4px solid #fff;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.3s, border-color 0.2s;
+}
+
+.level-03 .group:hover { transform: translateY(-6px); border-color: #ffe36b; }
+
+.level-03 .group-place {
+  position: absolute;
+  inset: 0;
+}
+
+.level-03 .group-people {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  bottom: 8%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.level-03 .mini {
+  width: 34%;
+  margin: 0 -3%;
+}
+
+.level-03 .mini .person-svg { animation: level-03-idle 2.4s ease-in-out infinite; }
+.level-03 .mini:nth-child(2) .person-svg { animation-delay: -0.8s; }
+.level-03 .mini:nth-child(3) .person-svg { animation-delay: -1.6s; }
+
+.level-03 .group > span {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 2px 12px;
+  border-radius: 12px;
+  background: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.level-03 .group.chosen { border-color: #ffe36b; transform: scale(1.04); }
+.level-03 .group.chosen .mini .person-svg { animation: level-03-hop 0.35s ease-out infinite alternate; }
+.level-03 .group.faded { opacity: 0.35; }
+
+.level-03 .me {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: clamp(80px, 13%, 150px);
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+  transform-origin: 50% 100%;
+  transition: transform 0.9s cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+.level-03 .me .person-svg { animation: level-03-idle 1.2s ease-in-out infinite; }
+
+.level-03 .me.joining {
+  transform: translate(calc(-50% + var(--dx)), var(--dy)) scale(0.75);
+  z-index: 20;
+}
+
+/* ---------- Animations ---------- */
+
+@keyframes level-03-idle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2.5%); }
+}
+
+@keyframes level-03-sway {
+  0%, 100% { transform: rotate(0); }
+  50% { transform: rotate(-6deg); }
+}
+
+@keyframes level-03-hop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10%); }
+}
+
+@keyframes level-03-stare {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-2%) rotate(-2deg); }
+}
+
+@keyframes level-03-nope {
+  0%, 100% { margin-left: 0; }
+  20% { margin-left: -8px; }
+  40% { margin-left: 8px; }
+  60% { margin-left: -6px; }
+  80% { margin-left: 4px; }
+}
+
+@keyframes level-03-caught {
+  0% { scale: 1; }
+  40% { scale: 1.18; }
+  100% { scale: 1.08; }
+}
+
+@keyframes level-03-pop {
+  0% { scale: 0.7; }
+  60% { scale: 1.08; }
+  100% { scale: 1; }
+}
+
+@keyframes level-03-fade {
+  0% { opacity: 1; translate: 0 0; }
+  100% { opacity: 0; translate: 0 -16px; }
+}
+
+@keyframes level-03-blink {
+  50% { opacity: 0.3; }
+}

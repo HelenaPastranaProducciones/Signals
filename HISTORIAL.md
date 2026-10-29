@@ -39,7 +39,9 @@ Els detalls de cada nivell són a la seva llibreta
   Helena hi jugui.
 - **Norma per a tots els nivells:** cada partida ha de ser diferent (detalls
   a l'atzar), però amb les mateixes regles i la mateixa dificultat.
-- **Nivells 3 a 19:** encara no s'han començat (pas 0). Només tenen la
+- **Nivell 3 (Spot the Impostor):** pas 1 fet (idea acordada) i primera
+  versió jugable ja feta, amb dibuixos. Falta que Helena hi jugui.
+- **Nivells 4 a 19:** encara no s'han començat (pas 0). Només tenen la
   proposta inicial a la seva llibreta.
 - **Pendent general:** desar el progrés quan es tanca el joc, so, versió per
   a mòbil, app d'escriptori. Ho detalla `CLAUDE.md`, a "Pending work".
@@ -260,6 +262,33 @@ Els detalls de cada nivell són a la seva llibreta
   filera de punxes per dalt del cap, amb els costats rapats.
 - **Norma per a qualsevol nivell on l'avatar surti de perfil:** fer els
   cabells d'aquesta manera (està apuntat a `CLAUDE.md`).
+
+**Nivell 3: la idea (pas 1, acordat)**
+- **Què veus:** una colla d'una tribu urbana en el seu lloc (skaters a
+  l'skatepark, gamers al cibercafè…), feta d'avatars vestits segons la tribu,
+  cadascun fent la seva. Un no hi encaixa i l'has de tocar. ❌ Descartat: una
+  graella de cares.
+- **Gir social:** a l'última ronda l'impostor ets tu. El teu avatar surt amb
+  una colla que no és la teva, i has de triar el grup on encaixes. Aquesta
+  ronda no es pot perdre. ❌ Descartat: que la persona que toques per error es
+  posi trista.
+- **Guanyar i perdre:** 3 errors permesos (tocar qui no és o quedar-te sense
+  temps), el quart acaba la partida, com al nivell 2. ❌ Descartat: no poder
+  perdre i només fer punts.
+- **Durada:** 5 rondes que es fan més ràpides i difícils (de 6 a 4 segons, de 6
+  a 10 persones, l'impostor cada cop més dissimulat) i la ronda final. ❌
+  Descartat: 5 rondes iguals de 5 segons.
+
+**Nivell 3: primera versió jugable**
+- Feta directament amb dibuixos. Hi ha sis tribus, cadascuna en el seu lloc i
+  amb el que porta a les mans: skaters (skatepark, monopatí), gamers
+  (cibercafè, comandament), otakus (botiga d'anime, peluix), punks (concert al
+  carreró, puny enlaire), pijos (terrassa, cafè) i esportistes (pista, pilota).
+- Al principi l'impostor és d'una altra tribu. Després va mig vestit com el
+  grup, i al final només una cosa el delata.
+- A cada partida canvien les tribus, l'ordre i la gent.
+- La part que comparteix amb el nivell 18 (repartir la gent per l'escena i els
+  cors) està feta perquè el 18 la pugui fer servir.
 
 ---
 
