@@ -68,14 +68,9 @@ export default defineLevel({
           </div>
           <div class="panel">
             <div class="door"></div>
-            <div class="coins"></div>
+            <div class="tray"><div class="coins"></div><div class="slots">${"<span></span>".repeat(s.objectsToCatch)}</div></div>
             <div class="button"></div>
           </div>
-        </div>
-        <div class="side">
-          <div class="chat"></div>
-          <div class="tray"><small>Your prizes</small><div class="slots">${"<span></span>".repeat(s.objectsToCatch)}</div></div>
-          <div class="me">${game.avatar(undefined, { backdrop: false })}<span>${nickname}</span></div>
         </div>
         <div class="toast"></div>
         <div class="start">
@@ -92,7 +87,6 @@ export default defineLevel({
     const head = claw.querySelector(".head");
     const cable = claw.querySelector(".cable");
     const coinsBox = box.querySelector(".coins");
-    const chat = box.querySelector(".chat");
     const slots = [...box.querySelectorAll(".tray .slots span")];
     const toastBox = box.querySelector(".toast");
     const prizeEls = [...glass.querySelectorAll(".prize")];
@@ -125,10 +119,38 @@ export default defineLevel({
       toastBox.classList.add("show");
     };
 
-    const message = (from, html, mine = false) => {
-      const face = mine ? "" : `<span class="face">${game.avatar(friend.avatar, { label: friend.name, crop: "head" })}</span>`;
-      chat.insertAdjacentHTML("beforeend", `<div class="msg${mine ? " mine" : ""}">${face}<p><b style="color:${mine ? "#ff5a3c" : friend.colour}">${from}</b>${html}</p></div>`);
+    // Chat messages pop up over the machine, like in level 1, and fade away.
+    const message = (from, html, mine = false, seconds = 4.5) => {
+      const bubble = document.createElement("div");
+      bubble.className = `bubble${mine ? " mine" : ""}`;
+      bubble.style.setProperty("--friend", mine ? "#3cb371" : friend.colour);
+      const face = mine ? game.avatar(undefined, { label: from, crop: "head" }) : game.avatar(friend.avatar, { label: friend.name, crop: "head" });
+      bubble.innerHTML = `<span class="bubble-face">${face}</span><span class="bubble-text"><b>${from}</b> ${html}</span>`;
+      box.append(bubble);
+      placeBubble(bubble, mine);
       game.vibrate(30);
+      game.after(seconds * 1000, () => {
+        bubble.classList.add("leaving");
+        game.after(400, () => bubble.remove());
+      });
+    };
+
+    /** Puts a bubble over the top of the glass (friends on the left, you on the right), not over another bubble. */
+    const placeBubble = (bubble, mine) => {
+      const area = box.getBoundingClientRect();
+      const others = [...box.querySelectorAll(".bubble")].filter((b) => b !== bubble).map((b) => b.getBoundingClientRect());
+      const w = bubble.offsetWidth;
+      const h = bubble.offsetHeight;
+      let best = null;
+      for (let i = 0; i < 12; i += 1) {
+        const left = mine ? randomBetween(area.width * 0.5, area.width * 0.94 - w) : randomBetween(area.width * 0.06, area.width * 0.5 - w * 0.3);
+        const top = randomBetween(area.height * 0.17, area.height * 0.45);
+        const overlap = others.reduce((sum, o) => sum + Math.max(0, Math.min(o.right, area.left + left + w) - Math.max(o.left, area.left + left)) * Math.max(0, Math.min(o.bottom, area.top + top + h) - Math.max(o.top, area.top + top)), 0);
+        if (!best || overlap < best.overlap) best = { left, top, overlap };
+        if (overlap === 0) break;
+      }
+      bubble.style.left = `${Math.max(8, best.left)}px`;
+      bubble.style.top = `${best.top}px`;
     };
 
     const place = () => {
@@ -210,7 +232,7 @@ export default defineLevel({
         `Wait, is that a ${wish.name.toLowerCase()}?? Can you get it for me? 🥺`,
         `Pleeease grab me the ${wish.name.toLowerCase()} with the heart! 💛`,
         `I NEED that ${wish.name.toLowerCase()} for my room 😍 get it for me?`,
-      ]));
+      ]), false, 6.5);
       game.after(900, () => message(nickname, "On it! 💪", true));
     };
 
@@ -271,10 +293,10 @@ export default defineLevel({
 });
 
 /** Where the claw can swing and where the prizes sit (in % of the glass width). */
-const LEFT = 26;
+const LEFT = 20;
 const RIGHT = 90;
 /** Where the claw drops what it caught: the hole on the left. */
-const CHUTE = 10;
+const CHUTE = 7;
 const chance50 = () => Math.random() < 0.5;
 
 /** The claw head: a cap and three prongs that close around a prize. */

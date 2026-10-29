@@ -352,6 +352,16 @@ Els detalls de cada nivell són a la seva llibreta
   Signals Journal (lletres fetes de punts en forma d'anella). Ara la demo fa
   servir Doto amb punts rodons: els títols grans amb anelles, els petits amb
   punts plens (descartat: Bowlby One SC per als títols).
+- Helena: la resta de textos, més fins i semblants a l'Elisava Sans. L'Elisava
+  Sans no és a Google Fonts (és la lletra de l'escola), així que la demo fa
+  servir Hanken Grotesk, prima. Si Helena té els arxius de l'Elisava Sans i
+  permís per fer-la servir, es pot posar la de veritat.
+
+**Nivell 4: canvis de Helena**
+- La màquina ocupa tota la pantalla. Les monedes i els premis són al panell
+  de davant (ja no hi ha columna al costat).
+- Els missatges de l'amic surten com bombolles damunt la màquina, com al
+  nivell 1.
 - Arreglat: al nivell 3, quan perdies, alguns personatges tapaven el cartell
   de "Game over".
 

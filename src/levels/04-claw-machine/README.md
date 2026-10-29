@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-29/10/2026: idea agreed with Helena (step 1). First playable version built straight away with full art (as with levels 2 and 3): a front-facing claw machine with a random colour, 9 objects in a pile (6 physical: polaroid, vinyl, cassette, film camera, zine; 3 digital: phone, tablet, smartwatch), 5 coins, the claw swinging faster each try, a friend's chat on the side and a tray with your prizes. After the first try the friend asks for one object, marked with a heart. Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
+29/10/2026: idea agreed with Helena (step 1). First playable version built straight away with full art (as with levels 2 and 3): a front-facing claw machine with a random colour, 9 objects in a pile (6 physical: polaroid, vinyl, cassette, film camera, zine; 3 digital: phone, tablet, smartwatch), 5 coins, the claw swinging faster each try, a tray with your prizes on the front panel. Then, at Helena's request, the machine fills the whole screen and the friend's messages pop up like in level 1. After the first try the friend asks for one object, marked with a heart. Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
 
 ## The idea
 
@@ -44,7 +44,7 @@ Move the claw and grab polaroids, vinyls and cassettes, avoiding digital objects
 - 29/10/2026: social twist: a friend asks you for a specific object and you win it for them (rejected: every object carries a handwritten dedication from a friend).
 - 29/10/2026: to win you need 3 physical objects in 5 tries, one of them your friend's (rejected: the friend's object as an optional extra).
 - 29/10/2026: no clock, only the 5 tries; the claw speeds up a little each try (rejected: a 45-second clock as well).
-
+- 29/10/2026: Helena: the machine fills the whole screen (the coins and your prizes are now on its front panel; the side column with the chat and your avatar is gone), and the friend's messages pop up over the machine like the chat bubbles in level 1.
 ## Open questions
 
 _None yet._

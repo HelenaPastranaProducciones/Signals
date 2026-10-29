@@ -19,7 +19,7 @@ if (Number.isInteger(testLevel) && testLevel >= 1 && testLevel <= TOTAL_LEVELS) 
 // ?fonts=demo shows the typography Helena is trying out (src/styles/fonts-demo.css).
 if (params.get("fonts") === "demo") {
   for (const href of [
-    "https://fonts.googleapis.com/css2?family=Doto:ROND,wght@0..100,100..900&family=Inter:wght@500;600;700&family=Space+Grotesk:wght@700&display=swap",
+    "https://fonts.googleapis.com/css2?family=Doto:ROND,wght@0..100,100..900&family=Hanken+Grotesk:wght@300..700&display=swap",
     new URL("./styles/fonts-demo.css", import.meta.url).href,
   ]) document.head.insertAdjacentHTML("beforeend", `<link rel="stylesheet" href="${href}">`);
 }

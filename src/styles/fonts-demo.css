@@ -3,17 +3,29 @@
  * address (see src/main.js), so the real game keeps Baloo 2 until she decides.
  *
  * Main titles: Doto, dotted like the Signals Journal logo (big titles in
- * outlined rings; Bowlby One SC was tried first and replaced) · Error messages: Inter SemiBold ·
- * Buttons: Inter Bold · Score and clock: Space Grotesk Bold ·
+ * outlined rings; Bowlby One SC was tried first and replaced).
+ * Every other text: Hanken Grotesk, light and thin, close to Elisava Sans
+ * (Helena's reference; Inter and Space Grotesk were tried first).
  * Effects: a short, flat shadow (no thick 3D).
  */
 
 body {
-  font-family: "Inter", system-ui, sans-serif;
-  font-weight: 500;
+  font-family: "Hanken Grotesk", system-ui, sans-serif;
+  font-weight: 400;
 }
 
+/* Thin text everywhere, also inside the levels; only titles, buttons and bold words are heavier. */
+#app * { font-weight: 400; letter-spacing: 0.005em; }
+#app :is(b, strong, .tag, .level-tile) { font-weight: 600; }
+
 /* Main titles */
+#app :is(h1, h2),
+#app .game-title,
+#app .signal-title,
+#app .result-title,
+#app .level-tile b,
+#app .level-stage .start > b,
+#app .level-04 .sign,
 h1, h2,
 .game-title,
 .signal-title,
@@ -28,9 +40,9 @@ h1, h2,
 }
 
 /* The big ones: each dot an outlined ring, like the Signals Journal logo. */
-.game-title,
-.signal-title,
-.result-title {
+#app .game-title,
+#app .signal-title,
+#app .result-title {
   font-weight: 600;
   color: transparent;
   -webkit-text-stroke: 0.03em var(--ink);
@@ -39,15 +51,15 @@ h1, h2,
 
 .game-title { font-size: clamp(56px, 11vw, 130px); text-transform: lowercase; margin-bottom: 0.15em; }
 .game-title::first-letter { text-transform: uppercase; }
-.result-title { -webkit-text-stroke-color: #ffe36b; }
-.is-won .result-title { -webkit-text-stroke-color: #fff; }
+#app .result-title { -webkit-text-stroke-color: #ffe36b; }
+#app .is-won .result-title { -webkit-text-stroke-color: #fff; }
 
 /* Error messages: when you lose, and anything that went wrong */
-.is-lost .card-title,
-.level-error,
-.level-error * {
-  font-family: "Inter", sans-serif;
-  font-weight: 600;
+#app .is-lost .card-title,
+#app .level-error,
+#app .level-error * {
+  font-family: "Hanken Grotesk", sans-serif;
+  font-weight: 500;
   text-transform: none;
   letter-spacing: 0;
 }
@@ -55,15 +67,18 @@ h1, h2,
 .is-lost .card-title { font-size: 20px; line-height: 1.35; }
 
 /* The closing line when you win reads as a sentence, so it stays lowercase. */
-.is-won .card-title { text-transform: none; font-size: 22px; line-height: 1.25; }
+#app .is-won .card-title { font-family: "Hanken Grotesk", sans-serif; font-weight: 500; letter-spacing: 0; text-transform: none; font-size: 22px; line-height: 1.25; }
 
 /* Buttons */
 .btn,
 .chips button,
 .lobby-button,
 .tag {
-  font-family: "Inter", sans-serif;
-  font-weight: 700;
+  font-family: "Hanken Grotesk", sans-serif;
+}
+
+#app :is(.btn, .chips button) {
+  font-weight: 600;
   letter-spacing: 0;
 }
 
@@ -76,8 +91,7 @@ h1, h2,
 .hud-info,
 .hud-time,
 .map-progress {
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 700;
+  font-family: "Hanken Grotesk", sans-serif;
   font-variant-numeric: tabular-nums;
 }
 
@@ -96,6 +110,6 @@ body::after {
   border-radius: 999px;
   background: #23243a;
   color: #ffe36b;
-  font: 700 12px "Inter", sans-serif;
+  font: 600 12px "Hanken Grotesk", sans-serif;
   pointer-events: none;
 }
