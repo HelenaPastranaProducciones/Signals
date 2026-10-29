@@ -1,6 +1,4 @@
 import { createSvgKit } from "../../avatar/svg-kit.js";
-import { AVATAR_CATEGORIES } from "../../data/avatar-catalog.js";
-import { pick } from "../../engine/random.js";
 
 /**
  * Drawings for level 1: the obstacles and the landscape layers, in the
@@ -12,10 +10,6 @@ const kit = createSvgKit("level-01");
 /** Gradients shared by every drawing of this level; put once in the stage. */
 export const sharedDefs = () => `<svg width="0" height="0" aria-hidden="true" style="position:absolute">${kit.defs()}</svg>`;
 
-/** A random look for a friend, from every avatar piece. */
-export function randomAvatar() {
-  return Object.fromEntries(AVATAR_CATEGORIES.map((category) => [category.key, pick(category.options).id]));
-}
 
 /** Obstacles on the ground: jump over them. Sizes in pixels. */
 export const GROUND_OBSTACLES = [

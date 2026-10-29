@@ -1,0 +1,532 @@
+/* Level 2 · Rhythm Tap. --mood (0 to 1) is how lively the party is; --beat is one beat of the song. */
+
+.level-02 .rhythm {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: linear-gradient(#2b2450, #3d2f66);
+  color: #fff;
+}
+
+.level-02 .rhythm.shake .tiles-area {
+  animation: level-02-shake 0.25s ease-out;
+}
+
+/* ---------- The notes ---------- */
+
+.level-02 .tiles-area {
+  position: relative;
+  flex: 0 0 54%;
+  display: flex;
+  justify-content: center;
+  padding: 34px 16px 0;
+  background:
+    radial-gradient(ellipse at 50% 120%, rgba(255, 122, 176, calc(0.15 + var(--mood) * 0.35)), transparent 60%),
+    linear-gradient(#251f45, #34295c);
+}
+
+.level-02 .lanes {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  width: min(440px, 80%);
+  height: 100%;
+}
+
+.level-02 .lane {
+  --lane: #ff7ab0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px 18px 0 0;
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.07));
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.06);
+}
+
+.level-02 .lane-1 { --lane: #6fb3ff; }
+.level-02 .lane-2 { --lane: #7fe3a0; }
+.level-02 .lane-3 { --lane: #ffd45e; }
+
+.level-02 .lane.flash {
+  animation: level-02-flash 0.3s ease-out;
+}
+
+.level-02 .receptor {
+  position: absolute;
+  left: 50%;
+  top: 86%;
+  width: 62px;
+  height: 62px;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 4px solid var(--lane);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--lane);
+  transition: transform 0.06s, background 0.06s;
+}
+
+.level-02 .receptor.pressed {
+  transform: translate(-50%, -50%) scale(0.88);
+  background: color-mix(in srgb, var(--lane) 45%, transparent);
+  color: #fff;
+}
+
+.level-02 .note {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 58px;
+  height: 58px;
+  margin: -29px 0 0 -29px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.85) 0 12%, transparent 30%),
+    radial-gradient(circle at 50% 120%, rgba(0, 0, 0, 0.25), transparent 60%),
+    var(--lane);
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.28), 0 0 18px color-mix(in srgb, var(--lane) 60%, transparent);
+  color: #fff;
+  font-size: 26px;
+  font-weight: 800;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+  will-change: transform;
+}
+
+.level-02 .receptor.burst::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 4px solid var(--lane);
+  box-shadow: 0 0 20px var(--lane);
+  animation: level-02-burst 0.35s ease-out forwards;
+}
+
+.level-02 .note.missed {
+  filter: grayscale(1) brightness(0.7);
+  opacity: 0.6;
+}
+
+.level-02 .popup {
+  position: absolute;
+  left: 50%;
+  top: 68%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  font-weight: 800;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: level-02-popup 0.6s ease-out forwards;
+}
+
+.level-02 .popup.perfect { color: #ffe36b; text-shadow: 0 2px 0 #ff5a3c; }
+.level-02 .popup.great { color: #9fe3e0; text-shadow: 0 2px 0 #2b5a8a; }
+.level-02 .popup.miss { color: #c9c9d6; text-shadow: 0 2px 0 #2b2233; }
+
+.level-02 .song-progress {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  width: min(440px, 80%);
+  height: 8px;
+  transform: translateX(-50%);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+}
+
+.level-02 .song-progress i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #ff7ab0, #ffd45e);
+}
+
+.level-02 .lives {
+  position: absolute;
+  top: 30px;
+  left: 18px;
+  display: flex;
+  gap: 4px;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.level-02 .lives b {
+  color: #ff5a8a;
+  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, opacity 0.3s, filter 0.3s;
+}
+
+.level-02 .lives b.lost {
+  transform: scale(0.7) rotate(-20deg);
+  opacity: 0.35;
+  filter: grayscale(1);
+}
+
+.level-02 .combo {
+  position: absolute;
+  top: 34px;
+  right: 18px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffe36b;
+  text-shadow: 0 3px 0 #ff5a3c;
+}
+
+/* ---------- The band on stage ---------- */
+
+.level-02 .band-area {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  filter: saturate(calc(0.45 + var(--mood) * 0.75)) brightness(calc(0.72 + var(--mood) * 0.33));
+  transition: filter 0.6s;
+}
+
+.level-02 .wall {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 100%, rgba(255, 200, 230, 0.55), transparent 65%),
+    linear-gradient(#5b3f8c, #c46fae);
+}
+
+.level-02 .lights i {
+  position: absolute;
+  top: -20%;
+  left: calc(8% + var(--i) * 21%);
+  width: 90px;
+  height: 140%;
+  transform-origin: 50% 0;
+  background: linear-gradient(rgba(255, 240, 180, 0.65), transparent 85%);
+  clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
+  opacity: calc(var(--mood) * 0.8);
+  mix-blend-mode: screen;
+  animation: level-02-sweep calc(var(--beat) * 8) ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * var(--beat) * -1.6);
+}
+
+.level-02 .lights i:nth-child(2n) {
+  background: linear-gradient(rgba(255, 140, 200, 0.6), transparent 85%);
+}
+
+.level-02 .bulbs {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 10px;
+}
+
+.level-02 .bulbs::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 2px;
+  height: 18px;
+  border-bottom: 2px solid rgba(43, 34, 51, 0.5);
+  border-radius: 0 0 50% 50%;
+}
+
+.level-02 .bulbs i {
+  position: relative;
+  width: 12px;
+  height: 14px;
+  margin-top: calc(10px + (var(--i) - 9) * (var(--i) - 9) * -0.12px);
+  border-radius: 50% 50% 45% 45%;
+  background: hsl(calc(var(--i) * 53deg) 95% 70%);
+  box-shadow: 0 0 calc(4px + var(--mood) * 14px) hsl(calc(var(--i) * 53deg) 95% 70%);
+  opacity: calc(0.35 + var(--mood) * 0.65);
+}
+
+.level-02 .on-beat .bulbs i:nth-child(2n) {
+  filter: brightness(1.4);
+}
+
+.level-02 .speaker {
+  position: absolute;
+  bottom: 22%;
+  width: 7%;
+  min-width: 46px;
+  height: 46%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 10px;
+  background: linear-gradient(#3a3550, #2b2640);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.25);
+}
+
+.level-02 .speaker-left { left: 1.5%; }
+.level-02 .speaker-right { right: 1.5%; }
+
+.level-02 .speaker i {
+  width: 62%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, #1f1b30 0 30%, #57507a 32% 60%, #2b2640 62%);
+}
+
+.level-02 .on-beat .speaker i {
+  transform: scale(calc(1 + var(--mood) * 0.08));
+}
+
+.level-02 .floor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 26%;
+  background:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.06) 0 2px, transparent 2px 80px),
+    linear-gradient(#c98a5a, #a86d45);
+  border-top: 6px solid #e0a876;
+}
+
+.level-02 .member {
+  position: absolute;
+  bottom: 13%;
+  width: 15%;
+  max-width: 150px;
+  text-align: center;
+}
+
+.level-02 .member-svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+.level-02 .member > span {
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding: 0 8px;
+  border-radius: 8px;
+  background: rgba(43, 34, 51, 0.55);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.level-02 .member > span.you {
+  background: #ff5a3c;
+}
+
+.level-02 .member-keys { left: 11%; }
+.level-02 .member-vocals { left: 31%; }
+.level-02 .member-drums { left: 50%; bottom: 19%; width: 14%; }
+.level-02 .member-guitar { left: 70%; }
+
+/* Everybody moves with the beat, more when the party is lively. */
+.level-02 .playing .member-svg {
+  animation: level-02-bob var(--beat) ease-in-out infinite;
+  transform-origin: 50% 100%;
+}
+
+.level-02 .member-svg g[class] {
+  transform-box: view-box;
+}
+
+.level-02 .playing .strum { animation: level-02-strum calc(var(--beat) / 2) ease-in-out infinite alternate; }
+.level-02 .playing .fret { animation: level-02-fret calc(var(--beat) * 2) ease-in-out infinite alternate; }
+.level-02 .playing .wave { animation: level-02-wave var(--beat) ease-in-out infinite alternate; }
+.level-02 .playing .mouth { animation: level-02-sing calc(var(--beat) / 2) ease-in-out infinite alternate; }
+.level-02 .playing .hand-left { animation: level-02-key calc(var(--beat) / 2) ease-in-out infinite alternate; }
+.level-02 .playing .hand-right { animation: level-02-key calc(var(--beat) / 2) ease-in-out infinite alternate-reverse; }
+.level-02 .playing .stick-left { animation: level-02-stick calc(var(--beat) / 2) ease-in-out infinite alternate; }
+.level-02 .playing .stick-right { animation: level-02-stick calc(var(--beat) / 2) ease-in-out infinite alternate-reverse; }
+.level-02 .playing .cymbal { animation: level-02-cymbal var(--beat) ease-out infinite; }
+
+/* A flat party: the band barely moves and the singer stops waving. */
+.level-02 .mood-low .member-svg { animation-duration: calc(var(--beat) * 2); }
+.level-02 .mood-low .wave { animation: none; transform: rotate(140deg); }
+
+/* The crowd at the front of the stage. */
+.level-02 .crowd {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -22px;
+  height: 16%;
+}
+
+.level-02 .fan {
+  position: absolute;
+  bottom: 0;
+  width: 7.5%;
+  min-width: 40px;
+  max-width: 70px;
+}
+
+.level-02 .fan svg {
+  display: block;
+  width: 100%;
+}
+
+.level-02 .fan-arms {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.level-02 .playing .fan {
+  animation: level-02-jump var(--beat) ease-in-out infinite;
+  animation-delay: calc(var(--d) * -1);
+}
+
+.level-02 .mood-low .fan { animation: none; }
+.level-02 .mood-high .fan-arms { opacity: 1; }
+.level-02 .mood-high .fan { animation-name: level-02-jump-high; }
+
+/* Music notes floating up when the party is lively. */
+.level-02 .notes-fly i {
+  position: absolute;
+  bottom: 40%;
+  font-style: normal;
+  font-size: 26px;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 220, 120, 0.9);
+  animation: level-02-fly 1.6s ease-out forwards;
+}
+
+/* Start card. */
+.level-02 .start {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: max-content;
+  max-width: 90%;
+  padding: 18px 26px;
+  border-radius: 22px;
+  background: #fff;
+  color: #23243a;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 5;
+}
+
+.level-02 .start b {
+  font-size: 24px;
+}
+
+.level-02 .start span {
+  font-size: 15px;
+  color: #4a4b63;
+}
+
+.level-02 .start kbd {
+  display: inline-block;
+  min-width: 24px;
+  padding: 0 5px;
+  border-radius: 6px;
+  background: #eef0f6;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.18);
+  font: inherit;
+  font-weight: 800;
+}
+
+/* The last chord: everybody jumps. */
+.level-02 .celebrating .member-svg { animation: level-02-cheer 0.35s ease-in-out infinite alternate; }
+
+@keyframes level-02-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(calc(-2px - var(--mood) * 5px)) scaleY(1.01); }
+}
+
+@keyframes level-02-strum {
+  from { transform: rotate(-6deg); }
+  to { transform: rotate(8deg); }
+}
+
+@keyframes level-02-fret {
+  from { transform: rotate(0); }
+  to { transform: rotate(-6deg); }
+}
+
+@keyframes level-02-wave {
+  from { transform: rotate(0); }
+  to { transform: rotate(-22deg); }
+}
+
+@keyframes level-02-sing {
+  from { transform: scaleY(0.5); }
+  to { transform: scaleY(1.1); }
+}
+
+@keyframes level-02-key {
+  from { transform: rotate(-3deg) translateY(-2px); }
+  to { transform: rotate(3deg) translateY(1px); }
+}
+
+@keyframes level-02-stick {
+  from { transform: rotate(-14deg); }
+  to { transform: rotate(10deg); }
+}
+
+@keyframes level-02-cymbal {
+  0% { transform: rotate(6deg); }
+  40%, 100% { transform: rotate(0); }
+}
+
+@keyframes level-02-jump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes level-02-jump-high {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+
+@keyframes level-02-sweep {
+  from { transform: rotate(-18deg); }
+  to { transform: rotate(18deg); }
+}
+
+@keyframes level-02-flash {
+  from { background: color-mix(in srgb, var(--lane) 40%, transparent); }
+}
+
+@keyframes level-02-burst {
+  from { transform: scale(0.8); opacity: 1; }
+  to { transform: scale(1.6); opacity: 0; }
+}
+
+@keyframes level-02-popup {
+  from { opacity: 0; transform: translate(-50%, 10px) scale(0.7); }
+  30% { opacity: 1; transform: translate(-50%, 0) scale(1.1); }
+  to { opacity: 0; transform: translate(-50%, -24px) scale(1); }
+}
+
+@keyframes level-02-fly {
+  from { opacity: 0; transform: translateY(0) scale(0.6); }
+  20% { opacity: 1; }
+  to { opacity: 0; transform: translateY(-120px) rotate(20deg) scale(1.2); }
+}
+
+@keyframes level-02-shake {
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+@keyframes level-02-cheer {
+  to { transform: translateY(-14px); }
+}

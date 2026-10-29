@@ -28,6 +28,7 @@ export const levelSession = {
         root,
         player: { nickname: progress.nickname, avatar: { ...progress.avatar } },
         vibration: progress.settings.vibration,
+        sound: progress.settings.sound,
         hud: {
           setInfo: (text) => (info.textContent = text),
           setTime: (seconds) => (time.textContent = seconds === null ? "" : `⏱ ${Math.ceil(seconds)}`),

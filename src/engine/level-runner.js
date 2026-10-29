@@ -15,6 +15,7 @@ import { renderAvatar } from "../avatar/render-avatar.js";
  * @property {HTMLElement} root  Empty box where the minigame draws itself.
  * @property {{ nickname: string, avatar: Record<string, string> }} player
  * @property {boolean} ended  True once the attempt is over.
+ * @property {boolean} sound  True if the player has sound on (Options). Levels that play sound check it.
  * @property {() => void} win  Ends the attempt as won: closing line and unlocks.
  * @property {(message?: string) => void} lose  Ends the attempt as lost, with an optional message.
  * @property {(ms: number, fn: () => void) => () => void} after  Runs fn once after ms. Returns a cancel function.
@@ -42,15 +43,16 @@ let current = null;
  * @param {HTMLElement} options.root
  * @param {{ nickname: string, avatar: Record<string, string> }} options.player
  * @param {boolean} [options.vibration]
+ * @param {boolean} [options.sound]
  * @param {{ setInfo?: (text: string) => void, setTime?: (secondsLeft: number | null) => void }} [options.hud]
  * @param {(result: "won" | "lost", message: string) => void} [options.onEnd]
  * @returns {Game}
  */
-export function startLevel(level, { root, player, vibration = true, hud = {}, onEnd }) {
+export function startLevel(level, { root, player, vibration = true, sound = true, hud = {}, onEnd }) {
   stopLevel();
   const session = { cleanups: new Set(), ended: false };
   current = session;
-  const game = createGame(level, session, { root, player, vibration, hud, onEnd });
+  const game = createGame(level, session, { root, player, vibration, sound, hud, onEnd });
   try {
     const cleanup = level.play(game);
     if (typeof cleanup === "function") session.cleanups.add(cleanup);
@@ -80,7 +82,7 @@ function endSession(session) {
   session.cleanups.clear();
 }
 
-function createGame(level, session, { root, player, vibration, hud, onEnd }) {
+function createGame(level, session, { root, player, vibration, sound, hud, onEnd }) {
   /** Remembers how to undo something; returns a function that undoes it now. */
   const track = (cleanup) => {
     if (session.ended) {
@@ -106,6 +108,7 @@ function createGame(level, session, { root, player, vibration, hud, onEnd }) {
     settings: level.settings,
     root,
     player,
+    sound,
     get ended() {
       return session.ended;
     },

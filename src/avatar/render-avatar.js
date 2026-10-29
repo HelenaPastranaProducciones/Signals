@@ -280,6 +280,55 @@ function face(k, a) {
     draw(MOUTHS, a.mouth, k, a);
 }
 
+/**
+ * The avatar's head with everything on it (hair, face, hat, glasses, extras),
+ * in this file's drawing units. Levels that draw their own front-facing
+ * figure (e.g. a band member holding an instrument) use it with
+ * `avatarTorso` and their own arms and legs, so the player is recognisable.
+ * Long hair goes behind the body: draw `avatarHairBehind` first.
+ *
+ * @param {Kit} k  @param {Avatar} a
+ */
+export function avatarHead(k, a) {
+  return [
+    a.hair === "long" ? "" : draw(HAIR_BACK, a.hair, k, a),
+    [38, 122].map((x) => k.circle(x, 84, 8.5, a.skin) + k.circle(x, 84, 4, shade(a.skin, -0.12))).join(""),
+    draw(EARRINGS, a.ear, k, a),
+    k.clay(HEAD, a.skin),
+    face(k, a),
+    draw(HAIR_FRONT, a.hair, k, a),
+    draw(HEAD_EXTRA_UNDER_HAT, a.pin, k, a),
+    draw(HATS, a.hat, k, a),
+    draw(HEAD_EXTRA_OVER_HAT, a.pin, k, a),
+    draw(GLASSES, a.gl, k, a),
+    a.acc === "phones" ? ACCESSORIES.phones(k, a) : "",
+  ].join("");
+}
+
+/** Long hair, drawn behind the whole body. @param {Kit} k @param {Avatar} a */
+export const avatarHairBehind = (k, a) => (a.hair === "long" ? draw(HAIR_BACK, a.hair, k, a) : "");
+
+/**
+ * The avatar's torso with its top, neck and neck/body accessory. Put
+ * `torsoClip(k)` in the <defs> of the drawing that uses it. `arms` is
+ * markup drawn over the top but under the neck and accessories.
+ *
+ * @param {Kit} k  @param {Avatar} a  @param {string} [arms]
+ */
+export function avatarTorso(k, a, arms = "") {
+  return [
+    draw(TOP_BACK, a.top, k, a),
+    k.clay(TORSO, a.topC),
+    `<g clip-path="url(#${k.ids.bodyClip})">${draw(TOP_FRONT, a.top, k, a)}</g>`,
+    arms,
+    k.clay("M73 104H87V116Q80 120 73 116Z", shade(a.skin, -0.12)),
+    draw(ACCESSORIES, a.acc === "phones" ? "none" : a.acc, k, a),
+  ].join("");
+}
+
+/** The clip path `avatarTorso` needs, for the drawing's <defs>. @param {Kit} k */
+export const torsoClip = (k) => `<clipPath id="${k.ids.bodyClip}"><path d="${TORSO}"/></clipPath>`;
+
 let instanceCount = 0;
 
 /**
@@ -295,33 +344,16 @@ let instanceCount = 0;
  */
 export function renderAvatar(a, { label = "Avatar", backdrop = true, crop = "full" } = {}) {
   const k = createSvgKit(`avatar-${++instanceCount}`);
-  const hairBehindBody = a.hair === "long";
   return [
     `<svg class="avatar" viewBox="${VIEW[crop] || VIEW.full}" role="img" aria-label="${label}">`,
-    k.defs(`<clipPath id="${k.ids.bodyClip}"><path d="${TORSO}"/></clipPath>`),
+    k.defs(torsoClip(k)),
     backdrop ? `<rect width="160" height="234" rx="28" fill="${a.bg}"/>` + k.circle(80, 120, 70, "#fff", ".35") : "",
     `<ellipse cx="80" cy="229" rx="34" ry="5" fill="#000" opacity=".13"/>`,
-    hairBehindBody ? draw(HAIR_BACK, a.hair, k, a) : "",
+    avatarHairBehind(k, a),
     leg(k, a, 70),
     leg(k, a, 90),
-    draw(TOP_BACK, a.top, k, a),
-    k.clay(TORSO, a.topC),
-    `<g clip-path="url(#${k.ids.bodyClip})">${draw(TOP_FRONT, a.top, k, a)}</g>`,
-    arm(k, a, -1),
-    arm(k, a, 1),
-    k.clay("M73 104H87V116Q80 120 73 116Z", shade(a.skin, -0.12)),
-    draw(ACCESSORIES, a.acc === "phones" ? "none" : a.acc, k, a),
-    hairBehindBody ? "" : draw(HAIR_BACK, a.hair, k, a),
-    [38, 122].map((x) => k.circle(x, 84, 8.5, a.skin) + k.circle(x, 84, 4, shade(a.skin, -0.12))).join(""),
-    draw(EARRINGS, a.ear, k, a),
-    k.clay(HEAD, a.skin),
-    face(k, a),
-    draw(HAIR_FRONT, a.hair, k, a),
-    draw(HEAD_EXTRA_UNDER_HAT, a.pin, k, a),
-    draw(HATS, a.hat, k, a),
-    draw(HEAD_EXTRA_OVER_HAT, a.pin, k, a),
-    draw(GLASSES, a.gl, k, a),
-    a.acc === "phones" ? ACCESSORIES.phones(k, a) : "",
+    avatarTorso(k, a, arm(k, a, -1) + arm(k, a, 1)),
+    avatarHead(k, a),
     "</svg>",
   ].join("");
 }

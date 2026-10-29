@@ -32,7 +32,9 @@ Els detalls de cada nivell són a la seva llibreta
   els nivells.
 - **Editor d'avatar:** nou, amb pestanyes i miniatures. Pendent que Helena el
   revisi.
-- **Nivells 2 a 19:** encara no s'han començat (pas 0). Només tenen la
+- **Nivell 2 (Rhythm Tap):** pas 2 de 6. La idea està acordada i ja hi ha
+  una versió jugable amb dibuixos i música. Falta que Helena hi jugui.
+- **Nivells 3 a 19:** encara no s'han començat (pas 0). Només tenen la
   proposta inicial a la seva llibreta.
 - **Pendent general:** desar el progrés quan es tanca el joc, so, versió per
   a mòbil, app d'escriptori. Ho detalla `CLAUDE.md`, a "Pending work".
@@ -166,6 +168,24 @@ Els detalls de cada nivell són a la seva llibreta
 - Helena demana que Claude **prengui la iniciativa amb l'aspecte**: que tot
   quedi bonic i polit com un joc acabat, sense esperar que ella ho digui tot.
   Ella té l'última paraula.
+
+**Nivell 2: la idea (pas 1, acordat) i primera versió**
+- Un Piano Tiles d'uns **30 segons** a la part de dalt. A baix, **la teva
+  banda**: tu a la guitarra i els amics a la veu, al piano i a la bateria.
+- **La festa reflecteix com toques, només visualment:** si encertes, hi ha
+  més llum, color i públic saltant, i surten notes musicals. Si falles, tot
+  s'apaga i el públic es queda quiet.
+- **Vides:** 3 errors permesos; al quart, perds.
+- Es juga amb les **fletxes** del teclat (← ↓ ↑ →). Al mòbil es tocarà amb
+  el dit.
+- Helena demana **la mateixa estètica i el mateix detall** que el nivell 1
+  en tot: instruments, ambient i música.
+- La cançó és original i la genera el mateix joc: la bateria, el baix, el
+  piano i la veu sonen sols, i la guitarra sona quan encertes. Respecta
+  l'opció de so del menú Options.
+- Els membres de la banda tenen el cap i la roba del seu avatar, amb
+  postures pròpies tocant l'instrument (seguint la norma de "cada nivell
+  dibuixa el seu avatar").
 
 ---
 

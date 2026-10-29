@@ -70,6 +70,7 @@ export default defineLevel({
 | `game.countdown(seconds, onTimeUp)` | Clock in the level bar; returns `{ secondsLeft, stop() }`. |
 | `game.showInfo(text)` | Short text in the level bar, e.g. "Replies 2 / 3". |
 | `game.vibrate(pattern)` | Phone vibration, if the player allows it. |
+| `game.sound` | `true` if the player has sound on (Options). A level that plays sound checks it and stops its sound when the attempt ends (return a cleanup function from `play`). |
 | `game.ended` | True once the attempt is over. |
 
 **Always use these tools for timers, frames and listeners.** They are stopped

@@ -150,6 +150,11 @@ export const DEFAULT_AVATAR = Object.freeze({
   bg: "#dfe6ee",
 });
 
+/** A random look using every piece (for fictional characters such as friends). */
+export function randomAvatar(random = Math.random) {
+  return Object.fromEntries(AVATAR_CATEGORIES.map((category) => [category.key, category.options[Math.floor(random() * category.options.length)].id]));
+}
+
 /** @param {string} key */
 export const getCategory = (key) => AVATAR_CATEGORIES.find((category) => category.key === key);
 

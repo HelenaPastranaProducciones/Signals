@@ -3,8 +3,9 @@ import { chance, pick, randomBetween } from "../../engine/random.js";
 import { escapeHtml } from "../../ui/html.js";
 import {
   FLYING_OBSTACLES, GROUND_OBSTACLES, LANDSCAPE, PALETTES,
-  obstacleSvg, randomAvatar, sharedDefs,
+  obstacleSvg, sharedDefs,
 } from "./art.js";
+import { randomAvatar } from "../../data/avatar-catalog.js";
 import { runnerAvatar } from "./runner.js";
 
 /**
