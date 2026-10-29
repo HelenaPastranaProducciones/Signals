@@ -290,6 +290,25 @@ Els detalls de cada nivell són a la seva llibreta
 - La part que comparteix amb el nivell 18 (repartir la gent per l'escena i els
   cors) està feta perquè el 18 la pugui fer servir.
 
+**Nivell 3: més diferència entre tribus**
+- Helena: les tribus s'havien de diferenciar més.
+- Ara cada tribu té uns colors i unes peces que cap altra no fa servir, i
+  una roba pròpia de cos sencer, que no és a l'editor d'avatars:
+  - skaters: colors terrosos, gorros, pantalons amples, genolleres i bambes
+    de skate
+  - gamers: lila fosc i blau marí amb neó, auriculars amb micròfon, ulleres
+    de gamer, una acreditació i pantalons de xandall amb ratlla de neó
+  - otakus: colors pastel, cabells pastel amb monyos, orelles de gat o llaços,
+    faldilla prisada i mitjons de ratlles
+  - punks: negre i vermell fosc, crestes de colors, jaqueta amb punxes,
+    texans estripats i botes
+  - pijos: blanc, groc suau i blau cel, ulleres de sol, perles, jersei sobre
+    les espatlles, xinos i mocassins
+  - esportistes: colors d'equip, samarreta de joc, gorra o bandana,
+    pantalons curts, mitjons alts i bambes blanques
+- A la ronda més difícil, l'impostor porta la roba del grup i només una cosa
+  el delata.
+
 ---
 
 ## Coses pendents de decidir

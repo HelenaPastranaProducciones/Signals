@@ -79,7 +79,7 @@ export default defineLevel({
       place(tribeId) + people.map((p, i) => {
         const { x, y, depth } = spots[i];
         const style = `left:${x.toFixed(1)}%;top:${y.toFixed(1)}%;--depth:${depth.toFixed(2)};--delay:${(-Math.random() * 2).toFixed(2)}s;z-index:${Math.round(y)}`;
-        return `<button class="person${p.you ? " you" : ""}" data-i="${i}" style="${style}">${p.you ? waving(you) : person(p.avatar, p.prop, "Someone")}${p.you ? `<span>${nickname}</span>` : ""}</button>`;
+        return `<button class="person${p.you ? " you" : ""}" data-i="${i}" style="${style}">${p.you ? waving(you) : person(p.avatar, p.prop, p.outfit, "Someone")}${p.you ? `<span>${nickname}</span>` : ""}</button>`;
       }).join("");
 
     const nextRound = () => {
@@ -167,7 +167,7 @@ export default defineLevel({
             <div class="group-place">${place(tribe.id)}</div>
             <div class="group-people">${[0, 1, 2].map(() => {
               const m = member(tribe);
-              return `<div class="mini">${person(m.avatar, m.prop, tribe.name)}</div>`;
+              return `<div class="mini">${person(m.avatar, m.prop, m.outfit, tribe.name)}</div>`;
             }).join("")}</div>
             <span>${tribe.name}</span>
           </button>`).join("")}

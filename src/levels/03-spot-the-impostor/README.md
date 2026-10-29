@@ -47,6 +47,7 @@ Same mechanic family as **level 18 (Odd One Out)**. The shared part is built in 
 - 29/10/2026: social twist: in the last round you are the impostor and must find your own group (rejected: a sad reaction when you tap someone who does belong).
 - 29/10/2026: 3 mistakes allowed (wrong tap or time up), the 4th loses, like level 2; the last round (finding your group) can't be lost (rejected: no losing, only points).
 - 29/10/2026: 5 rounds that get faster and harder (6 s down to 4 s, more people, subtler impostor), then the final round (rejected: 5 equal rounds of 5 s).
+- 29/10/2026: Helena: more difference between the tribes. Each tribe now has its own colours and pieces that no other tribe uses, plus its own full outfit that the avatar editor doesn't have: skaters (earthy colours, beanies, baggy khaki trousers, knee pads, skate shoes), gamers (dark purple and navy with neon, headphones with a mic, gaming glasses, a badge, joggers with a neon stripe), otakus (pastels, pastel hair in buns, cat ears or bows, a pleated skirt, striped knee socks), punks (black and dark red, loud mohawks, a studded jacket, ripped jeans, tall boots), posh kids (white, butter and baby blue, sunglasses, pearls, a jumper over the shoulders, cream chinos, loafers), sporty kids (team colours, jerseys, caps or bandanas, shorts, tall sports socks, white sneakers).
 
 ## Open questions
 
