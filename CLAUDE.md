@@ -218,6 +218,15 @@ their art.
   inside levels), so what you build is exactly what plays. A first version
   with a giant front-facing head and a separate side-on runner was rejected
   as ugly.
+- **Side-view hair (Helena, 29/10/2026):** in any level that draws the
+  avatar side-on, each hair style is **one single shape** (never a cap plus
+  separate pieces): its outline wraps the skull with volume and shows the
+  style (length, bun, curls, spikes); it shares one hairline (fringe over the
+  forehead, sideburn in front of the ear, over and behind the ear to the
+  nape) so face and ear stay clear; strands inside grow from the crown back
+  and down, with one shine. Reference: `HAIR_SHAPES` in
+  `src/levels/01-game-and-chat/runner.js`; reuse or copy it for new
+  side-view levels.
 - Arms and legs are nested groups with classes (`.body`, `.thigh-*`,
   `.shin-*`, `.upperarm-*`, `.forearm-*`, `-front`/`-back`) so levels can
   animate them with CSS (see level 1's `level.css`). `crop: "head"` or

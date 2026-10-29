@@ -245,6 +245,22 @@ Els detalls de cada nivell són a la seva llibreta
   aquell moment no en treuen cap més. Així un error no s'encadena amb els
   següents.
 
+**Cabells de perfil: cada pentinat, una sola peça**
+- Helena: els avatars de perfil encara es veien malament, sobretot els
+  cabells; han de tenir sentit i ser una sola peça, no diverses.
+- Es van redibuixar tots. Abans, els cabells llargs eren un casquet amb una cua
+  a part, el monyo i els dos monyos eren boles enganxades, els rínxols eren
+  boles soltes i la cresta eren dues capes.
+- Ara **cada pentinat és una sola forma**. El contorn dona el volum i diu quin
+  pentinat és (llargada, monyos, rínxols, punxes). Tots comparteixen la mateixa
+  línia del cabell: serrell al front, patilla davant l'orella, per sobre de
+  l'orella i fins al clatell, i la cara i l'orella queden lliures.
+- A dins, uns fils surten de la coroneta i baixen cap enrere, amb una sola
+  brillantor. Els rínxols i l'afro porten tirabuixons petits. La cresta és una
+  filera de punxes per dalt del cap, amb els costats rapats.
+- **Norma per a qualsevol nivell on l'avatar surti de perfil:** fer els
+  cabells d'aquesta manera (està apuntat a `CLAUDE.md`).
+
 ---
 
 ## Coses pendents de decidir

@@ -23,31 +23,96 @@ const EYE = { x: 89, y: 70, rx: 6, ry: 8.2 };
 // Seen from the side, the ear sits in the middle of the head, in front of the hair.
 const EAR = { x: 64, y: 76 };
 
-// Hair from the side. Every style shares the same hairline: from the nape, up
-// behind the ear, a sideburn in front of it, then a fringe of soft locks over
-// the forehead, so the face and the ear always stay clear.
-const HAIRLINE = "Q60 92 60 84Q58 66 66 58Q72 52 80 54Q86 46 92 52Q98 46 106 54";
-// Short hair: a soft cap over the top and back of the head.
-const CAP = `M106 54C108 30 90 20 70 20C46 20 28 36 28 64C28 84 34 96 44 102L54 98${HAIRLINE}Z`;
-// Bob: the same cap, falling to the jaw at the back with a rounded end.
-const BOB = "M106 54C108 30 90 20 70 20C46 20 26 36 26 66C26 90 30 104 38 110Q50 114 60 108Q62 100 62 92Q60 70 66 58Q72 52 80 54Q86 46 92 52Q98 46 106 54Z";
-// Buzz: close to the head, no volume.
-const BUZZ = "M104 52C104 34 90 29 70 29C48 29 32 44 32 66C32 82 38 94 46 100L54 96Q60 90 60 82Q60 66 68 58Q84 48 104 52Z";
-// Afro: one big round mass around the head, with the face cut out.
-const AFRO = "M108 62C118 30 94 4 64 6C30 8 8 38 14 70C18 96 34 108 52 104Q60 98 60 86Q58 66 66 58Q72 52 80 54Q94 50 108 62Z";
+/*
+ * Hair from the side. Each style is ONE shape, so it reads at a glance:
+ * - its outline wraps the skull with some volume, and the style shows in
+ *   that outline (length at the back, a bun, curls, spikes);
+ * - it shares one hairline with the others: a fringe of locks over the
+ *   forehead, a sideburn in front of the ear, over the ear and down behind
+ *   it to the nape, so the face and the ear always stay clear;
+ * - strands drawn inside it grow from the crown and fall back and down,
+ *   with one soft shine on top.
+ * Every path starts at the tip of the fringe, goes over the top and down
+ * the back, and comes back along the hairline (UP) from behind the ear.
+ */
+const TOP = "M108 56C111 30 92 18 70 18C46 18 26 34 26 62";
+const UP = "C56 68 61 60 68 61Q72 64 73 74Q75 64 80 58Q85 45 90 52Q95 44 100 51Q104 45 108 56Z";
+
+/** Turns a list of points into a bumpy outline: one round bump between each pair (curls, afro). */
+const bumps = (points) => points.slice(1).map(([x, y], i) => {
+  const [px, py] = points[i];
+  return `A${(Math.hypot(x - px, y - py) * 0.6).toFixed(1)} ${(Math.hypot(x - px, y - py) * 0.6).toFixed(1)} 0 0 0 ${x} ${y}`;
+}).join("");
+
+/** The shaved sides of the mohawk and the buzz cut: a light shadow of hair on the scalp. */
+const SHAVED = "M106 53C106 34 90 27 70 27C48 27 31 42 31 64C31 82 38 94 48 100Q54 98 57 93Q60 88 58 84C56 68 61 60 68 61Q72 64 73 72Q75 62 80 57Q92 49 106 53Z";
+
+const HAIR_SHAPES = {
+  // A soft cap over the top and back of the head, ending at the nape.
+  short: `${TOP}C26 82 33 96 44 102Q52 100 56 96Q60 90 58 84${UP}`,
+  // Close to the head, no volume, a straight short fringe.
+  buzz: SHAVED,
+  // Down to the jaw at the back, with the ends curling in under it.
+  bob: `${TOP}C23 90 27 108 38 113Q50 119 63 111Q58 100 58 84${UP}`,
+  // One long fall of hair down the back, to the waist.
+  long: `${TOP}C20 100 24 140 32 158Q44 168 60 158Q54 130 58 104Q60 94 58 84${UP}`,
+  // Short hair gathered into a round bun at the back of the crown.
+  bun: `M108 56C111 30 92 18 70 18C60 18 52 20 46 24A16 16 0 1 0 28 44C27 50 26 56 26 62C26 82 33 96 44 102Q52 100 56 96Q60 90 58 84${UP}`,
+  // Two round buns on top, one in front of the other.
+  buns: `M108 56C111 34 102 24 92 20A12 12 0 1 0 72 15C64 15 58 16 52 19A11 11 0 1 0 34 32C29 40 26 50 26 62C26 82 33 96 44 102Q52 100 56 96Q60 90 58 84${UP}`,
+  // A bumpy outline of curls all round, and a curly fringe.
+  curls: `M108 56${bumps([[108, 56], [107, 40], [99, 27], [86, 19], [71, 16], [56, 18], [43, 25], [33, 36], [26, 50], [24, 65], [26, 80], [31, 93], [40, 102], [52, 104], [58, 94]])}` +
+    "Q60 90 58 84C56 68 61 60 68 61Q72 64 73 74Q75 64 80 58A6 6 0 0 1 90 52A6 6 0 0 1 100 51A5 5 0 0 1 108 56Z",
+  // One big round cloud of hair around the head.
+  afro: `M110 60${bumps([[110, 60], [114, 42], [108, 24], [94, 11], [76, 5], [57, 6], [40, 13], [26, 26], [17, 43], [14, 62], [18, 81], [27, 96], [40, 106], [54, 106], [58, 94]])}` +
+    "Q60 90 58 84C56 68 61 60 68 61Q72 64 73 74Q75 64 80 58Q94 48 110 60Z",
+  // A crest of spikes along the top, from the forehead to the back of the crown; the sides are shaved.
+  mohawk: mohawkPath(),
+};
+
+/**
+ * The mohawk crest: spikes standing on the middle of the skull, leaning back,
+ * smaller towards the nape. Built around the head's centre (70, 66): angles
+ * go from the forehead (40°) over the top (90°) to the back (200°).
+ */
+function mohawkPath() {
+  const at = (deg, r) => {
+    const rad = (deg * Math.PI) / 180;
+    return `${(70 + r * Math.cos(rad)).toFixed(1)} ${(66 - r * Math.sin(rad)).toFixed(1)}`;
+  };
+  const spikes = 7;
+  const [first, last] = [44, 170];
+  const step = (last - first) / spikes;
+  let d = `M${at(first, 35)}`;
+  for (let i = 0; i < spikes; i += 1) {
+    d += `L${at(first + step * (i + 0.7), 60 - i * 2.4)}L${at(first + step * (i + 1), 44)}`;
+  }
+  // Lying flat down the back of the head, then back along the scalp to the start.
+  d += `L${at(205, 40)}L${at(208, 34)}`;
+  for (let deg = 195; deg >= first; deg -= 15) d += `L${at(deg, 34)}`;
+  return `${d}Z`;
+}
+
+
+/** Strands inside the hair, from the crown back and down, plus extra ones for long styles. */
+const STRANDS = ["M92 24Q72 26 54 46", "M80 20Q58 30 42 62", "M68 20Q46 32 34 82", "M100 34Q92 42 88 50"];
+const LONG_STRANDS = ["M36 94Q30 124 38 152", "M46 100Q42 128 50 156", "M30 96Q30 104 36 110"];
+/** Little curls drawn inside curly hair instead of long strands. */
+const CURLS = [[46, 36], [62, 28], [80, 26], [36, 54], [50, 52], [34, 74], [44, 88], [94, 34], [24, 40], [22, 66]]
+  .map(([x, y]) => `M${x - 4} ${y + 2}q0-6 5-6q5 0 4 5q-1 3-4 2`);
+/** Shaved hair on the sides (buzz cut and mohawk). */
+const STUBBLE = [[50, 40], [62, 35], [76, 34], [44, 54], [40, 70], [90, 40], [48, 84], [54, 60], [98, 46]];
 
 let count = 0;
 
 /** @param {Record<string, string>} a  The player's avatar choices. */
 export function runnerAvatar(a, { label = "Avatar" } = {}) {
   const k = createSvgKit(`level-01-runner-${++count}`);
-  const hairBehindBody = a.hair === "long";
   return [
     `<svg class="runner-avatar" viewBox="0 0 140 220" role="img" aria-label="${label}">`,
     k.defs(`<clipPath id="${k.ids.bodyClip}"><path d="${TORSO}"/></clipPath>`),
     `<ellipse class="shadow" cx="70" cy="215" rx="32" ry="4.5" fill="#000" opacity=".14"/>`,
     `<g class="body">`,
-    hairBehindBody ? draw(HAIR_BACK, a.hair, k, a) : "",
     arm(k, a, "back", 64),
     leg(k, a, "back", 63),
     leg(k, a, "front", 76),
@@ -56,11 +121,10 @@ export function runnerAvatar(a, { label = "Avatar" } = {}) {
     `<g clip-path="url(#${k.ids.bodyClip})">${draw(TOP_FRONT, a.top, k, a)}</g>`,
     k.clay("M63 96H77V108Q70 112 63 108Z", shade(a.skin, -0.12)),
     draw(ACCESSORIES, a.acc === "phones" ? "none" : a.acc, k, a),
-    hairBehindBody ? "" : draw(HAIR_BACK, a.hair, k, a),
     k.clay(HEAD, a.skin),
     k.circle(105, 76, 4, a.skin),
     face(k, a),
-    draw(HAIR_FRONT, a.hair, k, a),
+    hair(k, a),
     ear(k, a),
     draw(EARRINGS, a.ear, k, a),
     draw(EXTRA_UNDER_HAT, a.pin, k, a),
@@ -150,43 +214,29 @@ const EARRINGS = {
   gems: (k) => k.stroke(`M${EAR.x} ${EAR.y + 8}v4`, GOLD, 1.4) + k.circle(EAR.x, EAR.y + 14, 3.4, "#4fd8ff") + k.circle(EAR.x - 1, EAR.y + 13, 1.1, "#fff"),
 };
 
-/** A round blob of hair (bun, curl). */
-const ball = (k, x, y, r, colour) => k.clay(`M${x} ${y - r}a${r} ${r} 0 1 0 .1 0Z`, colour);
-
-/** Hair drawn behind the head (and, when long, behind the body). */
-const HAIR_BACK = {
-  long: (k, a) =>
-    k.clay("M30 66C22 96 24 128 30 150Q36 160 46 158Q54 160 62 150Q56 124 58 98Z", shade(a.hairC, -0.12)) +
-    k.stroke("M38 104Q36 128 42 150", "rgba(0,0,0,.12)", 2),
-  bun: (k, a) => ball(k, 34, 32, 15, a.hairC) + k.stroke("M42 44Q48 38 46 30", shade(a.acC, -0.05), 4),
-  buns: (k, a) => ball(k, 46, 18, 12, shade(a.hairC, -0.15)) + ball(k, 68, 12, 13, a.hairC),
-};
-
-/** Hair over the head. */
-const HAIR_FRONT = {
-  short: (k, a) => k.clay(CAP, a.hairC) + shine(k),
-  bob: (k, a) => k.clay(BOB, a.hairC) + shine(k) + k.stroke("M36 94Q40 104 48 108", "rgba(0,0,0,.12)", 2),
-  long: (k, a) => k.clay(BOB, a.hairC) + shine(k),
-  bun: (k, a) => k.clay(CAP, a.hairC) + shine(k),
-  buns: (k, a) => k.clay(CAP, a.hairC) + shine(k),
-  buzz: (k, a) =>
-    k.path(BUZZ, a.hairC, 'opacity=".9"') +
-    [[50, 40], [62, 34], [76, 33], [44, 54], [40, 70], [90, 38]].map(([x, y]) => k.circle(x, y, 1.2, shade(a.hairC, -0.3), ".5")).join(""),
-  curls: (k, a) =>
-    k.clay(CAP, shade(a.hairC, -0.1)) +
-    [[30, 82, 10], [28, 64, 11], [34, 46, 12], [46, 32, 12], [62, 24, 12], [78, 22, 12], [94, 28, 11], [104, 42, 9],
-      [40, 96, 9], [92, 48, 7], [80, 50, 7]]
-      .map(([x, y, r]) => ball(k, x, y, r, a.hairC)).join(""),
-  afro: (k, a) =>
-    k.clay(AFRO, a.hairC) +
-    [[34, 30], [56, 18], [80, 16], [24, 56], [28, 82], [98, 30], [46, 44], [70, 34]]
-      .map(([x, y]) => k.stroke(`M${x - 4} ${y}q4-5 8 0`, shade(a.hairC, -0.25), 1.6, 'opacity=".5"')).join(""),
-  mohawk: (k, a) =>
-    k.path(BUZZ, shade(a.hairC, -0.3), 'opacity=".85"') +
-    k.clay("M102 48Q98 32 108 20Q94 26 90 28Q90 12 96 2Q82 12 78 24Q74 8 70 -2Q62 12 62 24Q54 10 44 6Q48 20 48 30Q40 26 30 26Q38 36 38 50Q66 26 102 48Z", a.hairC),
-};
-
-const shine = (k) => k.stroke("M58 28Q76 22 92 30", "#fff", 4, 'opacity=".3"');
+/** The hair: one shape in the hair colour, with its strands and shine kept inside it. */
+function hair(k, a) {
+  const d = HAIR_SHAPES[a.hair];
+  if (!d) return "";
+  const clip = `${k.ids.bodyClip}-hair`;
+  const dark = shade(a.hairC, -0.22);
+  const stubble = a.hair === "buzz" || a.hair === "mohawk"
+    ? STUBBLE.map(([x, y]) => k.circle(x, y, 1.2, dark, ".55")).join("") : "";
+  const strands = { buzz: [], long: [...STRANDS, ...LONG_STRANDS], curls: CURLS, afro: CURLS, mohawk: [] }[a.hair] ?? STRANDS;
+  // The mohawk's shaved sides: a light shadow of hair kept on the scalp (never past the head's outline).
+  const shaved = a.hair === "mohawk"
+    ? `<clipPath id="${clip}-head"><path d="${HEAD}"/></clipPath><g clip-path="url(#${clip}-head)">${k.path(SHAVED, dark, 'opacity=".22"')}${stubble}</g>`
+    : "";
+  return shaved +
+    `<clipPath id="${clip}"><path d="${d}"/></clipPath>` +
+    // The crest is a strong solid shape; the other styles get the full clay shine.
+    (a.hair === "mohawk" ? k.path(d, a.hairC) + k.shade(d) : k.clay(d, a.hairC)) +
+    `<g clip-path="url(#${clip})">` +
+    (a.hair === "buzz" ? stubble : "") +
+    strands.map((s) => k.stroke(s, dark, 1.8, 'opacity=".45"')).join("") +
+    k.stroke("M56 27Q76 19 96 29", "#fff", 4.5, 'opacity=".32"') +
+    `</g>`;
+}
 
 /** The arm of the glasses, from the lens back to the top of the ear. */
 const glassesArm = (colour) => `<path d="M79 67L${EAR.x + 2} ${EAR.y - 7}" fill="none" stroke="${colour}" stroke-width="2.4" stroke-linecap="round"/>`;
