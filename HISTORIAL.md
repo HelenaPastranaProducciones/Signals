@@ -348,6 +348,10 @@ Els detalls de cada nivell són a la seva llibreta
   rellotge en Space Grotesk Bold, ombres curtes i planes. Claude n'ha fet
   una demo que només surt afegint `?fonts=demo` a l'adreça; el joc normal
   continua amb Baloo 2 fins que Helena decideixi.
+- Després Helena ha demanat uns títols "més moderns", com el logo del
+  Signals Journal (lletres fetes de punts en forma d'anella). Ara la demo fa
+  servir Doto amb punts rodons: els títols grans amb anelles, els petits amb
+  punts plens (descartat: Bowlby One SC per als títols).
 - Arreglat: al nivell 3, quan perdies, alguns personatges tapaven el cartell
   de "Game over".
 

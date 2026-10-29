@@ -2,7 +2,8 @@
  * Typography demo (Helena, 29/10/2026). Only loaded with ?fonts=demo in the
  * address (see src/main.js), so the real game keeps Baloo 2 until she decides.
  *
- * Main titles: Bowlby One SC, capitals · Error messages: Inter SemiBold ·
+ * Main titles: Doto, dotted like the Signals Journal logo (big titles in
+ * outlined rings; Bowlby One SC was tried first and replaced) · Error messages: Inter SemiBold ·
  * Buttons: Inter Bold · Score and clock: Space Grotesk Bold ·
  * Effects: a short, flat shadow (no thick 3D).
  */
@@ -20,21 +21,26 @@ h1, h2,
 .level-tile b,
 .level-stage .start > b,
 .level-04 .sign {
-  font-family: "Bowlby One SC", "Inter", sans-serif;
-  font-weight: 400;
-  text-transform: uppercase;
+  font-family: "Doto", "Inter", sans-serif;
+  font-variation-settings: "ROND" 100;
+  font-weight: 900;
   letter-spacing: 0.02em;
 }
 
+/* The big ones: each dot an outlined ring, like the Signals Journal logo. */
 .game-title,
-.signal-title { text-shadow: 0 3px 0 rgba(0, 0, 0, 0.18); }
-
+.signal-title,
 .result-title {
-  letter-spacing: 0.04em;
-  text-shadow: 0 4px 0 #ff5a3c;
+  font-weight: 600;
+  color: transparent;
+  -webkit-text-stroke: 0.03em var(--ink);
+  text-shadow: none;
 }
 
-.is-won .result-title { text-shadow: 0 4px 0 #8a5cf5; }
+.game-title { font-size: clamp(56px, 11vw, 130px); text-transform: lowercase; margin-bottom: 0.15em; }
+.game-title::first-letter { text-transform: uppercase; }
+.result-title { -webkit-text-stroke-color: #ffe36b; }
+.is-won .result-title { -webkit-text-stroke-color: #fff; }
 
 /* Error messages: when you lose, and anything that went wrong */
 .is-lost .card-title,
