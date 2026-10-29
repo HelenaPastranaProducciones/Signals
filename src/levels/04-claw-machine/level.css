@@ -1,0 +1,353 @@
+/* Level 4 · Claw Machine. Every rule starts with .level-04. */
+
+.level-04 .arcade {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3%;
+  padding: 14px 3% 0;
+  overflow: hidden;
+  user-select: none;
+  background:
+    radial-gradient(circle at 15% 20%, #fff6 0 2px, transparent 3px) 0 0 / 46px 46px,
+    linear-gradient(transparent 78%, #c9b6f2 78% 79%, #e6dcfb 79%),
+    linear-gradient(#f6d8f0, #d8d6ff);
+}
+
+/* ---------- The machine ---------- */
+
+.level-04 .machine {
+  position: relative;
+  height: calc(100% - 14px);
+  max-width: 62%;
+  aspect-ratio: 0.95;
+  display: flex;
+  flex-direction: column;
+  padding: 0 4.5%;
+  border-radius: 34px 34px 10px 10px;
+  background:
+    radial-gradient(circle at 25% 12%, #fff8 0, transparent 40%),
+    radial-gradient(ellipse at 50% 50%, transparent 60%, #0002 100%),
+    var(--body);
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.18), inset 0 -10px 0 rgba(0, 0, 0, 0.08);
+}
+
+.level-04 .sign {
+  margin: 4% 6% 3%;
+  padding: 2% 0 1%;
+  border-radius: 20px;
+  background: #23243a;
+  color: #ffe36b;
+  font-size: clamp(16px, 3.6vh, 30px);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-align: center;
+  line-height: 1.1;
+  box-shadow: inset 0 0 0 4px #ffffff22;
+  animation: level-04-blink 1.6s steps(2) infinite;
+}
+
+.level-04 .sign i {
+  margin: 0 0.35em;
+  color: #ff7ab0;
+  font-style: normal;
+}
+
+.level-04 .glass {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  border: 6px solid #ffffffcc;
+  border-radius: 16px;
+  background:
+    linear-gradient(transparent 82%, #00000014 82%),
+    linear-gradient(#fdf6ff, #e9e2ff);
+  box-shadow: inset 0 8px 18px #0000001a;
+}
+
+.level-04 .shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  background: linear-gradient(115deg, transparent 0 12%, #ffffff55 12% 16%, transparent 16% 22%, #ffffff33 22% 24%, transparent 24%);
+}
+
+.level-04 .rail {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 10px;
+  background: linear-gradient(#b9c1d1, #8b93a6);
+  z-index: 11;
+}
+
+/* The hole on the left where the prizes go down to the door. */
+.level-04 .chute {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 19%;
+  height: 26%;
+  border-right: 5px solid #ffffffcc;
+  background: linear-gradient(#ffffff66, #ffffff22);
+  z-index: 6;
+}
+
+.level-04 .prize {
+  position: absolute;
+  width: 18%;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.18));
+}
+
+.level-04 .prize svg { display: block; width: 100%; }
+
+.level-04 .prize.wish::after {
+  content: "💛";
+  position: absolute;
+  left: 50%;
+  top: -18%;
+  transform: translateX(-50%);
+  font-size: clamp(14px, 2.6vh, 24px);
+  animation: level-04-bob 0.8s ease-in-out infinite alternate;
+}
+
+.level-04 .prize.held { z-index: 12 !important; }
+.level-04 .prize.falling { transition: top 0.55s ease-in; z-index: 5 !important; }
+
+.level-04 .claw {
+  position: absolute;
+  top: 0;
+  width: 17%;
+  transform: translateX(-50%);
+  z-index: 13;
+  pointer-events: none;
+}
+
+.level-04 .cable {
+  width: 4px;
+  margin: 0 auto;
+  background: #6f7689;
+}
+
+.level-04 .head svg { display: block; width: 100%; overflow: visible; }
+
+.level-04 .prong { transition: transform 0.3s; }
+.level-04 .prong.left { transform-origin: 40px 30px; transform: rotate(16deg); }
+.level-04 .prong.right { transform-origin: 60px 30px; transform: rotate(-16deg); }
+.level-04 .closed .prong.left { transform: rotate(-6deg); }
+.level-04 .closed .prong.right { transform: rotate(6deg); }
+
+.level-04 .panel {
+  position: relative;
+  height: 17%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4%;
+  padding: 0 2%;
+}
+
+.level-04 .door {
+  width: 24%;
+  height: 62%;
+  border-radius: 10px;
+  background: #23243a;
+  box-shadow: inset 0 6px 0 #0006;
+}
+
+.level-04 .coins {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.level-04 .coins i {
+  width: clamp(14px, 2.6vh, 24px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff6c2, #f2c12e 55%, #c99a00);
+  box-shadow: 0 2px 0 #0003;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.level-04 .coins i.spent { opacity: 0.25; transform: scale(0.7); filter: grayscale(1); }
+
+.level-04 .button {
+  width: clamp(36px, 7vh, 60px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffb3a3, #ff5a3c 60%, #c63c22);
+  box-shadow: 0 5px 0 #0003;
+}
+
+/* ---------- The side: chat, prizes, you ---------- */
+
+.level-04 .side {
+  position: relative;
+  align-self: stretch;
+  width: 30%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 8px;
+}
+
+.level-04 .chat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  overflow: hidden;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.level-04 .msg {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  animation: level-04-in 0.3s ease-out;
+}
+
+.level-04 .msg.mine { justify-content: flex-end; }
+
+.level-04 .msg .face {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #fff;
+}
+
+.level-04 .msg .face svg { width: 100%; height: 100%; }
+
+.level-04 .msg p {
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: 14px 14px 14px 4px;
+  background: #fff;
+  color: #23243a;
+  font-size: 14px;
+  line-height: 1.25;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.level-04 .msg.mine p { border-radius: 14px 14px 4px 14px; background: #fff6c2; }
+.level-04 .msg p b { display: block; font-size: 12px; }
+
+.level-04 .tray {
+  padding: 8px 10px 10px;
+  border-radius: 16px;
+  background: #ffffffb3;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.level-04 .tray small {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 800;
+  color: #23243a;
+}
+
+.level-04 .slots { display: flex; gap: 8px; }
+
+.level-04 .slots span {
+  flex: 1;
+  aspect-ratio: 1;
+  border: 3px dashed #c9b6f2;
+  border-radius: 12px;
+}
+
+.level-04 .slots span.filled { border: 3px solid #ffe36b; background: #fff; animation: level-04-pop 0.35s ease-out; }
+.level-04 .slots svg { display: block; width: 100%; }
+
+.level-04 .me {
+  position: relative;
+  width: 58%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.level-04 .me svg { display: block; width: 100%; }
+
+.level-04 .me span {
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  transform: translateX(-50%);
+  padding: 1px 10px;
+  border-radius: 10px;
+  background: #ff5a3c;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* ---------- Messages over the game ---------- */
+
+.level-04 .toast {
+  position: absolute;
+  left: 50%;
+  top: 14px;
+  transform: translate(-50%, -150%);
+  padding: 8px 18px;
+  border-radius: 16px;
+  background: #fff;
+  color: #23243a;
+  font-weight: 700;
+  box-shadow: 0 5px 0 rgba(0, 0, 0, 0.15);
+  z-index: 30;
+  white-space: nowrap;
+  opacity: 0;
+}
+
+.level-04 .toast.show { animation: level-04-toast 2.2s ease-out forwards; }
+.level-04 .toast.good { background: #fff6c2; }
+.level-04 .toast.digital { background: #23243a; color: #9fe7ff; }
+
+.level-04 .start {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  text-align: center;
+  background: #23243acc;
+  color: #fff;
+  cursor: pointer;
+}
+
+.level-04 .start > b { font-size: clamp(26px, 5vh, 40px); color: #ffe36b; }
+
+/* ---------- Animations ---------- */
+
+@keyframes level-04-blink { 50% { color: #fff6c2; } }
+@keyframes level-04-bob { to { transform: translate(-50%, -25%); } }
+@keyframes level-04-in { from { opacity: 0; transform: translateY(10px); } }
+@keyframes level-04-pop { from { transform: scale(0.4); } }
+
+@keyframes level-04-toast {
+  0% { opacity: 0; transform: translate(-50%, -150%); }
+  12%, 80% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, 0); }
+}
+
+@media (max-width: 700px) {
+  .level-04 .arcade { flex-direction: column; align-items: center; padding-top: 8px; }
+  .level-04 .machine { height: 72%; max-width: 92%; }
+  .level-04 .side { width: 92%; max-width: none; flex-direction: row; align-self: center; }
+  .level-04 .me { display: none; }
+}

@@ -40,8 +40,11 @@ Els detalls de cada nivell són a la seva llibreta
 - **Norma per a tots els nivells:** cada partida ha de ser diferent (detalls
   a l'atzar), però amb les mateixes regles i la mateixa dificultat.
 - **Nivell 3 (Spot the Impostor):** pas 1 fet (idea acordada) i primera
-  versió jugable ja feta, amb dibuixos. Falta que Helena hi jugui.
-- **Nivells 4 a 19:** encara no s'han començat (pas 0). Només tenen la
+  versió jugable ja feta, amb dibuixos. Helena hi ha jugat i ha demanat
+  canvis (fets). Falta que doni el pas 2 per bo.
+- **Nivell 4 (Claw Machine):** pas 1 fet (idea acordada) i primera versió
+  jugable ja feta, amb dibuixos. Falta que Helena hi jugui.
+- **Nivells 5 a 19:** encara no s'han començat (pas 0). Només tenen la
   proposta inicial a la seva llibreta.
 - **Pendent general:** desar el progrés quan es tanca el joc, so, versió per
   a mòbil, app d'escriptori. Ho detalla `CLAUDE.md`, a "Pending work".
@@ -318,6 +321,26 @@ Els detalls de cada nivell són a la seva llibreta
 - Si se t'acaba el temps d'una ronda, perds la partida (abans només perdies
   un cor). Clicar qui no és l'impostor continua costant un cor.
 - Al final, per triar la teva tribu, ara surten les sis tribus (abans tres).
+
+**Nivell 4: idea acordada (pas 1)**
+- Què es veu: una màquina de grua de cara, com les de fira (descartat: vista
+  des de dalt).
+- Què fas: la grua va sola d'un costat a l'altre i prems per deixar-la
+  caure (descartat: moure-la tu amb fletxes o ratolí).
+- Gir social: després del primer intent, un amic et demana un objecte
+  concret, marcat amb un cor (descartat: que cada objecte porti una
+  dedicatòria).
+- Guanyes amb 3 objectes físics en 5 monedes, i un ha de ser el de l'amic
+  (descartat: que el de l'amic fos un extra). Agafar un objecte digital
+  (mòbil, tauleta, rellotge) o no agafar res gasta la moneda.
+- Sense rellotge; la grua va una mica més ràpida a cada intent (descartat:
+  rellotge de 45 segons).
+
+**Nivell 4: primera versió jugable**
+- Feta directament amb dibuixos: màquina d'un color a l'atzar, 9 objectes
+  (polaroid, vinil, cassette, càmera de carret, fanzine, i mòbil, tauleta,
+  rellotge), el xat de l'amic al costat i una safata amb els teus premis.
+  Cada partida canvia els objectes, l'ordre, els colors i l'amic.
 
 ---
 
