@@ -32,9 +32,9 @@ A group of 8–10 characters from one urban tribe (skaters, punks, otakus, posh 
 
 - **What the player sees:** a group from one urban tribe in its own place (e.g. skaters at the skatepark, gamers in a gaming café), drawn as avatars dressed for the tribe and each doing their own thing (chatting, looking at the phone, doing tricks). One of them doesn't fit, by their clothes or what they're doing. Each round is a different tribe and place.
 - **What the player does:** tap the one who doesn't belong.
-- **The social twist:** in the last round the impostor is you: your own avatar appears in a group that isn't yours, and you have to find your people. Several groups appear and you choose the one you fit with, by how you're dressed. (Idea to explore: the tribe you choose gets saved on your avatar.)
+- **The social twist:** in the last round the impostor is you: your own avatar appears in a group that isn't yours, and you have to find your people. All six tribes appear and you choose the one you fit with, by how you're dressed. (Idea to explore: the tribe you choose gets saved on your avatar.)
 - **How you win:** reach the end and, in the last round, find your own group. That last round can't be lost: it's the reward, not a test.
-- **How you lose:** each round has a few seconds to find the impostor. Tapping someone who belongs, or running out of time, costs a heart. 3 mistakes allowed; the 4th ends the game (like level 2).
+- **How you lose:** each round has a few seconds to find the impostor. Running out of time ends the game straight away. Tapping someone who belongs costs a heart: 3 wrong taps allowed, the 4th ends the game (like level 2).
 - **How long it lasts:** 5 rounds that get faster and harder (the first gives 6 seconds and few people; the last gives 4 seconds, more people and a better-hidden impostor), then the final round. About 35–40 seconds.
 
 ## Shares its mechanic
@@ -47,6 +47,8 @@ Same mechanic family as **level 18 (Odd One Out)**. The shared part is built in 
 - 29/10/2026: social twist: in the last round you are the impostor and must find your own group (rejected: a sad reaction when you tap someone who does belong).
 - 29/10/2026: 3 mistakes allowed (wrong tap or time up), the 4th loses, like level 2; the last round (finding your group) can't be lost (rejected: no losing, only points).
 - 29/10/2026: 5 rounds that get faster and harder (6 s down to 4 s, more people, subtler impostor), then the final round (rejected: 5 equal rounds of 5 s).
+- 29/10/2026: Helena: running out of time now ends the game (before, it only cost a heart). Wrong taps still cost a heart.
+- 29/10/2026: Helena: more groups to choose from at the end: now all six tribes (before, three).
 - 29/10/2026: Helena: more difference between the tribes. Each tribe now has its own colours and pieces that no other tribe uses, plus its own full outfit that the avatar editor doesn't have: skaters (earthy colours, beanies, baggy khaki trousers, knee pads, skate shoes), gamers (dark purple and navy with neon, headphones with a mic, gaming glasses, a badge, joggers with a neon stripe), otakus (pastels, pastel hair in buns, cat ears or bows, a pleated skirt, striped knee socks), punks (black and dark red, loud mohawks, a studded jacket, ripped jeans, tall boots), posh kids (white, butter and baby blue, sunglasses, pearls, a jumper over the shoulders, cream chinos, loafers), sporty kids (team colours, jerseys, caps or bandanas, shorts, tall sports socks, white sneakers).
 
 ## Open questions

@@ -13,7 +13,7 @@ import { TRIBES, impostor, member, tribesFor } from "./tribes.js";
  * Each round shows one urban tribe hanging out in its place (skaters at the
  * skatepark, gamers in a gaming café…). One person doesn't belong: tap them
  * before the time runs out. Rounds get faster, busier and the impostor
- * subtler. A wrong tap or running out of time costs a heart.
+ * subtler. A wrong tap costs a heart; running out of time ends the game.
  * The twist, in the last round: the impostor is you. Your avatar turns up
  * with a group that isn't yours, and you pick the group where you belong.
  * That round can't be lost.
@@ -34,9 +34,9 @@ export default defineLevel({
     groupSizeMin: 6, // people in the first round
     groupSizeMax: 10, // people in the fifth round
     impostorSubtlety: [0, 0, 1, 1, 2], // per round: 0 someone from another tribe, 1 half dressed like the group, 2 only one thing gives them away
-    mistakesAllowed: 3, // wrong taps or time-ups you can make; one more ends the game
+    mistakesAllowed: 3, // wrong taps you can make; one more ends the game (running out of time ends it straight away)
     graceSeconds: 1, // after a mistake, more mistakes during this time don't cost another heart
-    groupsToChooseFrom: 3, // groups offered in the last round
+    groupsToChooseFrom: 6, // groups offered in the last round (6 = every tribe)
   },
 
   play(game) {
@@ -57,8 +57,8 @@ export default defineLevel({
         <div class="timer"><i></i></div>
         <div class="start">
           <b>Who doesn't belong?</b>
-          <span>Each group has one impostor. <b>Click</b> them before the time runs out.</span>
-          <span>3 mistakes allowed · <b>Click to start</b></span>
+          <span>Each group has one impostor. <b>Click</b> them before the time runs out, or you're out!</span>
+          <span>3 wrong clicks allowed · <b>Click to start</b></span>
         </div>
       </div>`;
     const box = game.root.querySelector(".impostor");
@@ -109,8 +109,7 @@ export default defineLevel({
         busy = true;
         reveal();
         say("Time's up!");
-        if (lives.lose()) return game.after(900, () => game.lose("Your people slipped by… Try again!"));
-        game.after(1300, nextRound);
+        game.after(1100, () => game.lose("Too slow! The impostor slipped by… Try again!"));
       });
     };
 
@@ -161,8 +160,8 @@ export default defineLevel({
 
       game.after(2400, () => {
         scene.classList.remove("awkward");
-        const groups = shuffle([ranked[0], ...shuffle(ranked.slice(1, -1)).slice(0, s.groupsToChooseFrom - 1)]);
-        scene.innerHTML = `<div class="groups">${groups.map((tribe) => `
+        const groups = shuffle([ranked[0], ...shuffle(ranked.slice(1)).slice(0, s.groupsToChooseFrom - 1)]);
+        scene.innerHTML = `<div class="groups" style="--columns:${Math.ceil(groups.length / (groups.length > 3 ? 2 : 1))}">${groups.map((tribe) => `
           <button class="group" data-tribe="${tribe.id}">
             <div class="group-place">${place(tribe.id)}</div>
             <div class="group-people">${[0, 1, 2].map(() => {
@@ -171,8 +170,8 @@ export default defineLevel({
             }).join("")}</div>
             <span>${tribe.name}</span>
           </button>`).join("")}
-          <div class="me">${waving(you)}<span>${nickname}</span></div>
-        </div>`;
+        </div>
+        <div class="me">${waving(you)}<span>${nickname}</span></div>`;
         say(`<small>Last round</small>Find your people`);
         busy = false;
       });

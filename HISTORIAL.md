@@ -314,6 +314,11 @@ Els detalls de cada nivell són a la seva llibreta
   **GitHub Actions**. Ara el joc es publica d'una sola manera i el navegador
   ja no hauria d'ensenyar versions antigues.
 
+**Nivell 3: canvis després de provar-lo**
+- Si se t'acaba el temps d'una ronda, perds la partida (abans només perdies
+  un cor). Clicar qui no és l'impostor continua costant un cor.
+- Al final, per triar la teva tribu, ara surten les sis tribus (abans tres).
+
 ---
 
 ## Coses pendents de decidir
