@@ -42,8 +42,8 @@ Els detalls de cada nivell són a la seva llibreta
 - **Nivell 3 (Spot the Impostor):** pas 1 fet (idea acordada) i primera
   versió jugable ja feta, amb dibuixos. Helena hi ha jugat i ha demanat
   canvis (fets). Falta que doni el pas 2 per bo.
-- **Nivell 4 (Claw Machine):** pas 1 fet (idea acordada) i primera versió
-  jugable ja feta, amb dibuixos. Falta que Helena hi jugui.
+- **Nivell 4 (Claw Machine):** pas 2 fet (Helena hi ha jugat). Ara ajustant
+  la dificultat (pas 3): s'ha fet una mica més difícil.
 - **Nivells 5 a 19:** encara no s'han començat (pas 0). Només tenen la
   proposta inicial a la seva llibreta.
 - **Pendent general:** desar el progrés quan es tanca el joc, so, versió per
@@ -364,6 +364,8 @@ Els detalls de cada nivell són a la seva llibreta
   nivell 1.
 - Arreglat: al nivell 3, quan perdies, alguns personatges tapaven el cartell
   de "Game over".
+- Una mica més difícil: la grua va més ràpida i has d'apuntar més just
+  damunt l'objecte.
 
 ---
 

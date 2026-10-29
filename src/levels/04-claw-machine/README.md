@@ -12,7 +12,7 @@ Claude keeps it up to date in plain words while working on the level with Helena
 Tick a step only when Helena agrees it is done.
 
 - [x] 1. Idea agreed: what the player sees and does, the social twist, how you win or lose
-- [ ] 2. First playable version: simple shapes, playable from start to end
+- [x] 2. First playable version: simple shapes, playable from start to end
 - [ ] 3. Rules and difficulty tuned: it feels right to play
 - [ ] 4. Look and feel: final art in the Signals style, with animations
 - [ ] 5. Texts and details: final texts, and sound or vibration if wanted
@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-29/10/2026: idea agreed with Helena (step 1). First playable version built straight away with full art (as with levels 2 and 3): a front-facing claw machine with a random colour, 9 objects in a pile (6 physical: polaroid, vinyl, cassette, film camera, zine; 3 digital: phone, tablet, smartwatch), 5 coins, the claw swinging faster each try, a tray with your prizes on the front panel. Then, at Helena's request, the machine fills the whole screen and the friend's messages pop up like in level 1. After the first try the friend asks for one object, marked with a heart. Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
+29/10/2026: idea agreed with Helena (step 1). First playable version built straight away with full art (as with levels 2 and 3): a front-facing claw machine with a random colour, 9 objects in a pile (6 physical: polaroid, vinyl, cassette, film camera, zine; 3 digital: phone, tablet, smartwatch), 5 coins, the claw swinging faster each try, a tray with your prizes on the front panel. Then, at Helena's request, the machine fills the whole screen and the friend's messages pop up like in level 1. After the first try the friend asks for one object, marked with a heart. Helena played it (step 2 done) and asked for it a bit harder: faster claw and you have to aim more precisely. Next: she tries it again (step 3).
 
 ## The idea
 
@@ -45,7 +45,7 @@ Move the claw and grab polaroids, vinyls and cassettes, avoiding digital objects
 - 29/10/2026: to win you need 3 physical objects in 5 tries, one of them your friend's (rejected: the friend's object as an optional extra).
 - 29/10/2026: no clock, only the 5 tries; the claw speeds up a little each try (rejected: a 45-second clock as well).
 - 29/10/2026: Helena: the machine fills the whole screen (the coins and your prizes are now on its front panel; the side column with the chat and your avatar is gone), and the friend's messages pop up over the machine like the chat bubbles in level 1.
-## Open questions
+- 29/10/2026: Helena: a bit harder. The claw swings faster (34 instead of 28, and 9 faster each try instead of 7) and you have to drop it more precisely over an object (3 instead of 4.5).## Open questions
 
 _None yet._
 

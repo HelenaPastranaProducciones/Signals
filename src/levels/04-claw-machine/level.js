@@ -28,9 +28,9 @@ export default defineLevel({
     attempts: 5, // coins: tries with the claw
     prizesInMachine: 9, // objects in the machine at the start
     digitalPrizes: 3, // how many of them are digital (they waste a try)
-    clawSpeed: 28, // how fast the claw swings on the first try (% of the machine per second)
-    clawSpeedUp: 7, // how much faster it swings on each following try
-    grabWindow: 4.5, // how close (in % of the machine) the claw must be to an object to grab it
+    clawSpeed: 34, // how fast the claw swings on the first try (% of the machine per second)
+    clawSpeedUp: 9, // how much faster it swings on each following try
+    grabWindow: 3, // how close (in % of the machine) the claw must be to an object to grab it
     friendAsksAfterTry: 1, // after this many tries your friend asks for an object
   },
 
