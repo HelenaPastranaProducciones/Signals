@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-29/10/2026: the whole avatar was redrawn to be cute (small full-body figure) and it is now the runner of this level too; the friends use it as well. Keyboard to jump/duck, mouse only replies, bigger obstacles, double jumps with a counter. Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
+29/10/2026: own side-view runner (runner.js) in the cute style; random somersaults; game over / level complete shown over the frozen game. Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
 
 ## The idea
 
@@ -57,6 +57,7 @@ Split screen: Flappy/tap runner and a group chat. You tap to jump and also tap f
   - Bigger, easier-to-see obstacles, with a higher jump to match.
   - Double jumps add up: you collect them by replying and spend them whenever you want, with a counter showing how many you have.
 - 29/10/2026: the side-on runner looked ugly (giant head, bad hair). Decision: redo the avatar itself so it's cute, and use that same avatar to play (no separate runner drawing). The avatar editor was improved too.
+- 29/10/2026 (later): Helena clarified that the editor avatar and the one you play with are different drawings of the same choices. This level has its own side-view runner (`runner.js`) in the cute style; the editor avatar faces front. Somersaults are now random (sometimes on a jump, more often on a double jump). Crashing shows a dizzy pose, then the game over appears over the frozen game.
 
 ## Open questions
 
@@ -65,4 +66,4 @@ Split screen: Flappy/tap runner and a group chat. You tap to jump and also tap f
 ## Try it
 
 - Online: https://helenapastranaproducciones.github.io/Signals/?level=1
-- Files: `level.js` (texts, settings and the minigame), `art.js` (obstacles, landscape; the runner is the player's avatar), `level.css` (its look and animations)
+- Files: `level.js` (texts, settings and the minigame), `runner.js` (this level's side-view avatar, also used for the friends), `art.js` (obstacles, landscape), `level.css` (its look and animations)

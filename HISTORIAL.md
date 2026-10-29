@@ -23,8 +23,13 @@ Els detalls de cada nivell són a la seva llibreta
 - **Nivell 1 (Game & Chat):** pas 2 de 6. Es pot jugar de principi a final.
   Falta que Helena hi jugui i ho aprovi per donar el pas 2 per fet i passar a
   ajustar la dificultat (pas 3).
-- **Avatar:** refet de zero el 29/10 perquè sigui mono. És el mateix a tot
-  arreu: inici, menú, editor i nivells. Pendent que Helena el revisi.
+- **Avatar:** refet de zero el 29/10 perquè sigui mono. Hi ha **dos
+  dibuixos**: el de l'editor i el menú (de cara, de cos sencer) i el que juga
+  a cada nivell (al nivell 1, de perfil i corrent). Tots dos fan servir les
+  mateixes eleccions. Pendent que Helena el revisi.
+- **Final de partida:** quan perds o guanyes, el joc es queda congelat i a
+  sobre surt "GAME OVER" o "LEVEL COMPLETE" amb animació. Funciona per a tots
+  els nivells.
 - **Editor d'avatar:** nou, amb pestanyes i miniatures. Pendent que Helena el
   revisi.
 - **Nivells 2 a 19:** encara no s'han començat (pas 0). Només tenen la
@@ -143,6 +148,24 @@ Els detalls de cada nivell són a la seva llibreta
   els colors amb cercles.
 - Un error en publicar va fer que el joc en línia deixés de carregar uns
   minuts. Es va arreglar de seguida.
+
+**Dos avatars: el de l'editor i el que juga (29/10, més tard)**
+- Helena ho va aclarir: **l'editor guarda les eleccions** (pell, cabells, roba,
+  complements…), i **cada joc dibuixa el seu propi avatar** amb aquestes
+  eleccions, en la vista que necessiti. No s'ha d'agafar el dibuix de
+  l'editor i afegir-hi animacions.
+- L'avatar de l'editor i del menú ara mira **de cara**.
+- El nivell 1 té el seu propi avatar **de perfil**, en el mateix estil mono
+  (`src/levels/01-game-and-chat/runner.js`). Els amics de la meta també.
+- Les tombarelles ja no surten cada vegada: només de tant en tant, a l'atzar.
+- Quan xoques, el personatge queda marejat (💫).
+- **Final de partida per a tots els nivells:** el joc es queda congelat al
+  fons. Si perds, surt "GAME OVER" amb el missatge, "Try again" i "Back to
+  map". Si guanyes, surt "LEVEL COMPLETE" amb confeti, la frase final, les
+  peces desbloquejades i el següent nivell.
+- Helena demana que Claude **prengui la iniciativa amb l'aspecte**: que tot
+  quedi bonic i polit com un joc acabat, sense esperar que ella ho digui tot.
+  Ella té l'última paraula.
 
 ---
 

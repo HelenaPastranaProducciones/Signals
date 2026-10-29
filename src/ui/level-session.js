@@ -3,6 +3,7 @@ import { getLevel } from "../levels/index.js";
 import { startLevel, stopLevel } from "../engine/level-runner.js";
 import { state } from "../state.js";
 import { render } from "./render.js";
+import { resultOverlay } from "./screens/level.js";
 
 /**
  * Connects the level screen with the level runner. Registered as a render
@@ -35,7 +36,7 @@ export const levelSession = {
           if (result === "won") completeLevel(progress, level.number);
           ui.levelResult = result;
           ui.levelMessage = message;
-          render();
+          showResult(root, level, result, message);
         },
       });
     } catch (error) {
@@ -44,6 +45,18 @@ export const levelSession = {
     }
   },
 };
+
+/**
+ * Ending an attempt doesn't leave the game: the stage freezes where it was
+ * (the attempt is already stopped, and its CSS animations pause) and the
+ * result appears on top: "Game over" with "Try again", or "Level complete"
+ * with the closing line and what comes next.
+ */
+function showResult(root, level, result, message) {
+  root.classList.add("is-over");
+  root.insertAdjacentHTML("beforeend", resultOverlay(level, result, message));
+  root.querySelector(".result-overlay .btn")?.focus({ preventScroll: true });
+}
 
 /** Adds a level's stylesheet to the page the first time the level is played. */
 function loadStylesheet(href) {

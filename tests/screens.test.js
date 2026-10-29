@@ -4,7 +4,8 @@ import { createProgress, completeLevel } from "../src/game/progress.js";
 import { escapeHtml } from "../src/ui/html.js";
 import { introScreen } from "../src/ui/screens/intro.js";
 import { levelIntroScreen } from "../src/ui/screens/level-intro.js";
-import { levelScreen } from "../src/ui/screens/level.js";
+import { levelScreen, resultOverlay } from "../src/ui/screens/level.js";
+import { getLevel } from "../src/levels/index.js";
 import { lobbyScreen } from "../src/ui/screens/lobby.js";
 import { EDITOR_GROUPS } from "../src/ui/screens/avatar-editor.js";
 import { AVATAR_CATEGORIES } from "../src/data/avatar-catalog.js";
@@ -44,6 +45,19 @@ test("every lobby view and avatar category renders", () => {
 test("every avatar category is in exactly one editor tab", () => {
   const keys = EDITOR_GROUPS.flatMap((group) => group.keys);
   assert.deepEqual([...keys].sort(), AVATAR_CATEGORIES.map((category) => category.key).sort());
+});
+
+test("losing shows a game over with the message, Try again and Back to map", () => {
+  const html = resultOverlay(getLevel(1), "lost", "Ouch! You crashed.");
+  assert.match(html, /Ouch! You crashed\./);
+  assert.match(html, /data-action="restart-level"/);
+  assert.match(html, /data-action="to-map"/);
+});
+
+test("winning shows the closing line and the next signal over the game", () => {
+  const html = resultOverlay(getLevel(1), "won");
+  assert.match(html, /You were playing, but you were with them\./);
+  assert.match(html, /data-action="open-level" data-level="2"/);
 });
 
 test("the last level has no Next signal button", () => {

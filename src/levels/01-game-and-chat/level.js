@@ -5,12 +5,13 @@ import {
   FLYING_OBSTACLES, GROUND_OBSTACLES, LANDSCAPE, PALETTES,
   obstacleSvg, randomAvatar, sharedDefs,
 } from "./art.js";
+import { runnerAvatar } from "./runner.js";
 
 /**
  * Level 1 · Game & Chat
  * Design notes, progress and decisions: README.md in this folder.
  *
- * A runner: the player's avatar runs by itself
+ * A runner: the player's avatar, drawn side-on for this level (runner.js), runs by itself
  * towards a finish line where the friends wait. Keyboard: jump over things on
  * the ground, duck under things that fly. The mouse only replies to group
  * chat messages that pop up over the game: reply in time and that friend
@@ -40,6 +41,8 @@ export default defineLevel({
     secondsBetweenMessages: 6, // how often a new chat message arrives
     secondsToReply: 4.5, // how long a message waits for your reply
     unansweredToLose: 3, // unanswered messages that make you lose
+    flipChance: 0.15, // chance that a normal jump becomes a somersault
+    doubleFlipChance: 0.5, // chance that a double jump becomes a somersault
   },
 
   play(game) {
@@ -58,8 +61,6 @@ export default defineLevel({
     let finished = false;
 
     const friends = FRIENDS.map((friend) => ({ ...friend, avatar: randomAvatar() }));
-    /** The avatar's full figure, without its card, so it can run and jump. */
-    const figure = (avatar, label) => game.avatar(avatar, { label, backdrop: false });
 
     game.root.innerHTML = `
       <div class="world">
@@ -72,10 +73,10 @@ export default defineLevel({
           <div class="finish-arch"><span>FINISH</span></div>
           <div class="finish-spot"></div>
           <div class="finish-friends">
-            ${friends.map((f) => `<div class="friend">${figure(f.avatar, f.name)}<span style="background:${f.colour}">${f.name}</span></div>`).join("")}
+            ${friends.map((f) => `<div class="friend">${runnerAvatar(f.avatar, { label: f.name })}<span style="background:${f.colour}">${f.name}</span></div>`).join("")}
           </div>
         </div>
-        <div class="runner">${figure(game.player.avatar, "You")}<span>${escapeHtml(game.player.nickname)}</span></div>
+        <div class="runner">${runnerAvatar(game.player.avatar, { label: "You" })}<span>${escapeHtml(game.player.nickname)}</span></div>
         <div class="track-progress"><div class="track-progress-fill"></div><span>🏁</span></div>
         <div class="double-jumps" title="Double jumps to spend: press Space again in the air">
           <span class="double-jumps-icon">⇈</span><span class="double-jumps-label">Double jumps</span><b>0</b>
@@ -129,11 +130,19 @@ export default defineLevel({
     // Nothing moves until the player taps or presses Space for the first time.
     const start = () => {
       started = true;
+      document.activeElement?.blur?.();
       world.querySelector(".start").remove();
       game.after(s.firstMessageSeconds * 1000, () => {
         sendMessage();
         game.every(s.secondsBetweenMessages * 1000, sendMessage);
       });
+    };
+
+    /** Now and then a jump becomes a somersault, just for fun. */
+    const somersault = () => {
+      runner.classList.remove("flip");
+      void runner.offsetWidth;
+      runner.classList.add("flip");
     };
 
     // Jumping: on the ground, or in the air by spending a double jump.
@@ -144,12 +153,11 @@ export default defineLevel({
         return;
       } else if (height <= 0) {
         speedUp = jumpSpeed;
+        if (chance(s.flipChance)) somersault();
       } else if (doubleJumps > 0) {
         doubleJumps -= 1;
         speedUp = jumpSpeed;
-        runner.classList.remove("double-jump");
-        void runner.offsetWidth;
-        runner.classList.add("double-jump");
+        if (chance(s.doubleFlipChance)) somersault();
         showScore();
         bumpCounter();
       }
@@ -279,7 +287,7 @@ export default defineLevel({
       scenes.forEach((el, i) => (el.style.backgroundPositionX = `${-distance * LANDSCAPE.scenes[i].speed}px`));
       paintLandscape(world, scenes, elapsed / s.trackSeconds);
 
-      const runnerScale = runner.offsetWidth / 160;
+      const runnerScale = runner.offsetWidth / 140;
       const runnerTop = height + (ducking && height === 0 ? DUCKING_TOP : STANDING_TOP) * runnerScale;
       for (const o of obstacles) {
         const x = runnerX + (o.t - elapsed) * pixelsPerSecond;
@@ -290,6 +298,7 @@ export default defineLevel({
         const overlapsX = x + 4 < runnerX + runner.offsetWidth * 0.75 && x + o.width - 4 > runnerX + runner.offsetWidth * 0.3;
         const overlapsY = height < bottom + o.height - 6 && runnerTop > bottom + 4;
         if (overlapsX && overlapsY) {
+          runner.classList.add("crashed");
           game.vibrate([60, 40, 60]);
           game.lose("Ouch! You crashed. Try again!");
           return;
@@ -305,11 +314,11 @@ export default defineLevel({
 });
 
 // Height of the top of the runner's head above the bottom of its drawing, standing and
-// ducking, in avatar drawing units (the avatar is 160 wide; see src/avatar/render-avatar.js).
-const STANDING_TOP = 208;
-const DUCKING_TOP = 176;
+// ducking, in runner.js drawing units (140 wide).
+const STANDING_TOP = 196;
+const DUCKING_TOP = 166;
 // Pixels above the ground where flying obstacles pass: ducking fits under, standing doesn't.
-const FLYING_BOTTOM = 112;
+const FLYING_BOTTOM = 116;
 // Room kept free for the path above the ground, and above the progress bar.
 const PATH_CLEARANCE = 200;
 const TOP_MARGIN = 36;

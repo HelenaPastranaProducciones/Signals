@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { AVATAR_CATEGORIES, DEFAULT_AVATAR } from "../src/data/avatar-catalog.js";
 import { DRAWERS, renderAvatar } from "../src/avatar/render-avatar.js";
+import { runnerAvatar } from "../src/levels/01-game-and-chat/runner.js";
 
 /** Throws if the markup's tags don't nest properly. */
 function assertWellFormed(svg) {
@@ -67,8 +68,15 @@ test("an avatar can be framed to show only the head", () => {
   assert.notEqual(viewBox(renderAvatar(DEFAULT_AVATAR, { crop: "head" })), viewBox(renderAvatar(DEFAULT_AVATAR)));
 });
 
-test("arms and legs can be animated by levels", () => {
-  const svg = renderAvatar(DEFAULT_AVATAR);
+test("level 1 draws every avatar option side-on, with animatable arms and legs", () => {
+  for (const category of AVATAR_CATEGORIES) {
+    for (const option of category.options) {
+      const svg = runnerAvatar({ ...DEFAULT_AVATAR, [category.key]: option.id });
+      assert.doesNotMatch(svg, /undefined|NaN|\[object/, `${category.key} = ${option.id}`);
+      assertWellFormed(svg);
+    }
+  }
+  const svg = runnerAvatar(DEFAULT_AVATAR);
   for (const part of ["body", "thigh-front", "shin-back", "upperarm-front", "forearm-back"]) assert.match(svg, new RegExp(`class="[^"]*${part}`), part);
 });
 

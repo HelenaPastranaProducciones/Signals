@@ -67,6 +67,11 @@ work and lead her through the process.
 - **Problems are yours.** If something breaks, fix it and tell her in one
   plain sentence. Never blame her or ask her to debug.
 - **Encourage.** Point out progress ("level 3 is now at step 4 of 6").
+- **Take the initiative on looks (her request, 29/10/2026).** She wants the
+  game to look like a polished, finished commercial game. Don't wait for her
+  to point out every detail: use what good casual and platform games do, and
+  polish art, animation and feel on your own (show her the result). Her
+  taste still decides: if she dislikes something, change it.
 
 ### How a session goes
 
@@ -196,6 +201,15 @@ from two reused radial gradients (`src/avatar/svg-kit.js`): a highlight at
 the top left and a shadow at the edges. Levels can use the same kit for
 their art.
 
+- **Decided with Helena (29/10/2026), the key rule:** the editor's avatar and
+  the avatar you play with are **different drawings**. The editor stores the
+  player's *choices* (skin, hair, clothes, extras…); the lobby/editor shows a
+  **front-facing, full-body** figure; and **each level draws its own avatar**
+  from those choices, in whatever view and pose its game needs (level 1: side
+  view, running; a top-down room level: seen from above; etc.), in the same
+  cute style. Never take the editor drawing and bolt animations onto it. A
+  level's avatar drawing lives in that level's folder (or in
+  `src/mechanics/` if several levels share it).
 - **Decided with Helena (29/10/2026):** the avatar must be *cute*. It is a
   small full-body toy figure in a three-quarter view facing right (head about
   a third of the height, big shiny eyes, blush, soft hair with a fringe,
