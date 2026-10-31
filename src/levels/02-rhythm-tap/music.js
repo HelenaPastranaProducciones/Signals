@@ -31,11 +31,14 @@ const PROGRESSIONS = [
 
 /**
  * One bar of the guitar part: a lane (0–3) or null (rest) on each of the 8
- * eighth-note steps. The bar has `count` notes and starts on the first beat;
- * the rest fall at random. A note never repeats the lane of the one before.
+ * eighth-note steps. The notes go on the beats first (steps 0, 2, 4, 6, where
+ * the drums hit), so they follow the rhythm; only a busier bar adds notes
+ * between beats. A note never repeats the lane of the one before.
  */
 function randomPattern(count) {
-  const steps = new Set([0, ...shuffle([1, 2, 3, 4, 5, 6, 7]).slice(0, count - 1)]);
+  const onBeats = [0, 2, 4, 6].slice(0, count);
+  const between = shuffle([1, 3, 5, 7]).slice(0, Math.max(0, count - 4));
+  const steps = new Set([...onBeats, ...between]);
   let lane = randomInt(0, 3);
   return Array.from({ length: 8 }, (_, step) => {
     if (!steps.has(step)) return null;
@@ -90,7 +93,9 @@ export function startBand({ enabled, song }) {
   const startedAt = performance.now();
   const t0 = ctx ? ctx.currentTime + 0.12 : 0;
   /** Seconds since the song started (negative during the short lead-in). */
-  const now = () => (ctx ? ctx.currentTime - t0 : (performance.now() - startedAt) / 1000 - 0.12);
+  // What you hear lags behind the audio clock (speakers, Bluetooth headphones…): the notes follow what you hear.
+  const lag = ctx ? (ctx.outputLatency || 0) + (ctx.baseLatency || 0) : 0;
+  const now = () => (ctx ? ctx.currentTime - t0 - lag : (performance.now() - startedAt) / 1000 - 0.12);
 
   let master;
   let noiseBuffer;

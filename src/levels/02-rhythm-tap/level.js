@@ -33,7 +33,7 @@ export default defineLevel({
     bpm: 112, // song speed (beats per minute)
     introBars: 1, // bars the band plays before the first note
     bars: 12, // bars with notes (with the intro and ending, about 30 s)
-    travelSeconds: 1.7, // time a note takes to fall to the line
+    travelSeconds: 1.7, // time a note takes to fall to the line (rounded to whole beats, so the notes move with the music)
     hitWindow: 0.17, // seconds before or after the line that still count as a hit
     perfectWindow: 0.06, // seconds around the line that count as "Perfect!"
     mistakesAllowed: 3, // mistakes you can make; one more ends the song
@@ -45,6 +45,8 @@ export default defineLevel({
   play(game) {
     const s = game.settings;
     const song = buildSong(s);
+    // Notes fall for a whole number of beats: they appear on a beat and land on a beat.
+    const travel = Math.max(1, Math.round(s.travelSeconds / song.beat)) * song.beat;
     const keys = { ArrowLeft: 0, ArrowDown: 1, ArrowUp: 2, ArrowRight: 3 };
     const arrows = ["←", "↓", "↑", "→"];
 
@@ -206,7 +208,7 @@ export default defineLevel({
       const now = band.now();
       lanes[lane].querySelector(".receptor").classList.add("pressed");
       // The closest note in that lane that hasn't been played yet.
-      const note = notes.find((n) => !n.done && n.lane === lane && n.time - now < s.travelSeconds && now - n.time <= s.hitWindow);
+      const note = notes.find((n) => !n.done && n.lane === lane && n.time - now < travel && now - n.time <= s.hitWindow);
       if (note && Math.abs(note.time - now) <= s.hitWindow) {
         hit(note, lane, note.time - now);
       } else {
@@ -240,14 +242,14 @@ export default defineLevel({
           mistake(note.lane);
           if (game.ended) return;
         }
-        if (ahead > s.travelSeconds) continue;
+        if (ahead > travel) continue;
         if (!note.el) {
           note.el = document.createElement("div");
           note.el.className = "note";
           note.el.innerHTML = `<span>${arrows[note.lane]}</span>`;
           lanes[note.lane].append(note.el);
         }
-        note.el.style.transform = `translateY(${hitY - (ahead / s.travelSeconds) * hitY}px)`;
+        note.el.style.transform = `translateY(${hitY - (ahead / travel) * hitY}px)`;
         if (ahead < -0.4) {
           note.el.remove();
           note.el = null;

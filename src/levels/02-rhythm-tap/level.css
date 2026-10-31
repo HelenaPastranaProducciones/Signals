@@ -603,3 +603,7 @@
 .level-02 .receptor.pressed { background: var(--target-img) center / contain no-repeat; }
 .level-02 .note > span,
 .level-02 .receptor > span { visibility: hidden; }
+
+/* The notes bounce a little on every beat, with the drums. */
+.level-02 .note { transition: scale 0.08s ease-out; }
+.level-02 .on-beat .note { scale: 1.1; }
