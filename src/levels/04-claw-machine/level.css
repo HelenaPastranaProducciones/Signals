@@ -346,3 +346,7 @@
   background-image: var(--grain);
   pointer-events: none;
 }
+
+/* Objects stand on the floor in three rows; the back rows look further away. */
+.level-04 .prize { scale: var(--depth, 1); transform-origin: 50% 100%; }
+.level-04 .prize.held { scale: 1; }

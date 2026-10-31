@@ -49,8 +49,9 @@ export default defineLevel({
       ...kind,
       digital: DIGITAL.includes(kind),
       x: LEFT + span * (i + 0.5) + randomBetween(-span * 0.2, span * 0.2),
-      // A pile in three layers: the back ones higher up, the front ones on the floor.
-      lift: [randomBetween(0, 4), randomBetween(10, 16), randomBetween(19, 25)][i % 3],
+      // Three rows standing on the machine's floor: the back rows a little higher and smaller (further away), never floating.
+      lift: [randomBetween(0, 2), randomBetween(6, 8), randomBetween(11, 13)][i % 3],
+      depth: [1, 0.9, 0.8][i % 3],
     }));
 
     game.root.innerHTML = `
@@ -60,7 +61,7 @@ export default defineLevel({
           <div class="glass">
             <div class="rail"></div>
             <div class="chute"></div>
-            ${prizes.map((p, i) => `<div class="prize" data-i="${i}" style="left:${p.x.toFixed(1)}%;bottom:${(4 + p.lift).toFixed(1)}%;z-index:${[3, 2, 1][i % 3]}">${drawPrize(p.type)}</div>`).join("")}
+            ${prizes.map((p, i) => `<div class="prize" data-i="${i}" style="left:${p.x.toFixed(1)}%;bottom:${(3 + p.lift).toFixed(1)}%;z-index:${[3, 2, 1][i % 3]};--depth:${p.depth}">${drawPrize(p.type)}</div>`).join("")}
             <div class="claw" style="left:${LEFT}%">
               <div class="cable"></div>
               <div class="head">${CLAW}</div>

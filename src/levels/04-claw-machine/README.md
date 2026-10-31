@@ -41,6 +41,7 @@ Move the claw and grab polaroids, vinyls and cassettes, avoiding digital objects
 
 - 31/10/2026: new look for the whole game (Helena: the clay toys were too childish for teens). The prizes are painted (flat colours, hard shadow, wobbly edges, grain), and so are the claw, the machine (muted colours, a hard shadow on one side), the coins and the button, with a paper grain over everything. The chat faces were already the painted avatar.
 - 31/10/2026: Helena: more objects. Now 15 in a three-layer pile (10 physical, 5 digital) and more kinds: CD, sticker sheet and trading card join the physical ones; game console and laptop join the digital ones. Every attempt mixes them differently.
+- 31/10/2026: Helena: the objects must not look like they're flying. They now stand on the machine's floor in three rows, the back rows a little higher and smaller, as if further away.
 - 29/10/2026: the machine is seen from the front (rejected: seen from above, harder to read at a glance).
 - 29/10/2026: the claw moves by itself and you press to drop it, so timing is the skill and it works the same on phone (rejected: moving it yourself with arrows or the mouse).
 - 29/10/2026: social twist: a friend asks you for a specific object and you win it for them (rejected: every object carries a handwritten dedication from a friend).
