@@ -43,6 +43,7 @@ Same mechanic family as **level 18 (Odd One Out)**. The shared part is built in 
 
 ## Decisions
 
+- 31/10/2026: new look for the whole game (Helena: the clay toys were too childish for teens). Everyone is now the painted avatar from the editor (same faces and options), dressed in their tribe's outfit, with the same props; the places are painted too (muted colours, wobbly edges, fine grain; no grain in the small cards of the last round).
 - 29/10/2026: the player sees a group of one tribe hanging out in its own place (not a grid of faces), a different tribe and place each round.
 - 29/10/2026: social twist: in the last round you are the impostor and must find your own group (rejected: a sad reaction when you tap someone who does belong).
 - 29/10/2026: 3 mistakes allowed (wrong tap or time up), the 4th loses, like level 2; the last round (finding your group) can't be lost (rejected: no losing, only points).

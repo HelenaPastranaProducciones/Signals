@@ -48,8 +48,10 @@ let kitCount = 0;
  * that for small drawings: on big moving ones it costs too much).
  *
  * @param {string} [id]
+ * @param {{ grain?: number, wobble?: number }} [options]  Finer grain and less wobble for big
+ *   drawings shown near their real size (backdrops); the defaults suit small figures.
  */
-export function createPaintKit(id = `paint-${++kitCount}`) {
+export function createPaintKit(id = `paint-${++kitCount}`, { grain = 0.85, wobble = 2.6 } = {}) {
   const ids = { light: `${id}-light`, shade: `${id}-cel`, bodyClip: `${id}-body`, paint: `${id}-paint` };
   const seed = [...id].reduce((sum, c) => sum + c.charCodeAt(0), 0) % 97;
 
@@ -57,8 +59,8 @@ export function createPaintKit(id = `paint-${++kitCount}`) {
     `<defs><linearGradient id="${ids.shade}" x1="0" x2="1"><stop offset=".62" stop-color="#3a1e2a" stop-opacity="0"/><stop offset=".62" stop-color="#3a1e2a" stop-opacity=".16"/></linearGradient>` +
     `<filter id="${ids.paint}" x="-10%" y="-10%" width="120%" height="120%">` +
     `<feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="${seed}" result="warp"/>` +
-    `<feDisplacementMap in="SourceGraphic" in2="warp" scale="2.6" xChannelSelector="R" yChannelSelector="G" result="rough"/>` +
-    `<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="${seed + 7}" result="noise"/>` +
+    `<feDisplacementMap in="SourceGraphic" in2="warp" scale="${wobble}" xChannelSelector="R" yChannelSelector="G" result="rough"/>` +
+    `<feTurbulence type="fractalNoise" baseFrequency="${grain}" numOctaves="2" seed="${seed + 7}" result="noise"/>` +
     `<feColorMatrix in="noise" type="matrix" values="0 0 0 0 .16  0 0 0 0 .1  0 0 0 0 .14  1.1 0 0 0 -.52" result="specks"/>` +
     `<feComposite in="specks" in2="rough" operator="in" result="grain"/>` +
     `<feMerge><feMergeNode in="rough"/><feMergeNode in="grain"/></feMerge></filter>${extra}</defs>`;

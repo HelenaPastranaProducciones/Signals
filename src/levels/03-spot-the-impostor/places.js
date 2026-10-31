@@ -1,4 +1,4 @@
-import { createSvgKit } from "../../avatar/svg-kit.js";
+import { createPaintKit, paint } from "../../avatar/svg-kit.js";
 import { pick, randomBetween, randomInt } from "../../engine/random.js";
 
 /**
@@ -6,14 +6,20 @@ import { pick, randomBetween, randomInt } from "../../engine/random.js";
  * a wall or sky at the back and a floor in perspective (from about 45% of
  * the height down). Each call draws a slightly different version.
  *
+ * Painted like the avatar (31/10/2026): colours a little muted, a hard shadow
+ * on the things in the place, wobbly edges and a paint grain.
+ *
  * Drawing units: 1000 × 600, the floor starts at y = 270.
  */
 
-const kit = createSvgKit("level-03-places");
+const kit = createPaintKit("level-03-places", { grain: 2.4, wobble: 2 });
 const FLOOR = 270;
 
 const wrap = (body) =>
-  `<svg class="place-svg" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true">${kit.defs()}${body}</svg>`;
+  `<svg class="place-svg" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true">${kit.defs()}<g filter="url(#${kit.ids.paint})">${muted(body)}</g></svg>`;
+
+/** Pulls every colour of a drawing a little towards warm grey, like the painted avatar. */
+const muted = (body) => body.replace(/(fill|stop-color)="(#[0-9a-f]{6})"/gi, (match, attr, colour) => `${attr}="${paint(colour)}"`);
 
 /** Floor with a soft gradient towards the back. */
 const floor = (near, far) =>

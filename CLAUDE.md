@@ -219,8 +219,8 @@ first proposal, to tune while playing.
   (`styles/hand-drawn.css`, tokens in `styles/tokens.css`): warm paper, dark
   ink outlines with uneven corners, short flat shadows. Level art in this look: level 1
   done (its runner uses `createPaintKit` from `svg-kit.js`, the same helpers
-  as the clay kit but painted). Level 2 done too (band and crowd). Still to redraw (phase 2): levels 3 and 4,
-  including the clay characters of level 3 (they use the clay pieces still
+  as the clay kit but painted). Levels 2 and 3 done too (built from `paintedPieces`). Still to redraw
+  (phase 2): level 4 (they use the clay pieces still
   exported from `render-avatar.js`). The notes below describe the clay
   avatar and still apply to those pieces.
 The avatar is the common thread of the game: you play, unlock pieces and see

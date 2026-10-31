@@ -45,7 +45,8 @@ export function paintedAvatar(a, options = {}) {
  * Wrap the pieces in `<g filter="url(#${id}-paint)">` with `defs` and `clip` in the svg.
  *
  * @param {Record<string, string>} a
- * @param {{ pose?: "down" | "hips" | "wave", bottoms?: "jeans" | "shorts" | "skirt" | "cargo" }} [options]
+ * @param {{ pose?: "down" | "hips" | "wave", bottoms?: "jeans" | "shorts" | "skirt" | "cargo", trousers?: string, shoes?: string }} [options]
+ *   `trousers` and `shoes` are colours, for levels that dress people their own way.
  */
 export function paintedPieces(a, options = {}) {
   const id = `avatar-${++count}`;
@@ -92,16 +93,16 @@ export function paintedPieces(a, options = {}) {
 
   // ---- Legs and bottoms (hips at y 250, feet at y 398) ----
   const legs = limb("M88 250L86 392", skin, 12) + limb("M112 250L114 392", skin, 12);
-  const denim = mute(pick(a.acC === "#2a2b3d" ? ["#2a2b3d"] : ["#4b6c9e", "#2e3a52", "#6d7f99"], a.skin), 0.05);
+  const denim = options.trousers ? mute(options.trousers, 0.08) : mute(pick(a.acC === "#2a2b3d" ? ["#2a2b3d"] : ["#4b6c9e", "#2e3a52", "#6d7f99"], a.skin), 0.05);
   const BOTTOMS = {
     jeans: piece("M70 244L130 244L136 380L108 382L101 292L93 382L64 380Z", denim) + line("M101 252V290", dark("#4b6c9e", 0.5), 1.5),
-    cargo: piece("M68 244L132 244L138 380L108 382L101 292L93 382L62 380Z", mute("#8a8a5c")) + piece("M66 300h16v22h-16Z", mute("#77774c")) + piece("M118 300h16v22h-16Z", mute("#77774c")),
+    cargo: piece("M68 244L132 244L138 380L108 382L101 292L93 382L62 380Z", options.trousers ? denim : mute("#8a8a5c")) + piece("M66 300h16v22h-16Z", mute("#77774c")) + piece("M118 300h16v22h-16Z", mute("#77774c")),
     shorts: piece("M70 244L130 244L134 304L104 306L100 278L96 306L66 304Z", denim),
-    skirt: piece("M74 244L126 244L142 314Q100 324 58 314Z", mute(a.acC === "#ffffff" ? "#2a2b3d" : a.acC)),
+    skirt: piece("M74 244L126 244L142 314Q100 324 58 314Z", options.trousers ? denim : mute(a.acC === "#ffffff" ? "#2a2b3d" : a.acC)),
     overalls: piece("M70 244L130 244L136 380L108 382L101 292L93 382L64 380Z", top),
   };
   const socks = bottoms === "shorts" || bottoms === "skirt" ? piece("M80 360h12v30h-12Z", "#f1ece4") + piece("M108 360h12v30h-12Z", "#f1ece4") : "";
-  const shoeColour = mute(a.hatC || "#e8503a");
+  const shoeColour = mute(options.shoes || a.hatC || "#e8503a");
   const shoes = piece("M64 400Q62 386 78 386L90 386Q98 390 98 400Q98 408 80 408Q64 408 64 400Z", shoeColour) +
     piece("M102 400Q102 390 110 386L122 386Q138 386 136 400Q136 408 120 408Q102 408 102 400Z", shoeColour) +
     line("M64 404Q80 410 98 404", "#f1ece4", 3) + line("M102 404Q120 410 136 404", "#f1ece4", 3);

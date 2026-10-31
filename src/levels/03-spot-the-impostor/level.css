@@ -361,3 +361,6 @@
 @keyframes level-03-blink {
   50% { opacity: 0.3; }
 }
+
+/* In the small group cards of the last round the paint grain turns into noise: plain colours there. */
+.level-03 .group-place g[filter] { filter: none; }
