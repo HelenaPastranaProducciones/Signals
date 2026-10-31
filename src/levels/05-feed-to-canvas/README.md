@@ -12,7 +12,7 @@ Claude keeps it up to date in plain words while working on the level with Helena
 Tick a step only when Helena agrees it is done.
 
 - [x] 1. Idea agreed: what the player sees and does, the social twist, how you win or lose
-- [ ] 2. First playable version: simple shapes, playable from start to end
+- [x] 2. First playable version: simple shapes, playable from start to end
 - [ ] 3. Rules and difficulty tuned: it feels right to play
 - [ ] 4. Look and feel: final art in the Signals style, with animations
 - [ ] 5. Texts and details: final texts, and sound or vibration if wanted
@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-31/10/2026: idea agreed with Helena (step 1). First playable version built straight away in the painted look: the phone, the feed scrolling faster and faster with painted posts from random friends, the Create button after 2.5 s, a 10×10 canvas with 8 colours and an eraser, six templates (heart, star, cat, smiley, mushroom, flower), and the published post with likes and comments. Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
+31/10/2026: idea agreed with Helena (step 1). First playable version built straight away in the painted look: the phone, the feed scrolling faster and faster with painted posts from random friends, the Create button after 2.5 s, a 10×10 canvas with 8 colours and an eraser, six templates (heart, star, cat, smiley, mushroom, flower), and the published post with likes and comments. Helena played it (step 2 done) and asked for grey empty pixels and a 16×16 canvas with harder drawings (done). Next: tune difficulty if needed (step 3).
 
 ## The idea
 
