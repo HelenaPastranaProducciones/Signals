@@ -39,7 +39,7 @@ export default defineLevel({
     const nickname = escapeHtml(game.player.nickname);
     const [friend] = randomFriends(1);
     // Every attempt is a different run: other objects, colours, places and machine.
-    const machineColour = pick(["#ff7ab0", "#5fa8ff", "#7ad08f", "#ffb347", "#b49cff"]);
+    const machineColour = pick(["#d9708f", "#6f9fd8", "#6fbf8c", "#e2a04a", "#9c8ad0"]);
     const types = shuffle([
       ...Array.from({ length: s.prizesInMachine - s.digitalPrizes }, (_, i) => PHYSICAL[i % PHYSICAL.length]),
       ...Array.from({ length: s.digitalPrizes }, (_, i) => DIGITAL[i % DIGITAL.length]),
@@ -300,13 +300,15 @@ const RIGHT = 90;
 const CHUTE = 7;
 const chance50 = () => Math.random() < 0.5;
 
-/** The claw head: a cap and three prongs that close around a prize. */
+/** The claw head: a cap and three prongs that close around a prize, painted (flat metal, hard shadow, wobbly edges). */
 const CLAW = `<svg viewBox="0 0 100 90" aria-hidden="true">
-  <defs><linearGradient id="claw-metal" x1="0" x2="1"><stop offset="0" stop-color="#e9edf5"/><stop offset=".5" stop-color="#b9c1d1"/><stop offset="1" stop-color="#8b93a6"/></linearGradient></defs>
-  <g class="prong left"><path d="M40 30L18 52Q12 62 22 78" fill="none" stroke="url(#claw-metal)" stroke-width="8" stroke-linecap="round"/></g>
-  <g class="prong right"><path d="M60 30L82 52Q88 62 78 78" fill="none" stroke="url(#claw-metal)" stroke-width="8" stroke-linecap="round"/></g>
+  <defs><linearGradient id="claw-cel" x1="0" x2="1"><stop offset=".6" stop-color="#3a1e2a" stop-opacity="0"/><stop offset=".6" stop-color="#3a1e2a" stop-opacity=".2"/></linearGradient>
+  <filter id="claw-paint" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="3" result="warp"/><feDisplacementMap in="SourceGraphic" in2="warp" scale="2" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+  <g filter="url(#claw-paint)">
+  <g class="prong left"><path d="M40 30L18 52Q12 62 22 78" fill="none" stroke="#a9b0bf" stroke-width="8" stroke-linecap="round"/></g>
+  <g class="prong right"><path d="M60 30L82 52Q88 62 78 78" fill="none" stroke="#8d94a5" stroke-width="8" stroke-linecap="round"/></g>
   <g class="prong middle"><path d="M50 32V70" fill="none" stroke="#9aa2b4" stroke-width="7" stroke-linecap="round"/></g>
-  <rect x="28" y="6" width="44" height="30" rx="12" fill="url(#claw-metal)"/>
-  <rect x="34" y="11" width="18" height="7" rx="3.5" fill="#fff" opacity=".7"/>
-  <circle cx="50" cy="28" r="5" fill="#ff5a3c"/>
+  <rect x="28" y="6" width="44" height="30" rx="12" fill="#b4bac8"/><rect x="28" y="6" width="44" height="30" rx="12" fill="url(#claw-cel)"/>
+  <circle cx="50" cy="28" r="5" fill="#d9573f"/>
+  </g>
 </svg>`;

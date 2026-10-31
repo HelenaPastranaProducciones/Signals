@@ -1,8 +1,9 @@
-import { createSvgKit } from "../../avatar/svg-kit.js";
+import { createPaintKit } from "../../avatar/svg-kit.js";
 import { pick, randomBetween } from "../../engine/random.js";
 
 /**
- * The prizes inside the claw machine, drawn in the clay style. Physical
+ * The prizes inside the claw machine, painted like the avatar (31/10/2026):
+ * flat colours, a hard shadow, wobbly edges and a paint grain. Physical
  * objects (the ones to win) and digital ones (the ones that waste a try).
  * Every call picks its own colours, so no two machines look the same.
  */
@@ -11,7 +12,7 @@ const BRIGHT = ["#ff5f9e", "#3f8fff", "#3cb371", "#ff9a1f", "#a26bff", "#18b6c9"
 const SKIES = [["#9fd3ff", "#3cb371"], ["#ffb38a", "#a26bff"], ["#ffe08a", "#ff7a45"], ["#c9b6f2", "#18b6c9"]];
 
 const svg = (k, body, tilt = 0) =>
-  `<svg viewBox="0 0 100 100" class="prize-svg" aria-hidden="true">${k.defs()}<g transform="rotate(${tilt.toFixed(1)} 50 50)">${body}</g></svg>`;
+  `<svg viewBox="0 0 100 100" class="prize-svg" aria-hidden="true">${k.defs()}<g filter="url(#${k.ids.paint})"><g transform="rotate(${tilt.toFixed(1)} 50 50)">${body}</g></g></svg>`;
 
 /** Rounded rectangle path. */
 const box = (x, y, w, h, r) =>
@@ -123,4 +124,4 @@ export const DIGITAL = [
 
 let count = 0;
 /** SVG markup of one prize, with its own random colours and tilt. */
-export const drawPrize = (type) => DRAW[type](createSvgKit(`prize-${++count}`));
+export const drawPrize = (type) => DRAW[type](createPaintKit(`prize-${++count}`, { grain: 1.6, wobble: 1.8 }));

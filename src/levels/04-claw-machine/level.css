@@ -303,3 +303,46 @@
   .level-04 .bubble { font-size: 14px; }
   .level-04 .bubble-face { width: 40px; height: 40px; }
 }
+
+/* ---------- Painted look (Helena, 31/10/2026): flat colours, hard shadows, paper grain ---------- */
+
+.level-04 .machine {
+  background:
+    linear-gradient(90deg, transparent 72%, rgba(58, 30, 42, 0.13) 72%),
+    var(--body);
+  box-shadow: inset 0 -10px 0 rgba(58, 30, 42, 0.12);
+}
+
+.level-04 .glass {
+  border-color: #f1ece4;
+  background:
+    linear-gradient(transparent 80%, rgba(58, 30, 42, 0.08) 80%),
+    #efe9f2;
+  box-shadow: inset 0 8px 0 rgba(58, 30, 42, 0.06);
+}
+
+.level-04 .shine { background: linear-gradient(115deg, transparent 0 8%, #ffffff44 8% 11%, transparent 11%); }
+.level-04 .rail { background: #9aa2b4; }
+.level-04 .chute { border-right-color: #f1ece4; background: rgba(241, 236, 228, 0.35); }
+
+.level-04 .coins i {
+  background: linear-gradient(90deg, transparent 58%, rgba(58, 30, 42, 0.2) 58%), #e2b545;
+  box-shadow: 0 2px 0 rgba(58, 30, 42, 0.25);
+}
+
+.level-04 .button {
+  background: linear-gradient(90deg, transparent 60%, rgba(58, 30, 42, 0.2) 60%), #d9573f;
+  box-shadow: 0 5px 0 rgba(58, 30, 42, 0.3);
+}
+
+.level-04 .door { background: #2b2630; }
+.level-04 .tray { background: rgba(241, 236, 228, 0.75); }
+
+.level-04 .arcade::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 35;
+  background-image: var(--grain);
+  pointer-events: none;
+}
