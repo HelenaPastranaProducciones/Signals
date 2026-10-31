@@ -100,7 +100,9 @@
 .level-04 .prize svg { display: block; width: 100%; }
 
 .level-04 .prize.wish::after {
-  content: "💛";
+  content: "♥";
+  color: #e4573d;
+  -webkit-text-stroke: 1.5px #2b2630;
   position: absolute;
   left: 50%;
   top: -18%;

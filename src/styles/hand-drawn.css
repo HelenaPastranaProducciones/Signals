@@ -100,3 +100,13 @@ body {
 
 /* Messages and closing lines are sentences: normal case reads better. */
 .card-title { text-transform: none; letter-spacing: 0; }
+
+/* Hand-drawn icons (no emojis). */
+.icon { width: 1.1em; height: 1.1em; vertical-align: -0.18em; }
+.lobby-button .icon { width: 34px; height: 34px; vertical-align: middle; color: var(--ink-on-pastel); }
+.level-tile b .icon { width: 30px; height: 30px; }
+.swatch-lock .icon { width: 16px; height: 16px; color: #2b2630; }
+
+/* "Win:" and "Lose:" lines on each level's start card. */
+.level-stage .start .rules { max-width: 560px; }
+.level-stage .start .rules b { color: #e9b03b; }

@@ -406,6 +406,21 @@ Els detalls de cada nivell són a la seva llibreta
 - El paisatge té colors una mica més apagats i una textura de paper; els
   obstacles també tenen la textura de pintura.
 
+**Canvis generals que ha demanat Helena**
+- En començar, després de la pantalla de càrrega, s'obre primer la pantalla
+  de l'avatar (amb el nom), i des d'allà "Go to the map" porta als nivells.
+- Sense emoticones enlloc: la casa i el mapa del botó flotant, els cadenats,
+  els botons del menú, el rellotge i els missatges dels nivells. On calia una
+  icona, ara n'hi ha una de dibuixada amb línia de tinta.
+- El camp del nom ja no diu "Player": surt buit amb "Name" perquè s'entengui
+  que hi has d'escriure el teu nom. Si el deixes buit, als nivells posa "You".
+- L'avatar de partida és senzill: sense gorra, sense ulleres ni accessoris,
+  amb samarreta.
+- A la pantalla d'inici de cada nivell (1 a 4) s'explica també com guanyes i
+  com perds.
+- Nivell 1: el fons s'ha redibuixat amb l'estètica nova: línies de tinta,
+  colors càlids de paper, cel més suau i terra amb vora de tinta.
+
 ---
 
 ## Coses pendents de decidir

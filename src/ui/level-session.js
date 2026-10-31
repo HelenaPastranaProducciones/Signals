@@ -1,3 +1,4 @@
+import { NAMELESS } from "../config.js";
 import { completeLevel } from "../game/progress.js";
 import { getLevel } from "../levels/index.js";
 import { startLevel, stopLevel } from "../engine/level-runner.js";
@@ -26,12 +27,12 @@ export const levelSession = {
     try {
       startLevel(level, {
         root,
-        player: { nickname: progress.nickname, avatar: { ...progress.avatar } },
+        player: { nickname: progress.nickname || NAMELESS, avatar: { ...progress.avatar } },
         vibration: progress.settings.vibration,
         sound: progress.settings.sound,
         hud: {
           setInfo: (text) => (info.textContent = text),
-          setTime: (seconds) => (time.textContent = seconds === null ? "" : `⏱ ${Math.ceil(seconds)}`),
+          setTime: (seconds) => (time.textContent = seconds === null ? "" : `${Math.ceil(seconds)}s`),
         },
         onEnd(result, message) {
           if (result === "won") completeLevel(progress, level.number);

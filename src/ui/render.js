@@ -1,5 +1,6 @@
 import { state } from "../state.js";
 import { applyTheme } from "./browser.js";
+import { ICONS } from "./components.js";
 import { introScreen } from "./screens/intro.js";
 import { levelIntroScreen } from "./screens/level-intro.js";
 import { levelScreen } from "./screens/level.js";
@@ -15,9 +16,9 @@ const SCREENS = {
   level: levelScreen,
 };
 
-/** Floating house button that opens the lobby from the map. */
+/** Floating house button that opens the lobby from the map (a map icon to go back). */
 const lobbyButton = (open) =>
-  `<button class="lobby-button" data-action="toggle-lobby" aria-label="${open ? "Back to map" : "Open lobby"}">${open ? "🗺️" : "🏠"}</button>`;
+  `<button class="lobby-button" data-action="toggle-lobby" aria-label="${open ? "Back to map" : "Open lobby"}">${open ? ICONS.map : ICONS.house}</button>`;
 
 /** Identifies what is on screen; scroll and focus are kept while it stays the same. */
 const viewKey = ({ screen, lobbyOpen, lobbyView, level, levelResult }) =>

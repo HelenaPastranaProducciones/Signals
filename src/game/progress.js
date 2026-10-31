@@ -66,7 +66,7 @@ export function setNickname(progress, value) {
   progress.nickname = value.slice(0, NICKNAME_MAX_LENGTH);
 }
 
-/** Falls back to the default nickname if the player left it blank. */
+/** Trims spaces; a blank name stays blank (the field then shows "Name"). */
 export function normalizeNickname(progress) {
   progress.nickname = progress.nickname.trim() || DEFAULT_NICKNAME;
 }

@@ -1,7 +1,7 @@
 import { renderAvatar } from "../../avatar/render-avatar.js";
 import { getCategory } from "../../data/avatar-catalog.js";
 import { isUnlocked } from "../../game/progress.js";
-import { avatarStage, backButton, screenHeader } from "../components.js";
+import { ICONS, avatarStage, backButton, screenHeader } from "../components.js";
 
 /**
  * Avatar editor groups: each tab shows its categories together, styles as
@@ -40,7 +40,7 @@ function styleOption(category, option, progress, { crop, preview }) {
   return `<button class="option option-thumb${selected ? " is-selected" : ""}${unlocked ? "" : " is-locked"}" data-action="avatar-part"
     data-key="${category.key}" data-value="${option.id}" aria-pressed="${selected}" title="${option.label}"${lockAttributes(option, unlocked)}>
     <span class="option-preview">${picture}</span>
-    <span class="option-label">${unlocked ? option.label : `🔒 Level ${option.unlockLevel}`}</span></button>`;
+    <span class="option-label">${unlocked ? option.label : `${ICONS.lock} Level ${option.unlockLevel}`}</span></button>`;
 }
 
 /** A colour option, shown as a round swatch. */
@@ -49,7 +49,7 @@ function colourOption(category, option, progress) {
   const selected = progress.avatar[category.key] === option.id;
   return `<button class="swatch-option${selected ? " is-selected" : ""}${unlocked ? "" : " is-locked"}" data-action="avatar-part"
     data-key="${category.key}" data-value="${option.id}" aria-pressed="${selected}" title="${unlocked ? option.label : `${option.label} · level ${option.unlockLevel}`}"${lockAttributes(option, unlocked)}>
-    <span class="swatch" style="background:${option.swatch}"></span>${unlocked ? "" : `<span class="swatch-lock">🔒</span>`}</button>`;
+    <span class="swatch" style="background:${option.swatch}"></span>${unlocked ? "" : `<span class="swatch-lock">${ICONS.lock}</span>`}</button>`;
 }
 
 function categorySection(key, progress, group) {
@@ -71,7 +71,7 @@ export function avatarEditorScreen({ progress, ui }) {
     `<div class="editor-layout">
       <div class="editor-preview">
         ${avatarStage(progress.avatar)}
-        <div class="button-row button-row-tight"><button class="btn btn-secondary" data-action="randomize-avatar">🎲 Random</button></div>
+        <div class="button-row button-row-tight"><button class="btn btn-secondary" data-action="randomize-avatar">${ICONS.dice} Random</button></div>
       </div>
       <div>
         <div class="chips" role="group" aria-label="Category">${EDITOR_GROUPS.map((g) => groupTab(g, g === group)).join("")}</div>

@@ -54,10 +54,10 @@
   bottom: 0;
   height: 18%;
   background-color: var(--ground);
-  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.1) 3px, transparent 4px);
+  background-image: radial-gradient(circle, rgba(43, 38, 48, 0.18) 2px, transparent 3px);
   background-size: 90px 40px;
   background-position: 0 14px;
-  border-top: 6px solid var(--groundEdge);
+  border-top: 3px solid var(--groundEdge);
 }
 
 /* Everything on the track stands on this line (top of .ground). */
@@ -182,7 +182,7 @@
 }
 
 .level-01 .runner.crashed::after {
-  content: "💫";
+  content: "✶ ✶";
   position: absolute;
   top: -6px;
   left: 50%;
@@ -348,11 +348,16 @@
   background: #ff5a3c;
 }
 
+/* A little chequered finish flag at the end of the bar. */
 .level-01 .track-progress span {
   position: absolute;
-  right: -26px;
-  top: -8px;
-  font-size: 20px;
+  right: -24px;
+  top: -6px;
+  width: 18px;
+  height: 13px;
+  border: 2px solid #2b2630;
+  border-radius: 2px;
+  background: repeating-conic-gradient(#2b2630 0 25%, #fff8ee 0 50%) 0 0 / 7px 7px;
 }
 
 /* Chat messages from friends: big, anywhere above the path. */

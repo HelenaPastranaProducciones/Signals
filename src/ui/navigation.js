@@ -29,6 +29,9 @@ function startLoading(ms, nextScreen) {
   }));
   loadingTimer = setTimeout(() => {
     goTo(nextScreen);
+    // After the opening loading screen, the player first meets their avatar and
+    // writes their name; "Back to map" then shows the levels (Helena, 31/10/2026).
+    if (nextScreen === "map") Object.assign(state.ui, { lobbyOpen: true, lobbyView: "main" });
     render();
   }, ms);
 }

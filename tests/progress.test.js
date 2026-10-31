@@ -60,11 +60,11 @@ test("reset clears levels and takes off pieces that become locked", () => {
   assert.equal(progress.avatar.eyes, "happy");
 });
 
-test("nicknames are capped and never left blank", () => {
+test("nicknames are capped and blank ones stay empty", () => {
   const progress = createProgress();
   setNickname(progress, "a very long nickname indeed");
   assert.equal(progress.nickname.length, 14);
   setNickname(progress, "   ");
   normalizeNickname(progress);
-  assert.equal(progress.nickname, "Player");
+  assert.equal(progress.nickname, "");
 });

@@ -9,5 +9,8 @@ export const LEVEL_LOADING_MS = 5000;
 /** The brief keeps a Skip button on level loading screens during development. */
 export const SHOW_SKIP_BUTTON = true;
 
-export const DEFAULT_NICKNAME = "Player";
+// Empty until the player writes a name: the lobby's name field shows "Name" (Helena, 31/10/2026).
+export const DEFAULT_NICKNAME = "";
+/** What levels show above the player when no name was written. */
+export const NAMELESS = "You";
 export const NICKNAME_MAX_LENGTH = 14;

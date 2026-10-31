@@ -93,7 +93,8 @@ export default defineLevel({
         <div class="start">
           <b>Press Space to start</b>
           <span>Hit the notes with the arrow keys <kbd>←</kbd> <kbd>↓</kbd> <kbd>↑</kbd> <kbd>→</kbd> when they reach the line</span>
-          <span>3 mistakes allowed</span>
+          <span class="rules"><b>Win:</b> keep playing until the end of the song</span>
+          <span class="rules"><b>Lose:</b> miss or hit a wrong note more than ${s.mistakesAllowed} times</span>
         </div>
       </div>`;
     const rhythm = game.root.querySelector(".rhythm");

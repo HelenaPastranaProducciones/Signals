@@ -76,7 +76,8 @@ export default defineLevel({
         <div class="start">
           <b>Grab the real stuff!</b>
           <span>The claw moves by itself. <b>Click</b> or press <b>Space</b> to drop it.</span>
-          <span>Win ${s.objectsToCatch} physical things with ${s.attempts} coins. Screens don't count!</span>
+          <span class="rules"><b>Win:</b> get ${s.objectsToCatch} physical things (polaroids, vinyls, cassettes…) with ${s.attempts} coins, one of them the one your friend asks for</span>
+          <span class="rules"><b>Lose:</b> run out of coins. Phones and other screens don't count</span>
           <span><b>Click to start</b></span>
         </div>
       </div>`;
@@ -197,16 +198,16 @@ export default defineLevel({
       const prize = held?.p;
       held = null;
       if (!prize) toast("So close! Nothing this time.");
-      else if (prize.digital) toast(`📱 ${prize.name}… <b>3 notifications</b>, and they're gone.`, "digital");
+      else if (prize.digital) toast(`${prize.name}… <b>3 notifications</b>, and they're gone.`, "digital");
       else {
         slots[won]?.insertAdjacentHTML("beforeend", drawPrize(prize.type));
         slots[won]?.classList.add("filled");
         won += 1;
         if (prize === wish) {
           gotWish = true;
-          toast(`You got ${friend.name}'s ${prize.name.toLowerCase()}! 💛`, "good");
-          game.after(500, () => message(friend.name, pick(["OMG you got it!! 💛 It's going straight on my wall", "NO WAY 😭 thank youuu, I'll keep it forever", "You're the best!! Come over and we'll play it 🎶"])));
-        } else toast(`${prize.name}! You can keep this one 🙌`, "good");
+          toast(`You got ${friend.name}'s ${prize.name.toLowerCase()}!`, "good");
+          game.after(500, () => message(friend.name, pick(["OMG you got it!! It's going straight on my wall", "NO WAY thank youuu, I'll keep it forever", "You're the best!! Come over and we'll play it"])));
+        } else toast(`${prize.name}! You can keep this one`, "good");
       }
       showCoins();
 
@@ -229,11 +230,11 @@ export default defineLevel({
       wish = pick(left.length ? left : prizes.filter((p) => !p.gone));
       prizeEls[prizes.indexOf(wish)].classList.add("wish");
       message(friend.name, pick([
-        `Wait, is that a ${wish.name.toLowerCase()}?? Can you get it for me? 🥺`,
-        `Pleeease grab me the ${wish.name.toLowerCase()} with the heart! 💛`,
-        `I NEED that ${wish.name.toLowerCase()} for my room 😍 get it for me?`,
+        `Wait, is that a ${wish.name.toLowerCase()}?? Can you get it for me?`,
+        `Pleeease grab me the ${wish.name.toLowerCase()} with the heart!`,
+        `I NEED that ${wish.name.toLowerCase()} for my room, get it for me?`,
       ]), false, 6.5);
-      game.after(900, () => message(nickname, "On it! 💪", true));
+      game.after(900, () => message(nickname, "On it!", true));
     };
 
     game.onFrame((dt) => {
@@ -284,7 +285,7 @@ export default defineLevel({
       const start = box.querySelector(".start");
       if (start) {
         start.remove();
-        message(friend.name, pick(["You're at the arcade?? Get something cool! ✨", "Ooh the claw machine, good luck!! 🍀"]));
+        message(friend.name, pick(["You're at the arcade?? Get something cool!", "Ooh the claw machine, good luck!!"]));
         return game.after(400, startTry);
       }
       drop();

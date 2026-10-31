@@ -1,10 +1,11 @@
-import { createPaintKit, paint } from "../../avatar/svg-kit.js";
+import { createPaintKit } from "../../avatar/svg-kit.js";
 import { chance, pick, randomBetween, randomInt, shuffle } from "../../engine/random.js";
 
 /**
  * Drawings for level 1: the obstacles and the landscape layers, in the
- * hand-painted look (31/10/2026): flat, slightly muted colours and a hard
- * shadow; the obstacles also get the paint grain. The runner is in runner.js.
+ * hand-drawn look (31/10/2026): warm, muted colours outlined in dark ink, like
+ * the menus; the obstacles are painted (flat colour, hard shadow, grain).
+ * The runner is in runner.js.
  */
 
 const kit = createPaintKit("level-01");
@@ -59,52 +60,55 @@ export const FLYING_OBSTACLES = [
 
 /** Wraps a drawing in an <svg>, `scale` times its drawn size. */
 export const obstacleSvg = (o, scale) =>
-  `<svg viewBox="0 0 ${o.width} ${o.height}" width="${o.width * scale}" height="${o.height * scale}"><g filter="url(#${kit.ids.paint})">${o.svg()}</g></svg>`;
+  `<svg viewBox="0 0 ${o.width} ${o.height}" width="${o.width * scale}" height="${o.height * scale}"><g filter="url(#${kit.ids.paint})" stroke="${INK}" stroke-width="2" stroke-linejoin="round">${o.svg()}</g></svg>`;
 
 // Landscape tiles, repeated sideways and scrolled at different speeds.
 // Every attempt builds a new landscape: the places you run through, their
 // order, where each tree or building stands, their colours and the time of day.
+// Everything is outlined in dark ink, like the menus (hand-drawn look, 31/10/2026).
+const INK = "#2b2630";
 const tile = (width, height, body) =>
-  `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">${body}</svg>`)}")`;
+  `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}"><g stroke="${INK}" stroke-width="2.4" stroke-linejoin="round">${body}</g></svg>`)}")`;
 
-const CROWNS = [["#7bd389", "#9be3a3"], ["#5cc46a", "#86d98f"], ["#ffb3cf", "#ffd1e2"], ["#ffc46b", "#ffdc9a"], ["#9fd37b", "#c2e8a3"]].map((pair) => pair.map((c) => paint(c)));
-const WALLS = ["#b9c7f0", "#f2b8c6", "#c9b6f2", "#ffd59e", "#a8d8e8", "#bfe3c6", "#ffcfb0", "#d9c4f5"].map((c) => paint(c));
-const HOUSE_WALLS = ["#ffd9c7", "#fff0b8", "#d6f1f1", "#f6d8f0", "#e4f2d0", "#ffe3ec"].map((c) => paint(c));
-const ROOFS = ["#ff8a7a", "#ffb347", "#5aa9ff", "#c97ad9", "#4fbf8f", "#f06a8a"].map((c) => paint(c));
-const AWNINGS = ["#ff6f91", "#5aa9ff", "#ffb347", "#4fbf8f", "#a174ff"].map((c) => paint(c));
+// The game's warm, muted palette: paper tints for walls, tomato, mustard, teal and lilac for accents.
+const CROWNS = [["#7fa877", "#a3c48f"], ["#6f9a6c", "#94b984"], ["#d99a8a", "#ecc0ac"], ["#d9a94e", "#ebc985"], ["#8fae73", "#b5cb92"]];
+const WALLS = ["#c9d9e8", "#e8cfe0", "#d3e6c5", "#f3dfa2", "#c6e2dc", "#f4c7b0", "#dcd2ee", "#efe3c6"];
+const HOUSE_WALLS = ["#f4c7b0", "#f3dfa2", "#c6e2dc", "#e8cfe0", "#d3e6c5", "#fff8ee"];
+const ROOFS = ["#e4573d", "#e9b03b", "#2f8f8a", "#9c8ad0", "#3e5c8a", "#c0577a"];
+const AWNINGS = ["#e4573d", "#2f8f8a", "#e9b03b", "#9c8ad0", "#3e5c8a"];
 
 const tree = (x, h, crown, [dark, light] = CROWNS[0]) =>
-  `<rect x="${x - 5}" y="${200 - h}" width="10" height="${h}" rx="4" fill="#b98a6a"/>` +
+  `<rect x="${x - 5}" y="${200 - h}" width="10" height="${h}" rx="4" fill="#8a5f45"/>` +
   `<circle cx="${x}" cy="${200 - h}" r="${crown}" fill="${dark}"/><circle cx="${x - crown * 0.35}" cy="${200 - h - crown * 0.3}" r="${crown * 0.45}" fill="${light}"/>`;
 
 const bush = (x, r, [dark, light]) =>
   `<ellipse cx="${x}" cy="${200 - r * 0.5}" rx="${r * 1.4}" ry="${r}" fill="${dark}"/><ellipse cx="${x - r * 0.4}" cy="${200 - r * 0.8}" rx="${r * 0.6}" ry="${r * 0.45}" fill="${light}"/>`;
 
 const bench = (x) =>
-  `<rect x="${x}" y="176" width="70" height="8" rx="4" fill="#c98a5a"/><rect x="${x}" y="164" width="70" height="6" rx="3" fill="#b37548"/>` +
-  `<rect x="${x + 6}" y="184" width="6" height="16" fill="#5b5f7a"/><rect x="${x + 58}" y="184" width="6" height="16" fill="#5b5f7a"/>`;
+  `<rect x="${x}" y="176" width="70" height="8" rx="4" fill="#c08a5a"/><rect x="${x}" y="164" width="70" height="6" rx="3" fill="#b37548"/>` +
+  `<rect x="${x + 6}" y="184" width="6" height="16" fill="#4a4550"/><rect x="${x + 58}" y="184" width="6" height="16" fill="#4a4550"/>`;
 
 const lamp = (x) =>
-  `<rect x="${x - 2}" y="110" width="4" height="90" fill="#5b5f7a"/><circle cx="${x}" cy="108" r="8" fill="#fff4b8"/>`;
+  `<rect x="${x - 2}" y="110" width="4" height="90" fill="#4a4550"/><circle cx="${x}" cy="108" r="8" fill="#f3dfa2"/>`;
 
 const building = (x, w, h, colour) =>
   `<rect x="${x}" y="${200 - h}" width="${w}" height="${h}" rx="6" fill="${colour}"/>` +
   Array.from({ length: Math.floor((h - 20) / 24) }, (_, row) =>
     Array.from({ length: Math.floor((w - 10) / 18) }, (_, col) =>
-      `<rect x="${x + 8 + col * 18}" y="${200 - h + 12 + row * 24}" width="9" height="12" rx="2" fill="#fff" opacity="${chance(0.2) ? ".95" : ".6"}"/>`).join("")).join("");
+      `<rect x="${x + 8 + col * 18}" y="${200 - h + 12 + row * 24}" width="9" height="12" rx="2" fill="${chance(0.25) ? "#f3dfa2" : "#fff8ee"}"/>`).join("")).join("");
 
 const house = (x, w, h, wall, roof) =>
   `<rect x="${x}" y="${200 - h}" width="${w}" height="${h}" rx="4" fill="${wall}"/>` +
   `<path d="M${x - 6} ${200 - h}L${x + w / 2} ${200 - h - w * 0.45}L${x + w + 6} ${200 - h}Z" fill="${roof}"/>` +
-  `<rect x="${x + w / 2 - 7}" y="180" width="14" height="20" rx="3" fill="#fff" opacity=".7"/>` +
-  `<rect x="${x + 8}" y="${200 - h + 12}" width="14" height="12" rx="2" fill="#fff" opacity=".6"/>`;
+  `<rect x="${x + w / 2 - 7}" y="180" width="14" height="20" rx="3" fill="#fff8ee"/>` +
+  `<rect x="${x + 8}" y="${200 - h + 12}" width="14" height="12" rx="2" fill="#fff8ee"/>`;
 
 const shop = (x, w, h, wall, awning) =>
   `<rect x="${x}" y="${200 - h}" width="${w}" height="${h}" rx="5" fill="${wall}"/>` +
-  `<rect x="${x + 8}" y="${200 - h * 0.55}" width="${w - 16}" height="${h * 0.4}" rx="3" fill="#fff" opacity=".65"/>` +
+  `<rect x="${x + 8}" y="${200 - h * 0.55}" width="${w - 16}" height="${h * 0.4}" rx="3" fill="#fff8ee"/>` +
   Array.from({ length: Math.ceil(w / 14) }, (_, i) =>
-    `<path d="M${x - 4 + i * 14} ${200 - h * 0.7}h14v10q-7 8-14 0Z" fill="${i % 2 ? "#fff" : awning}"/>`).join("") +
-  `<rect x="${x + 10}" y="${200 - h + 8}" width="${w - 20}" height="12" rx="6" fill="${awning}" opacity=".85"/>`;
+    `<path d="M${x - 4 + i * 14} ${200 - h * 0.7}h14v10q-7 8-14 0Z" fill="${i % 2 ? "#fff8ee" : awning}"/>`).join("") +
+  `<rect x="${x + 10}" y="${200 - h + 8}" width="${w - 20}" height="12" rx="6" fill="${awning}"/>`;
 
 /** Fills a 600-wide tile with things placed at random gaps. `place(x)` draws one and returns its width. */
 function scatter(place, minGap, maxGap) {
@@ -147,24 +151,24 @@ const SCENES = {
 /** Sky and ground colours along a run (start, middle, finish). One is picked per attempt. */
 const SKIES = [
   [ // a sunny day that ends in a pink sunset
-    { skyTop: "#bcd8ff", skyBottom: "#f1e6ff", ground: "#bfe8b0", groundEdge: "#93cf83" },
-    { skyTop: "#ffd2b8", skyBottom: "#fff0c8", ground: "#d9d4e8", groundEdge: "#b8b1cf" },
-    { skyTop: "#c9b2f5", skyBottom: "#ffc9dc", ground: "#f2dcc0", groundEdge: "#dcbf9c" },
+    { skyTop: "#bcd6dd", skyBottom: "#f1e7d4", ground: "#d9cfa8", groundEdge: "#2b2630" },
+    { skyTop: "#f2c9a8", skyBottom: "#f6e6cc", ground: "#d8c7a6", groundEdge: "#2b2630" },
+    { skyTop: "#d9a3b0", skyBottom: "#f3cdb6", ground: "#cdb79a", groundEdge: "#2b2630" },
   ],
   [ // early morning to a bright midday
-    { skyTop: "#ffc6a8", skyBottom: "#fff1d6", ground: "#cde8b8", groundEdge: "#a6d38f" },
-    { skyTop: "#a8d4ff", skyBottom: "#e6f4ff", ground: "#c8eab8", groundEdge: "#9fd48a" },
-    { skyTop: "#8fc8ff", skyBottom: "#d8f0ff", ground: "#ffe3b8", groundEdge: "#f0c68c" },
+    { skyTop: "#f2c9a8", skyBottom: "#f6ead2", ground: "#cfd6a8", groundEdge: "#2b2630" },
+    { skyTop: "#b8d4dc", skyBottom: "#eef0e2", ground: "#c9d6a6", groundEdge: "#2b2630" },
+    { skyTop: "#a9cbd8", skyBottom: "#e6efe6", ground: "#d9cba0", groundEdge: "#2b2630" },
   ],
   [ // an evening that turns into a starry night
-    { skyTop: "#ffb8a0", skyBottom: "#ffe2c4", ground: "#e8d6c0", groundEdge: "#d2b89a" },
-    { skyTop: "#a78bdc", skyBottom: "#f6b8d0", ground: "#cfc4e6", groundEdge: "#ac9fd0" },
-    { skyTop: "#4b4c9a", skyBottom: "#b38ad8", ground: "#9d93c8", groundEdge: "#7c71b0" },
+    { skyTop: "#f0b9a0", skyBottom: "#f5dcc2", ground: "#d8c2a0", groundEdge: "#2b2630" },
+    { skyTop: "#b49ac0", skyBottom: "#ecc0c4", ground: "#c2b2c6", groundEdge: "#2b2630" },
+    { skyTop: "#4e4f7c", skyBottom: "#9d86b4", ground: "#8d84ab", groundEdge: "#2b2630" },
   ],
   [ // a soft cloudy day
-    { skyTop: "#d4dcef", skyBottom: "#f2f0f8", ground: "#c4e2c4", groundEdge: "#9ccb9e" },
-    { skyTop: "#c2d6f2", skyBottom: "#eef3fb", ground: "#d4e6cc", groundEdge: "#aed0a2" },
-    { skyTop: "#b8c8f0", skyBottom: "#ffe8f0", ground: "#e8e0f4", groundEdge: "#c8bce4" },
+    { skyTop: "#cdd4d8", skyBottom: "#efeae0", ground: "#c9d3b4", groundEdge: "#2b2630" },
+    { skyTop: "#c3cfd6", skyBottom: "#ece8de", ground: "#cbd5b2", groundEdge: "#2b2630" },
+    { skyTop: "#c6c6d6", skyBottom: "#efe2e2", ground: "#d6cfc6", groundEdge: "#2b2630" },
   ],
 ];
 
@@ -175,14 +179,15 @@ const clouds = () => {
     const r = randomBetween(36, 70);
     body += `<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r * 0.33}"/><ellipse cx="${x + r * 0.4}" cy="${y - r * 0.2}" rx="${r * 0.5}" ry="${r * 0.32}"/>`;
   }
-  return tile(900, 200, `<g fill="#fff" opacity=".85">${body}</g>`);
+  return tile(900, 200, `<g fill="#fff8ee">${body}</g>`);
 };
 
 const hills = () => {
   const [a, b, c] = [0, 0, 0].map(() => randomInt(40, 110));
+  // Pushed down a little so no hilltop is cut by the top of the tile (it showed as a line in the sky).
   return tile(800, 200,
-    `<path d="M0 200V120Q100 ${a} 220 110T460 ${70 + a / 3}T680 ${b + 30}T800 120V200Z" fill="#c7e6cf"/>` +
-    `<path d="M0 200V160Q140 ${c + 40} 300 150T600 140T800 160V200Z" fill="#b2dcbd"/>`);
+    `<g transform="translate(0 34)"><path d="M0 200V120Q100 ${a} 220 110T460 ${70 + a / 3}T680 ${b + 30}T800 120V200Z" fill="#c3d3ad"/>` +
+    `<path d="M0 200V160Q140 ${c + 40} 300 150T600 140T800 160V200Z" fill="#a9c095"/></g>`);
 };
 
 /**
@@ -195,6 +200,6 @@ export function randomLandscape() {
     clouds: { speed: 0.08, image: clouds() },
     hills: { speed: 0.2, image: hills() },
     scenes: shuffle(Object.keys(SCENES)).slice(0, 3).map((name) => ({ speed: 0.5, image: SCENES[name]() })),
-    palettes: pick(SKIES).map((stop) => Object.fromEntries(Object.entries(stop).map(([key, colour]) => [key, paint(colour, 0.1)]))),
+    palettes: pick(SKIES),
   };
 }

@@ -67,6 +67,8 @@ work and lead her through the process.
 - **Problems are yours.** If something breaks, fix it and tell her in one
   plain sentence. Never blame her or ask her to debug.
 - **Encourage.** Point out progress ("level 3 is now at step 4 of 6").
+- **No emojis anywhere (Helena, 31/10/2026).** Use the hand-drawn `ICONS` in `src/ui/components.js` (or draw one) instead.
+- **Every level's start card says how you win and how you lose (Helena, 31/10/2026)**, besides the controls.
 - **Every attempt is a different run (her request, 29/10/2026).** Each time a level is played, the details change at random (scenery, layout, friends and their looks, texts, music) while the rules and difficulty stay the same. Build every level this way (see `src/levels/README.md`).
 - **Take the initiative on looks (her request, 29/10/2026).** She wants the
   game to look like a polished, finished commercial game. Don't wait for her
@@ -148,7 +150,8 @@ https://claude.ai/artifact/Kz5CaVyjyNMNNEcypQ6XRx
 
 1. **Title screen:** avatar and a Play button (Enter also works).
 2. **Fake 7-second loading screen** with the game's concept. The current
-   text is provisional.
+   text is provisional. Then the **lobby opens first** (avatar and name, Helena
+   31/10/2026); "Go to the map" shows the levels.
 3. **Level map:** grid of 19 levels (locked, available, completed). They open
    in order.
 4. **Fake 5-second loading screen before each level** with the signal's

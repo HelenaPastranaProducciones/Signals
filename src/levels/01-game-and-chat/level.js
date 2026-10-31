@@ -80,7 +80,7 @@ export default defineLevel({
           </div>
         </div>
         <div class="runner">${runnerAvatar(game.player.avatar, { label: "You" })}<span>${escapeHtml(game.player.nickname)}</span></div>
-        <div class="track-progress"><div class="track-progress-fill"></div><span>🏁</span></div>
+        <div class="track-progress"><div class="track-progress-fill"></div><span class="finish-flag" aria-label="Finish"></span></div>
         <div class="double-jumps" title="Double jumps to spend: press Space again in the air">
           <span class="double-jumps-icon">⇈</span><span class="double-jumps-label">Double jumps</span><b>0</b>
         </div>
@@ -88,6 +88,8 @@ export default defineLevel({
           <b>Press Space to start</b>
           <span><kbd>Space</kbd> or <kbd>↑</kbd> jump · again in the air: double jump</span>
           <span><kbd>↓</kbd> duck · <b>Click</b> the messages to reply</span>
+          <span class="rules"><b>Win:</b> reach the finish line, where your friends are waiting</span>
+          <span class="rules"><b>Lose:</b> crash into something, or leave ${s.unansweredToLose} messages without a reply</span>
         </div>
       </div>`;
     const world = game.root.querySelector(".world");
@@ -218,7 +220,7 @@ export default defineLevel({
       const ignore = game.after(s.secondsToReply * 1000, () => {
         if (finished) return;
         bubble.classList.add("ignored");
-        bubble.innerHTML = `${face}<span class="bubble-text"><b>${friend.name} 😢</b> ...ok<small>No reply</small></span>`;
+        bubble.innerHTML = `${face}<span class="bubble-text"><b>${friend.name}</b> ...ok<small>No reply</small></span>`;
         bubble.disabled = true;
         unanswered += 1;
         showScore();
@@ -349,11 +351,11 @@ function mix(a, b, t) {
 
 // What the friends write in the group chat. Each attempt shuffles them, so the chat is never the same.
 const MESSAGES = [
-  "are you coming tonight?", "look at this 😂", "did you see my story?", "who's online?", "this level is impossible",
-  "gg yesterday 🔥", "help me pick a song", "I miss you guys", "wait for me!!", "lol", "new skin dropped 👀",
+  "are you coming tonight?", "look at this", "did you see my story?", "who's online?", "this level is impossible",
+  "gg yesterday", "help me pick a song", "I miss you guys", "wait for me!!", "lol", "new skin dropped",
   "brb, dinner", "voice chat later?", "I got the rare one!!", "send me the link", "same team next round?",
-  "my mum says hi 😅", "who's got snacks", "plans for saturday?", "that video 💀", "rate my fit 1-10",
-  "I can't stop laughing", "you're online?? 👀", "pls carry me", "pizza at mine?", "omg did you hear",
+  "my mum says hi", "who's got snacks", "plans for saturday?", "that video lmao", "rate my fit 1-10",
+  "I can't stop laughing", "you're online??", "pls carry me", "pizza at mine?", "omg did you hear",
 ];
 
-const REPLIES = ["haha yes!", "omw 🏃", "lol 😂", "same!", "❤️", "for real?", "count me in", "10/10 🔥", "noooo 😭", "wait what", "yesss", "on it!"];
+const REPLIES = ["haha yes!", "omw", "lol", "same!", "love it", "for real?", "count me in", "10/10", "noooo", "wait what", "yesss", "on it!"];

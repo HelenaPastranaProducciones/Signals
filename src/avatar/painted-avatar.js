@@ -134,7 +134,7 @@ export function paintedAvatar(a, options = {}) {
   const FACE = {
     freckles: [[78, 108], [84, 112], [74, 113], [120, 108], [126, 112], [116, 113]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.4" fill="${skinDark}"/>`).join(""),
     stripes: line("M70 104l10 2M70 110l10 2", accent, 2.5) + line("M130 104l-10 2M130 110l-10 2", accent, 2.5),
-    star: `<text x="122" y="112" font-size="12">⭐</text>`,
+    star: piece("M122 100l2.6 5.4 5.9.8-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.8Z", "#e9b03b"),
     bandaid: piece("M68 102l14-4l3 8l-14 4Z", "#f1d7b6"),
   };
   const blush = `<ellipse cx="74" cy="110" rx="8" ry="5" fill="#e8768a" opacity="${a.face === "blush" ? 0.55 : 0.28}"/><ellipse cx="126" cy="110" rx="8" ry="5" fill="#e8768a" opacity="${a.face === "blush" ? 0.55 : 0.28}"/>`;
@@ -175,7 +175,7 @@ export function paintedAvatar(a, options = {}) {
     cat: piece("M62 54L66 18L90 40Z", hair) + piece("M138 54L134 18L110 40Z", hair),
     bow: piece("M118 40l14-10v20Z M118 40l-14-10v20Z", accent),
     flower: `<circle cx="126" cy="44" r="8" fill="${accent}"/><circle cx="126" cy="44" r="3" fill="#f1ece4"/>`,
-    stars: `<text x="120" y="52" font-size="14">✦</text>`,
+    stars: piece("M124 38l2 6 6 2-6 2-2 6-2-6-6-2 6-2Z", accent),
   };
   const GLASSES = {
     round: line("M70 92a12 12 0 1 0 24 0a12 12 0 1 0-24 0ZM106 92a12 12 0 1 0 24 0a12 12 0 1 0-24 0ZM94 90Q100 86 106 90", ink, 2.6),

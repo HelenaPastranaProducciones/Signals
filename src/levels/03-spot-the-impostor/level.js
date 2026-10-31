@@ -57,8 +57,10 @@ export default defineLevel({
         <div class="timer"><i></i></div>
         <div class="start">
           <b>Who doesn't belong?</b>
-          <span>Each group has one impostor. <b>Click</b> them before the time runs out, or you're out!</span>
-          <span>3 wrong clicks allowed · <b>Click to start</b></span>
+          <span>Each group has one impostor. <b>Click</b> them before the time runs out.</span>
+          <span class="rules"><b>Win:</b> find the impostor in all ${s.rounds} groups, then find your own people</span>
+          <span class="rules"><b>Lose:</b> run out of time, or click someone who belongs more than ${s.mistakesAllowed} times</span>
+          <span><b>Click to start</b></span>
         </div>
       </div>`;
     const box = game.root.querySelector(".impostor");
@@ -190,7 +192,7 @@ export default defineLevel({
       me.classList.add("joining");
       groups.forEach((g) => g.classList.toggle("chosen", g === el));
       groups.forEach((g) => g.classList.toggle("faded", g !== el));
-      say("Your people! 🎉");
+      say("Your people!");
       game.vibrate([40, 40, 40]);
       game.after(1800, () => game.win());
     };

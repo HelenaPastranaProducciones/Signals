@@ -130,7 +130,7 @@ export const AVATAR_CATEGORIES = [
   },
 ];
 
-/** Avatar a new player starts with. Every piece must have unlockLevel 0. */
+/** Avatar a new player starts with: plain, no hat, glasses or extras (Helena, 31/10/2026). Every piece must have unlockLevel 0. */
 export const DEFAULT_AVATAR = Object.freeze({
   skin: "#f0b48a",
   eyes: "dots",
@@ -139,12 +139,12 @@ export const DEFAULT_AVATAR = Object.freeze({
   ear: "none",
   hair: "short",
   hairC: "#3a2a22",
-  hat: "backcap",
+  hat: "none",
   hatC: "#e8503a",
-  gl: "round",
+  gl: "none",
   pin: "none",
   acc: "none",
-  top: "hoodie",
+  top: "tee",
   topC: "#3d6fe0",
   acC: "#ffe36b",
   bg: "#dfe6ee",
