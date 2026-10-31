@@ -59,7 +59,7 @@
   border-radius: 22px;
   text-align: center;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.1;
   color: var(--ink-on-pastel);
   box-shadow: 0 4px 0 rgba(0, 0, 0, 0.12);
@@ -68,7 +68,7 @@
 
 .level-tile b {
   display: block;
-  font-size: 30px;
+  font-size: 36px;
   font-weight: 800;
 }
 

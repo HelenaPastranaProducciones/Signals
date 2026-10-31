@@ -107,7 +107,7 @@ Other helpers:
   menus' buttons and redraw the screen.
 - Colours from the Signals palette: pastel backgrounds
   (`#ffd9c7 #d8e6ff #dff5d6 #f6d8f0 #fff0b8 #d6f1f1`), accents `#ff5a3c`
-  (orange-red) and `#ffe36b` (yellow), ink `#23243a`. Font: Baloo 2
+  (orange-red) and `#ffe36b` (yellow), ink `#23243a`. Font: Schoolbell
   (inherited). Rounded corners, soft shadows (`0 5px 0 rgba(0,0,0,.15)`).
 - Never draw real characters, brands or club logos: invent them.
 

@@ -128,7 +128,11 @@ https://claude.ai/artifact/Kz5CaVyjyNMNNEcypQ6XRx
   reference avatars (Toy Faces, collectible figures): rounded shapes, soft
   volumes, gentle light and shade, saturated palette on pastel backgrounds,
   big heads and lots of accessories. Real 3D (Three.js) was rejected.
-- **Typography:** Baloo 2 (Google Fonts), rounded and playful. Being tried
+- **Typography (Helena, 31/10/2026):** **Schoolbell** (Google Fonts), hand-made
+  lettering for the whole game; titles, buttons, labels and the score in
+  capitals. It replaced Baloo 2. Helena first wanted ABC Stefan (Dinamo), but
+  its free trial licence doesn't allow a public web page; Schoolbell was her
+  pick among free lookalikes. Earlier tries
   (29/10/2026, not decided): dotted Doto titles (like the Signals Journal logo; Bowlby One SC rejected), every other text in thin Hanken Grotesk (close to Elisava Sans, Helena's
   reference), short flat shadows. Demo only with
   `?fonts=demo` (`src/styles/fonts-demo.css`).
@@ -261,7 +265,7 @@ their art.
 ## Technical architecture
 
 Plain **HTML + CSS + JavaScript ES modules, no dependencies and no build
-step**. The only external resource is the Baloo 2 font from Google Fonts.
+step**. The only external resource is the Schoolbell font from Google Fonts.
 Node is only used for the dev server, tests, helper scripts and the Pages
 build.
 
@@ -402,7 +406,7 @@ online.
 6. **Package as a desktop app** for Mac (.dmg) and Windows (.exe) with
    **Electron or Tauri**, wrapping the web page. Recommended once a few levels
    are done. Notes: ES modules need a custom protocol or local server in
-   Electron (not `file://`), and the Baloo 2 font must be self-hosted in
+   Electron (not `file://`), and the Schoolbell font must be self-hosted in
    `assets/` for offline use.
 7. **Mobile optimisation** (touch controls, orientation, sizes) once the
    desktop version is solid.

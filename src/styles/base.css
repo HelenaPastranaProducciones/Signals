@@ -19,10 +19,24 @@ body {
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: "Baloo 2", system-ui, sans-serif;
-  font-size: 16px;
+  font-family: "Schoolbell", "Comic Sans MS", system-ui, sans-serif;
+  font-synthesis: none; /* Schoolbell has one weight: never fake a bold */
+  font-size: 18px; /* Schoolbell runs small */
   display: flex;
   justify-content: center;
+}
+
+/* Titles, buttons, labels and the score in capitals, like hand lettering (Helena, 31/10/2026). */
+h1,
+h2,
+h3,
+.btn,
+.tag,
+.level-hud,
+.result-title,
+.map-progress {
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 #app {

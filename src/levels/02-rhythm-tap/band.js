@@ -98,7 +98,7 @@ export function drummer(a, label) {
     k.clay("M104 156Q122 150 140 156V172Q122 178 104 172Z", "#ff5a8a") + // tom
     k.clay("M80 168a36 36 0 1 0 .1 0Z", "#ff5a8a") + // bass drum
     k.circle(80, 204, 26, "#fff", ".92") +
-    `<text x="80" y="210" text-anchor="middle" font-size="15" font-weight="800" font-family="Baloo 2, Arial, sans-serif" fill="#ff5a8a">SIGNALS</text>`;
+    `<text x="80" y="210" text-anchor="middle" font-size="15" font-weight="800" font-family="Schoolbell, Arial, sans-serif" fill="#ff5a8a">SIGNALS</text>`;
   return open(k, a, label) +
     avatarTorso(k, a) +
     arm(k, a, "stick-left", [58, 122], [44, 146], [42, 166], stick(36, 170)) +

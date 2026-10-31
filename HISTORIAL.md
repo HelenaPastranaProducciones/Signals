@@ -383,6 +383,13 @@ Els detalls de cada nivell són a la seva llibreta
   adolescents a l'atzar.
 - Pendent: que Helena la vegi i digui si anem per aquí.
 
+**Tipografia nova per a tot el joc: Schoolbell**
+- Helena volia l'ABC Stefan (de Dinamo), però la versió de prova no es pot
+  posar en una pàgina web pública. Entre lletres gratuïtes semblants (Short
+  Stack, Walter Turncoat, Schoolbell, Gloria Hallelujah, Gochi Hand…) ha triat
+  **Schoolbell**. Ja és a tot el joc: títols, botons, etiquetes i puntuació en
+  majúscules; la resta, normal i una mica més gran perquè es llegeixi bé.
+
 ---
 
 ## Coses pendents de decidir
