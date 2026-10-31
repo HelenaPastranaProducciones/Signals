@@ -2,8 +2,8 @@ import { LEVELS, TOTAL_LEVELS } from "../../levels/index.js";
 import { isLevelAvailable } from "../../game/progress.js";
 import { progressBar, screenHeader } from "../components.js";
 
-/** Pastel backgrounds for the level tiles, repeated in order. */
-const TILE_COLOURS = ["#ffd9c7", "#d8e6ff", "#dff5d6", "#f6d8f0", "#fff0b8", "#d6f1f1"];
+/** Warm, paper-like backgrounds for the level tiles, repeated in order. */
+const TILE_COLOURS = ["#f4c7b0", "#c9d9e8", "#d3e6c5", "#e8cfe0", "#f3dfa2", "#c6e2dc"];
 
 function levelTile(level, progress, testMode) {
   const locked = !testMode && !isLevelAvailable(progress, level.number);

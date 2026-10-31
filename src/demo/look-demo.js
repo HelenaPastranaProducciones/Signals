@@ -1,7 +1,7 @@
 import { DEFAULT_AVATAR, randomAvatar } from "../data/avatar-catalog.js";
 import { randomFriends } from "../data/friends.js";
 import { pick } from "../engine/random.js";
-import { paintedTeen } from "./painted-avatar.js";
+import { paintedAvatar as paintedTeen } from "../avatar/painted-avatar.js";
 
 /**
  * Style demo (Helena, 31/10/2026), opened with ?look=demo. Shows how the game

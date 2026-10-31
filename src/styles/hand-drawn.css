@@ -1,0 +1,102 @@
+/*
+ * The hand-drawn look (Helena, 31/10/2026): paper background, dark ink
+ * outlines that wobble a little (uneven corners), and short flat shadows
+ * instead of soft 3D ones. Loaded after the other styles, so it only
+ * changes how things look, never the layout.
+ */
+
+/* Uneven corners, so outlines look drawn by hand. */
+:root {
+  --hand: 18px 26px 16px 28px / 24px 16px 28px 18px;
+  --hand-big: 30px 22px 34px 20px / 22px 32px 20px 30px;
+  --hand-pill: 26px 34px 24px 36px / 34px 24px 36px 26px;
+}
+
+body {
+  background-color: var(--bg);
+  background-image: var(--grain);
+}
+
+.btn {
+  border: 2.5px solid var(--edge);
+  border-radius: var(--hand-pill);
+  box-shadow: 3px 4px 0 var(--edge);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn:hover { transform: translate(-1px, -1px) rotate(-1deg); box-shadow: 4px 5px 0 var(--edge); }
+.btn:active { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--edge); }
+.btn-secondary { box-shadow: 3px 4px 0 var(--edge); }
+.btn-small { box-shadow: 2px 3px 0 var(--edge); }
+
+.tag {
+  border: 2px solid var(--edge);
+  border-radius: var(--hand-pill);
+}
+
+.card,
+.result-card,
+.level-stage {
+  border: 3px solid var(--edge);
+  border-radius: var(--hand-big);
+  box-shadow: 4px 5px 0 var(--edge);
+}
+
+.level-tile {
+  border: 2.5px solid var(--edge);
+  border-radius: var(--hand);
+  box-shadow: 3px 4px 0 var(--edge);
+}
+
+.level-tile:nth-child(3n + 1) { rotate: -0.6deg; }
+.level-tile:nth-child(3n + 2) { rotate: 0.5deg; }
+.level-tile.is-locked { box-shadow: none; }
+
+.lobby-button {
+  border: 2.5px solid var(--edge);
+  box-shadow: 3px 4px 0 var(--edge);
+}
+
+/* The avatar's own card already has an outline. */
+.avatar-stage { background: none !important; padding: 0; }
+.avatar-stage svg { filter: drop-shadow(4px 5px 0 var(--edge)); }
+
+.chips button {
+  border: 2px solid var(--edge);
+  border-radius: var(--hand-pill);
+}
+
+.option {
+  border: 2px solid var(--line);
+  border-radius: var(--hand);
+}
+
+.option.is-selected {
+  border-color: var(--edge);
+  box-shadow: 3px 3px 0 var(--edge);
+}
+
+.option-preview { background: var(--bg); border-radius: var(--hand); }
+
+.progress-bar {
+  border: 2px solid var(--edge);
+  border-radius: var(--hand-pill);
+}
+
+.nickname-input {
+  border: 2.5px solid var(--edge);
+  border-radius: var(--hand);
+}
+
+/* Titles: a slight tilt, like lettering on a poster. */
+.game-title,
+.signal-title { rotate: -2deg; }
+
+.result-title { text-shadow: 3px 4px 0 var(--edge); -webkit-text-stroke: 2px var(--edge); }
+.is-won .result-title { text-shadow: 3px 4px 0 var(--edge); }
+
+/* The coloured card behind the avatar gets an ink outline too. */
+.avatar .backdrop { stroke: var(--edge); stroke-width: 6; }
+
+/* Messages and closing lines are sentences: normal case reads better. */
+.card-title { text-transform: none; letter-spacing: 0; }

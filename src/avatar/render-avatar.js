@@ -1,8 +1,10 @@
-import { createSvgKit } from "./svg-kit.js";
+import { paintedAvatar } from "./painted-avatar.js";
 
 /**
- * The player's avatar as shown in the menus (title, lobby, editor, chat
- * pictures): a small, cute full-body figure facing the viewer, drawn as SVG.
+ * The clay-toy pieces of the avatar (head, torso, hair…). Since 31/10/2026 the
+ * menus draw the painted avatar instead (painted-avatar.js, see
+ * `renderAvatar` below); levels 2 and 3 still build their characters from
+ * these pieces until they are redrawn in the new look.
  *
  * Levels don't bolt animations onto this drawing: each level draws its own
  * avatar from the same choices, in the view its game needs (see CLAUDE.md,
@@ -25,8 +27,6 @@ const LIPS = "#7a2f3d";
 const GOLD = "#f2c12e";
 const TROUSERS = "#414a7a";
 
-/** Frames shown by `renderAvatar` (x, y, width, height). */
-const VIEW = { full: "0 0 160 234", bust: "10 4 140 176", head: "14 0 132 124" };
 
 // Head and body shapes.
 const HEAD = "M80 36C106 36 121 54 121 76C121 98 104 112 80 112C56 112 39 98 39 76C39 54 54 36 80 36Z";
@@ -252,21 +252,6 @@ export function shade(hex, amount) {
 /** Colour of the trousers: the accent colour with overalls, navy otherwise. Levels use it too. */
 export const trousersColour = (a) => (a.top === "overalls" ? a.acC : TROUSERS);
 
-/** One leg, standing, with a shoe seen from the front. */
-function leg(k, a, x) {
-  return k.stroke(`M${x} 170V212`, trousersColour(a), 19) +
-    k.clay(`M${x - 11} 222Q${x - 12} 211 ${x} 210Q${x + 12} 211 ${x + 11} 222Q${x + 10} 229 ${x} 229Q${x - 10} 229 ${x - 11} 222Z`, a.acC) +
-    k.path(`M${x - 10} 225H${x + 10}`, "none", 'stroke="#fff" stroke-width="2.4" opacity=".85"');
-}
-
-/** One arm hanging a little away from the body; `side` is -1 (left) or 1 (right). */
-function arm(k, a, side) {
-  const x = 80 + side * 23;
-  const hand = { x: x + side * 7, y: 162 };
-  return k.stroke(`M${x} 122L${x + side * 4} 144`, a.topC, 14) +
-    k.stroke(`M${x + side * 4} 144L${hand.x} ${hand.y - 4}`, a.skin, 11) + k.circle(hand.x, hand.y, 7, a.skin);
-}
-
 function face(k, a) {
   const blush = a.face === "blush";
   const cheek = (x) => `<ellipse cx="${x}" cy="93" rx="${blush ? 8 : 6.4}" ry="${blush ? 5.5 : 4.2}" fill="${blush ? "#ff4f8b" : "#ff8fa3"}" opacity="${blush ? ".45" : ".5"}"/>`;
@@ -329,31 +314,18 @@ export function avatarTorso(k, a, arms = "") {
 /** The clip path `avatarTorso` needs, for the drawing's <defs>. @param {Kit} k */
 export const torsoClip = (k) => `<clipPath id="${k.ids.bodyClip}"><path d="${TORSO}"/></clipPath>`;
 
-let instanceCount = 0;
-
 /**
- * Draws an avatar. Each call uses fresh gradient ids, so the result can be
- * placed next to other avatars on the same page.
+ * Draws the player's avatar (or a friend's) for the menus and chats: the
+ * painted teen (painted-avatar.js). Each call uses fresh ids, so the result
+ * can be placed next to other avatars on the same page.
  *
  * @param {Avatar} a Selected option id per category (see DEFAULT_AVATAR).
- * @param {{ label?: string, backdrop?: boolean, crop?: "full" | "bust" | "head" }} [options]
+ * @param {{ label?: string, backdrop?: boolean, crop?: "full" | "bust" | "head", pose?: "down" | "hips" | "wave" }} [options]
  *   `backdrop: false` leaves out the coloured card behind the avatar.
  *   `crop: "head"` frames only the head (chat pictures, editor thumbnails),
  *   `crop: "bust"` head and body.
  * @returns {string} SVG markup.
  */
-export function renderAvatar(a, { label = "Avatar", backdrop = true, crop = "full" } = {}) {
-  const k = createSvgKit(`avatar-${++instanceCount}`);
-  return [
-    `<svg class="avatar" viewBox="${VIEW[crop] || VIEW.full}" role="img" aria-label="${label}">`,
-    k.defs(torsoClip(k)),
-    backdrop ? `<rect width="160" height="234" rx="28" fill="${a.bg}"/>` + k.circle(80, 120, 70, "#fff", ".35") : "",
-    `<ellipse cx="80" cy="229" rx="34" ry="5" fill="#000" opacity=".13"/>`,
-    avatarHairBehind(k, a),
-    leg(k, a, 70),
-    leg(k, a, 90),
-    avatarTorso(k, a, arm(k, a, -1) + arm(k, a, 1)),
-    avatarHead(k, a),
-    "</svg>",
-  ].join("");
+export function renderAvatar(a, { label = "Avatar", backdrop = true, crop = "full", pose } = {}) {
+  return paintedAvatar(a, { label, backdrop, crop, pose });
 }

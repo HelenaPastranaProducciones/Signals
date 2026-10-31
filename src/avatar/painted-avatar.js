@@ -1,8 +1,8 @@
 /**
- * Style demo (Helena, 31/10/2026): the avatar drawn as a hand-painted teen,
- * like a 2D animated series, instead of a clay toy. Same choices as the
- * editor (skin, hair, clothes…), new drawing. Only used by the ?look=demo
- * page (look-demo.js); the game itself still uses render-avatar.js.
+ * The avatar (Helena, 31/10/2026): a hand-painted teen, like a 2D animated
+ * series, instead of the clay toy, which looked too childish for teens. Same
+ * choices as the editor (skin, hair, clothes…). renderAvatar() in
+ * render-avatar.js draws with this everywhere (title, lobby, editor, chats).
  *
  * The painted look comes from an SVG filter: edges slightly wobbly (a small
  * displacement) and a grain on top, plus flat "cel" shading on one side of
@@ -27,10 +27,13 @@ function dark(hex, amount = 0.35) {
 
 /**
  * @param {Record<string, string>} a  Avatar choices (same keys as the editor).
- * @param {{ pose?: "down" | "hips" | "wave", bottoms?: "jeans" | "shorts" | "skirt" | "cargo", crop?: "head", label?: string }} [options]
+ * @param {{ pose?: "down" | "hips" | "wave", bottoms?: "jeans" | "shorts" | "skirt" | "cargo", crop?: "full" | "bust" | "head", backdrop?: boolean, label?: string }} [options]
+ *   `backdrop: true` adds the coloured card behind the avatar (its `bg`).
  */
-export function paintedTeen(a, options = {}) {
-  const id = `pt${++count}`;
+export function paintedAvatar(a, options = {}) {
+  const id = `avatar-${++count}`;
+  // The paint texture depends on the look, not on the drawing order, so the same avatar always looks the same.
+  const seed = [...Object.values(a).join("")].reduce((sum, c) => (sum * 31 + c.charCodeAt(0)) % 997, 7);
   const pose = options.pose || "down";
   const bottoms = a.top === "overalls" ? "overalls" : options.bottoms || "jeans";
   const skin = mute(a.skin, 0.1);
@@ -49,9 +52,9 @@ export function paintedTeen(a, options = {}) {
   const defs = `<defs>
     <linearGradient id="${id}-cel" x1="0" x2="1"><stop offset=".6" stop-color="#3a1e2a" stop-opacity="0"/><stop offset=".6" stop-color="#3a1e2a" stop-opacity=".16"/></linearGradient>
     <filter id="${id}-paint" x="-10%" y="-10%" width="120%" height="120%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="${count}" result="warp"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="${seed}" result="warp"/>
       <feDisplacementMap in="SourceGraphic" in2="warp" scale="3.2" xChannelSelector="R" yChannelSelector="G" result="rough"/>
-      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="${count + 7}" result="noise"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="${seed + 7}" result="noise"/>
       <feColorMatrix in="noise" type="matrix" values="0 0 0 0 .16  0 0 0 0 .1  0 0 0 0 .14  1.1 0 0 0 -.52" result="specks"/>
       <feComposite in="specks" in2="rough" operator="in" result="grain"/>
       <feMerge><feMergeNode in="rough"/><feMergeNode in="grain"/></feMerge>
@@ -189,9 +192,13 @@ export function paintedTeen(a, options = {}) {
   const figure = `<ellipse cx="100" cy="410" rx="56" ry="8" fill="#3a1e2a" opacity=".12"/>` + backHair +
     legs + (BOTTOMS[bottoms] || BOTTOMS.jeans) + socks + shoes + neck + topSvg + armsSvg + sleeves + handsSvg + (ACC[a.acc] || "") + head;
 
-  const viewBox = options.crop === "head" ? "36 0 128 150" : "0 -20 200 440";
-  return `<svg class="painted" viewBox="${viewBox}" role="img" aria-label="${options.label || "Avatar"}">${defs}<clipPath id="${id}-body"><path d="${body}"/></clipPath><g filter="url(#${id}-paint)">${figure}</g></svg>`;
+  const viewBox = VIEW[options.crop] || VIEW.full;
+  const backdrop = options.backdrop ? `<rect class="backdrop" x="-11" y="-27" width="222" height="444" rx="40" fill="${a.bg}"/><circle cx="100" cy="190" r="110" fill="#fff" opacity=".3"/>` : "";
+  return `<svg class="avatar painted" viewBox="${viewBox}" role="img" aria-label="${options.label || "Avatar"}">${defs}${backdrop}<clipPath id="${id}-body"><path d="${body}"/></clipPath><g filter="url(#${id}-paint)">${figure}</g></svg>`;
 }
+
+/** How much of the figure each crop shows. */
+const VIEW = { full: "-14 -30 228 450", bust: "20 -12 160 250", head: "36 0 128 150" };
 
 /** Draws something at both eyes. */
 function eyePair(draw) {

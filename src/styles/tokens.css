@@ -1,31 +1,39 @@
 /* Colour tokens. Dark mode follows the OS unless the player forces a theme
-   from Options, which sets data-theme on <html> (src/ui/browser.js). */
+   from Options, which sets data-theme on <html> (src/ui/browser.js).
+   The look (Helena, 31/10/2026): warm paper, dark ink outlines, muted
+   tomato and mustard, like a hand-drawn teen comic, not a toy. */
 :root {
-  --bg: #eef1f6;
-  --card: #fff;
-  --ink: #23243a;
-  --muted: #6c6f86;
-  --accent: #ff5a3c;
-  --accent-2: #ffe36b;
-  --line: #dcdfeb;
+  --bg: #f3ebdd;
+  --card: #fff8ee;
+  --ink: #2b2630;
+  --muted: #6e6570;
+  --accent: #e4573d;
+  --accent-2: #e9b03b;
+  --line: #e3d8c6;
+  /* Outlines and the short flat shadows under cards and buttons. */
+  --edge: #2b2630;
   /* Ink on pastel surfaces (level tiles, yellow buttons) that stay light in both themes. */
-  --ink-on-pastel: #23243a;
+  --ink-on-pastel: #2b2630;
+  /* Paper grain painted over the background. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .15 0 0 0 0 .1 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #1b1c2b;
-    --card: #272940;
-    --ink: #f1f2fa;
-    --muted: #a3a6c4;
-    --line: #3a3d5c;
+    --bg: #221f26;
+    --card: #2f2a33;
+    --ink: #f3ebdd;
+    --muted: #b3a9a0;
+    --line: #463f4b;
+    --edge: #0e0c10;
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #1b1c2b;
-  --card: #272940;
-  --ink: #f1f2fa;
-  --muted: #a3a6c4;
-  --line: #3a3d5c;
+  --bg: #221f26;
+  --card: #2f2a33;
+  --ink: #f3ebdd;
+  --muted: #b3a9a0;
+  --line: #463f4b;
+  --edge: #0e0c10;
 }

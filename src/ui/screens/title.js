@@ -5,7 +5,7 @@ export function titleScreen({ progress }) {
   return `<div class="splash">
     <h1 class="game-title">SIGNALS</h1>
     <p class="muted">Gaming is no longer just playing</p>
-    <div class="splash-avatar">${renderAvatar(progress.avatar)}</div>
+    <div class="splash-avatar">${renderAvatar(progress.avatar, { pose: "hips" })}</div>
     <button class="btn" data-action="start">Play</button>
     <p class="muted hint">Press Enter</p>
   </div>`;

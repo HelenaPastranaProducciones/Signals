@@ -390,6 +390,15 @@ Els detalls de cada nivell són a la seva llibreta
   **Schoolbell**. Ja és a tot el joc: títols, botons, etiquetes i puntuació en
   majúscules; la resta, normal i una mica més gran perquè es llegeixi bé.
 
+**Nova estètica al joc, part 1: menús i avatar**
+- L'avatar ara és l'adolescent pintat de la demo a tot arreu: títol, menú,
+  editor (totes les miniatures), xats dels nivells 1 i 4.
+- Menús amb l'aspecte nou: fons de paper càlid, vores de tinta dibuixades
+  (cantonades irregulars), ombres curtes i planes, colors més càlids al mapa.
+- Pendent (part 2): redibuixar l'art de cada nivell en aquest estil (el
+  corredor del nivell 1, la banda i el públic del nivell 2, les tribus del
+  nivell 3, la màquina del nivell 4).
+
 ---
 
 ## Coses pendents de decidir

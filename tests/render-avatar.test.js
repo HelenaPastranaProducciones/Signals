@@ -30,7 +30,7 @@ test("every option of every category renders valid SVG", () => {
   }
 });
 
-test("every style option has a drawer, except the ones without one", () => {
+test("every style option has a clay drawer (levels 2 and 3 still use them), except the ones without one", () => {
   // "none" and the plain tee draw nothing extra; "blush" enlarges the cheeks instead.
   const withoutDrawer = new Set(["none", "tee", "blush"]);
   for (const [key, tables] of Object.entries(DRAWERS)) {
@@ -60,8 +60,8 @@ test("each render uses its own gradient ids", () => {
 });
 
 test("an avatar can be drawn without its backdrop card", () => {
-  assert.match(renderAvatar(DEFAULT_AVATAR), /<rect width="160"/);
-  assert.doesNotMatch(renderAvatar(DEFAULT_AVATAR, { backdrop: false }), /<rect width="160"/);
+  assert.match(renderAvatar(DEFAULT_AVATAR), /class="backdrop"/);
+  assert.doesNotMatch(renderAvatar(DEFAULT_AVATAR, { backdrop: false }), /class="backdrop"/);
 });
 
 test("an avatar can be framed to show only the head", () => {
