@@ -11,6 +11,16 @@
   background: linear-gradient(var(--skyTop), var(--skyBottom));
 }
 
+/* Paper grain over the scenery, for the hand-painted look (it doesn't move). */
+.level-01 .world::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: var(--grain);
+  pointer-events: none;
+}
+
 /* Landscape layers, scrolled sideways from level.js. */
 .level-01 .layer {
   position: absolute;
@@ -129,7 +139,7 @@
 }
 
 .level-01 .runner-avatar .body {
-  transform-origin: 70px 215px;
+  transform-origin: 70px 240px;
 }
 
 /* Running cycle: legs and arms in opposite phase, the body bobs twice per stride. */
@@ -180,7 +190,7 @@
 }
 
 /* Ducking: a low crouch, body forward. */
-.level-01 .runner.ducking .body { transform: translateY(30px) rotate(6deg); }
+.level-01 .runner.ducking .body { transform: translateY(35px) rotate(6deg); }
 .level-01 .runner.ducking .thigh-front { transform: rotate(-85deg); }
 .level-01 .runner.ducking .shin-front { transform: rotate(115deg); }
 .level-01 .runner.ducking .thigh-back { transform: rotate(-40deg); }

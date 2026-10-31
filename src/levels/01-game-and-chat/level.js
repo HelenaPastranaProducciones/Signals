@@ -320,7 +320,7 @@ export default defineLevel({
 
 // Height of the top of the runner's head above the bottom of its drawing, standing and
 // ducking, in runner.js drawing units (140 wide).
-const STANDING_TOP = 196;
+const STANDING_TOP = 198;
 const DUCKING_TOP = 166;
 // Pixels above the ground where flying obstacles pass: ducking fits under, standing doesn't.
 const FLYING_BOTTOM = 116;

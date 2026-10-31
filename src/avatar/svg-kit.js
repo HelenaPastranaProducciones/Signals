@@ -38,3 +38,51 @@ export function createSvgKit(id = `svg-${++kitCount}`) {
 }
 
 let kitCount = 0;
+
+/**
+ * The same helpers as `createSvgKit`, for the hand-painted look (Helena,
+ * 31/10/2026): colours pulled a little towards a warm grey, and `clay` paints
+ * a flat colour with a hard-edged shadow on its right side ("cel" shading)
+ * instead of soft clay gradients. Wrap a drawing in
+ * `<g filter="url(#${ids.paint})">` for wobbly edges and a paint grain (keep
+ * that for small drawings: on big moving ones it costs too much).
+ *
+ * @param {string} [id]
+ */
+export function createPaintKit(id = `paint-${++kitCount}`) {
+  const ids = { light: `${id}-light`, shade: `${id}-cel`, bodyClip: `${id}-body`, paint: `${id}-paint` };
+  const seed = [...id].reduce((sum, c) => sum + c.charCodeAt(0), 0) % 97;
+
+  const defs = (extra = "") =>
+    `<defs><linearGradient id="${ids.shade}" x1="0" x2="1"><stop offset=".62" stop-color="#3a1e2a" stop-opacity="0"/><stop offset=".62" stop-color="#3a1e2a" stop-opacity=".16"/></linearGradient>` +
+    `<filter id="${ids.paint}" x="-10%" y="-10%" width="120%" height="120%">` +
+    `<feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="${seed}" result="warp"/>` +
+    `<feDisplacementMap in="SourceGraphic" in2="warp" scale="2.6" xChannelSelector="R" yChannelSelector="G" result="rough"/>` +
+    `<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="${seed + 7}" result="noise"/>` +
+    `<feColorMatrix in="noise" type="matrix" values="0 0 0 0 .16  0 0 0 0 .1  0 0 0 0 .14  1.1 0 0 0 -.52" result="specks"/>` +
+    `<feComposite in="specks" in2="rough" operator="in" result="grain"/>` +
+    `<feMerge><feMergeNode in="rough"/><feMergeNode in="grain"/></feMerge></filter>${extra}</defs>`;
+  const path = (d, fill, extra) => `<path d="${d}" fill="${paint(fill)}" ${extra || ""}/>`;
+  // No glossy highlight in the painted look.
+  const light = () => "";
+  const shade = (d) => `<path d="${d}" fill="url(#${ids.shade})"/>`;
+  const clay = (d, fill) => path(d, fill) + shade(d);
+  const stroke = (d, colour, width, extra) =>
+    `<path d="${d}" fill="none" stroke="${paint(colour)}" stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round" ${extra || ""}/>`;
+  const circle = (x, y, r, fill, opacity) =>
+    `<circle cx="${x}" cy="${y}" r="${r}" fill="${paint(fill)}"${opacity ? ` opacity="${opacity}"` : ""}/>`;
+  const star = (x, y, scale, fill) =>
+    `<path transform="translate(${x} ${y}) scale(${scale})" d="M0-9L2.6-3 9-2.5 4 1.5 5.5 8 0 4.5-5.5 8-4 1.5-9-2.5-2.6-3Z" fill="${paint(fill)}"/>`;
+
+  return { ids, defs, path, light, shade, clay, stroke, circle, star };
+}
+
+/** Pulls a #rrggbb colour a little towards a warm grey; anything else is kept. */
+export function paint(colour, amount = 0.14) {
+  if (!/^#[0-9a-f]{6}$/i.test(colour)) return colour;
+  const grey = [176, 160, 146];
+  return `#${[1, 3, 5].map((i, n) => {
+    const c = parseInt(colour.slice(i, i + 2), 16);
+    return Math.round(c + (grey[n] - c) * amount).toString(16).padStart(2, "0");
+  }).join("")}`;
+}

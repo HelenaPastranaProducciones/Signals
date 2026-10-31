@@ -1,12 +1,13 @@
-import { createSvgKit } from "../../avatar/svg-kit.js";
+import { createPaintKit, paint } from "../../avatar/svg-kit.js";
 import { chance, pick, randomBetween, randomInt, shuffle } from "../../engine/random.js";
 
 /**
  * Drawings for level 1: the obstacles and the landscape layers, in the
- * clay style. The runner is the player's avatar (src/avatar/render-avatar.js).
+ * hand-painted look (31/10/2026): flat, slightly muted colours and a hard
+ * shadow; the obstacles also get the paint grain. The runner is in runner.js.
  */
 
-const kit = createSvgKit("level-01");
+const kit = createPaintKit("level-01");
 
 /** Gradients shared by every drawing of this level; put once in the stage. */
 export const sharedDefs = () => `<svg width="0" height="0" aria-hidden="true" style="position:absolute">${kit.defs()}</svg>`;
@@ -58,7 +59,7 @@ export const FLYING_OBSTACLES = [
 
 /** Wraps a drawing in an <svg>, `scale` times its drawn size. */
 export const obstacleSvg = (o, scale) =>
-  `<svg viewBox="0 0 ${o.width} ${o.height}" width="${o.width * scale}" height="${o.height * scale}">${o.svg()}</svg>`;
+  `<svg viewBox="0 0 ${o.width} ${o.height}" width="${o.width * scale}" height="${o.height * scale}"><g filter="url(#${kit.ids.paint})">${o.svg()}</g></svg>`;
 
 // Landscape tiles, repeated sideways and scrolled at different speeds.
 // Every attempt builds a new landscape: the places you run through, their
@@ -66,11 +67,11 @@ export const obstacleSvg = (o, scale) =>
 const tile = (width, height, body) =>
   `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">${body}</svg>`)}")`;
 
-const CROWNS = [["#7bd389", "#9be3a3"], ["#5cc46a", "#86d98f"], ["#ffb3cf", "#ffd1e2"], ["#ffc46b", "#ffdc9a"], ["#9fd37b", "#c2e8a3"]];
-const WALLS = ["#b9c7f0", "#f2b8c6", "#c9b6f2", "#ffd59e", "#a8d8e8", "#bfe3c6", "#ffcfb0", "#d9c4f5"];
-const HOUSE_WALLS = ["#ffd9c7", "#fff0b8", "#d6f1f1", "#f6d8f0", "#e4f2d0", "#ffe3ec"];
-const ROOFS = ["#ff8a7a", "#ffb347", "#5aa9ff", "#c97ad9", "#4fbf8f", "#f06a8a"];
-const AWNINGS = ["#ff6f91", "#5aa9ff", "#ffb347", "#4fbf8f", "#a174ff"];
+const CROWNS = [["#7bd389", "#9be3a3"], ["#5cc46a", "#86d98f"], ["#ffb3cf", "#ffd1e2"], ["#ffc46b", "#ffdc9a"], ["#9fd37b", "#c2e8a3"]].map((pair) => pair.map((c) => paint(c)));
+const WALLS = ["#b9c7f0", "#f2b8c6", "#c9b6f2", "#ffd59e", "#a8d8e8", "#bfe3c6", "#ffcfb0", "#d9c4f5"].map((c) => paint(c));
+const HOUSE_WALLS = ["#ffd9c7", "#fff0b8", "#d6f1f1", "#f6d8f0", "#e4f2d0", "#ffe3ec"].map((c) => paint(c));
+const ROOFS = ["#ff8a7a", "#ffb347", "#5aa9ff", "#c97ad9", "#4fbf8f", "#f06a8a"].map((c) => paint(c));
+const AWNINGS = ["#ff6f91", "#5aa9ff", "#ffb347", "#4fbf8f", "#a174ff"].map((c) => paint(c));
 
 const tree = (x, h, crown, [dark, light] = CROWNS[0]) =>
   `<rect x="${x - 5}" y="${200 - h}" width="10" height="${h}" rx="4" fill="#b98a6a"/>` +
@@ -194,6 +195,6 @@ export function randomLandscape() {
     clouds: { speed: 0.08, image: clouds() },
     hills: { speed: 0.2, image: hills() },
     scenes: shuffle(Object.keys(SCENES)).slice(0, 3).map((name) => ({ speed: 0.5, image: SCENES[name]() })),
-    palettes: pick(SKIES),
+    palettes: pick(SKIES).map((stop) => Object.fromEntries(Object.entries(stop).map(([key, colour]) => [key, paint(colour, 0.1)]))),
   };
 }

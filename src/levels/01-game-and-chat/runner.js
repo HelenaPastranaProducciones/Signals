@@ -1,16 +1,20 @@
-import { createSvgKit } from "../../avatar/svg-kit.js";
+import { createPaintKit } from "../../avatar/svg-kit.js";
 import { shade, trousersColour } from "../../avatar/render-avatar.js";
 
 /**
  * Level 1's own avatar: the player's choices (skin, hair, hat, glasses,
- * clothes, extras) drawn side-on, facing right, in the same cute style as
- * the menu avatar, ready to run, jump and duck.
+ * clothes, extras) drawn side-on, facing right, ready to run, jump and duck.
+ * In the hand-painted teen look of the menu avatar (31/10/2026): the head is
+ * drawn at its old size and shrunk (HEAD_SCALE), the chest is stretched
+ * (CHEST_STRETCH) and the arms and legs are long and thin, so it reads as a
+ * teenager rather than a toy. Flat colours, a hard shadow and a paint grain
+ * come from the paint kit.
  *
  * Arms and legs are nested groups that turn around their joint
  * (`transform-origin: 0 0` in level.css): `.body` > `.thigh-*` > `.shin-*`
  * and `.upperarm-*` > `.forearm-*`, with `-front` / `-back`.
  *
- * Drawing units: 140 × 220, feet on y = 215.
+ * Drawing units: 140 wide, feet on y = 240 (viewBox from y = 10).
  */
 
 const INK = "#2b2233";
@@ -22,6 +26,14 @@ const TORSO = "M53 106Q70 98 86 106L90 152Q70 160 50 152Z";
 const EYE = { x: 89, y: 70, rx: 6, ry: 8.2 };
 // Seen from the side, the ear sits in the middle of the head, in front of the hair.
 const EAR = { x: 64, y: 76 };
+
+// Teen proportions: the head shrinks around the neck, the chest grows downwards.
+const HEAD_SCALE = 0.74;
+const CHEST_STRETCH = 1.3;
+const NECK_Y = 104;
+const HIP_Y = 162;
+const SHOULDER_Y = 116;
+const FEET_Y = 240;
 
 /*
  * Hair from the side. Each style is ONE shape, so it reads at a glance:
@@ -107,20 +119,23 @@ let count = 0;
 
 /** @param {Record<string, string>} a  The player's avatar choices. */
 export function runnerAvatar(a, { label = "Avatar" } = {}) {
-  const k = createSvgKit(`level-01-runner-${++count}`);
+  const k = createPaintKit(`level-01-runner-${++count}`);
   return [
-    `<svg class="runner-avatar" viewBox="0 0 140 220" role="img" aria-label="${label}">`,
+    `<svg class="runner-avatar" viewBox="0 10 140 236" role="img" aria-label="${label}">`,
     k.defs(`<clipPath id="${k.ids.bodyClip}"><path d="${TORSO}"/></clipPath>`),
-    `<ellipse class="shadow" cx="70" cy="215" rx="32" ry="4.5" fill="#000" opacity=".14"/>`,
-    `<g class="body">`,
+    `<ellipse class="shadow" cx="70" cy="${FEET_Y}" rx="30" ry="4.5" fill="#3a1e2a" opacity=".14"/>`,
+    `<g filter="url(#${k.ids.paint})"><g class="body">`,
     arm(k, a, "back", 64),
     leg(k, a, "back", 63),
     leg(k, a, "front", 76),
+    `<g transform="translate(0 ${NECK_Y}) scale(1 ${CHEST_STRETCH}) translate(0 -${NECK_Y})">`,
     draw(TOP_BACK, a.top, k, a),
     k.clay(TORSO, a.topC),
     `<g clip-path="url(#${k.ids.bodyClip})">${draw(TOP_FRONT, a.top, k, a)}</g>`,
-    k.clay("M63 96H77V108Q70 112 63 108Z", shade(a.skin, -0.12)),
     draw(ACCESSORIES, a.acc === "phones" ? "none" : a.acc, k, a),
+    `</g>`,
+    k.clay("M64 92H76V108Q70 112 64 108Z", shade(a.skin, -0.12)),
+    `<g transform="translate(70 ${NECK_Y}) scale(${HEAD_SCALE}) translate(-70 -${NECK_Y})">`,
     k.clay(HEAD, a.skin),
     k.circle(105, 76, 4, a.skin),
     face(k, a),
@@ -132,8 +147,9 @@ export function runnerAvatar(a, { label = "Avatar" } = {}) {
     draw(EXTRA_OVER_HAT, a.pin, k, a),
     draw(GLASSES, a.gl, k, a),
     a.acc === "phones" ? ACCESSORIES.phones(k, a) : "",
-    arm(k, a, "front", 72),
     `</g>`,
+    arm(k, a, "front", 72),
+    `</g></g>`,
     "</svg>",
   ].join("");
 }
@@ -145,10 +161,10 @@ function leg(k, a, side, x) {
   const back = side === "back";
   const colour = back ? shade(trousersColour(a), -0.18) : trousersColour(a);
   const shoe = back ? shade(a.acC, -0.15) : a.acC;
-  return `<g transform="translate(${x} 150)"><g class="thigh thigh-${side}">${k.stroke("M0 0V26", colour, 18)}` +
-    `<g transform="translate(0 26)"><g class="shin shin-${side}">${k.stroke("M0 0V24", colour, 15)}` +
-    k.clay("M-9 26Q-11 38-5 39H16Q22 36 17 30Q8 22-9 26Z", shoe) +
-    k.path("M-8 37H17", "none", 'stroke="#fff" stroke-width="2.4" opacity=".85"') +
+  return `<g transform="translate(${x} ${HIP_Y})"><g class="thigh thigh-${side}">${k.stroke("M0 0V34", colour, 15)}` +
+    `<g transform="translate(0 34)"><g class="shin shin-${side}">${k.stroke("M0 0V30", colour, 12)}` +
+    `<g transform="translate(0 4)">` + k.clay("M-9 26Q-11 38-5 39H16Q22 36 17 30Q8 22-9 26Z", shoe) +
+    k.path("M-8 37H17", "none", 'stroke="#fff" stroke-width="2.4" opacity=".85"') + `</g>` +
     `</g></g></g></g>`;
 }
 
@@ -157,8 +173,8 @@ function arm(k, a, side, x) {
   const back = side === "back";
   const sleeve = back ? shade(a.topC, -0.15) : a.topC;
   const skin = back ? shade(a.skin, -0.1) : a.skin;
-  return `<g transform="translate(${x} 112)"><g class="upperarm upperarm-${side}">${k.stroke("M0 0V19", sleeve, 13)}` +
-    `<g transform="translate(0 19)"><g class="forearm forearm-${side}">${k.stroke("M0 0V14", skin, 10)}${k.circle(0, 17, 6.5, skin)}` +
+  return `<g transform="translate(${x} ${SHOULDER_Y})"><g class="upperarm upperarm-${side}">${k.stroke("M0 0V27", sleeve, 11)}` +
+    `<g transform="translate(0 27)"><g class="forearm forearm-${side}">${k.stroke("M0 0V21", skin, 8)}${k.circle(0, 23, 5.5, skin)}` +
     `</g></g></g></g>`;
 }
 

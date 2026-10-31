@@ -399,6 +399,13 @@ Els detalls de cada nivell són a la seva llibreta
   corredor del nivell 1, la banda i el públic del nivell 2, les tribus del
   nivell 3, la màquina del nivell 4).
 
+**Nova estètica, part 2: nivell 1**
+- El corredor ara és un adolescent pintat: cap més petit, cos i cames més
+  llargs, colors plans amb ombra marcada i textura de pintura. Corre, salta i
+  s'ajup igual que abans.
+- El paisatge té colors una mica més apagats i una textura de paper; els
+  obstacles també tenen la textura de pintura.
+
 ---
 
 ## Coses pendents de decidir

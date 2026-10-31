@@ -214,9 +214,10 @@ first proposal, to tune while playing.
   grain (an SVG filter). `renderAvatar()` draws it everywhere (title, lobby,
   editor, chats, `game.avatar()`). The menus have a matching look
   (`styles/hand-drawn.css`, tokens in `styles/tokens.css`): warm paper, dark
-  ink outlines with uneven corners, short flat shadows. Still to redraw in
-  this look (phase 2): the level art, including level 1's side-view runner
-  and the clay characters of levels 2 and 3 (they use the clay pieces still
+  ink outlines with uneven corners, short flat shadows. Level art in this look: level 1
+  done (its runner uses `createPaintKit` from `svg-kit.js`, the same helpers
+  as the clay kit but painted). Still to redraw (phase 2): levels 2, 3 and 4,
+  including the clay characters of levels 2 and 3 (they use the clay pieces still
   exported from `render-avatar.js`). The notes below describe the clay
   avatar and still apply to those pieces.
 The avatar is the common thread of the game: you play, unlock pieces and see
