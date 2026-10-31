@@ -139,22 +139,23 @@
   aspect-ratio: 1;
   display: grid;
   grid-template-columns: repeat(var(--n), 1fr);
-  gap: 2px;
-  padding: 4px;
+  gap: 1px;
+  padding: 3px;
   border-radius: 10px;
   background: #e3d8c6;
   touch-action: none;
   cursor: crosshair;
 }
 
+/* Empty pixels show a grey chequer (like "nothing here"), so they never look white: white is a colour you paint. */
 .level-05 .grid i {
-  border-radius: 3px;
-  background: #fbf6ee;
+  border-radius: 2px;
+  background: repeating-conic-gradient(#d6cfc2 0 25%, #e6e0d5 0 50%) 0 0 / 50% 50%;
 }
 
 /* The drawing to copy, marked faintly. */
 .level-05 .grid i.hint:not(.filled) {
-  background: color-mix(in srgb, var(--hint) 28%, #fbf6ee);
+  background: color-mix(in srgb, var(--hint) 45%, #ded7ca);
 }
 
 .level-05 .grid i.filled {
@@ -241,3 +242,5 @@
 
 @keyframes level-05-blink { 50% { background: #e9c24a; color: #2b2630; } }
 @keyframes level-05-in { from { opacity: 0; transform: translateY(16px); } }
+
+.level-05 .tip { margin: -6px 0 0; font-size: 13px; color: #8a8090; }
