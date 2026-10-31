@@ -44,7 +44,11 @@ Els detalls de cada nivell són a la seva llibreta
   canvis (fets). Falta que doni el pas 2 per bo.
 - **Nivell 4 (Claw Machine):** pas 2 fet (Helena hi ha jugat). Ara ajustant
   la dificultat (pas 3): s'ha fet una mica més difícil.
-- **Nivells 5 a 19:** encara no s'han començat (pas 0). Només tenen la
+- **Nivell 5 (Feed to Canvas):** pas 1 fet (idea acordada) i primera versió
+  jugable ja feta, amb l'estil pintat. Falta que Helena hi jugui.
+- **Nivells 6 a 19:** encara no s'han començat (pas 0).
+- **Estètica:** tot el joc té la nova estètica pintada (menús, avatar i
+  nivells 1 a 5), amb la lletra Schoolbell. Només tenen la
   proposta inicial a la seva llibreta.
 - **Pendent general:** desar el progrés quan es tanca el joc, so, versió per
   a mòbil, app d'escriptori. Ho detalla `CLAUDE.md`, a "Pending work".

@@ -1,0 +1,243 @@
+/* Level 5 · Feed to Canvas. Painted look: flat colours, hard shadows, paper grain. */
+
+.level-05 .feed-level {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  user-select: none;
+  background:
+    radial-gradient(circle at 50% 40%, #f6e3a6aa, transparent 55%),
+    linear-gradient(#c9b6f2, #e8cfe0);
+}
+
+.level-05 .feed-level::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background-image: var(--grain);
+  pointer-events: none;
+}
+
+/* ---------- The phone ---------- */
+
+.level-05 .phone {
+  position: relative;
+  height: 94%;
+  aspect-ratio: 9 / 17;
+  max-width: 92%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 38px 42px 36px 40px / 40px 36px 42px 38px;
+  background: linear-gradient(90deg, transparent 70%, rgba(58, 30, 42, 0.25) 70%), #3a3d48;
+  box-shadow: 6px 8px 0 rgba(43, 38, 48, 0.35);
+}
+
+.level-05 .status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 14px 8px;
+  color: #f1ece4;
+  font-size: 15px;
+}
+
+.level-05 .status b { font-variant-numeric: tabular-nums; }
+.level-05 .status b.created { color: #e9c24a; }
+.level-05 .notch { width: 60px; height: 14px; border-radius: 8px; background: #23242c; }
+
+.level-05 .screen {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 26px;
+  background: #fbf6ee;
+}
+
+/* ---------- Phase 1: the feed ---------- */
+
+.level-05 .feed {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  will-change: transform;
+}
+
+.level-05 .post {
+  border-radius: 18px;
+  background: #fff8ee;
+  box-shadow: 0 3px 0 rgba(43, 38, 48, 0.12);
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.level-05 .post header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+}
+
+.level-05 .post header small { margin-left: auto; color: #8a8090; }
+
+.level-05 .face {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #e8d9c4;
+}
+
+.level-05 .face svg { display: block; width: 100%; height: 100%; }
+
+.level-05 .picture { aspect-ratio: 1; }
+.level-05 .picture svg { display: block; width: 100%; height: 100%; }
+
+.level-05 .post footer { padding: 8px 10px 10px; color: #2b2630; }
+.level-05 .heart { color: #d9576f; margin-right: 6px; }
+
+.level-05 .create {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  translate: -50% 0;
+  padding: 6px 14px;
+  border: 2.5px solid #2b2630;
+  border-radius: 22px 28px 20px 30px / 28px 20px 30px 22px;
+  background: #d9573f;
+  color: #fff8ee;
+  font: inherit;
+  font-size: 15px;
+  box-shadow: 2px 3px 0 #2b2630;
+  cursor: pointer;
+  animation: level-05-blink 0.7s steps(2) infinite;
+}
+
+.level-05 .create[hidden] { display: none; }
+
+/* ---------- Phase 2: the canvas ---------- */
+
+.level-05 .canvas-view {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 12px;
+}
+
+.level-05 .prompt { margin: 0; font-size: 20px; color: #2b2630; text-transform: uppercase; }
+
+.level-05 .grid {
+  width: 100%;
+  aspect-ratio: 1;
+  display: grid;
+  grid-template-columns: repeat(var(--n), 1fr);
+  gap: 2px;
+  padding: 4px;
+  border-radius: 10px;
+  background: #e3d8c6;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.level-05 .grid i {
+  border-radius: 3px;
+  background: #fbf6ee;
+}
+
+/* The drawing to copy, marked faintly. */
+.level-05 .grid i.hint:not(.filled) {
+  background: color-mix(in srgb, var(--hint) 28%, #fbf6ee);
+}
+
+.level-05 .grid i.filled {
+  box-shadow: inset -3px -3px 0 rgba(58, 30, 42, 0.16);
+}
+
+.level-05 .palette {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+.level-05 .palette button {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #2b2630;
+  border-radius: 50%;
+  background: linear-gradient(90deg, transparent 60%, rgba(58, 30, 42, 0.18) 60%), var(--c, #fbf6ee);
+  color: #2b2630;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.level-05 .palette button.on { outline: 3px solid #2b2630; outline-offset: 2px; scale: 1.12; }
+
+.level-05 .publish {
+  margin-top: auto;
+  padding: 8px 28px;
+  border: 2.5px solid #2b2630;
+  border-radius: 22px 28px 20px 30px / 28px 20px 30px 22px;
+  background: #6fbf8c;
+  color: #2b2630;
+  font: inherit;
+  font-size: 18px;
+  text-transform: uppercase;
+  box-shadow: 3px 4px 0 #2b2630;
+  cursor: pointer;
+}
+
+/* ---------- Phase 3: published ---------- */
+
+.level-05 .published { animation: level-05-in 0.4s ease-out; }
+.level-05 .post.mine { outline: 3px solid #e9c24a; }
+
+.level-05 .pixel-art {
+  display: grid;
+  grid-template-columns: repeat(var(--n), 1fr);
+  padding: 10%;
+  background: #fbf6ee;
+}
+
+.level-05 .comments p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 4px 10px 8px;
+  animation: level-05-in 0.3s ease-out;
+}
+
+.level-05 .comments .face { width: 24px; height: 24px; }
+
+/* ---------- Start card ---------- */
+
+.level-05 .start {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  text-align: center;
+  background: #2b2630cc;
+  color: #fff;
+  cursor: pointer;
+}
+
+.level-05 .start > b { font-size: clamp(24px, 4.5vh, 38px); color: #e9c24a; }
+
+@keyframes level-05-blink { 50% { background: #e9c24a; color: #2b2630; } }
+@keyframes level-05-in { from { opacity: 0; transform: translateY(16px); } }
