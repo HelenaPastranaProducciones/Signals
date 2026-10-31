@@ -98,6 +98,48 @@ const DRAW = {
       k.path("M50 40v10l6 4", "none", 'stroke="#fff" stroke-width="3" stroke-linecap="round"'),
     randomBetween(-16, 16));
   },
+  cd(k) {
+    const sleeve = pick(BRIGHT);
+    return svg(k,
+      k.clay(box(10, 10, 80, 80, 4), sleeve) +
+      k.clay(disc(50, 50, 30), "#d9dde6") +
+      k.path(disc(50, 50, 22), "none", 'stroke="#b7a6d9" stroke-width="3" opacity=".7"') +
+      k.circle(50, 50, 8, "#f1ece4") + k.circle(50, 50, 3, sleeve),
+    randomBetween(-12, 12));
+  },
+  stickers(k) {
+    return svg(k,
+      k.clay(box(14, 8, 72, 84, 5), "#f1ece4") +
+      k.star(32, 28, 1.3, pick(BRIGHT)) + k.circle(66, 28, 10, pick(BRIGHT)) +
+      k.clay("M22 56h22l-11 18Z", pick(BRIGHT)) + k.clay(box(56, 52, 22, 22, 6), pick(BRIGHT)) +
+      k.path("M26 82h48", "none", 'stroke="#cfc8b8" stroke-width="3" stroke-dasharray="4 4"'),
+    randomBetween(-14, 14));
+  },
+  card(k) {
+    const frame = pick(BRIGHT);
+    return svg(k,
+      k.clay(box(22, 6, 56, 88, 6), frame) +
+      k.path(box(28, 12, 44, 44, 3), pick(SKIES)[0]) +
+      k.circle(50, 32, 10, "#f1ece4") + k.path("M36 56Q50 38 64 56Z", "#f1ece4") +
+      k.path(box(28, 62, 44, 8, 2), "#f1ece4") + k.star(50, 80, 0.9, "#e2b545"),
+    randomBetween(-16, 16));
+  },
+  console(k) {
+    const body = pick(["#5c6270", "#8a7fb8", "#d9576f"]);
+    return svg(k,
+      k.clay(box(6, 26, 88, 48, 22), body) +
+      k.path(box(30, 32, 40, 30, 4), pick(["#5fd8ff", "#b6a4ff", "#7cf0b0"])) +
+      k.path("M14 50h12M20 44v12", "none", 'stroke="#2b2630" stroke-width="4" stroke-linecap="round"') +
+      k.circle(80, 46, 4, "#2b2630") + k.circle(86, 54, 4, "#2b2630"),
+    randomBetween(-12, 12));
+  },
+  laptop(k) {
+    return svg(k,
+      k.clay(box(16, 18, 68, 46, 5), "#3a3d48") +
+      k.path(box(21, 23, 58, 36, 3), pick(["#5fd8ff", "#b6a4ff", "#ff8fc0"])) + apps(k, 26, 28, 4, 2) +
+      k.clay("M6 66h88l-6 12H12Z", "#5c6270"),
+    randomBetween(-10, 10));
+  },
 };
 
 /** Little app icons on a glowing screen. */
@@ -115,11 +157,16 @@ export const PHYSICAL = [
   { type: "cassette", name: "Cassette" },
   { type: "camera", name: "Film camera" },
   { type: "zine", name: "Zine" },
+  { type: "cd", name: "CD" },
+  { type: "stickers", name: "Sticker sheet" },
+  { type: "card", name: "Trading card" },
 ];
 export const DIGITAL = [
   { type: "phone", name: "Phone" },
   { type: "tablet", name: "Tablet" },
   { type: "watch", name: "Smartwatch" },
+  { type: "console", name: "Game console" },
+  { type: "laptop", name: "Laptop" },
 ];
 
 let count = 0;

@@ -26,8 +26,8 @@ export default defineLevel({
   settings: {
     objectsToCatch: 3, // physical objects you must win (one of them your friend's)
     attempts: 5, // coins: tries with the claw
-    prizesInMachine: 9, // objects in the machine at the start
-    digitalPrizes: 3, // how many of them are digital (they waste a try)
+    prizesInMachine: 15, // objects in the machine at the start
+    digitalPrizes: 5, // how many of them are digital (they waste a try)
     clawSpeed: 34, // how fast the claw swings on the first try (% of the machine per second)
     clawSpeedUp: 9, // how much faster it swings on each following try
     grabWindow: 3, // how close (in % of the machine) the claw must be to an object to grab it
@@ -41,15 +41,16 @@ export default defineLevel({
     // Every attempt is a different run: other objects, colours, places and machine.
     const machineColour = pick(["#d9708f", "#6f9fd8", "#6fbf8c", "#e2a04a", "#9c8ad0"]);
     const types = shuffle([
-      ...Array.from({ length: s.prizesInMachine - s.digitalPrizes }, (_, i) => PHYSICAL[i % PHYSICAL.length]),
-      ...Array.from({ length: s.digitalPrizes }, (_, i) => DIGITAL[i % DIGITAL.length]),
+      ...mix(PHYSICAL, s.prizesInMachine - s.digitalPrizes),
+      ...mix(DIGITAL, s.digitalPrizes),
     ]);
     const span = (RIGHT - LEFT) / types.length;
     const prizes = types.map((kind, i) => ({
       ...kind,
       digital: DIGITAL.includes(kind),
       x: LEFT + span * (i + 0.5) + randomBetween(-span * 0.2, span * 0.2),
-      lift: i % 2 ? randomBetween(9, 15) : randomBetween(0, 4),
+      // A pile in three layers: the back ones higher up, the front ones on the floor.
+      lift: [randomBetween(0, 4), randomBetween(10, 16), randomBetween(19, 25)][i % 3],
     }));
 
     game.root.innerHTML = `
@@ -59,7 +60,7 @@ export default defineLevel({
           <div class="glass">
             <div class="rail"></div>
             <div class="chute"></div>
-            ${prizes.map((p, i) => `<div class="prize" data-i="${i}" style="left:${p.x.toFixed(1)}%;bottom:${(4 + p.lift).toFixed(1)}%;z-index:${i % 2 ? 1 : randomInt(2, 4)}">${drawPrize(p.type)}</div>`).join("")}
+            ${prizes.map((p, i) => `<div class="prize" data-i="${i}" style="left:${p.x.toFixed(1)}%;bottom:${(4 + p.lift).toFixed(1)}%;z-index:${[3, 2, 1][i % 3]}">${drawPrize(p.type)}</div>`).join("")}
             <div class="claw" style="left:${LEFT}%">
               <div class="cable"></div>
               <div class="head">${CLAW}</div>
@@ -292,6 +293,9 @@ export default defineLevel({
     };
   },
 });
+
+/** `count` objects of these kinds, every kind before any repeats, in a random order. */
+const mix = (kinds, count) => Array.from({ length: Math.ceil(count / kinds.length) }, () => shuffle(kinds)).flat().slice(0, count);
 
 /** Where the claw can swing and where the prizes sit (in % of the glass width). */
 const LEFT = 20;
