@@ -244,3 +244,11 @@
 @keyframes level-05-in { from { opacity: 0; transform: translateY(16px); } }
 
 .level-05 .tip { margin: -6px 0 0; font-size: 13px; color: #8a8090; }
+
+/* Helena: a small cross on the pixels where nothing goes (instead of the grey chequer). */
+.level-05 .grid i:not(.hint):not(.filled) {
+  background:
+    linear-gradient(45deg, transparent 43%, #a89e8e 43% 57%, transparent 57%) center / 45% 45% no-repeat,
+    linear-gradient(-45deg, transparent 43%, #a89e8e 43% 57%, transparent 57%) center / 45% 45% no-repeat,
+    #ebe5da;
+}

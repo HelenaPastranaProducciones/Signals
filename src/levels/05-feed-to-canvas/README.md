@@ -40,6 +40,7 @@ Phase 1: endless feed you swipe through (Consumed/Created counter). Phase 2: pix
 ## Decisions
 
 - 31/10/2026: Helena: the empty pixels looked white, so it seemed you had to paint them white. Empty pixels are now a grey chequer ("nothing here"), with a hint "Grey squares stay empty". And a bigger canvas with harder, more fun drawings: 16 × 16 with six new templates (strawberry, cat, ice cream, mushroom, rocket, frog), each using 3–6 colours.
+- 31/10/2026: Helena: a small cross on the pixels where nothing goes (instead of the grey chequer); the tip says "Squares with a cross stay empty".
 - 31/10/2026: everything happens inside one big phone (feed, then canvas, then published) (rejected: a split screen with the feed and the canvas side by side).
 - 31/10/2026: the feed scrolls by itself and hooks you; you have to press Create to break out (rejected: scrolling it yourself until a friend says "your turn").
 - 31/10/2026: drawing = filling a faint pixel template with the right colours, so there is a clear goal (rejected: free drawing with a minimum of pixels).

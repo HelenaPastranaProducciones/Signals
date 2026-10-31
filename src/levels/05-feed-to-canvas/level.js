@@ -52,7 +52,7 @@ export default defineLevel({
         <div class="start">
           <b>Stop scrolling, start making</b>
           <span>The feed scrolls by itself. <b>Click Create</b> when it appears to get out.</span>
-          <span>Then copy the faint drawing: pick a colour and <b>click or drag</b> on the pixels. Grey squares stay empty. <b>Publish</b> when it's ready.</span>
+          <span>Then copy the faint drawing: pick a colour and <b>click or drag</b> on the pixels. Squares with a cross stay empty. <b>Publish</b> when it's ready.</span>
           <span class="rules"><b>Win:</b> publish a drawing that follows the template, and your friends will love it</span>
           <span class="rules"><b>Lose:</b> stay in the feed for ${s.feedSeconds} seconds, or publish a drawing that doesn't follow the template</span>
           <span><b>Click to start</b></span>
@@ -121,7 +121,7 @@ export default defineLevel({
       screen.innerHTML = `
         <div class="canvas-view">
           <p class="prompt">Copy the ${template.name}!</p>
-          <p class="tip">Grey squares stay empty</p>
+          <p class="tip">Squares with a cross stay empty</p>
           <div class="grid" style="--n:${n}">${Array.from({ length: n * n }, (_, i) => {
             const want = template.rows[Math.floor(i / n)]?.[i % n] ?? ".";
             return `<i data-i="${i}" ${want !== "." ? `style="--hint:${PALETTE[want]}" class="hint"` : ""}></i>`;
