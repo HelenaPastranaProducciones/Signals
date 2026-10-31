@@ -4,6 +4,7 @@ import { randomFriends } from "../../data/friends.js";
 import { chance, pick, randomBetween } from "../../engine/random.js";
 import { escapeHtml } from "../../ui/html.js";
 import { drummer, fan, guitarist, keyboardist, singer } from "./band.js";
+import { notePicture, targetPicture } from "./notes-art.js";
 import { buildSong, startBand } from "./music.js";
 
 /**
@@ -16,6 +17,9 @@ import { buildSong, startBand } from "./music.js";
  * song, and the party livens up or fades with how well you play (only
  * visual). 3 mistakes allowed; the 4th ends the song.
  */
+/** The four lanes' colours (←, ↓, ↑, →), a little muted like the painted avatar. */
+const LANE_COLOURS = ["#e07aa6", "#6f9fd8", "#6fbf8c", "#e2b545"];
+
 export default defineLevel({
   number: 2,
   signal: "Music creates connection",
@@ -73,7 +77,7 @@ export default defineLevel({
           <div class="lives" aria-label="Mistakes left">${"<b>♥</b>".repeat(s.mistakesAllowed)}</div>
           <div class="combo"></div>
           <div class="lanes">
-            ${arrows.map((arrow, lane) => `<div class="lane lane-${lane}"><div class="receptor"><span>${arrow}</span></div></div>`).join("")}
+            ${arrows.map((arrow, lane) => `<div class="lane lane-${lane}" style="--note-img:${notePicture(LANE_COLOURS[lane], lane)};--target-img:${targetPicture(LANE_COLOURS[lane], lane)}"><div class="receptor"><span>${arrow}</span></div></div>`).join("")}
           </div>
         </div>
         <div class="band-area">

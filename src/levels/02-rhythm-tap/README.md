@@ -40,6 +40,7 @@ Piano Tiles with 4 lanes, each a band instrument (drums, bass, guitar, vocals). 
 ## Decisions
 
 - 31/10/2026: new look for the whole game (Helena: the clay toys were too childish for teens). The band are now painted teens like the avatar (smaller head, longer body and arms, long thin legs, flat colours, hard shadow, paint grain); the crowd is painted too (no grain, so it stays smooth) with smaller heads; the notes are flat with a hard shadow, and there is a paper grain over the whole level. Checked it still runs at about 60 frames a second.
+- 31/10/2026: Helena: the band must look exactly like the avatars from the editor (the old clay faces, like the shiny eyes, aren't options there). The band is now built from the painted avatar's own pieces (`paintedPieces` in painted-avatar.js) with its own arms and instruments. The falling notes and their targets are painted pictures (notes-art.js): uneven shape, flat colour, hard shadow, grain, hand-drawn arrow.
 - 29/10/2026: Piano Tiles of about 30 s on top; below, the band (you on guitar, friends on vocals, piano and drums), whose mood follows how well you play. Purely visual.
 - 29/10/2026: lives instead of a percentage: 3 mistakes allowed, the 4th loses.
 - 29/10/2026: played with the arrow keys on computers; tapping on phones (when we adapt the game to mobile).

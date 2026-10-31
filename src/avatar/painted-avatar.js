@@ -31,6 +31,23 @@ function dark(hex, amount = 0.35) {
  *   `backdrop: true` adds the coloured card behind the avatar (its `bg`).
  */
 export function paintedAvatar(a, options = {}) {
+  const p = paintedPieces(a, options);
+  const viewBox = VIEW[options.crop] || VIEW.full;
+  const backdrop = options.backdrop ? `<rect class="backdrop" x="-11" y="-27" width="222" height="444" rx="40" fill="${a.bg}"/><circle cx="100" cy="190" r="110" fill="#fff" opacity=".3"/>` : "";
+  return `<svg class="avatar painted" viewBox="${viewBox}" role="img" aria-label="${options.label || "Avatar"}">${p.defs}${backdrop}${p.clip}<g filter="url(#${p.id}-paint)">` +
+    p.shadow + p.backHair + p.lower + p.neck + p.top + p.arms + p.acc + p.head + `</g></svg>`;
+}
+
+/**
+ * The painted avatar in separate pieces, so a level can pose it its own way
+ * (level 2's band draws its own arms and instruments around these). Drawing
+ * units: 200 wide, head centred on (100, 88), shoulders at y 160, feet at y 410.
+ * Wrap the pieces in `<g filter="url(#${id}-paint)">` with `defs` and `clip` in the svg.
+ *
+ * @param {Record<string, string>} a
+ * @param {{ pose?: "down" | "hips" | "wave", bottoms?: "jeans" | "shorts" | "skirt" | "cargo" }} [options]
+ */
+export function paintedPieces(a, options = {}) {
   const id = `avatar-${++count}`;
   // The paint texture depends on the look, not on the drawing order, so the same avatar always looks the same.
   const seed = [...Object.values(a).join("")].reduce((sum, c) => (sum * 31 + c.charCodeAt(0)) % 997, 7);
@@ -124,7 +141,7 @@ export function paintedAvatar(a, options = {}) {
   };
   const brows = line(`M74 ${pose === "wave" ? 72 : 76}Q82 70 90 74`, hairDark, 4) + line("M110 74Q118 70 126 75", hairDark, 4);
   const nose = line("M100 100Q95 108 101 110", skinDark, 2.5);
-  const MOUTHS = {
+  const MOUTHS_DRAWN = {
     smile: line("M88 118Q100 127 112 118", "#7a2e34", 3),
     grin: piece("M86 116Q100 116 114 116Q112 132 100 132Q88 132 86 116Z", "#6b2430") + piece("M90 117h20v5h-20Z", "#fbf8f2"),
     smirk: line("M90 120Q102 124 112 114", "#7a2e34", 3),
@@ -186,15 +203,22 @@ export function paintedAvatar(a, options = {}) {
     hearts: piece("M81 100l-11-11a6 6 0 0 1 11-6a6 6 0 0 1 11 6ZM119 100l-11-11a6 6 0 0 1 11-6a6 6 0 0 1 11 6Z", "#e8506e"),
   };
 
-  const head = ears + earrings + piece(headD, skin) + blush + (FACE[a.face] || "") + (EYES[a.eyes] || EYES.dots) + brows + nose + (MOUTHS[a.mouth] || MOUTHS.smile) +
+  const head = ears + earrings + piece(headD, skin) + blush + (FACE[a.face] || "") + (EYES[a.eyes] || EYES.dots) + brows + nose + `<g class="mouth" style="transform-origin:100px 120px">${MOUTHS_DRAWN[a.mouth] || MOUTHS_DRAWN.smile}</g>` +
     frontHair + (HATS[a.hat] || "") + (PINS[a.pin] || "") + (GLASSES[a.gl] || "");
 
-  const figure = `<ellipse cx="100" cy="410" rx="56" ry="8" fill="#3a1e2a" opacity=".12"/>` + backHair +
-    legs + (BOTTOMS[bottoms] || BOTTOMS.jeans) + socks + shoes + neck + topSvg + armsSvg + sleeves + handsSvg + (ACC[a.acc] || "") + head;
-
-  const viewBox = VIEW[options.crop] || VIEW.full;
-  const backdrop = options.backdrop ? `<rect class="backdrop" x="-11" y="-27" width="222" height="444" rx="40" fill="${a.bg}"/><circle cx="100" cy="190" r="110" fill="#fff" opacity=".3"/>` : "";
-  return `<svg class="avatar painted" viewBox="${viewBox}" role="img" aria-label="${options.label || "Avatar"}">${defs}${backdrop}<clipPath id="${id}-body"><path d="${body}"/></clipPath><g filter="url(#${id}-paint)">${figure}</g></svg>`;
+  return {
+    id, defs,
+    clip: `<clipPath id="${id}-body"><path d="${body}"/></clipPath>`,
+    shadow: `<ellipse cx="100" cy="410" rx="56" ry="8" fill="#3a1e2a" opacity=".12"/>`,
+    backHair,
+    lower: legs + (BOTTOMS[bottoms] || BOTTOMS.jeans) + socks + shoes,
+    neck,
+    top: topSvg,
+    arms: armsSvg + sleeves + handsSvg,
+    acc: ACC[a.acc] || "",
+    head,
+    colours: { skin, top },
+  };
 }
 
 /** How much of the figure each crop shows. */

@@ -319,8 +319,8 @@
 .level-02 .member {
   position: absolute;
   bottom: 13%;
-  width: 15%;
-  max-width: 150px;
+  width: 19%;
+  max-width: 190px;
   text-align: center;
 }
 
@@ -347,10 +347,10 @@
   background: #ff5a3c;
 }
 
-.level-02 .member-keys { left: 11%; }
-.level-02 .member-vocals { left: 31%; }
-.level-02 .member-drums { left: 50%; bottom: 19%; width: 14%; }
-.level-02 .member-guitar { left: 70%; }
+.level-02 .member-keys { left: 8%; }
+.level-02 .member-vocals { left: 28%; }
+.level-02 .member-drums { left: 48%; bottom: 19%; width: 18%; }
+.level-02 .member-guitar { left: 68%; }
 
 /* Everybody moves with the beat, more when the party is lively. */
 .level-02 .playing .member-svg {
@@ -365,7 +365,7 @@
 .level-02 .playing .strum { animation: level-02-strum calc(var(--beat) / 2) ease-in-out infinite alternate; }
 .level-02 .playing .fret { animation: level-02-fret calc(var(--beat) * 2) ease-in-out infinite alternate; }
 .level-02 .playing .wave { animation: level-02-wave var(--beat) ease-in-out infinite alternate; }
-.level-02 .playing .mouth { animation: level-02-sing calc(var(--beat) / 2) ease-in-out infinite alternate; }
+.level-02 .playing .member-vocals .mouth { animation: level-02-sing calc(var(--beat) / 2) ease-in-out infinite alternate; }
 .level-02 .playing .hand-left { animation: level-02-key calc(var(--beat) / 2) ease-in-out infinite alternate; }
 .level-02 .playing .hand-right { animation: level-02-key calc(var(--beat) / 2) ease-in-out infinite alternate-reverse; }
 .level-02 .playing .stick-left { animation: level-02-stick calc(var(--beat) / 2) ease-in-out infinite alternate; }
@@ -586,3 +586,20 @@
 @keyframes level-02-cheer {
   to { transform: translateY(-14px); }
 }
+
+/* Painted notes and targets (notes-art.js): the pictures replace the flat boxes and text arrows. */
+.level-02 .note {
+  border-radius: 0;
+  background: var(--note-img) center / contain no-repeat;
+  box-shadow: none;
+}
+
+.level-02 .receptor {
+  border: 0;
+  border-radius: 0;
+  background: var(--target-img) center / contain no-repeat;
+}
+
+.level-02 .receptor.pressed { background: var(--target-img) center / contain no-repeat; }
+.level-02 .note > span,
+.level-02 .receptor > span { visibility: hidden; }
