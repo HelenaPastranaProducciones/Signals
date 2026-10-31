@@ -424,6 +424,12 @@ Els detalls de cada nivell són a la seva llibreta
   cada cosa, vores una mica irregulars i textura de pintura. Núvols i turons
   suaus, sense ombra dura.
 
+**Nova estètica: nivell 2**
+- La banda són adolescents pintats com l'avatar (cap més petit, cos i braços
+  més llargs, cames primes). El públic també està pintat i té el cap més
+  petit. Les notes són planes amb ombra dura, i hi ha textura de paper per
+  sobre de tot. Continua anant fluid.
+
 ---
 
 ## Coses pendents de decidir
