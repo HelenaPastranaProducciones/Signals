@@ -418,8 +418,11 @@ Els detalls de cada nivell són a la seva llibreta
   amb samarreta.
 - A la pantalla d'inici de cada nivell (1 a 4) s'explica també com guanyes i
   com perds.
-- Nivell 1: el fons s'ha redibuixat amb l'estètica nova: línies de tinta,
-  colors càlids de paper, cel més suau i terra amb vora de tinta.
+- Nivell 1: el fons s'ha redibuixat amb l'estètica nova. Primer amb línies de
+  tinta (descartat: a Helena li va semblar horrible); ara pintat amb la mateixa
+  tècnica que l'avatar: colors plens però apagats, ombra dura a un costat de
+  cada cosa, vores una mica irregulars i textura de pintura. Núvols i turons
+  suaus, sense ombra dura.
 
 ---
 

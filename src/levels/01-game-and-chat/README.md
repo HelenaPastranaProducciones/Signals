@@ -40,6 +40,7 @@ Split screen: Flappy/tap runner and a group chat. You tap to jump and also tap f
 ## Decisions
 
 - 31/10/2026: new look for the whole game (Helena: the clay toys were too childish for teens). The runner is now a hand-painted teen: smaller head, longer chest, long thin arms and legs, flat colours with a hard shadow and a paint grain. The scenery has slightly muted colours and a still paper grain on top; the obstacles get the paint grain too.
+- 31/10/2026: Helena: the background must be painted with the same technique as the avatar (an inked, outlined version was rejected as horrible). Scenery tiles now use the paint filter and hard shadows; clouds and hills stay soft.
 - 28/10/2026: the chat goes on top of the game (bubbles over the game), not on a split screen.
 - 28/10/2026: the game is a runner with the player's own avatar (so the avatar they customised is the one playing).
 - 28/10/2026: social twist is a mix: ignored friends get upset (they don't leave), and friends you reply to help you in the game.
