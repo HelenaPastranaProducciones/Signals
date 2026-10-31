@@ -132,6 +132,11 @@ https://claude.ai/artifact/Kz5CaVyjyNMNNEcypQ6XRx
   (29/10/2026, not decided): dotted Doto titles (like the Signals Journal logo; Bowlby One SC rejected), every other text in thin Hanken Grotesk (close to Elisava Sans, Helena's
   reference), short flat shadows. Demo only with
   `?fonts=demo` (`src/styles/fonts-demo.css`).
+- **New look being tried (31/10/2026, not decided):** Helena finds the clay
+  toys too childish for teens. Demo only with `?look=demo` (`src/demo/`):
+  hand-painted teen characters like a 2D animated series (`painted-avatar.js`,
+  same editor choices, new drawing), Shantell Sans lettering (hand-made but
+  legible), warm paper, hand-drawn outlines and short flat shadows.
 - **References** (avatar images, a yellow editorial poster) were only style
   inspiration. **Never copy real characters or brand logos.**
 

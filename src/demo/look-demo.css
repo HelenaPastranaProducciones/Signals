@@ -1,0 +1,229 @@
+/* Style demo (?look=demo): painted teens, hand-made lettering, warm paper. */
+
+body.look-demo {
+  --paper: #f3ebdd;
+  --ink: #2b2630;
+  --tomato: #e4573d;
+  --mustard: #e9b03b;
+  --teal: #2f8f8a;
+  --lilac: #9c8ad0;
+  margin: 0;
+  background-color: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .15 0 0 0 0 .1 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  color: var(--ink);
+  font-family: "Shantell Sans", system-ui, sans-serif;
+  font-variation-settings: "INFM" 30;
+  font-weight: 400;
+}
+
+.ld {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 16px 16px 60px;
+}
+
+.ld-note {
+  margin: 0 auto 8px;
+  width: fit-content;
+  padding: 4px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background: var(--mustard);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.ld section {
+  margin-top: 36px;
+  text-align: center;
+}
+
+.ld h1,
+.ld h2,
+.ld-over-title {
+  margin: 0;
+  font-weight: 800;
+  font-variation-settings: "INFM" 100;
+  line-height: 1;
+}
+
+.ld h1 {
+  position: relative;
+  display: inline-block;
+  font-size: clamp(64px, 12vw, 140px);
+  transform: rotate(-3deg);
+  letter-spacing: -0.02em;
+}
+
+.ld-underline {
+  position: absolute;
+  left: 4%;
+  bottom: -0.12em;
+  width: 92%;
+  height: 0.22em;
+}
+
+.ld-underline path { fill: none; stroke: var(--tomato); stroke-width: 7; stroke-linecap: round; }
+
+.ld h2 {
+  display: inline-block;
+  font-size: clamp(30px, 5vw, 46px);
+  transform: rotate(-1.5deg);
+  margin-bottom: 14px;
+}
+
+.ld-title p { margin: 18px 0 6px; font-size: 20px; }
+.ld-title small { display: block; margin-top: 6px; opacity: 0.6; }
+.ld-me { width: 190px; margin: 0 auto; }
+
+.ld svg.painted { display: block; width: 100%; height: auto; }
+
+/* Buttons: a hand-drawn outline and a short flat shadow. */
+.ld-btn {
+  font: inherit;
+  font-weight: 700;
+  font-size: 22px;
+  padding: 10px 30px;
+  border: 2.5px solid var(--ink);
+  border-radius: 20px 28px 18px 30px / 26px 18px 30px 20px;
+  background: var(--tomato);
+  color: #fff8ee;
+  box-shadow: 3px 4px 0 var(--ink);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.ld-btn:hover { transform: translate(-1px, -1px) rotate(-1deg); box-shadow: 4px 5px 0 var(--ink); }
+.ld-btn:active { transform: translate(2px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+.ld-btn-light { background: #fff8ee; color: var(--ink); font-size: 18px; }
+.ld-small { font-size: 14px; padding: 4px 14px; box-shadow: 2px 3px 0 var(--ink); }
+
+.ld-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  align-items: end;
+  margin-bottom: 18px;
+}
+
+.ld-row-small { grid-template-columns: repeat(6, 1fr); }
+
+.ld figure { margin: 0; }
+
+.ld figcaption {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 0 12px;
+  border: 2px solid var(--ink);
+  border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px;
+  background: var(--c);
+  color: #fff8ee;
+  font-weight: 700;
+}
+
+/* A level, as it would look. */
+.ld-frame {
+  border: 3px solid var(--ink);
+  border-radius: 28px 18px 26px 20px;
+  background: #fff8ee;
+  box-shadow: 5px 6px 0 var(--ink);
+  overflow: hidden;
+  text-align: left;
+}
+
+.ld-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 3px solid var(--ink);
+  flex-wrap: wrap;
+}
+
+.ld-tag {
+  padding: 2px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background: var(--mustard);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.ld-hud { font-weight: 700; font-size: 20px; font-variant-numeric: tabular-nums; }
+.ld-controls { display: flex; gap: 8px; }
+
+.ld-stage {
+  position: relative;
+  min-height: 480px;
+  background:
+    radial-gradient(circle at 80% 20%, #e9b03b55, transparent 40%),
+    linear-gradient(#cfe3de, #e8d9c4);
+}
+
+.ld-bubble {
+  position: absolute;
+  left: 4%;
+  top: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: min(360px, 80%);
+  padding: 8px 16px 8px 8px;
+  border: 3px solid var(--ink);
+  border-radius: 22px 22px 22px 6px;
+  background: #fff8ee;
+  box-shadow: 3px 4px 0 var(--c, var(--ink));
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+.ld-bubble b { display: block; color: var(--c); font-weight: 800; }
+.ld-mine { left: auto; right: 4%; top: 110px; --c: var(--teal); border-radius: 22px 22px 6px 22px; }
+
+.ld-face {
+  flex: none;
+  width: 54px;
+  height: 54px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  overflow: hidden;
+  background: #e8d9c4;
+}
+
+.ld-over {
+  position: absolute;
+  inset: 190px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.ld-over-title {
+  font-size: clamp(48px, 8vw, 84px);
+  color: var(--mustard);
+  -webkit-text-stroke: 2.5px var(--ink);
+  text-shadow: 4px 5px 0 var(--ink);
+  transform: rotate(-2deg);
+}
+
+.ld-card {
+  max-width: 440px;
+  padding: 16px 22px;
+  border: 3px solid var(--ink);
+  border-radius: 24px 16px 22px 18px;
+  background: #fff8ee;
+  box-shadow: 4px 5px 0 var(--ink);
+  text-align: center;
+  font-size: 18px;
+}
+
+.ld-card p { margin: 0 0 12px; font-weight: 500; }
+.ld-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+@media (max-width: 700px) {
+  .ld-row { grid-template-columns: repeat(2, 1fr); }
+  .ld-row-small { grid-template-columns: repeat(3, 1fr); }
+  .ld-over { inset: 210px 0 0; }
+}

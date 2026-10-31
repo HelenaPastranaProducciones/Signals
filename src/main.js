@@ -24,4 +24,6 @@ if (params.get("fonts") === "demo") {
   ]) document.head.insertAdjacentHTML("beforeend", `<link rel="stylesheet" href="${href}">`);
 }
 
-render();
+// ?look=demo shows the new look Helena is trying out, instead of the game (src/demo/).
+if (params.get("look") === "demo") import("./demo/look-demo.js").then(({ showLookDemo }) => showLookDemo(document.getElementById("app")));
+else render();

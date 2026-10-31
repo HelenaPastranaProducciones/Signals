@@ -367,6 +367,22 @@ Els detalls de cada nivell són a la seva llibreta
 - Una mica més difícil: la grua va més ràpida i has d'apuntar més just
   damunt l'objecte.
 
+
+### 31/10/2026
+
+**Nova estètica: demo**
+- Helena vol canviar l'estètica de tot el joc: el joc és per a adolescents,
+  i els ninots de plastilina semblen massa infantils. Referència: personatges
+  dibuixats i pintats a mà, com una sèrie d'animació 2D, i lletres que semblin
+  fetes a mà però que es llegeixin bé.
+- Claude n'ha fet una demo que només surt amb `?look=demo` (el joc normal no
+  canvia): adolescents pintats (cap més petit, braços i cames llargs, textura
+  de pintura, ombra plana), lletra Shantell Sans (feta a mà però clara),
+  fons de paper càlid, botons i cartells amb vora dibuixada i ombra curta.
+  Ensenya la pantalla del títol, la colla d'amics, com es veuria un nivell i
+  adolescents a l'atzar.
+- Pendent: que Helena la vegi i digui si anem per aquí.
+
 ---
 
 ## Coses pendents de decidir
