@@ -217,12 +217,14 @@ first proposal, to tune while playing.
   grain (an SVG filter). `renderAvatar()` draws it everywhere (title, lobby,
   editor, chats, `game.avatar()`). The menus have a matching look
   (`styles/hand-drawn.css`, tokens in `styles/tokens.css`): warm paper, dark
-  ink outlines with uneven corners, short flat shadows. Level art in this look: level 1
-  done (its runner uses `createPaintKit` from `svg-kit.js`, the same helpers
-  as the clay kit but painted). Levels 2, 3 and 4 done too (2 and 3 built from `paintedPieces`): every
-  built level is in the new look. New levels must be drawn this way too (they use the clay pieces still
-  exported from `render-avatar.js`). The notes below describe the clay
-  avatar and still apply to those pieces.
+  ink outlines with uneven corners, short flat shadows.
+- **Level art in the new look:** levels 1 to 4 are all redrawn (31/10/2026).
+  Draw every new level this way: people from `paintedPieces()` in
+  painted-avatar.js (the editor's exact faces and options, posed by the level),
+  other drawings with `createPaintKit()` from `svg-kit.js` (the clay kit's
+  helpers, painted), and a paper grain (`var(--grain)`) over the stage. The
+  clay pieces still exported from `render-avatar.js` and the clay notes below
+  are the old look, kept only for reference.
 The avatar is the common thread of the game: you play, unlock pieces and see
 them in the lobby. It is drawn **procedurally as SVG** by
 `renderAvatar(avatar, { backdrop, crop })` (`src/avatar/render-avatar.js`). The clay effect comes

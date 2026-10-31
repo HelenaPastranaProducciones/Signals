@@ -84,9 +84,15 @@ Other helpers:
 - `src/data/friends.js`: `randomFriends(n)` gives n fictional friends (name, colour, random avatar) from a pool of 12.
 
 **Every attempt is a different run (Helena, 29/10/2026).** Whatever can change without changing the rules should be random in each attempt: layouts, scenery, colours, which friends appear and how they look, texts from a list, the order of things. Keep the difficulty the same: vary the details, not how hard it is.
+- **The look (Helena, 31/10/2026): hand-painted, not clay.** Draw people with
+  `paintedPieces()` (`src/avatar/painted-avatar.js`, the editor's exact faces
+  and options) and everything else with `createPaintKit()` from
+  `src/avatar/svg-kit.js` (same helpers as the clay kit, but flat colours with a
+  hard shadow; wrap small drawings in its paint filter). Put a paper grain
+  (`background-image: var(--grain)`) over the stage. Levels 2, 3 and 4 show how.
 - `src/avatar/svg-kit.js`: `createSvgKit()` draws shapes with the same
   vinyl/clay shading as the avatar (`kit.defs()` + `kit.clay(path, colour)`).
-  Use it so the levels' art matches the avatar.
+  Use it so the levels' art matches the avatar. (old look)
 
 ## How a level is drawn
 
