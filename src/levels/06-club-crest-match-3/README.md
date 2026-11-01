@@ -12,7 +12,7 @@ Claude keeps it up to date in plain words while working on the level with Helena
 Tick a step only when Helena agrees it is done.
 
 - [x] 1. Idea agreed: what the player sees and does, the social twist, how you win or lose
-- [ ] 2. First playable version: simple shapes, playable from start to end
+- [x] 2. First playable version: simple shapes, playable from start to end
 - [ ] 3. Rules and difficulty tuned: it feels right to play
 - [ ] 4. Look and feel: final art in the Signals style, with animations
 - [ ] 5. Texts and details: final texts, and sound or vibration if wanted
@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-01/11/2026: idea agreed with Helena (step 1). First playable version built straight away in the painted look: a 7×7 board of six invented club crests (Lions, Waves, Comets, Roses, Pines, Bolts), your club marked with a yellow dot, a fan bar of 70 fans, the stand filling with painted fans in the colours of the crests you match, and the whole stand chanting your club's name when it's full. 40 seconds. The Match-3 engine is shared (src/mechanics/match-3.js) for level 17. Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
+01/11/2026: idea agreed with Helena (step 1). First playable version built straight away in the painted look: a 7×7 board of six invented club crests (Lions, Waves, Comets, Roses, Pines, Bolts), your club marked with a yellow dot, a fan bar of 70 fans, the stand filling with painted fans in the colours of the crests you match, and the whole stand chanting your club's name when it's full. 40 seconds. The Match-3 engine is shared (src/mechanics/match-3.js) for level 17. Helena played it and liked it (step 2 done, 01/11/2026). Next: tune difficulty if needed (step 3).
 
 ## The idea
 

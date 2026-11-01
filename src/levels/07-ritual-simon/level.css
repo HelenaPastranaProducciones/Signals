@@ -1,0 +1,144 @@
+/* Level 7 · Ritual Simon. Painted look: flat colours, hard shadows, paper grain. */
+
+.level-07 .ritual {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4%;
+  overflow: hidden;
+  user-select: none;
+  background:
+    linear-gradient(transparent 74%, #c08a5a 74%),
+    linear-gradient(#e8cfe0, #f3dfa2);
+}
+
+.level-07 .ritual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background-image: var(--grain);
+  pointer-events: none;
+}
+
+/* ---------- The group, small at the side ---------- */
+
+.level-07 .crew {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 12px;
+  width: 22%;
+  max-width: 230px;
+}
+
+.level-07 .friend { position: relative; transition: translate 0.2s; }
+.level-07 .friend svg { display: block; width: 100%; }
+
+.level-07 .friend span {
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  translate: -50% 0;
+  padding: 0 8px;
+  border-radius: 10px;
+  background: #d9573f;
+  color: #fff8ee;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.level-07 .cheer .friend { animation: level-07-hop 0.3s ease-out 2 alternate; }
+.level-07 .done .friend { animation: level-07-hop 0.3s ease-out infinite alternate; }
+.level-07 .friend.inventing { animation: level-07-hop 0.25s ease-out infinite alternate; }
+
+/* ---------- The Simon board ---------- */
+
+.level-07 .table {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: min(54%, 72vh);
+}
+
+.level-07 .banner {
+  min-height: 2.4em;
+  padding: 6px 18px;
+  border: 2.5px solid #2b2630;
+  border-radius: 22px 28px 20px 30px / 28px 20px 30px 22px;
+  background: #fff8ee;
+  box-shadow: 3px 4px 0 #2b2630;
+  color: #2b2630;
+  font-size: 22px;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.level-07 .banner small { display: block; font-size: 13px; color: #8a8090; }
+.level-07 .banner.pop { animation: level-07-pop 0.3s ease-out; }
+
+.level-07 .pads {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  width: 100%;
+}
+
+.level-07 .pads.five { grid-template-columns: repeat(6, 1fr); }
+.level-07 .pads.five .pad { grid-column: span 2; }
+.level-07 .pads.five .pad:nth-child(4) { grid-column: 2 / span 2; }
+
+.level-07 .pad {
+  position: relative;
+  aspect-ratio: 1.15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border: 3px solid #2b2630;
+  border-radius: 26px 32px 24px 30px / 30px 24px 32px 26px;
+  background: linear-gradient(90deg, transparent 66%, rgba(58, 30, 42, 0.14) 66%), color-mix(in srgb, var(--c) 55%, #f1ece4);
+  box-shadow: 4px 5px 0 #2b2630;
+  font: inherit;
+  color: #2b2630;
+  cursor: pointer;
+  transition: scale 0.12s, background 0.12s;
+}
+
+.level-07 .pad svg { width: 62%; height: auto; pointer-events: none; }
+.level-07 .pad span { font-size: 15px; pointer-events: none; }
+.level-07 .pad.lit { background: var(--c); scale: 1.07; box-shadow: 4px 5px 0 #2b2630, 0 0 0 6px #fff8ee; }
+.level-07 .pad.wrong { animation: level-07-shake 0.35s; }
+.level-07 .pad.new { animation: level-07-new 0.6s cubic-bezier(0.3, 1.6, 0.5, 1); }
+
+.level-07 .hearts { display: flex; gap: 6px; font-size: 26px; color: #d9576f; }
+.level-07 .hearts b.lost { color: #b7aeb8; scale: 0.8; transition: scale 0.2s; }
+
+/* ---------- Start card ---------- */
+
+.level-07 .start {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  text-align: center;
+  background: #2b2630cc;
+  color: #fff;
+  cursor: pointer;
+}
+
+.level-07 .start > b { font-size: clamp(24px, 4.5vh, 38px); color: #e9c24a; }
+
+@keyframes level-07-hop { to { translate: 0 -10%; } }
+@keyframes level-07-pop { from { scale: 0.85; } }
+@keyframes level-07-shake { 25% { translate: -6px 0; } 75% { translate: 6px 0; } }
+@keyframes level-07-new { from { scale: 0; rotate: -20deg; } }
