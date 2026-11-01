@@ -64,18 +64,24 @@ Els detalls de cada nivell són a la seva llibreta
   Falta que Helena hi jugui.
 - **Nivell 14 (Tidy Up):** pas 1 fet (idea proposada per Claude i aprovada) i
   primera versió jugable feta. Falta que Helena hi jugui.
-- **Nivell 15 (Phone Off):** pas 1 fet. Només un missatge sobre fons negre:
-  agafa paper i boli i escriu una carta a algú que estimes. Falta que Helena
-  el vegi.
-- **Nivell 16 (Most Likely To):** pas 1 fet i primera versió jugable feta.
-  Falta que Helena hi jugui.
+- **Nivell 15 (Phone Off):** pas 2 fet. Missatge sobre fons negre (agafa
+  paper i boli i escriu una carta a algú que estimes) i botó "I wrote it,
+  keep playing".
+- **Nivell 16 (Most Likely To):** pas 2 fet. Ara 8 segons per pregunta;
+  falta que Helena ho torni a provar.
 - **Nivell 17 (Collectibles Match-3):** pas 1 fet i primera versió jugable
   feta. Falta que Helena hi jugui.
-- **Nivell 18 (Odd One Out):** pas 1 fet i primera versió jugable feta.
-  Falta que Helena hi jugui.
+- **Nivell 18 (Odd One Out):** refet com "la foto del grup" (opció A). Falta
+  que Helena hi jugui.
 - **Nivell 19 (Jigsaw):** pas 1 fet i primera versió jugable feta. Falta
   que Helena hi jugui.
 - **Tots els 19 nivells** ja tenen una primera versió jugable.
+- **Pantalles de càrrega:** la inicial ("Signals Journal", per què és un
+  videojoc) i la de cada nivell (explicació de la signal i dibuix) estan
+  fetes; el mapa té el dibuix de cada signal a cada casella.
+- **01/11/2026, final de la sessió:** Helena diu que de moment el joc es
+  queda així. Quan es reprengui: que Helena jugui els nivells 13 a 19 i
+  ajustar-los, i després la feina general pendent.
 - **Estètica:** tot el joc té la nova estètica pintada (menús, avatar i
   nivells 1 a 5), amb la lletra Schoolbell. Només tenen la
   proposta inicial a la seva llibreta.
