@@ -7,6 +7,7 @@ import { levelScreen } from "./screens/level.js";
 import { lobbyScreen } from "./screens/lobby.js";
 import { mapScreen } from "./screens/map.js";
 import { titleScreen } from "./screens/title.js";
+import { finaleScreen } from "./screens/finale.js";
 
 const SCREENS = {
   title: titleScreen,
@@ -14,6 +15,7 @@ const SCREENS = {
   map: (s) => (s.ui.lobbyOpen ? lobbyScreen(s) : mapScreen(s)),
   "level-intro": levelIntroScreen,
   level: levelScreen,
+  finale: finaleScreen,
 };
 
 /** Floating house button that opens the lobby from the map (a map icon to go back). */

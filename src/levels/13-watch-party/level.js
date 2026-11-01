@@ -46,7 +46,7 @@ export default defineLevel({
         <div class="place">${place}</div>
         <div class="tv">${tvSvg(show)}<div class="moment"></div><div class="buffer">buffering…</div></div>
         <div class="viewer">${game.avatar(who === "mine" ? game.player.avatar : friend.avatar, { label: name, crop: "bust", backdrop: false })}<span>${name}</span></div>
-        <div class="tap keys-only">${who === "mine" ? "A" : "L"}</div>
+        <button class="react"><span class="label">React</span><small class="keys-only">${who === "mine" ? "A" : "L"}</small></button>
       </div>`;
 
     game.root.innerHTML = `
@@ -56,7 +56,7 @@ export default defineLevel({
         <div class="chat"></div>
         <div class="start">
           <b>Watch it together</b>
-          <span>You and ${friend.name} watch <b>${show.title}</b> from home. When something big happens, <b>click both screens</b><span class="keys-only"> (or press <b>A</b> and <b>L</b>)</span> to react together.</span>
+          <span>You and ${friend.name} watch <b>${show.title}</b> from home. When something big happens, <b>tap React on both screens</b><span class="keys-only"> (or press <b>A</b> and <b>L</b>)</span> to react together.</span>
           <span>If ${friend.name}'s screen is late, wait for it: reacting before they see it is a spoiler.</span>
           <span class="rules"><b>Win:</b> react together to ${s.syncsToWin} of the ${s.events} moments</span>
           <span class="rules"><b>Lose:</b> miss ${s.events - s.syncsToWin + 1} moments (or spoil them)</span>
@@ -90,8 +90,13 @@ export default defineLevel({
       sides[who].classList.add("happening");
     };
 
+    // Each side's React button says how that tap went (Helena, 01/11/2026).
+    const feedback = (who, text) => (sides[who].querySelector(".react .label").textContent = text);
+
     const clear = () => {
       for (const el of Object.values(sides)) el.classList.remove("happening", "tapped", "spoiled");
+      feedback("mine", "React");
+      feedback("theirs", "React");
     };
 
     const resolve = (ok, why) => {
@@ -140,15 +145,27 @@ export default defineLevel({
 
     const tap = (who) => {
       const el = sides[who];
-      if (!current || current.done) return;
+      if (!current || current.done) {
+        if (!el.classList.contains("tapped")) {
+          feedback(who, "Wait…");
+          game.after(500, () => !el.classList.contains("tapped") && feedback(who, "React"));
+        }
+        return;
+      }
       if (now() < current.at[who]) {
         // Too early: on their side, that's a spoiler.
         el.classList.add("spoiled");
+        feedback(who, "Too soon!");
         return resolve(false, pick(["NO SPOILERS!!", "wait for me!", "I haven't seen it yet!"]));
       }
       current.tapped[who] = true;
       el.classList.add("tapped");
-      if (current.tapped.mine && current.tapped.theirs) resolve(true);
+      feedback(who, "Nice!");
+      if (current.tapped.mine && current.tapped.theirs) {
+        feedback("mine", "Together!");
+        feedback("theirs", "Together!");
+        resolve(true);
+      }
     };
 
     const begin = () => {

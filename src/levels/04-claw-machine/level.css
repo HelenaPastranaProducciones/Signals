@@ -350,3 +350,14 @@
 /* Objects stand on the floor in three rows; the back rows look further away. */
 .level-04 .prize { scale: var(--depth, 1); transform-origin: 50% 100%; }
 .level-04 .prize.held { scale: 1; }
+
+/* Phones (portrait): no prize door, a tighter tray, so the red button always shows (Helena, 01/11/2026). */
+@media (max-aspect-ratio: 1 / 1) {
+  .level-04 .door { display: none; }
+  .level-04 .panel { gap: 8px; }
+  .level-04 .tray { flex: 1; min-width: 0; gap: 8px; padding: 0 8px; }
+  .level-04 .coins { gap: 3px; flex-wrap: wrap; max-width: 60px; }
+  .level-04 .coins i { width: 14px; }
+  .level-04 .slots { gap: 4px; height: 70%; }
+  .level-04 .button { flex: none; height: 60%; }
+}

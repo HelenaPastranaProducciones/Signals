@@ -157,3 +157,33 @@
 @keyframes level-13-flash { from { scale: 1.2; } }
 @keyframes level-13-blink { 50% { opacity: 0.3; } }
 @keyframes level-13-in { from { opacity: 0; translate: 0 8px; } }
+
+/* A React button on each screen, that says how the tap went (Helena, 01/11/2026). */
+.level-13 .react {
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  z-index: 15;
+  translate: -50% 0;
+  display: grid;
+  justify-items: center;
+  min-width: 62%;
+  padding: 10px 14px 8px;
+  border: 3px solid #2b2630;
+  border-radius: 22px 26px 20px 28px;
+  background: #fbf6ee;
+  color: #2b2630;
+  font: inherit;
+  font-size: clamp(16px, 2.6vh, 22px);
+  text-transform: uppercase;
+  box-shadow: 3px 4px 0 #2b2630;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.level-13 .react small { font-size: 12px; color: #8a8090; }
+.level-13 .react:active { translate: -50% 3px; box-shadow: 1px 1px 0 #2b2630; }
+.level-13 .happening .react { background: #e9c24a; animation: level-13-flash 0.35s ease-out; }
+.level-13 .tapped .react { background: #6fbf8c; }
+.level-13 .spoiled .react { background: #d9573f; color: #fff8ee; }
+.level-13 .chat { top: 62%; }

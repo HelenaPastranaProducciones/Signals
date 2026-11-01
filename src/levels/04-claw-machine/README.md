@@ -49,6 +49,7 @@ Move the claw and grab polaroids, vinyls and cassettes, avoiding digital objects
 - 29/10/2026: no clock, only the 5 tries; the claw speeds up a little each try (rejected: a 45-second clock as well).
 - 29/10/2026: Helena: the machine fills the whole screen (the coins and your prizes are now on its front panel; the side column with the chat and your avatar is gone), and the friend's messages pop up over the machine like the chat bubbles in level 1.
 - 29/10/2026: Helena: a bit harder. The claw swings faster (34 instead of 28, and 9 faster each try instead of 7) and you have to drop it more precisely over an object (3 instead of 4.5).## Open questions
+- 01/11/2026: on phones held upright the red button didn't show; the panel is tighter there now (no prize door).
 
 _None yet._
 

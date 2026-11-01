@@ -43,6 +43,7 @@ One tap starts a group conversation that runs by itself. Every 5 s, one tap keep
 - 01/11/2026: you keep it alive by tapping one of three quick reactions (rejected: one single button).
 - 01/11/2026: social twist: you fall asleep and your friends keep the chat going and say goodnight (rejected: a friend sharing a rough day).
 - 01/11/2026: you lose if the chat's glow goes out completely (about 8 s without reacting) (rejected: no losing at all).
+- 01/11/2026: Helena: shorter (30 seconds instead of 45) and messages come from both sides of the chat.
 
 ## Open questions
 

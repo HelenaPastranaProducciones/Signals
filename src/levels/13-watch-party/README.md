@@ -40,6 +40,7 @@ Split screen with two living rooms (Barcelona and Tokyo) watching the same thing
 ## Decisions
 
 - 01/11/2026: Helena approved the idea proposed by Claude (split screen, same show, the friend's connection lags halfway) and asked to build it straight away. The time to react together is 1.4 seconds, a bit more than the brief's 0.5, so it can be played with a mouse.
+- 01/11/2026: Helena: a React button on each screen that says how the tap went (Nice!, Too soon!, Together!).
 
 ## Open questions
 

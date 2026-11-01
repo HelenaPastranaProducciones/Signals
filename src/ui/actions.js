@@ -24,6 +24,12 @@ const ACTIONS = {
   /** Lobby "Start game": straight to the next signal to play, without the map (Helena, 01/11/2026). */
   "start-game": () => goTo("level-intro", Math.min(progress.completed + 1, TOTAL_LEVELS)),
   "continue-intro": finishIntro,
+  /** After the last signal: "you finished the game" (Helena, 01/11/2026). */
+  finale: () => goTo("finale"),
+  "open-lobby": () => {
+    goTo("map");
+    Object.assign(ui, { lobbyOpen: true, lobbyView: "main" });
+  },
   "to-map": () => goTo("map"),
   /** "Complete (demo)" on levels whose minigame is not built yet. */
   "complete-level": () => {
@@ -78,7 +84,7 @@ export function runAction(name, data = {}) {
 /** Esc goes back one step: lobby sub-screen → lobby → map, and level → map. */
 function goBack() {
   if (ui.lobbyOpen) runAction(ui.lobbyView === "main" ? "toggle-lobby" : "lobby-view", { key: "main" });
-  else if (ui.screen === "level" || ui.screen === "level-intro") runAction("to-map");
+  else if (ui.screen === "level" || ui.screen === "level-intro" || ui.screen === "finale") runAction("to-map");
 }
 
 export function bindEvents() {

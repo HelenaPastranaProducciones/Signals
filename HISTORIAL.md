@@ -557,6 +557,20 @@ Els detalls de cada nivell són a la seva llibreta
   de terra són més petits i la pista va una mica més ràpida, perquè al mòbil
   no es podien saltar.
 
+**Revisió d'Helena jugant (ordinador i mòbil)**
+- Nivell 4 (mòbil): ja es veu el botó vermell.
+- Nivell 8: 30 segons (abans 45) i missatges als dos costats del xat.
+- Nivell 10: botó "Done!" per acabar abans d'hora.
+- Nivell 11 (mòbil): surten més missatges.
+- Nivell 12 (mòbil): els missatges dels amics ja no tapen la foto de sota.
+- Nivell 13: un botó "React" a cada pantalla que diu com ha anat (Nice!,
+  Too soon!, Together!).
+- Final del joc: en guanyar el nivell 19 surt "The end!" i una pantalla de
+  "You did it!" amb l'avatar i confeti.
+- Pendent: nivell 9 (Helena diu que no té sentit, només és posar algú a
+  cada lloc; s'ha de repensar) i saber quins nivells "es bloquegen" una mica
+  al principi.
+
 ## Coses pendents de decidir
 
 - **Mòbil:** com saltar i ajupir-se sense teclat al nivell 1.

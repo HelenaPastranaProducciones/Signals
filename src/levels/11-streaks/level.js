@@ -29,6 +29,7 @@ export default defineLevel({
     duration: 35, // seconds no plant may dry out
     drySeconds: 11, // seconds a fully watered plant takes to dry out
     postEverySeconds: 1.1, // how often a friend posts something
+    phonePostEverySeconds: 0.7, // on a phone screen posts come more often: tapping is easier (Helena, 01/11/2026)
     postSeconds: 1.8, // how long a post stays before it disappears
     waterPerReaction: 0.5, // how much a reaction waters (1 = a full plant)
     quietAfterSeconds: 11, // when one friend goes quiet
@@ -150,7 +151,8 @@ export default defineLevel({
       if (!running) return;
       elapsed += dt;
       sincePost += dt;
-      if (sincePost >= s.postEverySeconds) {
+      const every = game.root.clientWidth < 600 ? s.phonePostEverySeconds : s.postEverySeconds;
+      if (sincePost >= every) {
         sincePost = 0;
         post();
       }

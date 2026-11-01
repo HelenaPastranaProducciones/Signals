@@ -46,6 +46,7 @@ Tick a step only when Helena agrees it is done.
 - 01/11/2026: social twist: a friend goes quiet and you have to write to them first (rejected: a fifth pot, yours, that friends water at the end).
 - 01/11/2026: one dried plant and you lose (rejected: allowing one).
 - 01/11/2026: Helena: it should be a bit hard (plants dry fast, posts don't last long).
+- 01/11/2026: Helena: on phones posts come more often (every 0.7 s), because tapping is easier.
 
 ## Open questions
 

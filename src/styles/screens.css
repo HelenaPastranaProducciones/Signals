@@ -542,3 +542,13 @@ main:has(.level-frame) {
 
 /* Phones: dragging inside a level must not scroll the page (Helena, 01/11/2026). */
 .touch .level-stage { touch-action: none; }
+
+/* The end of the game (Helena, 01/11/2026). */
+.finale { overflow: hidden; gap: 12px; }
+.finale .confetti { position: absolute; inset: 0; pointer-events: none; }
+.finale-title { color: var(--accent); text-shadow: 0 5px 0 var(--edge); }
+.finale > :not(.confetti) { position: relative; z-index: 1; }
+.finale .confetti { opacity: 0.7; }
+.finale-avatar { width: min(170px, 36vw); animation: finale-hop 0.6s ease-in-out infinite alternate; }
+.finale-count { font-size: 26px; text-transform: uppercase; }
+@keyframes finale-hop { to { translate: 0 -10px; } }

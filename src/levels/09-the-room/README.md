@@ -44,6 +44,7 @@ A room seen from above, Habbo style. Friends come in through the door; tap to gr
 - 01/11/2026: you drag each friend to a seat you choose (rejected: one click to greet and they sit by themselves).
 - 01/11/2026: social twist: someone new comes in halfway, shy and less patient; seat them and the group welcomes them and a seat is added (rejected: friends asking to sit next to someone).
 - 01/11/2026: 6 seated to win, 3 leaving to lose, no clock (rejected: a 45-second clock as well).
+- 01/11/2026: Helena: as it is it doesn't make sense, it's just putting someone in each seat. To rethink together.
 
 ## Open questions
 

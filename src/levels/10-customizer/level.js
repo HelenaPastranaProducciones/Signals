@@ -43,7 +43,7 @@ export default defineLevel({
         <div class="choose">
           <b>Pick your thing</b>
           <div class="choices">${OBJECTS.map((o, i) => `<button data-i="${i}">${objectSvg(o, { id: `level-10-pick-${i}` })}<span>${o.name}</span></button>`).join("")}</div>
-          <span>Then make it <b>yours</b>: stickers, paint and drawings. ${s.duration} seconds.</span>
+          <span>Then make it <b>yours</b>: stickers, paint and drawings. ${s.duration} seconds, or <b>Done!</b> when it is ready.</span>
           <span class="rules"><b>Win:</b> decorate it enough (at least ${s.decorationsToWin} things) so your friends know it's yours</span>
           <span class="rules"><b>Lose:</b> leave it almost plain, and nobody can tell it apart</span>
         </div>
@@ -83,13 +83,21 @@ export default defineLevel({
         <div class="sheet">
           <small>Stickers</small>
           <div class="stickers">${sheet.map((st) => `<button class="sticker" data-id="${st.id}">${stickerSvg(st)}</button>`).join("")}</div>
+          <button class="done">Done!</button>
         </div>`;
       svg = box.querySelector(".mat svg");
       deco = svg.querySelector(".deco");
       base = svg.querySelector(".base");
       running = true;
       count();
-      game.countdown(s.duration, toThePile);
+      const clock = game.countdown(s.duration, toThePile);
+      // Finished early? "Done!" goes straight to the pile (Helena, 01/11/2026).
+      game.listen(box.querySelector(".done"), "pointerdown", (event) => {
+        event.stopPropagation();
+        if (!running) return;
+        clock.stop();
+        toThePile();
+      });
     };
 
     /** A point of the screen in the object's drawing units, and whether it's on the object. */

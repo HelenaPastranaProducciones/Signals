@@ -44,6 +44,7 @@ Pick an object (skateboard, phone, water bottle, laptop, backpack) and cover it 
 - 01/11/2026: choose the object, then stickers + base colour + freehand marker (rejected: stickers only).
 - 01/11/2026: social twist: friends recognise your object in a pile of identical plain ones (rejected: a friend adding a gift sticker).
 - 01/11/2026: Helena: you can lose if you barely decorate it (fewer than 5 things), because then nobody recognises it (rejected: no way to lose, as the brief said).
+- 01/11/2026: Helena: a "Done!" button to finish before the time runs out.
 
 ## Open questions
 

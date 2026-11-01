@@ -272,3 +272,9 @@
   .level-08 .bed { position: absolute; left: 6%; bottom: 3%; width: 56%; height: 19%; margin: 0; }
   .level-08 .phone { width: 88%; height: 70%; align-self: flex-start; margin-top: 4%; }
 }
+
+/* Messages from both sides of the chat (Helena, 01/11/2026). */
+.level-08 .msg.right { flex-direction: row-reverse; }
+.level-08 .msg.right p { border-radius: 16px 16px 4px 16px; background: #fdf3d6; }
+.level-08 .reactions.right { margin-left: 0; margin-right: 40px; justify-content: flex-end; }
+.level-08 .reacted.right { margin-left: auto; margin-right: 40px; }

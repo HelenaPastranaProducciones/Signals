@@ -24,7 +24,7 @@ export default defineLevel({
 
   // Numbers that tune the level. First proposal: adjust while playing.
   settings: {
-    duration: 45, // seconds the chat must stay alive
+    duration: 30, // seconds the chat must stay alive (Helena 01/11/2026: 45 was too long)
     glowSeconds: 8, // seconds a full glow takes to fade out if you don't react
     messageEverySeconds: 1.8, // how often a friend writes while the chat is lively
   },
@@ -75,9 +75,11 @@ export default defineLevel({
     const say = (friend, text, { reactions = true } = {}) => {
       messages.querySelectorAll(".reactions").forEach((r) => r.remove());
       const face = `<span class="face">${game.avatar(friend.avatar, { label: friend.name, crop: "head" })}</span>`;
+      // Messages come from both sides of the chat (Helena, 01/11/2026): half the friends write on the right.
+      const side = friends.indexOf(friend) % 2 ? " right" : "";
       messages.insertAdjacentHTML("beforeend", `
-        <div class="msg">${face}<p><b style="color:${friend.colour}">${friend.name}</b>${text}</p></div>
-        ${reactions ? `<div class="reactions">${REACTIONS.map((r) => `<button data-r="${r.id}" aria-label="${r.label}">${r.art}</button>`).join("")}</div>` : ""}`);
+        <div class="msg${side}">${face}<p><b style="color:${friend.colour}">${friend.name}</b>${text}</p></div>
+        ${reactions ? `<div class="reactions${side}">${REACTIONS.map((r) => `<button data-r="${r.id}" aria-label="${r.label}">${r.art}</button>`).join("")}</div>` : ""}`);
       scrollDown();
     };
 
@@ -85,7 +87,7 @@ export default defineLevel({
       if (!running) return;
       const reaction = REACTIONS.find((r) => r.id === button.dataset.r);
       const bar = button.closest(".reactions");
-      bar.outerHTML = `<div class="reacted">${reaction.art}<small>${name}</small></div>`;
+      bar.outerHTML = `<div class="reacted${bar.classList.contains("right") ? " right" : ""}">${reaction.art}<small>${name}</small></div>`;
       glow = 1;
       sinceMessage = s.messageEverySeconds; // someone answers soon
       game.vibrate(15);

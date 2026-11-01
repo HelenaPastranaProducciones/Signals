@@ -47,6 +47,7 @@ Two images with 5 small, meaningful differences (an emoji, a rotated photo, a st
 - 01/11/2026: social twist: the friend behind each detail texts you when you find it (rejected: a friend adding a new detail halfway).
 - 01/11/2026: 45 seconds and 3 hearts (rejected: no clock, only hearts).
 - 01/11/2026: Helena: the differences should be hard (small, subtle details).
+- 01/11/2026: Helena: on phones the friends' texts covered the lower photo; now only the latest one shows, above the photos.
 
 ## Open questions
 

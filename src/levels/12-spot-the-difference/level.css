@@ -157,3 +157,11 @@
 @media (max-aspect-ratio: 1 / 1) {
   .level-12 .photos { grid-template-columns: 1fr; gap: 14px; width: 96%; }
 }
+
+/* Phones (portrait): the friends' texts sit above the photos, only the latest one,
+   so they never cover the photos (Helena, 01/11/2026). */
+@media (max-aspect-ratio: 1 / 1) {
+  .level-12 .spot { justify-content: flex-start; gap: 8px; }
+  .level-12 .texts { position: static; order: -1; align-self: stretch; align-items: flex-start; max-width: none; min-height: 48px; }
+  .level-12 .texts p:not(:last-child) { display: none; }
+}

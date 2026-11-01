@@ -165,7 +165,9 @@ https://claude.ai/artifact/Kz5CaVyjyNMNNEcypQ6XRx
    from Helena's document of 01/11/2026). The bar fills in 5 seconds, then a
    **Play** button (or Enter) starts the level, so there's time to read. It has a **Skip** button during
    development (`SHOW_SKIP_BUTTON` in `src/config.js`).
-5. **Level:** the minigame, under a bar with its name, info, clock, Restart
+5. **The end (Helena, 01/11/2026):** winning level 19 shows "The end!", which opens
+   the finale screen (`screens/finale.js`): "You did it!", your avatar waving, confetti.
+6. **Level:** the minigame, under a bar with its name, info, clock, Restart
    and Exit. Winning shows the closing line and the unlocked avatar pieces;
    losing shows the level's message and "Try again". Levels not built yet
    show a "coming soon" card with a "Complete (demo)" button.

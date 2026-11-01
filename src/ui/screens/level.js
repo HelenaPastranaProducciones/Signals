@@ -33,7 +33,7 @@ function wonCard(level, { tag = true } = {}) {
   const unlocked = unlocksForLevel(level.number);
   const next = level.number < TOTAL_LEVELS
     ? `<button class="btn btn-secondary" data-action="open-level" data-level="${level.number + 1}">Next signal</button>`
-    : "";
+    : `<button class="btn" data-action="finale">The end!</button>`;
   const playAgain = level.play ? `<button class="btn btn-secondary" data-action="restart-level">Play again</button>` : "";
   return `${tag ? `<span class="tag">Level complete</span>` : ""}
     <h2 class="card-title">“${level.closingLine}”</h2>
@@ -48,7 +48,7 @@ function lostCard(message, { tag = true } = {}) {
 }
 
 /** Confetti pieces scattered in place, speed and colour (the same every time). */
-function confettiPieces(count) {
+export function confettiPieces(count) {
   return Array.from({ length: count }, (_, i) => {
     const spread = (i * 61) % 100;
     return `<i style="left:${spread}%;background:hsl(${(i * 137) % 360} 90% 65%);` +
@@ -57,7 +57,7 @@ function confettiPieces(count) {
 }
 
 /** A big title whose letters drop in one by one. */
-const bouncyTitle = (text) =>
+export const bouncyTitle = (text) =>
   [...text].map((char, i) => `<span style="--i:${i}">${char === " " ? "&nbsp;" : char}</span>`).join("");
 
 /**
