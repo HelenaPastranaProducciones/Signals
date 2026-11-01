@@ -58,8 +58,8 @@ Els detalls de cada nivell són a la seva llibreta
   canvis, fets). Següent: ajustar la dificultat si cal (pas 3).
 - **Nivell 11 (Streaks):** pas 2 fet (Helena hi ha jugat i ha demanat
   canvis, fets). Següent: ajustar la dificultat si cal (pas 3).
-- **Nivell 12 (Spot the Difference):** pas 1 fet (idea acordada) i primera
-  versió jugable feta. Falta que Helena hi jugui.
+- **Nivell 12 (Spot the Difference):** pas 2 fet (Helena hi ha jugat; ara
+  molt més difícil). Següent: ajustar la dificultat si cal (pas 3).
 - **Nivells 13 a 19:** encara no s'han començat (pas 0).
 - **Estètica:** tot el joc té la nova estètica pintada (menús, avatar i
   nivells 1 a 5), amb la lletra Schoolbell. Només tenen la

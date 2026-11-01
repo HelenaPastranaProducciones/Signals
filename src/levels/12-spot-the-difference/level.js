@@ -24,10 +24,10 @@ export default defineLevel({
 
   // Numbers that tune the level. First proposal (Helena: hard): adjust while playing.
   settings: {
-    differences: 5, // differences to find
-    duration: 45, // seconds to find them
+    differences: 7, // differences to find
+    duration: 40, // seconds to find them
     hearts: 3, // wrong clicks you can make; the last one ends the game
-    clickSlack: 6, // how forgiving a click is around a difference (drawing units; the photo is 400 wide)
+    clickSlack: 1, // how forgiving a click is around a difference (drawing units; the photo is 400 wide)
   },
 
   play(game) {
