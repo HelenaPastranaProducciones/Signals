@@ -46,7 +46,9 @@ Els detalls de cada nivell són a la seva llibreta
   la dificultat (pas 3): s'ha fet una mica més difícil.
 - **Nivell 5 (Feed to Canvas):** pas 2 fet (Helena hi ha jugat i li agrada,
   amb el llenç de 16×16). Següent: ajustar la dificultat si cal (pas 3).
-- **Nivells 6 a 19:** encara no s'han començat (pas 0).
+- **Nivell 6 (Club Crest Match-3):** pas 1 fet (idea acordada) i primera
+  versió jugable feta. Falta que Helena hi jugui.
+- **Nivells 7 a 19:** encara no s'han començat (pas 0).
 - **Estètica:** tot el joc té la nova estètica pintada (menús, avatar i
   nivells 1 a 5), amb la lletra Schoolbell. Només tenen la
   proposta inicial a la seva llibreta.

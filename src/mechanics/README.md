@@ -7,7 +7,7 @@ Planned (from the brief):
 
 | Mechanic | Levels | Notes |
 |----------|--------|-------|
-| Match-3 board | 6 Club Crest Match-3, 17 Collectibles Match-3 | Swap neighbours to line up 3+. Level 6 fills a fan bar per combo; level 17 gives a bonus for combos joining two generations. |
+| Match-3 board | 6 Club Crest Match-3, 17 Collectibles Match-3 | **Built** in `match-3.js` with level 6: `createMatch3({ root, size, kinds, drawPiece, onClear, canPlay, after, listen })`. Swap neighbours (drag or click-click) to line up 3+; falls chain by themselves; the board reshuffles if no move is left. `onClear(lines, chain)` tells the level what was cleared. Level 17 reuses it with its own pieces and rule. |
 | Odd one out / patterns | 3 Spot the Impostor, 18 Odd One Out | **Built** in `odd-one-out.js` with level 3: `spreadOut(count, floor)` places a group over a scene, `createLives(box, settings)` draws the hearts (mistakes allowed, with a short grace after each lost heart). Level 18 reuses them for its own rounds. |
 
 Build a mechanic here when the first level that needs it reaches step 2

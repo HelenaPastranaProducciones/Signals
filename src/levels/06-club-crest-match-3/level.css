@@ -1,0 +1,197 @@
+/* Level 6 · Club Crest Match-3. Painted look: flat colours, hard shadows, paper grain. */
+
+.level-06 .stadium {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  user-select: none;
+  background: #6c7f9c;
+}
+
+.level-06 .stadium::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background-image: var(--grain);
+  pointer-events: none;
+}
+
+.level-06 .sky {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 22%;
+  background: linear-gradient(#a9cbd8, #d6e6e6);
+}
+
+/* Rows of seats, painted as bands. */
+.level-06 .stand {
+  position: absolute;
+  inset: 18% 0 0;
+  background: repeating-linear-gradient(#59698a 0 9%, #4d5b7a 9% 11%);
+}
+
+.level-06 .stand::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 70%, rgba(43, 38, 48, 0.12) 70%);
+}
+
+.level-06 .fan {
+  position: absolute;
+  width: 6.4%;
+  translate: -50% -100%;
+  animation: level-06-arrive 0.45s ease-out backwards;
+  animation-delay: var(--d);
+}
+
+.level-06 .fan svg { display: block; width: 100%; }
+
+.level-06 .fan.you span {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  translate: -50% -40%;
+  padding: 0 8px;
+  border-radius: 10px;
+  background: #d9573f;
+  color: #fff8ee;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.level-06 .fan.you svg { filter: drop-shadow(0 0 4px #e9c24a); }
+
+/* ---------- Fan bar ---------- */
+
+.level-06 .fanbar {
+  position: absolute;
+  left: 50%;
+  top: 3%;
+  z-index: 10;
+  translate: -50% 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: min(460px, 70%);
+  padding: 6px 14px 6px 8px;
+  border: 2.5px solid #2b2630;
+  border-radius: 22px 28px 20px 30px / 28px 20px 30px 22px;
+  background: #fff8ee;
+  box-shadow: 3px 4px 0 #2b2630;
+}
+
+.level-06 .crest-small { width: 34px; flex: none; }
+.level-06 .crest-small svg { display: block; width: 100%; }
+
+.level-06 .bar {
+  flex: 1;
+  height: 14px;
+  border: 2px solid #2b2630;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #e3d8c6;
+}
+
+.level-06 .bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #e9c24a, #d9573f);
+  transition: width 0.3s ease-out;
+}
+
+.level-06 .count { color: #2b2630; font-variant-numeric: tabular-nums; }
+
+/* ---------- The board (shared engine: src/mechanics/match-3.js) ---------- */
+
+.level-06 .board {
+  position: absolute;
+  left: 50%;
+  bottom: 3%;
+  z-index: 12;
+  translate: -50% 0;
+  height: 62%;
+  aspect-ratio: 1;
+  max-width: 62%;
+  border: 3px solid #2b2630;
+  border-radius: 24px 30px 22px 28px / 28px 22px 30px 24px;
+  background: #f1ece4;
+  box-shadow: 5px 6px 0 #2b2630;
+  touch-action: none;
+}
+
+.level-06 .m3-board { position: absolute; }
+
+.level-06 .m3-tile {
+  position: absolute;
+  width: calc(100% / var(--size));
+  height: calc(100% / var(--size));
+  padding: 0.6%;
+  box-sizing: border-box;
+  transition: left 0.17s ease-in-out, top 0.23s ease-in, scale 0.2s, opacity 0.2s;
+  cursor: grab;
+}
+
+.level-06 .m3-tile svg { display: block; width: 100%; height: 100%; pointer-events: none; }
+.level-06 .m3-tile .mine {
+  position: absolute;
+  right: 6%;
+  top: 6%;
+  width: 22%;
+  aspect-ratio: 1;
+  border: 2px solid #2b2630;
+  border-radius: 50%;
+  background: #e9c24a;
+  pointer-events: none;
+}
+
+.level-06 .m3-selected { scale: 1.12; filter: drop-shadow(0 0 4px #e9c24a); }
+.level-06 .m3-pop { scale: 0.2; opacity: 0; }
+.level-06 .m3-nope { animation: level-06-shake 0.17s; }
+
+/* ---------- The chant ---------- */
+
+.level-06 .chanting .fan { animation: level-06-jump 0.45s ease-in-out infinite alternate; animation-delay: var(--d); }
+
+.level-06 .chant {
+  position: absolute;
+  left: 50%;
+  top: 22%;
+  z-index: 20;
+  translate: -50% -50%;
+  color: #fff8ee;
+  font-size: clamp(30px, 7vh, 60px);
+  text-shadow: 3px 4px 0 #2b2630;
+  -webkit-text-stroke: 2px #2b2630;
+  white-space: nowrap;
+  animation: level-06-pulse 0.45s ease-in-out infinite alternate;
+}
+
+.level-06 .chant[hidden] { display: none; }
+
+/* ---------- Start card ---------- */
+
+.level-06 .start {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  text-align: center;
+  background: #2b2630cc;
+  color: #fff;
+  cursor: pointer;
+}
+
+.level-06 .start > b { font-size: clamp(24px, 4.5vh, 38px); color: #e9c24a; }
+
+@keyframes level-06-arrive { from { opacity: 0; translate: -50% -40%; } }
+@keyframes level-06-jump { to { translate: -50% -118%; } }
+@keyframes level-06-pulse { to { scale: 1.08; } }
+@keyframes level-06-shake { 25% { translate: -6% 0; } 75% { translate: 6% 0; } }
