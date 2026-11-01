@@ -12,7 +12,7 @@ Claude keeps it up to date in plain words while working on the level with Helena
 Tick a step only when Helena agrees it is done.
 
 - [x] 1. Idea agreed: what the player sees and does, the social twist, how you win or lose
-- [ ] 2. First playable version: simple shapes, playable from start to end
+- [x] 2. First playable version: simple shapes, playable from start to end
 - [ ] 3. Rules and difficulty tuned: it feels right to play
 - [ ] 4. Look and feel: final art in the Signals style, with animations
 - [ ] 5. Texts and details: final texts, and sound or vibration if wanted
@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-01/11/2026: idea agreed with Helena and built: the black screen with the message and the "I wrote it" button after 20 s. Next: Helena tries it (to tick step 2).
+01/11/2026: Helena tried it (step 2 done); the keep-playing button now shows up right after the message. Next: anything else she wants to change (step 3).
 
 ## The idea
 
@@ -40,6 +40,7 @@ The game asks you to really switch off your phone, handwrite a note to someone y
 ## Decisions
 
 - 01/11/2026: Helena: only a message on a black screen asking you to grab paper and a pen and write a letter to someone you love (rejected: holding to switch off the phone against notifications, and writing a note in the game).
+- 01/11/2026: Helena played it: there must be a clear way to go on once the letter is written. The button now says "I wrote it, keep playing" and appears after 4 seconds instead of 20.
 
 ## Open questions
 

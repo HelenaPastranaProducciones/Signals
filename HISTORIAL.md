@@ -501,6 +501,13 @@ Els detalls de cada nivell són a la seva llibreta
   arrossegant 12 peces en 45 segons. Quan està feta, s'imprimeix com una
   polaroid i es penja en una paret amb un record de cada nivell del joc.
 
+**Primeres impressions d'Helena dels nivells nous**
+- Nivell 15: calia una manera clara de continuar quan acabes la carta. El
+  botó ara diu "I wrote it, keep playing" i surt als 4 segons (abans 20).
+- Nivell 16: més temps per respondre, 8 segons per pregunta (abans 5).
+- Nivell 18: costa d'entendre i és massa fàcil trobar qui no és del grup.
+  Cal repensar-lo.
+
 ## Coses pendents de decidir
 
 - **Mòbil:** com saltar i ajupir-se sense teclat al nivell 1.

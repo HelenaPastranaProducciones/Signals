@@ -19,7 +19,7 @@ export default defineLevel({
 
   // Numbers that tune the level.
   settings: {
-    buttonAfterSeconds: 20, // the "I wrote it" button appears after this long, so you take your time
+    buttonAfterSeconds: 4, // the "keep playing" button appears after the message (Helena 01/11: it was too late at 20 s)
   },
 
   play(game) {
@@ -28,7 +28,7 @@ export default defineLevel({
       <div class="paper-time">
         <p class="message">Grab a paper and a pen<br>and write a letter<br>to someone you love.</p>
         <p class="hint">Take your time. The game will wait.</p>
-        <button class="done" hidden>I wrote it</button>
+        <button class="done" hidden>I wrote it, keep playing</button>
       </div>`;
     const done = game.root.querySelector(".done");
     game.after(s.buttonAfterSeconds * 1000, () => (done.hidden = false));

@@ -12,7 +12,7 @@ Claude keeps it up to date in plain words while working on the level with Helena
 Tick a step only when Helena agrees it is done.
 
 - [x] 1. Idea agreed: what the player sees and does, the social twist, how you win or lose
-- [ ] 2. First playable version: simple shapes, playable from start to end
+- [x] 2. First playable version: simple shapes, playable from start to end
 - [ ] 3. Rules and difficulty tuned: it feels right to play
 - [ ] 4. Look and feel: final art in the Signals style, with animations
 - [ ] 5. Texts and details: final texts, and sound or vibration if wanted
@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-01/11/2026: first playable version built and published. Next: Helena plays it and says how it feels (step 2).
+01/11/2026: Helena played it (step 2 done) and asked for more time: now 8 seconds per question. Next: she tries it again (step 3).
 
 ## The idea
 
@@ -40,6 +40,7 @@ Tick a step only when Helena agrees it is done.
 ## Decisions
 
 - 01/11/2026: Helena approved the idea proposed by Claude (quick questions about ways of communicating, friends' votes, everyone votes for you at the end) and asked to build it straight away. Every attempt picks 5 of 10 situations and shuffles the answers.
+- 01/11/2026: Helena played it: a bit more time to answer. 8 seconds per question instead of 5.
 
 ## Open questions
 

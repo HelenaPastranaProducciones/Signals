@@ -47,7 +47,7 @@ export default defineLevel({
   // Numbers that tune the level. First proposal: adjust while playing.
   settings: {
     questions: 6, // the last one is the twist
-    secondsPerQuestion: 5,
+    secondsPerQuestion: 8, // Helena 01/11: 5 was too short
     misses: 2, // let the time run out this many times and you lose
     friends: 4,
   },
