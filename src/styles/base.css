@@ -87,3 +87,15 @@ button:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
+
+/* Phones and tablets (Helena, 01/11/2026): touch.js adds .touch to the page. */
+.touch .keys-only { display: none !important; }
+html:not(.touch) .touch-only { display: none !important; }
+
+@media (max-width: 600px) {
+  main { padding: 12px 10px 80px; }
+  main:has(.level-frame) { padding-bottom: 10px; }
+  h1 { font-size: 34px; }
+}
+.level-stage .start b > .keys-only,
+.level-stage .start b > .touch-only { font: inherit; color: inherit; }

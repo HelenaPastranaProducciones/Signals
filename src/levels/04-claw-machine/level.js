@@ -77,7 +77,7 @@ export default defineLevel({
         <div class="toast"></div>
         <div class="start">
           <b>Grab the real stuff!</b>
-          <span>The claw moves by itself. <b>Click</b> or press <b>Space</b> to drop it.</span>
+          <span>The claw moves by itself. <b>Click</b><span class="keys-only"> or press <b>Space</b></span> to drop it.</span>
           <span class="rules"><b>Win:</b> get ${s.objectsToCatch} physical things (polaroids, vinyls, cassettes…) with ${s.attempts} coins, one of them the one your friend asks for</span>
           <span class="rules"><b>Lose:</b> run out of coins. Phones and other screens don't count</span>
           <span><b>Click to start</b></span>

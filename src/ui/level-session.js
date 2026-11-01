@@ -5,6 +5,7 @@ import { startLevel, stopLevel } from "../engine/level-runner.js";
 import { state } from "../state.js";
 import { render } from "./render.js";
 import { resultOverlay } from "./screens/level.js";
+import { watchTouchWords } from "./touch.js";
 
 /**
  * Connects the level screen with the level runner. Registered as a render
@@ -56,6 +57,7 @@ export const levelSession = {
           showResult(root, level, result, message);
         },
       });
+      watchTouchWords(root);
     } catch (error) {
       console.error(`Level ${level.number} crashed while starting:`, error);
       root.innerHTML = `<div class="level-error"><b>Something went wrong in this level.</b><p class="muted">The details are in the browser console.</p></div>`;

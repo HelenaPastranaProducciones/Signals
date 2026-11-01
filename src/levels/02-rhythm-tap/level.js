@@ -97,8 +97,9 @@ export default defineLevel({
           <div class="crowd">${fans}</div>
         </div>
         <div class="start">
-          <b>Press Space to start</b>
-          <span>Hit the notes with the arrow keys <kbd>←</kbd> <kbd>↓</kbd> <kbd>↑</kbd> <kbd>→</kbd> when they reach the line</span>
+          <b><span class="keys-only">Press Space to start</span><span class="touch-only">Tap to start</span></b>
+          <span class="keys-only">Hit the notes with the arrow keys <kbd>←</kbd> <kbd>↓</kbd> <kbd>↑</kbd> <kbd>→</kbd> when they reach the line</span>
+          <span class="touch-only"><b>Tap the lane</b> of each note when it reaches the line</span>
           <span class="rules"><b>Win:</b> keep playing until the end of the song</span>
           <span class="rules"><b>Lose:</b> miss or hit a wrong note more than ${s.mistakesAllowed} times</span>
         </div>
@@ -203,8 +204,30 @@ export default defineLevel({
       }
       if (!(event.code in keys)) return;
       event.preventDefault();
-      if (!band || finished || event.repeat) return;
-      const lane = keys[event.code];
+      if (event.repeat) return;
+      press(keys[event.code]);
+    });
+    game.listen(window, "keyup", (event) => {
+      if (event.code in keys) lanes[keys[event.code]].querySelector(".receptor").classList.remove("pressed");
+    });
+
+    // On a phone: tap the card to start, and tap a lane to play it (Helena, 01/11/2026).
+    game.listen(rhythm.querySelector(".start"), "pointerdown", () => {
+      if (!band) start();
+    });
+    lanes.forEach((laneEl, lane) => {
+      game.listen(laneEl, "pointerdown", (event) => {
+        event.preventDefault();
+        press(lane);
+      });
+      for (const type of ["pointerup", "pointercancel", "pointerleave"]) {
+        game.listen(laneEl, type, () => laneEl.querySelector(".receptor").classList.remove("pressed"));
+      }
+    });
+
+    /** Plays a lane: hits the note arriving there, or counts a mistake. */
+    function press(lane) {
+      if (!band || finished) return;
       const now = band.now();
       lanes[lane].querySelector(".receptor").classList.add("pressed");
       // The closest note in that lane that hasn't been played yet.
@@ -219,10 +242,7 @@ export default defineLevel({
         }
         mistake(lane);
       }
-    });
-    game.listen(window, "keyup", (event) => {
-      if (event.code in keys) lanes[keys[event.code]].querySelector(".receptor").classList.remove("pressed");
-    });
+    }
 
     // Every frame: move the notes, count the ones that went past, end the song.
     game.onFrame(() => {

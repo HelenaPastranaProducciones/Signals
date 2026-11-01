@@ -266,3 +266,9 @@
   border-radius: 40% 46% 42% 48%;
   background: linear-gradient(90deg, transparent 68%, rgba(0, 0, 0, 0.1) 68%), #f1ece4;
 }
+
+/* Phones (portrait): the chat phone takes the screen; you in bed peek from the corner (Helena, 01/11/2026). */
+@media (max-aspect-ratio: 1 / 1) {
+  .level-08 .bed { position: absolute; left: 6%; bottom: 3%; width: 56%; height: 19%; margin: 0; }
+  .level-08 .phone { width: 88%; height: 70%; align-self: flex-start; margin-top: 4%; }
+}

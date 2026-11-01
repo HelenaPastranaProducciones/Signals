@@ -84,10 +84,16 @@ export default defineLevel({
         <div class="double-jumps" title="Double jumps to spend: press Space again in the air">
           <span class="double-jumps-icon">⇈</span><span class="double-jumps-label">Double jumps</span><b>0</b>
         </div>
+        <div class="touch-pad touch-only">
+          <button class="pad pad-duck" aria-label="Duck">Duck</button>
+          <button class="pad pad-jump" aria-label="Jump">Jump</button>
+        </div>
         <div class="start">
-          <b>Press Space to start</b>
-          <span><kbd>Space</kbd> or <kbd>↑</kbd> jump · again in the air: double jump</span>
-          <span><kbd>↓</kbd> duck · <b>Click</b> the messages to reply</span>
+          <b><span class="keys-only">Press Space to start</span><span class="touch-only">Tap to start</span></b>
+          <span class="keys-only"><kbd>Space</kbd> or <kbd>↑</kbd> jump · again in the air: double jump</span>
+          <span class="keys-only"><kbd>↓</kbd> duck · <b>Click</b> the messages to reply</span>
+          <span class="touch-only"><b>Jump</b> button: jump · again in the air: double jump</span>
+          <span class="touch-only">Hold <b>Duck</b> to duck · <b>Tap</b> the messages to reply</span>
           <span class="rules"><b>Win:</b> reach the finish line, where your friends are waiting</span>
           <span class="rules"><b>Lose:</b> crash into something, or leave ${s.unansweredToLose} messages without a reply</span>
         </div>
@@ -189,6 +195,19 @@ export default defineLevel({
     game.listen(window, "keyup", (event) => {
       if (["ArrowDown", "KeyS"].includes(event.code)) duck(false);
     });
+    // On a phone: tap the card to start, and two big buttons to jump and duck (Helena, 01/11/2026).
+    game.listen(world.querySelector(".start"), "pointerdown", () => jump());
+    const jumpPad = world.querySelector(".pad-jump");
+    const duckPad = world.querySelector(".pad-duck");
+    game.listen(jumpPad, "pointerdown", (event) => {
+      event.preventDefault();
+      jump();
+    });
+    game.listen(duckPad, "pointerdown", (event) => {
+      event.preventDefault();
+      duck(true);
+    });
+    for (const type of ["pointerup", "pointercancel", "pointerleave"]) game.listen(duckPad, type, () => duck(false));
 
     // A friend you replied to helps: a warning about the next obstacle, or an extra jump.
     const help = (friend) => {

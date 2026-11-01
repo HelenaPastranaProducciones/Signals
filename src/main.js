@@ -4,7 +4,9 @@ import { bindEvents } from "./ui/actions.js";
 import { levelSession } from "./ui/level-session.js";
 import { goTo } from "./ui/navigation.js";
 import { addRenderHook, render } from "./ui/render.js";
+import { markTouch } from "./ui/touch.js";
 
+markTouch();
 addRenderHook(levelSession);
 bindEvents();
 

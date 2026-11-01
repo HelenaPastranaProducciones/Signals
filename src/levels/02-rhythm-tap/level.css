@@ -607,3 +607,6 @@
 /* The notes bounce a little on every beat, with the drums. */
 .level-02 .note { transition: scale 0.08s ease-out; }
 .level-02 .on-beat .note { scale: 1.1; }
+
+/* Phones: the lanes are the buttons (Helena, 01/11/2026). */
+.touch .level-02 .lane { touch-action: none; cursor: pointer; }

@@ -142,3 +142,11 @@
 @keyframes level-07-pop { from { scale: 0.85; } }
 @keyframes level-07-shake { 25% { translate: -6px 0; } 75% { translate: 6px 0; } }
 @keyframes level-07-new { from { scale: 0; rotate: -20deg; } }
+
+/* Phones (portrait): the group on top, the board below, full width (Helena, 01/11/2026). */
+@media (max-aspect-ratio: 1 / 1) {
+  .level-07 .ritual { flex-direction: column; gap: 14px; padding: 10px; }
+  .level-07 .crew { grid-template-columns: repeat(4, 1fr); width: 78%; max-width: 320px; }
+  .level-07 .table { width: 92%; max-width: 420px; }
+  .level-07 .banner { font-size: 19px; }
+}

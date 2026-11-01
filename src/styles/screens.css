@@ -516,3 +516,24 @@ main:has(.level-frame) {
 
 /* Lobby "Start game": the main button (Helena, 01/11/2026). */
 .btn-start { background: var(--accent); font-size: 1.15em; }
+
+/* Phones: a compact level bar, so the game gets the screen (Helena, 01/11/2026). */
+@media (max-width: 600px) {
+  .level-frame { gap: 8px; }
+  .level-bar { gap: 6px 8px; }
+  .level-bar .tag { font-size: 12px; }
+  .level-hud { order: 3; flex-basis: 100%; justify-content: space-between; font-size: 16px; gap: 10px; }
+  .level-controls .btn-small { padding: 4px 10px; font-size: 13px; }
+  .level-controls { margin-left: auto; }
+  .level-stage { min-height: 0; border-radius: 20px; }
+}
+
+/* Phones: a smaller avatar in the lobby and editor, so Start game and the options are in view. */
+@media (max-width: 600px) {
+  .lobby-layout .avatar-stage,
+  .editor-layout .avatar-stage { width: min(48vw, 28vh); margin: 0 auto; }
+  .lobby-layout { gap: 12px; }
+}
+
+/* Phones: dragging inside a level must not scroll the page (Helena, 01/11/2026). */
+.touch .level-stage { touch-action: none; }

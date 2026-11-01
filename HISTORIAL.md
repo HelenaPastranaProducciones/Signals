@@ -539,6 +539,17 @@ Els detalls de cada nivell són a la seva llibreta
 - Presentació de 5 minuts (11 diapositives, en català, amb l'estètica del
   joc) que explica el joc, com s'ha fet, GitHub i els documents:
   https://claude.ai/artifact/4jZVcGNtSTWocVqPqapSy7
+- Presentació refeta a petició d'Helena: més concepte i procés (de signal
+  a nivell, una sessió de treball real) i menys estètica i futur.
+
+**Primera versió per a mòbil**
+- El joc ara es pot jugar amb el mòbil dret: menús més compactes, l'avatar
+  del lobby més petit perquè es vegi Start game, i els textos diuen "tap" en
+  lloc de "click" (les pistes de teclat s'amaguen).
+- Nivell 1: botons grans de Jump i Duck. Nivell 2: es toca el carril de cada
+  nota. Nivells 7, 8, 10 i 12: es reorganitzen en vertical (al 12, una foto
+  sobre l'altra).
+- Falta: provar-ho en un mòbil de veritat i el mòbil de costat.
 
 ## Coses pendents de decidir
 

@@ -205,3 +205,21 @@
 
 @keyframes level-10-drop { from { translate: 0 -120%; opacity: 0; } }
 @keyframes level-10-shrug { 50% { translate: 4px 0; } }
+
+/* Phones (portrait): the things to pick in rows of three (Helena, 01/11/2026). */
+@media (max-aspect-ratio: 1 / 1) {
+  .level-10 .choices { grid-template-columns: repeat(3, 1fr); width: 100%; gap: 8px; }
+  .level-10 .choose { padding: 12px; }
+}
+
+/* Phones (portrait): the thing on top, paints and stickers in rows underneath. */
+@media (max-aspect-ratio: 1 / 1) {
+  .level-10 .workshop { flex-direction: column; gap: 8px; padding: 8px; }
+  .level-10 .mat { order: -1; width: min(84%, 44vh); }
+  .level-10 .pots { grid-template-columns: repeat(8, 30px); gap: 6px; padding: 8px; }
+  .level-10 .pot,
+  .level-10 .marker { width: 30px; height: 30px; }
+  .level-10 .sheet { padding: 8px; gap: 6px; }
+  .level-10 .stickers { grid-template-columns: repeat(6, 42px); gap: 6px; }
+  .level-10 .sticker { width: 42px; height: 42px; }
+}

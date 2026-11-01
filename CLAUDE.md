@@ -435,8 +435,14 @@ online.
    are done. Notes: ES modules need a custom protocol or local server in
    Electron (not `file://`), and the Schoolbell font must be self-hosted in
    `assets/` for offline use.
-7. **Mobile optimisation** (touch controls, orientation, sizes) once the
-   desktop version is solid.
+7. **Mobile optimisation**: first version done (Helena, 01/11/2026), for
+   phones held upright. `src/ui/touch.js` marks the page `.touch` on touch
+   screens: `.keys-only` / `.touch-only` show the right hints, texts inside
+   levels say "tap" instead of "click", and the stage never scrolls while
+   dragging. Level 1 has Jump and Duck buttons, level 2 plays by tapping the
+   lanes; levels 7, 8, 10 and 12 change layout in portrait
+   (`@media (max-aspect-ratio: 1 / 1)` in their level.css). New levels must
+   work by touch too. Still to do: try it on a real phone, landscape, sizes.
 8. **Final content:** final text for the general loading screen, the text for
    signal 18, review the closing lines and add translations if needed.
 
