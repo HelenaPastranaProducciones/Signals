@@ -173,6 +173,8 @@ https://claude.ai/artifact/Kz5CaVyjyNMNNEcypQ6XRx
    - the avatar, shown large
    - the editable nickname
    - the progress bar (x / 19)
+   - **Start game** (Helena, 01/11/2026): goes straight to the next signal to
+     play, without the map
    - two buttons, **Customize avatar** and **Options**
    - "← Lobby" on every sub-screen to go back; **Esc** also goes back one step.
 7. **Options:** sound, vibration, fullscreen, light/dark theme and reset

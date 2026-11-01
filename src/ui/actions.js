@@ -1,6 +1,7 @@
 import {
   completeLevel, isLevelAvailable, normalizeNickname, randomizeAvatar, resetProgress, setAvatarPart, setNickname,
 } from "../game/progress.js";
+import { TOTAL_LEVELS } from "../levels/index.js";
 import { state } from "../state.js";
 import { nextTheme, toggleFullscreen } from "./browser.js";
 import { finishIntro, goTo } from "./navigation.js";
@@ -19,6 +20,8 @@ const ACTIONS = {
     if (ui.testMode || isLevelAvailable(progress, Number(level))) goTo("level-intro", Number(level));
   },
   skip: () => goTo("level"),
+  /** Lobby "Start game": straight to the next signal to play, without the map (Helena, 01/11/2026). */
+  "start-game": () => goTo("level-intro", Math.min(progress.completed + 1, TOTAL_LEVELS)),
   "continue-intro": finishIntro,
   "to-map": () => goTo("map"),
   /** "Complete (demo)" on levels whose minigame is not built yet. */

@@ -5,7 +5,7 @@ import { escapeHtml } from "../html.js";
 import { avatarEditorScreen } from "./avatar-editor.js";
 import { optionsScreen } from "./options.js";
 
-/** Lobby home: big avatar, editable nickname, progress and the two sub-screens. */
+/** Lobby home: big avatar, editable nickname, progress, Start game and the two sub-screens. */
 function lobbyHome({ progress }) {
   return screenHeader("Lobby", backButton("Go to the map", "toggle-lobby")) +
     `<div class="lobby-layout">
@@ -15,7 +15,8 @@ function lobbyHome({ progress }) {
         <p class="muted nickname-hint">Write your name here</p>
         <b>${progress.completed} / ${TOTAL_LEVELS} signals completed</b>${progressBar(progress.completed)}
         <div class="lobby-menu">
-          <button class="btn" data-action="lobby-view" data-key="avatar">${ICONS.person} Customize avatar</button>
+          <button class="btn btn-start" data-action="start-game">${ICONS.play} Start game</button>
+          <button class="btn btn-secondary" data-action="lobby-view" data-key="avatar">${ICONS.person} Customize avatar</button>
           <button class="btn btn-secondary" data-action="lobby-view" data-key="options">${ICONS.gear} Options</button>
         </div>
       </div>

@@ -534,6 +534,8 @@ Els detalls de cada nivell són a la seva llibreta
   una signal i per què el journal és un videojoc (el TFG d'Helena és sobre
   adolescents hospitalitzats; va buscar signals de com es relacionen els
   adolescents i moltes passen jugant). També espera un botó Continue.
+- Al lobby hi ha un botó Start game que porta directament al següent nivell
+  per jugar, sense passar pel mapa.
 
 ## Coses pendents de decidir
 

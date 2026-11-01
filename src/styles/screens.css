@@ -513,3 +513,6 @@ main:has(.level-frame) {
   .signal-body { grid-template-columns: 1fr; justify-items: center; gap: 16px; }
   .signal-figure { width: min(280px, 80%); }
 }
+
+/* Lobby "Start game": the main button (Helena, 01/11/2026). */
+.btn-start { background: var(--accent); font-size: 1.15em; }
