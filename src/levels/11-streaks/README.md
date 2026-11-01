@@ -33,12 +33,13 @@ Tick a step only when Helena agrees it is done.
 - **What the player sees:** four pots on a windowsill, each with a friend's name and face. When their streak drops the plant droops and loses leaves; when you look after it, it straightens up and flowers.
 - **What the player does:** now and then something a friend posts pops up over their plant (a story, a photo, a meme) with two little buttons: a heart or a "haha". Reacting waters their plant and it straightens up. Posts disappear after a while, so you keep an eye on all four.
 - **The social twist:** halfway, one friend goes quiet (busy or sad): their plant dries up but there's nothing to react to. A "hey, you ok?" button appears on their pot; if you write to them, they answer "thanks for checking on me" and the plant flowers. Sometimes friendship means making the first move.
-- **How you win:** keep all four plants alive for 45 seconds; at the end they all flower.
+- **How you win:** keep all four plants alive for 35 seconds; at the end they all flower.
 - **How you lose:** any plant dries out completely ("Mia's plant dried out…").
-- **How long it lasts:** 45 seconds.
+- **How long it lasts:** 35 seconds (was 45; Helena, 01/11/2026).
 
 ## Decisions
 
+- 01/11/2026: Helena: posts last less and the level is shorter. Posts now last 1.8 s (was 2.4), the level 35 s (was 45), and the friend goes quiet at 11 s (was 14).
 - 01/11/2026: Helena: bigger plants, and posts anywhere on the screen to make it harder. Posts now pop up at random spots (not over their plant) with the friend's face and name, so you have to see whose it is.
 - 01/11/2026: friends as plants on a windowsill (rejected: streak flames).
 - 01/11/2026: you water a plant by reacting to that friend's post (rejected: clicking the plant with a watering can).

@@ -26,12 +26,12 @@ export default defineLevel({
   // Numbers that tune the level. First proposal (Helena: a bit hard): adjust while playing.
   settings: {
     friends: 4, // plants to look after
-    duration: 45, // seconds no plant may dry out
+    duration: 35, // seconds no plant may dry out
     drySeconds: 11, // seconds a fully watered plant takes to dry out
     postEverySeconds: 1.1, // how often a friend posts something
-    postSeconds: 2.4, // how long a post stays before it disappears
+    postSeconds: 1.8, // how long a post stays before it disappears
     waterPerReaction: 0.5, // how much a reaction waters (1 = a full plant)
-    quietAfterSeconds: 14, // when one friend goes quiet
+    quietAfterSeconds: 11, // when one friend goes quiet
   },
 
   play(game) {
