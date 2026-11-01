@@ -52,14 +52,14 @@ export function roomPhoto(colours, changed) {
     // String lights across the top (one bulb can change colour).
     k.stroke("M8 14Q100 30 200 16T392 16", "#5c6270", 1.6) +
     [20, 60, 100, 140, 180, 200, 240, 280, 320, 360].map((x, i) =>
-      k.circle(x, 18 + Math.sin(i) * 3, 4.5, x === 200 && c("bulb") ? "#c9708f" : BULBS[i % BULBS.length])).join("") +
+      k.circle(x, 18 + Math.sin(i) * 3, 4.5, x === 200 && c("bulb") ? "#2b2630" : BULBS[i % BULBS.length])).join("") +
     // Corkboard with photos, a note, a ticket and a bracelet.
     k.clay("M28 38H176V146H28Z", "#c99a6a") +
     // Photo 1: the beach day, two friends (three when it changed).
     `<g transform="rotate(-6 64 70)">${k.clay("M44 48H84V94H44Z", "#fbf6ee")}${k.path("M48 52H80V82H48Z", "#a9cbd8")}${k.path("M48 74H80V82H48Z", "#f3dfa2")}` +
     face(57, 66, "#e0a77a", "#3a2a22") + face(71, 66, "#9a6240", "#1c1a22") + (c("photo") ? face(64, 61, "#f0b48a", "#c8602a") : "") + `</g>` +
     // Photo 2: can be crooked.
-    `<g transform="rotate(${c("tilt") ? -3 : 5} 114 76)">${k.clay("M94 52H134V98H94Z", "#fbf6ee")}${k.path("M98 56H130V86H98Z", "#e8cfe0")}${face(114, 66, "#d49565", "#e9c24a")}</g>` +
+    `<g transform="rotate(${c("tilt") ? -16 : 5} 114 76)">${k.clay("M94 52H134V98H94Z", "#fbf6ee")}${k.path("M98 56H130V86H98Z", "#e8cfe0")}${face(114, 66, "#d49565", "#e9c24a")}</g>` +
     // The note, with or without a little heart.
     `<g transform="rotate(3 72 118)">${k.clay("M54 104H92V132H54Z", "#f6e3a6")}${k.stroke("M60 112H84M60 118H80", "#8a8090", 1.4)}` +
     (c("heart") ? "" : `<path d="M74 129L70 125Q68 122 71 121Q73 120 74 122Q75 120 77 121Q80 122 78 125Z" fill="#d9576f"/>`) + `</g>` +
@@ -72,12 +72,12 @@ export function roomPhoto(colours, changed) {
     (c("sticker") ? k.path("M226 54A9 9 0 1 0 230 68A7 7 0 1 1 226 54Z", "#f3dfa2") : k.star(222, 62, 0.9, "#e9c24a")) +
     // The poster, with a little pin on it.
     k.clay("M262 30H340V128H262Z", colours.poster) + k.circle(301, 66, 18, "#fbf6ee", ".25") + k.stroke("M272 110H330M276 118H320", "#fbf6ee", 2) +
-    (c("pin") ? k.circle(300, 70, 3.5, "#e9c24a") + k.circle(300, 70, 1.4, "#2b2630") : "") +
+    (c("pin") ? k.circle(300, 70, 7, "#e9c24a") + k.circle(300, 70, 2.8, "#2b2630") : "") +
     // The shelf: books, a plant (with a flower or not), a mug (with an initial or not).
     k.clay("M196 166H388V174H196Z", "#a9764e") +
-    `${k.clay("M210 128H222V166H210Z", colours.bookColours[0])}${k.clay("M224 134H238V166H224Z", c("book") ? colours.bookShade : colours.bookColours[1])}${k.clay("M240 124H250V166H240Z", colours.bookColours[2])}` +
+    `${k.clay("M210 128H222V166H210Z", colours.bookColours[0])}${k.clay("M224 134H238V166H224Z", c("book") ? "#5c6270" : colours.bookColours[1])}${k.clay("M240 124H250V166H240Z", colours.bookColours[2])}` +
     k.clay("M292 146H320L316 166H296Z", "#c0577a") + k.stroke("M306 146V126M306 136Q296 130 294 122M306 134Q316 128 318 120", "#5f9a5c", 2.5) +
-    (c("flower") ? k.circle(306, 124, 2.5, "#e9c24a") + [0, 1, 2, 3, 4].map((i) => k.circle(306 + Math.cos(i * 1.26) * 3, 124 + Math.sin(i * 1.26) * 3, 2, "#e07aa6")).join("") : "") +
+    (c("flower") ? k.circle(306, 124, 4.5, "#e9c24a") + [0, 1, 2, 3, 4].map((i) => k.circle(306 + Math.cos(i * 1.26) * 5.5, 124 + Math.sin(i * 1.26) * 5.5, 3.6, "#e07aa6")).join("") : "") +
     k.clay("M342 150H362V166H342Z", "#fbf6ee") + k.stroke("M362 154Q370 158 362 162", "#fbf6ee", 2.5) +
     (c("mug") ? "" : `<text x="352" y="162" text-anchor="middle" font-family="Schoolbell, sans-serif" font-size="11" fill="${ink}">M</text>`) +
     // On the desk: a laptop and keychains (two matching ones, or just one).
