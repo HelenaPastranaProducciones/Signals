@@ -1,13 +1,14 @@
 import { LEVELS, TOTAL_LEVELS } from "../../levels/index.js";
 import { isLevelAvailable } from "../../game/progress.js";
 import { ICONS, progressBar, screenHeader } from "../components.js";
+import { UNLOCK_ALL_LEVELS } from "../../config.js";
 import { signalPicture } from "../../data/signal-pictures.js";
 
 /** Warm, paper-like backgrounds for the level tiles, repeated in order. */
 const TILE_COLOURS = ["#f4c7b0", "#c9d9e8", "#d3e6c5", "#e8cfe0", "#f3dfa2", "#c6e2dc"];
 
 function levelTile(level, progress, testMode) {
-  const locked = !testMode && !isLevelAvailable(progress, level.number);
+  const locked = !testMode && !UNLOCK_ALL_LEVELS && !isLevelAvailable(progress, level.number);
   const done = level.number <= progress.completed;
   const status = locked ? ", locked" : done ? ", completed" : "";
   return `<button class="level-tile${locked ? " is-locked" : ""}${done ? " is-done" : ""}"

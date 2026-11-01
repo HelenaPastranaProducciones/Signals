@@ -162,6 +162,11 @@
   top: 16px;
 }
 
+/* Phones: the avatar scrolls away with the page, the pieces never slide over it (Helena, 01/11/2026). */
+@media (max-width: 760px) {
+  .editor-preview { position: static; }
+}
+
 .editor-section {
   margin-top: 14px;
 }

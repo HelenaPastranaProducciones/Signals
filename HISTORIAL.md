@@ -550,6 +550,12 @@ Els detalls de cada nivell són a la seva llibreta
   nota. Nivells 7, 8, 10 i 12: es reorganitzen en vertical (al 12, una foto
   sobre l'altra).
 - Falta: provar-ho en un mòbil de veritat i el mòbil de costat.
+- Tots els nivells oberts al mapa mentre Helena revisa el joc (es pot tornar
+  a l'ordre normal canviant una sola opció).
+- Només al mòbil: a l'editor d'avatar, l'avatar puja amb la pàgina en lloc de
+  quedar-se quiet amb les peces passant per sobre. Al nivell 1 els obstacles
+  de terra són més petits i la pista va una mica més ràpida, perquè al mòbil
+  no es podien saltar.
 
 ## Coses pendents de decidir
 

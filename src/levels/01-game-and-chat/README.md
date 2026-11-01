@@ -47,6 +47,7 @@ Split screen: Flappy/tap runner and a group chat. You tap to jump and also tap f
 - 28/10/2026: you lose by crashing into an obstacle or by leaving 3 messages unanswered.
 - 28/10/2026: no clock: you win by reaching a finish line where your friends wait for you, at most 1 minute away.
 - 28/10/2026 (after playing the first version):
+- 01/11/2026: on phones ground obstacles are smaller (60%) and the track moves as if the screen were at least 560 px wide: before, they couldn't be jumped (Helena).
   - The avatar must look like a character: with arms and legs, and smooth running and jumping animations.
   - The landscape changes little by little and is more developed; the obstacles are varied, not always the same.
   - Mechanics inspired by the offline runner game in Chrome: you can also duck (for things flying at head height).

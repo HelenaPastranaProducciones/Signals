@@ -11,6 +11,7 @@ import { EDITOR_GROUPS } from "../src/ui/screens/avatar-editor.js";
 import { AVATAR_CATEGORIES } from "../src/data/avatar-catalog.js";
 import { mapScreen } from "../src/ui/screens/map.js";
 import { titleScreen } from "../src/ui/screens/title.js";
+import { UNLOCK_ALL_LEVELS } from "../src/config.js";
 
 const makeState = (ui = {}) => ({
   progress: createProgress(),
@@ -65,12 +66,12 @@ test("the last level has no Next signal button", () => {
   assert.doesNotMatch(levelScreen(makeState({ level: 19, levelResult: "won" })), /Next signal/);
 });
 
-test("the map locks levels beyond the next one", () => {
+test("the map locks levels beyond the next one, unless every level is open", () => {
   const state = makeState();
   completeLevel(state.progress, 2);
   const html = mapScreen(state);
   assert.equal((html.match(/is-done/g) ?? []).length, 2);
-  assert.equal((html.match(/ disabled/g) ?? []).length, 16);
+  assert.equal((html.match(/ disabled/g) ?? []).length, UNLOCK_ALL_LEVELS ? 0 : 16);
 });
 
 test("the nickname is escaped in the lobby", () => {

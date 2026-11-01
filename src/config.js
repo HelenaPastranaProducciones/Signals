@@ -14,3 +14,6 @@ export const DEFAULT_NICKNAME = "";
 /** What levels show above the player when no name was written. */
 export const NAMELESS = "You";
 export const NICKNAME_MAX_LENGTH = 14;
+
+/** Every level open on the map for everyone, while Helena reviews the game (01/11/2026). Set to false to open them in order again. */
+export const UNLOCK_ALL_LEVELS = true;

@@ -2,6 +2,7 @@ import {
   completeLevel, isLevelAvailable, normalizeNickname, randomizeAvatar, resetProgress, setAvatarPart, setNickname,
 } from "../game/progress.js";
 import { TOTAL_LEVELS } from "../levels/index.js";
+import { UNLOCK_ALL_LEVELS } from "../config.js";
 import { state } from "../state.js";
 import { nextTheme, toggleFullscreen } from "./browser.js";
 import { finishIntro, goTo } from "./navigation.js";
@@ -17,7 +18,7 @@ const { progress, ui } = state;
 const ACTIONS = {
   start: () => goTo("intro"),
   "open-level": ({ level }) => {
-    if (ui.testMode || isLevelAvailable(progress, Number(level))) goTo("level-intro", Number(level));
+    if (ui.testMode || UNLOCK_ALL_LEVELS || isLevelAvailable(progress, Number(level))) goTo("level-intro", Number(level));
   },
   skip: () => goTo("level"),
   /** Lobby "Start game": straight to the next signal to play, without the map (Helena, 01/11/2026). */

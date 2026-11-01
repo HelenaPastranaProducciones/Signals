@@ -33,6 +33,8 @@ export default defineLevel({
     jumpSeconds: 0.8, // how long a jump lasts in the air
     obstacleSize: 1.5, // how big obstacles are (1 = their drawn size)
     obstacleSizeVariation: 0.15, // ground obstacles are up to this much bigger or smaller, at random
+    phoneObstacleSize: 0.6, // on a phone screen ground obstacles shrink to this share, or they can't be jumped (Helena, 01/11/2026)
+    minTrackWidth: 560, // on narrow screens the track moves as if it were this wide, so a jump clears an obstacle
     minGapSeconds: 1.2, // shortest time between two obstacles
     maxGapSeconds: 2.3, // longest time between two obstacles
     flyingShare: 0.3, // share of obstacles that fly (duck under them)
@@ -131,7 +133,8 @@ export default defineLevel({
       const flying = count >= 3 && chance(s.flyingShare);
       const kind = pick(flying ? FLYING_OBSTACLES : GROUND_OBSTACLES);
       // Ground obstacles come in slightly different sizes; flying ones keep theirs so ducking always works.
-      const size = s.obstacleSize * (flying ? 1 : randomBetween(1 - s.obstacleSizeVariation, 1 + s.obstacleSizeVariation));
+      const phone = game.root.clientWidth < 600;
+      const size = s.obstacleSize * (flying ? 1 : randomBetween(1 - s.obstacleSizeVariation, 1 + s.obstacleSizeVariation) * (phone ? s.phoneObstacleSize : 1));
       const el = document.createElement("div");
       el.className = `obstacle${flying ? " flying" : ""}`;
       el.innerHTML = obstacleSvg(kind, size);
@@ -294,7 +297,7 @@ export default defineLevel({
     // Every frame: move the runner, the track and the landscape; check crashes and the finish.
     game.onFrame((dt) => {
       const width = game.root.clientWidth;
-      const pixelsPerSecond = width * s.runSpeed;
+      const pixelsPerSecond = Math.max(width, s.minTrackWidth) * s.runSpeed;
       const runnerX = width * 0.15;
       if (started && !finished) elapsed = Math.min(s.trackSeconds, elapsed + dt);
 
