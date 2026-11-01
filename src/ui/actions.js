@@ -3,7 +3,7 @@ import {
 } from "../game/progress.js";
 import { state } from "../state.js";
 import { nextTheme, toggleFullscreen } from "./browser.js";
-import { goTo } from "./navigation.js";
+import { finishIntro, goTo } from "./navigation.js";
 import { render } from "./render.js";
 
 const { progress, ui } = state;
@@ -19,6 +19,7 @@ const ACTIONS = {
     if (ui.testMode || isLevelAvailable(progress, Number(level))) goTo("level-intro", Number(level));
   },
   skip: () => goTo("level"),
+  "continue-intro": finishIntro,
   "to-map": () => goTo("map"),
   /** "Complete (demo)" on levels whose minigame is not built yet. */
   "complete-level": () => {
@@ -85,6 +86,7 @@ export function bindEvents() {
   document.addEventListener("keydown", (event) => {
     if (event.key === "Enter" && ui.screen === "title") runAction("start");
     else if (event.key === "Enter" && ui.screen === "level-intro" && document.querySelector(".signal-splash.ready")) runAction("skip");
+    else if (event.key === "Enter" && ui.screen === "intro" && document.querySelector(".intro-splash.ready")) runAction("continue-intro");
     else if (event.key === "Escape") goBack();
   });
 

@@ -524,6 +524,10 @@ Els detalls de cada nivell són a la seva llibreta
 - Arreglat: abans de començar cada nivell es veia un instant una imatge
   enorme. Era el nivell dibuixant-se abans de carregar el seu aspecte; ara
   espera que estigui carregat.
+- Pantalla de càrrega inicial: ara es diu "Signals Journal" i explica què és
+  una signal i per què el journal és un videojoc (el TFG d'Helena és sobre
+  adolescents hospitalitzats; va buscar signals de com es relacionen els
+  adolescents i moltes passen jugant). També espera un botó Continue.
 
 ## Coses pendents de decidir
 

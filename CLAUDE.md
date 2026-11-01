@@ -149,8 +149,11 @@ https://claude.ai/artifact/Kz5CaVyjyNMNNEcypQ6XRx
 ## Game flow
 
 1. **Title screen:** avatar and a Play button (Enter also works).
-2. **Fake 7-second loading screen** with the game's concept. The current
-   text is provisional. Then the **lobby opens first** (avatar and name, Helena
+2. **Opening loading screen "Signals Journal"** (Helena, 01/11/2026): what a
+   signal is and why the journal is a video game (her final degree project is
+   about teenagers in hospital; she looked for signals of how teens connect,
+   and many happen while playing). The bar fills in 7 seconds, then a
+   **Continue** button (or Enter). Then the **lobby opens first** (avatar and name, Helena
    31/10/2026); "Go to the map" shows the levels.
 3. **Level map:** grid of 19 levels (locked, available, completed). They open
    in order. Each tile shows its signal's painted picture, faded, behind the
@@ -437,7 +440,7 @@ online.
 
 ## Open questions (brief section 8)
 
-- What is the final text of the game concept on the 7-second loading screen?
+- ~~Final text of the opening loading screen~~: written with Helena on 01/11/2026.
 - What difficulty should each minigame have? Current conditions are provisional.
 - Original sound and music, or royalty-free effects?
 - Multiplayer or ghosts of other real players (level 1), or simulated with

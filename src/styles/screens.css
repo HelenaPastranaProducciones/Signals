@@ -497,7 +497,12 @@ main:has(.level-frame) {
 .signal-go { display: grid; justify-items: center; gap: 8px; width: 100%; }
 .signal-go .loader { margin-top: 4px; }
 .signal-go .skip-button { margin-top: 0; }
-.signal-splash .play-signal { display: none; }
+.signal-splash .play-signal,
+.intro-splash .play-signal { display: none; }
+.intro-splash.ready .loader { display: none; }
+.intro-splash.ready .play-signal { display: inline-flex; animation: signal-play-in 0.35s ease-out; }
+.intro-splash p { max-width: 640px; }
+.intro-splash .intro-motto { font-size: 24px; color: var(--accent); }
 .signal-splash.ready .loader { display: none; }
 .signal-splash.ready .play-signal { display: inline-flex; animation: signal-play-in 0.35s ease-out; }
 .signal-splash.ready .skip-button { display: none; }

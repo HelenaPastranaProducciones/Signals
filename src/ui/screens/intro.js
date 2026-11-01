@@ -1,11 +1,20 @@
 import { loader } from "../components.js";
 
-/** Fake loading screen with the game concept. The text is provisional (see CLAUDE.md, open questions). */
+/**
+ * Opening loading screen: what the Signals Journal is and why it is a video
+ * game (Helena, 01/11/2026). There's text to read, so it waits for the
+ * Continue button once the bar is full (navigation.js adds `.ready`).
+ */
 export function introScreen() {
-  return `<div class="splash">
+  return `<div class="splash intro-splash">
     <span class="tag">Loading</span>
-    <h1>SIGNALS</h1>
-    <p>Signals is a collection of 19 mini-games about how teens connect today. Each level is a signal: a small truth about friendship, culture and belonging.</p>
-    ${loader()}
+    <h1>SIGNALS JOURNAL</h1>
+    <p>A signal is a small, real behaviour that hints at a cultural change. This journal collects 19 signals about how teenagers connect today: friendship, culture, belonging, objects and networks.</p>
+    <p><b>Why a video game?</b> My final degree project is about teenagers in hospital. To design for them, I first went looking for signals of how teens live and connect, and so many of them happen while playing. So the journal became what it talks about: a game, where every level is a signal you can play.</p>
+    <p class="intro-motto">Gaming is no longer just playing.</p>
+    <div class="signal-go">
+      ${loader()}
+      <button class="btn play-signal" data-action="continue-intro">Continue</button>
+    </div>
   </div>`;
 }

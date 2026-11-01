@@ -19,6 +19,15 @@ export function goTo(screen, level) {
   if (screen === "level-intro") startLoading(LEVEL_LOADING_MS, "level");
 }
 
+/**
+ * After the opening loading screen, the player first meets their avatar and
+ * writes their name; "Go to the map" then shows the levels (Helena, 31/10/2026).
+ */
+export function finishIntro() {
+  goTo("map");
+  Object.assign(state.ui, { lobbyOpen: true, lobbyView: "main" });
+}
+
 function startLoading(ms, nextScreen) {
   // Two frames: the empty bar must be painted before its width transition starts.
   requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -29,14 +38,14 @@ function startLoading(ms, nextScreen) {
   }));
   loadingTimer = setTimeout(() => {
     // Before a level there is a lot to read: wait for the Play button instead (Helena, 01/11/2026).
-    if (nextScreen === "level") {
-      document.querySelector(".signal-splash")?.classList.add("ready");
+    // The opening screen too (Helena, 01/11/2026).
+    const waiting = document.querySelector(".signal-splash, .intro-splash");
+    if (waiting) {
+      waiting.classList.add("ready");
       return;
     }
-    goTo(nextScreen);
-    // After the opening loading screen, the player first meets their avatar and
-    // writes their name; "Back to map" then shows the levels (Helena, 31/10/2026).
-    if (nextScreen === "map") Object.assign(state.ui, { lobbyOpen: true, lobbyView: "main" });
+    if (nextScreen === "map") finishIntro();
+    else goTo(nextScreen);
     render();
   }, ms);
 }
