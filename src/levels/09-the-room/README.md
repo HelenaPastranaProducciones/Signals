@@ -39,6 +39,7 @@ A room seen from above, Habbo style. Friends come in through the door; tap to gr
 
 ## Decisions
 
+- 01/11/2026: Helena: what people say should look like a messaging-app group chat. Speech is now chat bubbles (white, with a little tail, the sender's name in their colour, the time and two blue ticks) with chat-like lines ("heyyy can I come in?", "who's bringing snacks??"); the notices at the bottom look like the chat's system messages ("Leo left", "Zoe joined via invite link").
 - 01/11/2026: the room seen diagonally from above, with the chat's name on the wall (rejected: straight from above, like a floor plan).
 - 01/11/2026: you drag each friend to a seat you choose (rejected: one click to greet and they sit by themselves).
 - 01/11/2026: social twist: someone new comes in halfway, shy and less patient; seat them and the group welcomes them and a seat is added (rejected: friends asking to sit next to someone).

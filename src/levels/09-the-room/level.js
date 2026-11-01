@@ -91,7 +91,7 @@ export default defineLevel({
       const el = document.createElement("div");
       el.className = `person${person.newcomer ? " new" : ""}`;
       el.innerHTML = `${game.avatar(person.avatar, { label: person.name, backdrop: false })}` +
-        `<i class="ring" style="--t:${patience}s"></i><em>${person.newcomer ? "hi…?" : "hi?"}</em>` +
+        `<i class="ring" style="--t:${patience}s"></i>${bubble(person, person.newcomer ? pick(SHY) : pick(KNOCKS))}` +
         `<span style="background:${person.colour}">${person.name}${person.newcomer ? `<small>${escapeHtml(person.tag)}</small>` : ""}</span>`;
       el.style.left = `${spot.x}%`;
       el.style.top = `${spot.y}%`;
@@ -99,7 +99,7 @@ export default defineLevel({
       const entry = { person, el, spot };
       waiting.add(entry);
       entry.cancel = game.after(patience * 1000, () => leave(entry));
-      if (person.newcomer) toast(`Someone new is at the door…`);
+      if (person.newcomer) toast(`${person.name} joined via invite link`);
     };
 
     const leave = (entry) => {
@@ -123,16 +123,16 @@ export default defineLevel({
       entry.cancel?.();
       seatEl.classList.add("taken");
       entry.el.remove();
-      seatEl.insertAdjacentHTML("beforeend", `<div class="sitter">${game.avatar(entry.person.avatar, { label: entry.person.name, crop: "bust", backdrop: false })}</div>`);
+      seatEl.insertAdjacentHTML("beforeend", `<div class="sitter" data-name="${entry.person.name}" data-colour="${entry.person.colour}">${game.avatar(entry.person.avatar, { label: entry.person.name, crop: "bust", backdrop: false })}</div>`);
       seated += 1;
       showScore();
       game.vibrate(20);
       if (entry.person.newcomer) {
         // The twist: the group welcomes them, and makes room for one more.
-        toast(`Welcome, ${entry.person.name}!`);
+        toast(`${entry.person.name} is now in "${chatName}"`);
         const extra = EXTRA_SEAT;
         seatsBox.insertAdjacentHTML("beforeend", seatHtml(extra, SEATS.length, "pop"));
-        speak(seatsBox.querySelectorAll(".seat.taken .sitter"), ["welcome!!", "hiii", "make room!"], 1);
+        speak(seatsBox.querySelectorAll(".seat.taken .sitter"), WELCOMES, 2);
       }
       if (seated >= s.seatedToWin) win();
     };
@@ -140,7 +140,7 @@ export default defineLevel({
     /** Chat bubbles over some seated heads. */
     const speak = (sitters, lines, count = sitters.length) => {
       shuffle([...sitters]).slice(0, count).forEach((sitter, i) => game.after(i * 250, () => {
-        sitter.insertAdjacentHTML("beforeend", `<em class="said">${pick(lines)}</em>`);
+        sitter.insertAdjacentHTML("beforeend", bubble({ name: sitter.dataset.name, colour: sitter.dataset.colour }, pick(lines), "said"));
       }));
     };
 
@@ -149,7 +149,7 @@ export default defineLevel({
       running = false;
       waiting.forEach((entry) => entry.cancel?.());
       box.classList.add("chatting");
-      speak(seatsBox.querySelectorAll(".seat.taken .sitter"), ["lol", "omg hi", "who brought snacks", "this is the best", "same time tomorrow?", "haha", "finally!!", "ok what are we watching"]);
+      speak(seatsBox.querySelectorAll(".seat.taken .sitter"), CHATTER);
       game.after(2600, () => game.win());
     };
 
@@ -209,3 +209,20 @@ const DOOR_SPOTS = [{ x: 15, y: 72 }, { x: 23, y: 66 }, { x: 9, y: 86 }];
 
 const seatHtml = (seat, i, cls = "") =>
   `<div class="seat ${seat.kind} ${cls}" data-i="${i}" style="left:${seat.x}%;top:${seat.y}%">${seatSvg(seat.kind)}</div>`;
+
+/**
+ * A message bubble like in a messaging app: the sender's name in their
+ * colour, the text, and the time with two ticks, with a little tail.
+ */
+let minutes = 21 * 60 + 2;
+function bubble(person, text, cls = "") {
+  minutes += 1;
+  const time = `${String(Math.floor(minutes / 60) % 24).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`;
+  return `<em class="bubble ${cls}"><b style="color:${person.colour}">${person.name}</b>${text}<small>${time} <i>✓✓</i></small></em>`;
+}
+
+/** What people say at the door, sitting down, and when everyone's in. */
+const KNOCKS = ["heyyy can I come in?", "omw… ok I'm here", "knock knock", "is this the right place lol", "hiii, room for me?", "sorry I'm late!!"];
+const SHY = ["hi… is it ok if I join?", "um hi, I'm new", "hey, someone added me?"];
+const WELCOMES = ["welcome!!", "hiii nice to meet u", "omg finally someone new", "make room guys"];
+const CHATTER = ["lmaooo", "who's bringing snacks??", "ok what are we watching", "brb", "same time tomorrow?", "this is the best", "send the pics later", "jajaja", "wait who has the charger", "can't stop laughing", "ok but who's paying", "everyone's here!!"];

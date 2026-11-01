@@ -62,21 +62,6 @@
 
 .level-09 .sitter svg { display: block; width: 100%; }
 
-.level-09 .said {
-  position: absolute;
-  left: 50%;
-  bottom: 96%;
-  translate: -50% 0;
-  padding: 3px 10px;
-  border: 2px solid #2b2630;
-  border-radius: 12px 12px 12px 4px;
-  background: #fff8ee;
-  color: #2b2630;
-  font-size: 14px;
-  font-style: normal;
-  white-space: nowrap;
-  animation: level-09-pop 0.35s ease-out;
-}
 
 /* ---------- You and the people coming in ---------- */
 
@@ -121,19 +106,6 @@
 .level-09 .person.dragging { z-index: 20; cursor: grabbing; scale: 1.08; }
 .level-09 .person.leaving { opacity: 0; translate: -120% -100%; transition: opacity 0.5s, translate 0.5s; }
 
-.level-09 .person em {
-  position: absolute;
-  left: 60%;
-  top: -8%;
-  padding: 2px 9px;
-  border: 2px solid #2b2630;
-  border-radius: 12px 12px 12px 4px;
-  background: #fff8ee;
-  color: #2b2630;
-  font-size: 13px;
-  font-style: normal;
-  white-space: nowrap;
-}
 
 /* The ring of patience around them, emptying. */
 .level-09 .ring {
@@ -201,4 +173,68 @@
 .level-09 .ring { left: auto; right: -18%; top: -12%; width: 30%; translate: 0 0; }
 .level-09 .person,
 .level-09 .me { width: 8.5%; }
-.level-09 .person em { left: 70%; top: -14%; }
+
+/* Messages look like a messaging app (Helena, 01/11/2026): a white bubble with a
+   little tail, the sender's name in their colour, and the time with two ticks. */
+.level-09 .bubble {
+  position: absolute;
+  left: 62%;
+  bottom: 100%;
+  z-index: 6;
+  min-width: 90px;
+  max-width: 190px;
+  padding: 4px 8px 3px;
+  border: 0;
+  border-radius: 0 9px 9px 9px;
+  background: #fff;
+  box-shadow: 0 1px 1.5px rgba(43, 38, 48, 0.25);
+  color: #2b2630;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 12.5px;
+  font-style: normal;
+  line-height: 1.3;
+  text-align: left;
+  white-space: normal;
+  width: max-content;
+  translate: 0 0;
+  animation: level-09-pop 0.25s ease-out;
+}
+
+.level-09 .bubble::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 0;
+  border-top: 8px solid #fff;
+  border-left: 8px solid transparent;
+}
+
+.level-09 .bubble b { display: block; font-size: 11.5px; font-weight: 600; }
+
+.level-09 .bubble small {
+  display: block;
+  margin-top: 1px;
+  text-align: right;
+  font-size: 9.5px;
+  color: #8a8a8a;
+}
+
+.level-09 .bubble small i { font-style: normal; color: #53bdeb; letter-spacing: -2px; }
+
+/* Bubbles over people sitting, centred above their heads. */
+.level-09 .sitter .bubble { left: 55%; bottom: 92%; }
+
+/* The light messages at the bottom ("Leo left", "Zoe joined"), like a chat's system notices. */
+.level-09 .toast {
+  border: 0;
+  border-radius: 8px;
+  background: #fdf3c8;
+  box-shadow: 0 1px 1.5px rgba(43, 38, 48, 0.25);
+  color: #54656f;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 13px;
+}
+
+/* On the sofa, the middle bubble sits higher so the three don't cover each other. */
+.level-09 .seat.sofa:nth-child(2) .sitter .bubble { bottom: 150%; }
+.level-09 .seat.sofa:nth-child(1) .sitter .bubble { left: -10%; }
