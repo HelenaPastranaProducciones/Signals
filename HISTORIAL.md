@@ -56,7 +56,9 @@ Els detalls de cada nivell són a la seva llibreta
   Següent: ajustar la dificultat si cal (pas 3).
 - **Nivell 10 (Customizer):** pas 2 fet (Helena hi ha jugat i ha demanat
   canvis, fets). Següent: ajustar la dificultat si cal (pas 3).
-- **Nivells 11 a 19:** encara no s'han començat (pas 0).
+- **Nivell 11 (Streaks):** pas 1 fet (idea acordada) i primera versió jugable
+  feta. Falta que Helena hi jugui.
+- **Nivells 12 a 19:** encara no s'han començat (pas 0).
 - **Estètica:** tot el joc té la nova estètica pintada (menús, avatar i
   nivells 1 a 5), amb la lletra Schoolbell. Només tenen la
   proposta inicial a la seva llibreta.

@@ -1,0 +1,249 @@
+/* Level 11 · Streaks. A windowsill, painted: flat colours, hard shadows, paper grain. */
+
+.level-11 .sill-scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  user-select: none;
+  background: linear-gradient(90deg, transparent 75%, rgba(43, 38, 48, 0.08) 75%), #e8d9c4;
+}
+
+.level-11 .sill-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background-image: var(--grain);
+  pointer-events: none;
+}
+
+.level-11 .window {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 4%;
+  bottom: 30%;
+  border: 10px solid #fff8ee;
+  border-radius: 10px;
+  background: linear-gradient(#a9cbd8, #d6e6e6);
+  box-shadow: 4px 6px 0 rgba(43, 38, 48, 0.15);
+  overflow: hidden;
+}
+
+.level-11 .window::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  translate: -50% 0;
+  background: #fff8ee;
+}
+
+.level-11 .cloud {
+  position: absolute;
+  width: 16%;
+  height: 12%;
+  border-radius: 40px;
+  background: #fbf6ee;
+  animation: level-11-drift 18s linear infinite;
+}
+
+.level-11 .cloud.a { top: 12%; left: 10%; }
+.level-11 .cloud.b { top: 30%; left: 60%; animation-delay: -8s; }
+
+/* The sill with the four pots. */
+.level-11 .sill {
+  position: absolute;
+  left: 2%;
+  right: 2%;
+  bottom: 6%;
+  height: 72%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: end;
+  gap: 2%;
+  padding: 0 4%;
+}
+
+.level-11 .sill::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4%;
+  height: 10%;
+  border-radius: 6px;
+  background: linear-gradient(90deg, transparent 72%, rgba(43, 38, 48, 0.12) 72%), #fff8ee;
+  box-shadow: 0 6px 0 rgba(43, 38, 48, 0.2);
+  z-index: -1;
+}
+
+.level-11 .pot-slot {
+  --w: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.level-11 .plant { width: 78%; overflow: visible; }
+
+/* As it dries, the stem droops and the leaves fall. */
+.level-11 .stem {
+  transform-origin: 50px 100px;
+  rotate: calc((1 - var(--w)) * 38deg);
+  filter: saturate(calc(0.35 + var(--w) * 0.65));
+}
+
+.level-11 .leaf { transition: opacity 0.4s, translate 0.4s; }
+.level-11 .leaf.fallen { opacity: 0; translate: 0 30px; }
+.level-11 .flower { opacity: 0; scale: 0.2; transform-origin: 50px 12px; transition: opacity 0.4s, scale 0.4s; }
+.level-11 .blooming .flower { opacity: 1; scale: 1; }
+.level-11 .watered .stem { animation: level-11-perk 0.4s ease-out; }
+
+.level-11 .pot-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 2px 10px 2px 2px;
+  border: 2px solid #2b2630;
+  border-radius: 14px;
+  background: #fff8ee;
+  font-size: 14px;
+}
+
+.level-11 .face { width: 28px; height: 28px; border-radius: 50%; overflow: hidden; background: #e8d9c4; }
+.level-11 .face svg { display: block; width: 100%; height: 100%; }
+
+.level-11 .water {
+  width: 70%;
+  height: 8px;
+  margin-top: 6px;
+  border: 2px solid #2b2630;
+  border-radius: 6px;
+  background: #fff8ee;
+  overflow: hidden;
+}
+
+.level-11 .water i { display: block; height: 100%; background: #6f9fd8; }
+.level-11 .thirsty .water i { background: #d9573f; animation: level-11-blink 0.5s steps(2) infinite; }
+.level-11 .dead .plant { filter: grayscale(1) brightness(0.8); }
+
+/* ---------- Posts over the plants ---------- */
+
+.level-11 .post-area {
+  position: absolute;
+  left: 50%;
+  bottom: 70%;
+  translate: -50% 0;
+  z-index: 5;
+  width: 92%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.level-11 .post {
+  width: 100%;
+  padding: 6px;
+  border: 2.5px solid #2b2630;
+  border-radius: 14px 18px 12px 16px;
+  background: #fff8ee;
+  box-shadow: 3px 4px 0 rgba(43, 38, 48, 0.3);
+  text-align: center;
+  animation: level-11-in 0.25s ease-out;
+}
+
+.level-11 .post.gone { opacity: 0; translate: 0 -10px; transition: 0.35s; }
+.level-11 .post.liked { opacity: 0; scale: 1.15; transition: 0.35s; }
+
+.level-11 .pic {
+  position: relative;
+  height: 54px;
+  border-radius: 8px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  color: #2b2630;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.level-11 .pic .sun { position: absolute; right: 18%; top: 14%; width: 18px; height: 18px; border-radius: 50%; background: #f6e3a6; }
+.level-11 .pic .hill { position: absolute; left: -10%; right: -10%; bottom: -30%; height: 60%; border-radius: 50%; background: #7fa877; }
+.level-11 .pic .blob { width: 34px; height: 26px; border-radius: 50% 50% 40% 40%; }
+.level-11 .pic .bowl { width: 40px; height: 18px; margin-top: 16px; border-radius: 0 0 20px 20px; background: #6f9fd8; }
+.level-11 .pic .shirt { width: 30px; height: 30px; background: #d9573f; clip-path: polygon(20% 0, 80% 0, 100% 30%, 80% 40%, 80% 100%, 20% 100%, 20% 40%, 0 30%); }
+.level-11 .pic .lights { position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, #e9c24a 0 6%, transparent 7%), radial-gradient(circle at 70% 40%, #e07aa6 0 6%, transparent 7%), radial-gradient(circle at 50% 70%, #6f9fd8 0 6%, transparent 7%); }
+.level-11 .post small { display: block; margin: 3px 0; font-size: 12px; color: #2b2630; }
+
+.level-11 .react { display: flex; justify-content: center; gap: 6px; }
+
+.level-11 .react button,
+.level-11 .reach {
+  height: 30px;
+  padding: 0 10px;
+  border: 2px solid #2b2630;
+  border-radius: 14px;
+  background: #e9c24a;
+  box-shadow: 2px 2px 0 #2b2630;
+  font: inherit;
+  font-size: 14px;
+  color: #2b2630;
+  cursor: pointer;
+}
+
+.level-11 .react button svg { width: 18px; height: 18px; display: block; pointer-events: none; }
+.level-11 .react button[data-r="heart"] { background: #fff8ee; }
+
+.level-11 .reach {
+  height: auto;
+  padding: 8px 14px;
+  background: #fff8ee;
+  font-size: 16px;
+  animation: level-11-in 0.3s ease-out, level-11-nudge 1s ease-in-out 0.3s infinite alternate;
+}
+
+.level-11 .quiet .pot-label::after { content: "…"; margin-left: 2px; }
+
+.level-11 .reply {
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: 14px 14px 14px 4px;
+  background: #fff;
+  box-shadow: 0 2px 0 rgba(43, 38, 48, 0.2);
+  color: #2b2630;
+  font-size: 14px;
+  animation: level-11-in 0.25s ease-out;
+}
+
+.level-11 .reply b { display: block; font-size: 11px; }
+
+/* ---------- Start card ---------- */
+
+.level-11 .start {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  text-align: center;
+  background: #2b2630cc;
+  color: #fff;
+  cursor: pointer;
+}
+
+.level-11 .start > b { font-size: clamp(24px, 4.5vh, 38px); color: #e9c24a; }
+
+@keyframes level-11-in { from { opacity: 0; translate: 0 10px; } }
+@keyframes level-11-perk { 40% { rotate: -6deg; } }
+@keyframes level-11-blink { 50% { opacity: 0.4; } }
+@keyframes level-11-nudge { to { scale: 1.06; } }
+@keyframes level-11-drift { to { translate: 120% 0; } }
