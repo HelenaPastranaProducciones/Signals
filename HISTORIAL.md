@@ -65,7 +65,9 @@ Els detalls de cada nivell són a la seva llibreta
 - **Nivell 15 (Phone Off):** pas 1 fet. Només un missatge sobre fons negre:
   agafa paper i boli i escriu una carta a algú que estimes. Falta que Helena
   el vegi.
-- **Nivells 13, 16, 17, 18 i 19:** idea aprovada el 01/11 (proposta de
+- **Nivell 16 (Most Likely To):** pas 1 fet i primera versió jugable feta.
+  Falta que Helena hi jugui.
+- **Nivells 13, 17, 18 i 19:** idea aprovada el 01/11 (proposta de
   Claude), en construcció.
 - **Estètica:** tot el joc té la nova estètica pintada (menús, avatar i
   nivells 1 a 5), amb la lletra Schoolbell. Només tenen la
@@ -469,6 +471,11 @@ Els detalls de cada nivell són a la seva llibreta
   arrossegues (o hi fas clic) en 30 segons. Quan és ple, un amic diu "this is
   SO you" i reps una etiqueta segons el que has triat (The Gamer, The
   Bookworm, The Cozy One…).
+- Nivell 16 (Most Likely To): 6 preguntes de 5 segons. Passa alguna cosa
+  amb un amic i tries com respons (d'un m'agrada a anar-hi en persona); hi
+  surten els vots dels amics, no hi ha resposta dolenta. L'última pregunta és
+  "qui hi és quan importa?" i tothom vota per tu. Reps el teu nivell social.
+  Perds si deixes passar el temps 2 vegades.
 
 ## Coses pendents de decidir
 

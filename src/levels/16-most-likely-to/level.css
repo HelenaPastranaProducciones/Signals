@@ -1,0 +1,134 @@
+/* Level 16 · Most Likely To. A party-game card on a painted table. */
+
+.level-16 .likely {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  overflow: hidden;
+  user-select: none;
+  background: radial-gradient(circle at 50% 120%, #e8b4a0, #f3dfc8 60%);
+}
+
+.level-16 .likely::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background-image: var(--grain);
+  pointer-events: none;
+}
+
+.level-16 .friends { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+.level-16 .who { display: grid; justify-items: center; font-size: 13px; color: #2b2630; }
+
+.level-16 .face {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #e8d9c4;
+  border: 2px solid #2b2630;
+}
+
+.level-16 .face svg { display: block; width: 100%; height: 100%; }
+
+.level-16 .card {
+  width: min(100%, 620px);
+  padding: 18px 20px 20px;
+  border: 3px solid #2b2630;
+  border-radius: 22px 28px 20px 30px / 28px 20px 30px 22px;
+  background: #fbf6ee;
+  box-shadow: 6px 7px 0 #2b2630;
+  color: #2b2630;
+  rotate: -0.6deg;
+}
+
+.level-16 .card:empty { display: none; }
+.level-16 .card.missed { animation: level-16-shake 0.35s; }
+
+.level-16 .q { margin: 0 0 10px; font-size: clamp(22px, 3.6vh, 30px); line-height: 1.15; text-align: center; }
+
+.level-16 .time { height: 8px; margin-bottom: 14px; border-radius: 4px; background: #2b263022; overflow: hidden; }
+.level-16 .time i { display: block; height: 100%; background: #d9573f; transform-origin: left; animation: level-16-time linear forwards; }
+.level-16 .time.stopped i { animation-play-state: paused; background: #6fbf8c; }
+
+.level-16 .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.level-16 .answer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 74px;
+  padding: 8px 10px;
+  border: 2px solid #2b2630;
+  border-radius: 16px 20px 14px 22px / 20px 14px 22px 16px;
+  background: #fff;
+  color: #2b2630;
+  font: inherit;
+  font-size: 18px;
+  line-height: 1.1;
+  box-shadow: 3px 4px 0 #2b2630;
+  cursor: pointer;
+}
+
+.level-16 button.answer:hover { background: #fdf0c4; }
+.level-16 .answer.mine { background: #e9c24a; }
+.level-16 .votes { display: flex; gap: 2px; min-height: 0; }
+.level-16 .votes .face { width: 26px; height: 26px; border-width: 1.5px; animation: level-16-pop 0.25s ease-out; }
+
+/* The twist: people instead of answers. */
+.level-16 .answers.people { grid-template-columns: repeat(auto-fit, minmax(76px, 1fr)); gap: 8px; }
+.level-16 .person { min-height: 0; padding: 6px 4px; font-size: 15px; }
+.level-16 .twist .friends { display: none; }
+.level-16 .person { cursor: default; }
+.level-16 .person > .face { width: 40px; height: 40px; }
+.level-16 .person .votes .face { width: 18px; height: 18px; }
+.level-16 .person .votes { flex-wrap: wrap; justify-content: center; }
+.level-16 .person.chosen { background: #e9c24a; scale: 1.06; transition: scale 0.3s; }
+
+.level-16 .note { margin: 12px 0 0; text-align: center; font-size: 18px; }
+
+.level-16 .level-name {
+  justify-self: center;
+  width: fit-content;
+  margin: 8px auto 0;
+  padding: 4px 20px;
+  border: 3px solid #2b2630;
+  border-radius: 20px;
+  background: #9c8ad0;
+  color: #fff;
+  font-size: 26px;
+  text-transform: uppercase;
+  box-shadow: 4px 5px 0 #2b2630;
+  rotate: -2deg;
+  animation: level-16-pop 0.4s ease-out;
+}
+
+.level-16 .start {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  text-align: center;
+  background: #2b2630cc;
+  color: #fff;
+  cursor: pointer;
+}
+
+.level-16 .start > b { font-size: clamp(24px, 4.5vh, 38px); color: #e9c24a; }
+
+@keyframes level-16-time { to { transform: scaleX(0); } }
+@keyframes level-16-pop { from { scale: 0.4; opacity: 0; } }
+@keyframes level-16-shake { 25% { translate: -8px 0; } 75% { translate: 8px 0; } }
