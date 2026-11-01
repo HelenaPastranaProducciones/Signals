@@ -67,7 +67,9 @@ Els detalls de cada nivell són a la seva llibreta
   el vegi.
 - **Nivell 16 (Most Likely To):** pas 1 fet i primera versió jugable feta.
   Falta que Helena hi jugui.
-- **Nivells 13, 17, 18 i 19:** idea aprovada el 01/11 (proposta de
+- **Nivell 13 (Watch Party):** pas 1 fet i primera versió jugable feta.
+  Falta que Helena hi jugui.
+- **Nivells 17, 18 i 19:** idea aprovada el 01/11 (proposta de
   Claude), en construcció.
 - **Estètica:** tot el joc té la nova estètica pintada (menús, avatar i
   nivells 1 a 5), amb la lletra Schoolbell. Només tenen la
@@ -476,6 +478,11 @@ Els detalls de cada nivell són a la seva llibreta
   surten els vots dels amics, no hi ha resposta dolenta. L'última pregunta és
   "qui hi és quan importa?" i tothom vota per tu. Reps el teu nivell social.
   Perds si deixes passar el temps 2 vegades.
+- Nivell 13 (Watch Party): la teva habitació i la d'un amic en una altra
+  ciutat, mirant la mateixa sèrie inventada. Quan passa alguna cosa grossa,
+  cliques les dues pantalles (o A i L). A meitat de nivell la connexió de
+  l'amic va tard: si cliques la seva pantalla abans que ho vegi, és un
+  spoiler. Guanyes amb 8 de 10; perds si en falles 3.
 
 ## Coses pendents de decidir
 

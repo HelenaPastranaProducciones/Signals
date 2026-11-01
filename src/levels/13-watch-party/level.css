@@ -1,0 +1,159 @@
+/* Level 13 · Watch Party. Two painted rooms side by side, one show. */
+
+.level-13 .watch {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  overflow: hidden;
+  user-select: none;
+  background: #2b2630;
+}
+
+.level-13 .watch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background-image: var(--grain);
+  pointer-events: none;
+}
+
+.level-13 .side { position: relative; overflow: hidden; cursor: pointer; }
+.level-13 .room { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.level-13 .place {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  translate: -50% 0;
+  padding: 2px 12px;
+  border-radius: 12px;
+  background: #fbf6eedd;
+  color: #2b2630;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.level-13 .tv {
+  position: absolute;
+  left: 50%;
+  top: 22%;
+  width: 78%;
+  translate: -50% 0;
+  border: 6px solid #2b2630;
+  border-radius: 10px;
+  background: #2b2630;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.25);
+}
+
+.level-13 .tv svg { display: block; width: 100%; border-radius: 4px; }
+
+.level-13 .moment,
+.level-13 .buffer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 4px;
+  text-align: center;
+  font-size: clamp(16px, 3.2vh, 28px);
+  line-height: 1.05;
+  color: #fff;
+  text-shadow: 2px 3px 0 #2b2630;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.level-13 .happening .moment { opacity: 1; background: #d9573fbb; animation: level-13-flash 0.35s ease-out; }
+
+/* The twist: their screen lags. */
+.level-13 .buffer { font-size: 13px; place-items: end center; padding-bottom: 6px; text-shadow: none; }
+.level-13 .lagging .buffer { opacity: 0.85; animation: level-13-blink 1s infinite; }
+.level-13 .lagging .tv svg { filter: blur(0.6px) saturate(0.7); }
+
+.level-13 .viewer {
+  position: absolute;
+  left: 50%;
+  bottom: -2%;
+  width: 56%;
+  translate: -50% 0;
+  display: grid;
+  justify-items: center;
+  pointer-events: none;
+}
+
+.level-13 .viewer svg { display: block; width: 100%; }
+.level-13 .viewer span { position: absolute; bottom: 8px; padding: 1px 10px; border-radius: 10px; background: #2b2630cc; color: #fff; font-size: 13px; }
+
+.level-13 .tap {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 2px solid #2b2630;
+  border-radius: 10px;
+  background: #fbf6ee;
+  color: #2b2630;
+  font-size: 18px;
+  box-shadow: 2px 3px 0 #2b2630;
+}
+
+.level-13 .side.tapped .tap { background: #6fbf8c; translate: 0 2px; box-shadow: 0 1px 0 #2b2630; }
+.level-13 .side.spoiled .tap { background: #d9573f; }
+.level-13 .side.tapped { box-shadow: inset 0 0 0 6px #6fbf8c; }
+.level-13 .side.spoiled { box-shadow: inset 0 0 0 6px #d9573f; }
+.level-13 .sync .side { box-shadow: inset 0 0 0 6px #e9c24a; }
+
+.level-13 .chat {
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  z-index: 20;
+  width: min(60%, 340px);
+  translate: -50% 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.level-13 .chat p {
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 14px 14px 14px 4px;
+  background: #fff;
+  color: #2b2630;
+  font-size: 15px;
+  box-shadow: 0 2px 0 rgba(43, 38, 48, 0.25);
+  animation: level-13-in 0.25s ease-out;
+}
+
+.level-13 .chat p.mine { align-self: flex-end; border-radius: 14px 14px 4px 14px; background: #dcf3c8; }
+.level-13 .chat b { display: block; font-size: 11px; }
+
+.level-13 .start {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  text-align: center;
+  background: #2b2630dd;
+  color: #fff;
+  cursor: pointer;
+}
+
+.level-13 .start > b { font-size: clamp(24px, 4.5vh, 38px); color: #e9c24a; }
+
+@keyframes level-13-flash { from { scale: 1.2; } }
+@keyframes level-13-blink { 50% { opacity: 0.3; } }
+@keyframes level-13-in { from { opacity: 0; translate: 0 8px; } }
