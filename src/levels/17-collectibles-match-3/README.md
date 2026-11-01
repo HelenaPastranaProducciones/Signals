@@ -11,7 +11,7 @@ Claude keeps it up to date in plain words while working on the level with Helena
 
 Tick a step only when Helena agrees it is done.
 
-- [ ] 1. Idea agreed: what the player sees and does, the social twist, how you win or lose
+- [x] 1. Idea agreed: what the player sees and does, the social twist, how you win or lose
 - [ ] 2. First playable version: simple shapes, playable from start to end
 - [ ] 3. Rules and difficulty tuned: it feels right to play
 - [ ] 4. Look and feel: final art in the Signals style, with animations
@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-Not started. Next: agree on the idea (step 1).
+01/11/2026: first playable version built and published. Next: Helena plays it and says how it feels (step 2).
 
 ## The idea
 
@@ -30,12 +30,12 @@ Same engine as 6, with tazos, trading cards, Labubus and Tamagotchis. Combos tha
 
 ### What we agreed
 
-- **What the player sees:** _to agree_
-- **What the player does:** _to agree_
-- **The social twist:** _to agree_
-- **How you win:** _to agree_
-- **How you lose:** _to agree_
-- **How long it lasts:** _to agree_
+- **What the player sees:** The same Match-3 board as level 6, on a painted desk, with collectibles from two generations: three from an older sibling's childhood on warm tiles (tazo, trading card, pocket pet) and three from today on cool tiles (blind-box figure, enamel pin, photocard). All invented. A small chat beside the board.
+- **What the player does:** Swaps two pieces side by side to make lines of 3 or more. A line of one generation right after a line of the other is a combo; a label on top shows which generation to match next.
+- **The social twist:** An older sibling (or cousin) is in the chat: they recognise the old ones ("omg TAZOS, I had a whole tin of them"), ask about the new ones, and you end up planning a swap night together.
+- **How you win:** Make 5 combos across generations.
+- **How you lose:** The time runs out first.
+- **How long it lasts:** 45 seconds.
 
 ## Shares its mechanic
 
@@ -43,7 +43,7 @@ Same engine as **level 6 (Club Crest Match-3)**: reuse the Match-3 engine in `sr
 
 ## Decisions
 
-_None yet. Each decision goes here with its date, in plain words._
+- 01/11/2026: Helena approved the idea proposed by Claude (collectibles from different generations, an older sibling comments in the chat) and asked to build it straight away. A combo = a line of one generation right after a line of the other.
 
 ## Open questions
 
@@ -52,4 +52,4 @@ _None yet._
 ## Try it
 
 - Online: https://helenapastranaproducciones.github.io/Signals/?level=17
-- Files: `level.js` (texts, settings and the minigame), `level.css` (its look, from step 2), `assets/` (images, if any)
+- Files: `level.js` (rules and chat), `art.js` (the six painted collectibles), `level.css`; the board is shared with level 6 (`src/mechanics/match-3.js`)

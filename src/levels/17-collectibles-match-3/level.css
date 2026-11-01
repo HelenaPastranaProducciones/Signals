@@ -1,0 +1,109 @@
+/* Level 17 · Collectibles Match-3. A board on a painted desk, a chat beside it. */
+
+.level-17 .collect {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  user-select: none;
+  background: radial-gradient(circle at 30% 20%, #f3e3cf, #e3c9a8);
+}
+
+.level-17 .collect::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background-image: var(--grain);
+  pointer-events: none;
+}
+
+.level-17 .eras { position: absolute; top: 10px; left: 50%; translate: -50% 0; display: flex; gap: 10px; z-index: 5; }
+.level-17 .eras span { padding: 2px 12px; border: 2px solid #2b2630; border-radius: 12px; color: #2b2630; font-size: 15px; transition: scale 0.2s; }
+.level-17 .eras .old { background: #f3dfa2; }
+.level-17 .eras .new { background: #c9d9e8; }
+/* After a line, the generation to match next stands out. */
+.level-17 [data-next="old"] .eras .old,
+.level-17 [data-next="new"] .eras .new { scale: 1.15; box-shadow: 2px 3px 0 #2b2630; }
+
+.level-17 .board {
+  position: absolute;
+  left: 4%;
+  top: 50px;
+  bottom: 4%;
+  aspect-ratio: 1;
+  max-width: 62%;
+  max-height: calc(100% - 64px);
+  padding: 6px;
+  border: 3px solid #2b2630;
+  border-radius: 18px;
+  background: #a9764e;
+  box-shadow: 6px 7px 0 #2b2630;
+}
+
+.level-17 .m3-board { position: absolute; }
+
+.level-17 .m3-tile {
+  position: absolute;
+  width: calc(100% / var(--size));
+  height: calc(100% / var(--size));
+  padding: 1%;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: left 0.17s ease-in-out, top 0.23s ease-in, scale 0.2s, opacity 0.2s;
+}
+
+.level-17 .m3-tile svg { display: block; width: 100%; height: 100%; pointer-events: none; }
+.level-17 .m3-selected { scale: 1.12; filter: drop-shadow(0 0 4px #e9c24a); }
+.level-17 .m3-pop { scale: 0.2; opacity: 0; }
+.level-17 .m3-nope { animation: level-17-shake 0.17s; }
+.level-17 .combo .board { animation: level-17-bump 0.4s; }
+
+.level-17 .chat {
+  position: absolute;
+  right: 3%;
+  top: 50px;
+  width: 31%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.level-17 .chat p { display: flex; align-items: end; gap: 6px; margin: 0; animation: level-17-in 0.25s ease-out; }
+.level-17 .chat p > span:last-child { padding: 5px 10px; border-radius: 14px 14px 14px 4px; background: #fff; color: #2b2630; font-size: 15px; line-height: 1.15; box-shadow: 0 2px 0 rgba(43, 38, 48, 0.2); }
+.level-17 .chat p.me { justify-content: flex-end; }
+.level-17 .chat p.me > span:last-child { border-radius: 14px 14px 4px 14px; background: #dcf3c8; }
+.level-17 .chat b { display: block; font-size: 11px; color: #d9573f; }
+.level-17 .face { flex: none; width: 30px; height: 30px; border-radius: 50%; overflow: hidden; border: 1.5px solid #2b2630; background: #e8d9c4; }
+.level-17 .face svg { display: block; width: 100%; height: 100%; }
+
+/* Narrow screens: the chat goes under the board. */
+@media (max-aspect-ratio: 1 / 1) {
+  .level-17 .board { left: 50%; translate: -50% 0; bottom: auto; width: 92%; max-width: none; height: auto; }
+  .level-17 .chat { left: 4%; right: 4%; top: auto; bottom: 3%; width: auto; }
+  .level-17 .chat p:nth-last-child(n + 3) { display: none; }
+}
+
+.level-17 .start {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  text-align: center;
+  background: #2b2630cc;
+  color: #fff;
+  cursor: pointer;
+}
+
+.level-17 .start > b { font-size: clamp(24px, 4.5vh, 38px); color: #e9c24a; }
+.level-17 .old-tag { color: #f3dfa2; }
+.level-17 .new-tag { color: #9fc4ea; }
+
+@keyframes level-17-shake { 25% { translate: -4px 0; } 75% { translate: 4px 0; } }
+@keyframes level-17-bump { 50% { scale: 1.02; } }
+@keyframes level-17-in { from { opacity: 0; translate: 0 8px; } }

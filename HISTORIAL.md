@@ -69,7 +69,9 @@ Els detalls de cada nivell són a la seva llibreta
   Falta que Helena hi jugui.
 - **Nivell 13 (Watch Party):** pas 1 fet i primera versió jugable feta.
   Falta que Helena hi jugui.
-- **Nivells 17, 18 i 19:** idea aprovada el 01/11 (proposta de
+- **Nivell 17 (Collectibles Match-3):** pas 1 fet i primera versió jugable
+  feta. Falta que Helena hi jugui.
+- **Nivells 18 i 19:** idea aprovada el 01/11 (proposta de
   Claude), en construcció.
 - **Estètica:** tot el joc té la nova estètica pintada (menús, avatar i
   nivells 1 a 5), amb la lletra Schoolbell. Només tenen la
@@ -483,6 +485,11 @@ Els detalls de cada nivell són a la seva llibreta
   cliques les dues pantalles (o A i L). A meitat de nivell la connexió de
   l'amic va tard: si cliques la seva pantalla abans que ho vegi, és un
   spoiler. Guanyes amb 8 de 10; perds si en falles 3.
+- Nivell 17 (Collectibles Match-3): el mateix tauler que el nivell 6, amb
+  col·leccionables d'abans (fitxes calentes) i d'ara (fitxes fredes). Un combo
+  és una línia d'una època just després d'una de l'altra; en calen 5 en 45
+  segons. La germana o el germà gran ho comenta al xat i acabeu quedant per
+  fer intercanvis.
 
 ## Coses pendents de decidir
 
