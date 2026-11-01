@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-01/11/2026: idea agreed with Helena (step 1). First playable version built straight away in the painted look: a painted room (door, window, poster, TV, rug, random colours) with the group chat's name on a sign, a sofa of three, two beanbags and two floor cushions, you standing in the middle, friends arriving every 2.6 s with a "hi?" and a patience timer (7 s), dragging them onto a seat, the shy newcomer (4.5 s) once 3 are seated, an extra cushion when they're welcomed, and chat bubbles over everyone at the end. Helena played it and asked for chat-style bubbles (done; step 2 done, 01/11/2026). Next: tune difficulty if needed (step 3).
+01/11/2026: rebuilt as "corners by topic" and published, on computer and phone. Next: Helena plays it and says how it feels.
 
 ## The idea
 
@@ -30,11 +30,11 @@ A room seen from above, Habbo style. Friends come in through the door; tap to gr
 
 ### What we agreed
 
-- **What the player sees:** a room seen diagonally from above (two walls and the floor) with a sofa, beanbags, a rug and a TV; you in the middle; friends come in through the door, seen whole with their editor faces. A sign on the wall shows the name of your group chat, as if the room were the chat.
-- **What the player does:** friends appear at the door, one or two at a time, each with a "hi?" bubble and a ring that empties (their patience). You drag each one to a free seat (sofa, beanbag, floor cushion…) and they sit down. If you take too long they leave ("Leo left the chat").
-- **The social twist:** halfway, someone new comes in: not from the group (a friend's cousin, someone new from class). They're shy and have less patience. If you seat them, the group welcomes them and a new seat appears. The chat is also a place where new people come in.
-- **How you win:** 6 people seated (the newcomer counts too); then chat bubbles fill the room over everyone's heads: the room is the chat.
-- **How you lose:** 3 people leave ("Everyone left the chat…").
+- **What the player sees:** A painted room (the group chat, its name on the wall) with corners for different conversations: the sofa by the TV for memes, the beanbags for plans, the cushions at the front for deep talk. Friends come in through the door with a chat message.
+- **What the player does:** Reads each friend's message and drags them to the corner of what they're talking about, before they get tired of waiting.
+- **The social twist:** Once three friends are in place, someone writes to you in private and a new corner opens under the window: "Private". Like a chat, the room has public places and private ones.
+- **How you win:** Take 8 friends to the right corner.
+- **How you lose:** 3 mistakes: a wrong corner, or a friend who gets tired of waiting.
 - **How long it lasts:** no clock; about 40–50 seconds depending on how you play.
 
 ## Decisions
@@ -45,6 +45,7 @@ A room seen from above, Habbo style. Friends come in through the door; tap to gr
 - 01/11/2026: social twist: someone new comes in halfway, shy and less patient; seat them and the group welcomes them and a seat is added (rejected: friends asking to sit next to someone).
 - 01/11/2026: 6 seated to win, 3 leaving to lose, no clock (rejected: a 45-second clock as well).
 - 01/11/2026: Helena: as it is it doesn't make sense, it's just putting someone in each seat. To rethink together.
+- 01/11/2026: rebuilt with Helena's option A, "corners by topic" (rejected: C, a seating puzzle). The old version (just sitting people anywhere) didn't make sense to her.
 
 ## Open questions
 

@@ -567,9 +567,12 @@ Els detalls de cada nivell són a la seva llibreta
   Too soon!, Together!).
 - Final del joc: en guanyar el nivell 19 surt "The end!" i una pantalla de
   "You did it!" amb l'avatar i confeti.
-- Pendent: nivell 9 (Helena diu que no té sentit, només és posar algú a
-  cada lloc; s'ha de repensar) i saber quins nivells "es bloquegen" una mica
-  al principi.
+- Nivell 9 refet (opció A, "racons per tema"): l'habitació té racons per a
+  mems (sofà), plans (pufs) i converses profundes (coixins). Els amics
+  entren amb un missatge i els portes al racó del que parlen. Gir: algú
+  t'escriu en privat i s'obre un racó "Private". 8 ben posats per guanyar,
+  3 errors per perdre. Descartada l'opció C (trencaclosques de seients).
+- Pendent: saber quins nivells "es bloquegen" una mica al principi.
 
 ## Coses pendents de decidir
 

@@ -1,7 +1,6 @@
 import { defineLevel } from "../../engine/define-level.js";
 import { pick, shuffle } from "../../engine/random.js";
-import { FRIEND_POOL, randomFriends } from "../../data/friends.js";
-import { randomAvatar } from "../../data/avatar-catalog.js";
+import { randomFriends } from "../../data/friends.js";
 import { escapeHtml } from "../../ui/html.js";
 import { CHAT_NAMES, roomBackdrop, seatSvg } from "./art.js";
 
@@ -9,12 +8,14 @@ import { CHAT_NAMES, roomBackdrop, seatSvg } from "./art.js";
  * Level 9 · The Room
  * Design notes, progress and decisions: README.md in this folder.
  *
- * A room seen diagonally from above, with your group chat's name on the
- * wall: the room is the chat. Friends come in through the door with a "hi?"
- * and a ring of patience; drag each one to a free seat before they leave.
- * Halfway, someone new comes in, shyer and less patient: seat them and the
- * group welcomes them and a seat is added. 6 seated wins (chat bubbles fill
- * the room); 3 leaving loses.
+ * Helena (01/11/2026), option A "corners by topic": the room is the group
+ * chat, and like a chat it has its places. The sofa by the TV is for memes,
+ * the beanbags for making plans, the cushions at the front for deep talks.
+ * Friends come in through the door with a message; drag each one to the
+ * corner of what they're talking about before they lose patience. The
+ * twist: someone writes to you in private, and a quiet corner under the
+ * window opens for them. Place 8 friends to win; 3 wrong corners or people
+ * leaving and you lose.
  */
 export default defineLevel({
   number: 9,
@@ -26,48 +27,45 @@ export default defineLevel({
 
   // Numbers that tune the level. First proposal: adjust while playing.
   settings: {
-    seatedToWin: 6, // people seated to win
-    leftToLose: 3, // people leaving that make you lose
-    arriveEverySeconds: 2.6, // how often someone comes in
-    patienceSeconds: 7, // how long a friend waits at the door
-    newcomerPatienceSeconds: 4.5, // the shy newcomer waits less
-    newcomerAfterSeated: 3, // the newcomer comes in once this many are seated
+    placedToWin: 8, // friends in the right corner to win
+    mistakesToLose: 3, // wrong corners plus friends who leave
+    arriveEverySeconds: 2.8, // how often someone comes in
+    patienceSeconds: 8, // how long a friend waits at the door
+    privateAfterPlaced: 3, // the private message comes once this many are placed
   },
 
   play(game) {
     const s = game.settings;
     const chatName = pick(CHAT_NAMES);
-    // Every attempt is a different run: other friends, room colours and chat name.
-    const friends = randomFriends(9);
-    const outsiderName = pick(FRIEND_POOL.filter((f) => !friends.some((g) => g.name === f.name))) ?? { name: "Alex", colour: "#5c6270" };
-    const cousinOf = pick(friends).name;
-    const newcomer = { ...outsiderName, avatar: randomAvatar(), newcomer: true, tag: pick([`${cousinOf}'s cousin`, "new at school", `${cousinOf}'s neighbour`]) };
+    // Every attempt is a different run: other friends, messages, room colours and chat name.
+    const friends = randomFriends(10);
+    const lines = Object.fromEntries(Object.entries(TOPICS).map(([key, t]) => [key, shuffle(t.lines)]));
 
     game.root.innerHTML = `
       <div class="room">
         ${roomBackdrop(escapeHtml(chatName))}
-        <div class="seats">${SEATS.map((seat, i) => seatHtml(seat, i)).join("")}</div>
+        <div class="zones">${Object.entries(TOPICS).map(([key, t]) => zoneHtml(key, t)).join("")}</div>
         <div class="me">${game.avatar(undefined, { label: "You", backdrop: false })}<span>${escapeHtml(game.player.nickname)}</span></div>
         <div class="people"></div>
         <div class="toast"></div>
         <div class="start">
-          <b>Welcome them in!</b>
-          <span>Friends come in through the door. <b>Drag</b> each one to a free seat before they lose patience and leave.</span>
-          <span class="rules"><b>Win:</b> get ${s.seatedToWin} people sitting in the room</span>
-          <span class="rules"><b>Lose:</b> ${s.leftToLose} people leave the chat</span>
+          <b>Every chat has its corners</b>
+          <span>Friends come in with a message. <b>Drag</b> each one to the corner of what they're talking about: <b>memes</b> on the sofa, <b>plans</b> on the beanbags, <b>deep talk</b> on the cushions.</span>
+          <span class="rules"><b>Win:</b> take ${s.placedToWin} friends to the right corner</span>
+          <span class="rules"><b>Lose:</b> ${s.mistakesToLose} wrong corners or friends who get tired of waiting</span>
           <span><b>Click to start</b></span>
         </div>
       </div>`;
 
     const box = game.root.querySelector(".room");
-    const seatsBox = box.querySelector(".seats");
+    const zonesBox = box.querySelector(".zones");
     const people = box.querySelector(".people");
     const toastBox = box.querySelector(".toast");
-    let seated = 0;
-    let left = 0;
+    let placed = 0;
+    let mistakes = 0;
     let running = false;
-    let queue = shuffle(friends);
-    let newcomerDone = false;
+    let privateDone = false;
+    const queue = [...friends];
     const waiting = new Set();
 
     const toast = (text) => {
@@ -76,30 +74,57 @@ export default defineLevel({
       void toastBox.offsetWidth;
       toastBox.classList.add("show");
     };
-    const showScore = () => game.showInfo(`Seated ${seated} / ${s.seatedToWin} · Left ${left} / ${s.leftToLose}`);
+    const showScore = () => game.showInfo(`In place ${placed} / ${s.placedToWin} · Mistakes ${mistakes} / ${s.mistakesToLose}`);
     showScore();
 
-    /** Someone comes in and waits by the door, with a ring of patience. */
+    const zoneEl = (key) => zonesBox.querySelector(`.zone[data-topic="${key}"]`);
+    const freeSlots = (key) => TOPICS[key].seats.length - zoneEl(key).querySelectorAll(".sitter").length;
+
+    /** Someone comes in and waits by the door with a message, and a ring of patience. */
     const arrive = () => {
       if (!running) return;
       const spot = DOOR_SPOTS.find((d) => ![...waiting].some((p) => p.spot === d));
       if (!spot) return;
-      const person = !newcomerDone && seated >= s.newcomerAfterSeated ? newcomer : queue.shift();
-      if (!person) return;
-      if (person.newcomer) newcomerDone = true;
-      const patience = person.newcomer ? s.newcomerPatienceSeconds : s.patienceSeconds;
+      let topic;
+      // The twist: once a few are in, someone writes to you in private.
+      if (!privateDone && placed >= s.privateAfterPlaced) {
+        topic = "private";
+      } else {
+        // Only topics whose corner still has room for everyone waiting for it.
+        const options = ["memes", "plans", "deep"].filter((key) => freeSlots(key) - [...waiting].filter((w) => w.topic === key).length > 0);
+        if (!options.length) return;
+        topic = pick(options);
+      }
+      const person = queue.shift() ?? pick(friends);
+      if (topic === "private") {
+        privateDone = true;
+        zoneEl("private").classList.add("open");
+        toast(`${person.name} sent you a private message`);
+      }
+      const text = lines[topic].shift() ?? pick(TOPICS[topic].lines);
       const el = document.createElement("div");
-      el.className = `person${person.newcomer ? " new" : ""}`;
+      el.className = `person${topic === "private" ? " private" : ""}`;
       el.innerHTML = `${game.avatar(person.avatar, { label: person.name, backdrop: false })}` +
-        `<i class="ring" style="--t:${patience}s"></i>${bubble(person, person.newcomer ? pick(SHY) : pick(KNOCKS))}` +
-        `<span style="background:${person.colour}">${person.name}${person.newcomer ? `<small>${escapeHtml(person.tag)}</small>` : ""}</span>`;
+        `<i class="ring" style="--t:${s.patienceSeconds}s"></i>${bubble(person, text, topic === "private" ? "dm" : "")}` +
+        `<span style="background:${person.colour}">${person.name}</span>`;
       el.style.left = `${spot.x}%`;
       el.style.top = `${spot.y}%`;
       people.append(el);
-      const entry = { person, el, spot };
+      const entry = { person, el, spot, topic };
       waiting.add(entry);
-      entry.cancel = game.after(patience * 1000, () => leave(entry));
-      if (person.newcomer) toast(`${person.name} joined via invite link`);
+      entry.cancel = game.after(s.patienceSeconds * 1000, () => leave(entry));
+    };
+
+    const mistake = (text) => {
+      mistakes += 1;
+      toast(text);
+      showScore();
+      game.vibrate(60);
+      if (mistakes >= s.mistakesToLose) {
+        running = false;
+        waiting.forEach((w) => w.cancel?.());
+        game.after(900, () => game.lose("The chat got all mixed up… Try again!"));
+      }
     };
 
     const leave = (entry) => {
@@ -107,58 +132,59 @@ export default defineLevel({
       waiting.delete(entry);
       entry.el.classList.add("leaving");
       game.after(500, () => entry.el.remove());
-      left += 1;
-      toast(`${entry.person.name} left the chat`);
-      queue.push(entry.person); // they might come back later
-      showScore();
-      game.vibrate(60);
-      if (left >= s.leftToLose) {
-        running = false;
-        game.after(800, () => game.lose("Everyone left the chat… Try again!"));
-      }
+      queue.push(entry.person);
+      if (entry.topic === "private") privateDone = false; // they'll try again later
+      mistake(`${entry.person.name} got tired of waiting`);
     };
 
-    const sit = (entry, seatEl) => {
+    /** Dropped on a corner: the right one seats them, a wrong one sends them back. */
+    const drop = (entry, key) => {
+      if (key !== entry.topic) {
+        entry.el.style.translate = "";
+        entry.el.classList.remove("wrong");
+        void entry.el.offsetWidth;
+        entry.el.classList.add("wrong");
+        return mistake(`Wrong corner! ${entry.person.name} wants ${TOPICS[entry.topic].about}`);
+      }
+      if (freeSlots(key) <= 0) {
+        entry.el.style.translate = "";
+        return toast("That corner is full");
+      }
       waiting.delete(entry);
       entry.cancel?.();
-      seatEl.classList.add("taken");
       entry.el.remove();
+      const zone = zoneEl(key);
+      const seatEl = zone.querySelectorAll(".seat")[zone.querySelectorAll(".sitter").length];
       seatEl.insertAdjacentHTML("beforeend", `<div class="sitter" data-name="${entry.person.name}" data-colour="${entry.person.colour}">${game.avatar(entry.person.avatar, { label: entry.person.name, crop: "bust", backdrop: false })}</div>`);
-      seated += 1;
+      placed += 1;
       showScore();
       game.vibrate(20);
-      if (entry.person.newcomer) {
-        // The twist: the group welcomes them, and makes room for one more.
-        toast(`${entry.person.name} is now in "${chatName}"`);
-        const extra = EXTRA_SEAT;
-        seatsBox.insertAdjacentHTML("beforeend", seatHtml(extra, SEATS.length, "pop"));
-        speak(seatsBox.querySelectorAll(".seat.taken .sitter"), WELCOMES, 2);
-      }
-      if (seated >= s.seatedToWin) win();
+      if (key === "private") toast("Just the two of you. Thanks for listening");
+      if (placed >= s.placedToWin) win();
     };
 
     /** Chat bubbles over some seated heads. */
-    const speak = (sitters, lines, count = sitters.length) => {
+    const speak = (sitters, chatter, count = sitters.length) => {
       shuffle([...sitters]).slice(0, count).forEach((sitter, i) => game.after(i * 250, () => {
-        sitter.insertAdjacentHTML("beforeend", bubble({ name: sitter.dataset.name, colour: sitter.dataset.colour }, pick(lines), "said"));
+        sitter.insertAdjacentHTML("beforeend", bubble({ name: sitter.dataset.name, colour: sitter.dataset.colour }, pick(chatter), "said"));
       }));
     };
 
-    // Win: the room fills with chat bubbles: the room is the chat.
+    // Win: every corner talks at once: the room is the chat.
     const win = () => {
       running = false;
       waiting.forEach((entry) => entry.cancel?.());
       box.classList.add("chatting");
-      speak(seatsBox.querySelectorAll(".seat.taken .sitter"), CHATTER);
+      speak(zonesBox.querySelectorAll(".sitter"), CHATTER, 5);
       game.after(2600, () => game.win());
     };
 
-    // Dragging someone from the door to a seat.
+    // Dragging someone from the door to a corner.
     let drag = null;
     game.listen(box, "pointerdown", (event) => {
-      const start = box.querySelector(".start");
-      if (start) {
-        start.remove();
+      const startCard = box.querySelector(".start");
+      if (startCard) {
+        startCard.remove();
         running = true;
         arrive();
         game.every(s.arriveEverySeconds * 1000, arrive);
@@ -167,48 +193,74 @@ export default defineLevel({
       const el = event.target.closest(".person");
       const entry = [...waiting].find((w) => w.el === el);
       if (!entry || !running) return;
-      el.setPointerCapture?.(event.pointerId);
+      try {
+        el.setPointerCapture?.(event.pointerId);
+      } catch {
+        // Not a real pointer (some browsers): dragging still works without capture.
+      }
       el.classList.add("dragging");
       drag = { entry, startX: event.clientX, startY: event.clientY };
     });
     game.listen(window, "pointermove", (event) => {
       if (!drag) return;
       drag.entry.el.style.translate = `calc(-50% + ${event.clientX - drag.startX}px) calc(-100% + ${event.clientY - drag.startY}px)`;
-      const seatEl = seatAt(event.clientX, event.clientY);
-      seatsBox.querySelectorAll(".seat").forEach((sEl) => sEl.classList.toggle("hover", sEl === seatEl));
+      const key = zoneAt(event.clientX, event.clientY);
+      zonesBox.querySelectorAll(".zone").forEach((z) => z.classList.toggle("hover", z.dataset.topic === key));
     });
     game.listen(window, "pointerup", (event) => {
       if (!drag) return;
       const { entry } = drag;
       drag = null;
       entry.el.classList.remove("dragging");
-      seatsBox.querySelectorAll(".seat.hover").forEach((sEl) => sEl.classList.remove("hover"));
-      const seatEl = seatAt(event.clientX, event.clientY);
-      if (seatEl && running && waiting.has(entry)) return sit(entry, seatEl);
+      zonesBox.querySelectorAll(".zone.hover").forEach((z) => z.classList.remove("hover"));
+      const key = zoneAt(event.clientX, event.clientY);
+      if (key && running && waiting.has(entry)) return drop(entry, key);
       entry.el.style.translate = ""; // back to the door
     });
 
-    /** The free seat under a point of the screen, if any. */
-    const seatAt = (x, y) => [...seatsBox.querySelectorAll(".seat:not(.taken)")].find((sEl) => {
-      const r = sEl.getBoundingClientRect();
-      return x > r.left - 10 && x < r.right + 10 && y > r.top - 30 && y < r.bottom + 10;
-    });
+    /** The (open) corner under a point of the screen, if any. */
+    const zoneAt = (x, y) => [...zonesBox.querySelectorAll(".zone")].find((z) => {
+      if (z.dataset.topic === "private" && !z.classList.contains("open")) return false;
+      const r = z.getBoundingClientRect();
+      return x > r.left && x < r.right && y > r.top && y < r.bottom;
+    })?.dataset.topic;
   },
 });
 
-/** The seats, in % of the stage: a sofa of three against the back wall, beanbags and floor cushions. */
-const SEATS = [
-  { kind: "sofa", x: 46, y: 60 }, { kind: "sofa", x: 56, y: 60 }, { kind: "sofa", x: 66, y: 60 },
-  { kind: "beanbag", x: 84, y: 74 }, { kind: "beanbag", x: 30, y: 86 },
-  { kind: "cushion", x: 60, y: 90 }, { kind: "cushion", x: 78, y: 92 },
-];
-/** The seat that appears when the newcomer is welcomed. */
-const EXTRA_SEAT = { kind: "cushion", x: 44, y: 92 };
-/** Where people wait just inside the door. */
-const DOOR_SPOTS = [{ x: 15, y: 72 }, { x: 23, y: 66 }, { x: 9, y: 86 }];
+/**
+ * The corners of the room, in % of the stage, with their seats (in % of the
+ * corner) and what people say there. "private" opens with the twist.
+ */
+const TOPICS = {
+  memes: {
+    label: "Memes", about: "to share a meme", kind: "sofa", box: { x: 38, y: 46, w: 36, h: 22 },
+    seats: [{ x: 22, y: 64 }, { x: 50, y: 64 }, { x: 78, y: 64 }],
+    lines: ["LMAOOO look at this", "this video is SO us", "new meme just dropped", "I can't stop watching this cat", "sending you the funniest video", "this filter is cursed", "who made this meme I'm crying"],
+  },
+  plans: {
+    label: "Plans", about: "to make plans", kind: "beanbag", box: { x: 74, y: 62, w: 25, h: 36 },
+    seats: [{ x: 50, y: 34 }, { x: 28, y: 80 }, { x: 74, y: 80 }],
+    lines: ["cinema on friday?", "who's free saturday?", "beach this weekend??", "let's book the bowling", "picnic tomorrow at 5?", "birthday plans, who's in?", "study group at the library?"],
+  },
+  deep: {
+    label: "Deep talk", about: "a deep talk", kind: "cushion", box: { x: 22, y: 74, w: 48, h: 25 },
+    seats: [{ x: 18, y: 66 }, { x: 50, y: 74 }, { x: 82, y: 66 }],
+    lines: ["can I tell you something?", "I'm kind of sad today", "do you ever feel left out?", "I need advice…", "things at home are hard rn", "I don't know what to study next year", "I miss how things were"],
+  },
+  private: {
+    label: "Private", about: "to talk in private", kind: "cushion", box: { x: 22, y: 44, w: 16, h: 18 },
+    seats: [{ x: 50, y: 70 }],
+    lines: ["psst… can we talk, just us?", "can I tell only you?", "dm, it's private"],
+  },
+};
 
-const seatHtml = (seat, i, cls = "") =>
-  `<div class="seat ${seat.kind} ${cls}" data-i="${i}" style="left:${seat.x}%;top:${seat.y}%">${seatSvg(seat.kind)}</div>`;
+/** Where people wait just inside the door. */
+const DOOR_SPOTS = [{ x: 14, y: 70 }, { x: 22, y: 64 }, { x: 8, y: 86 }];
+
+const zoneHtml = (key, t) =>
+  `<div class="zone ${key}" data-topic="${key}" style="left:${t.box.x}%;top:${t.box.y}%;width:${t.box.w}%;height:${t.box.h}%;--w:${t.box.w}">` +
+  t.seats.map((seat) => `<div class="seat ${t.kind}" style="left:${seat.x}%;top:${seat.y}%">${seatSvg(t.kind)}</div>`).join("") +
+  `<b class="zone-label">${t.label}</b></div>`;
 
 /**
  * A message bubble like in a messaging app: the sender's name in their
@@ -221,8 +273,5 @@ function bubble(person, text, cls = "") {
   return `<em class="bubble ${cls}"><b style="color:${person.colour}">${person.name}</b>${text}<small>${time} <i>✓✓</i></small></em>`;
 }
 
-/** What people say at the door, sitting down, and when everyone's in. */
-const KNOCKS = ["heyyy can I come in?", "omw… ok I'm here", "knock knock", "is this the right place lol", "hiii, room for me?", "sorry I'm late!!"];
-const SHY = ["hi… is it ok if I join?", "um hi, I'm new", "hey, someone added me?"];
-const WELCOMES = ["welcome!!", "hiii nice to meet u", "omg finally someone new", "make room guys"];
-const CHATTER = ["lmaooo", "who's bringing snacks??", "ok what are we watching", "brb", "same time tomorrow?", "this is the best", "send the pics later", "jajaja", "wait who has the charger", "can't stop laughing", "ok but who's paying", "everyone's here!!"];
+/** What friends say when everyone's in. */
+const CHATTER = ["lmaooo", "who's bringing snacks??", "ok what are we watching", "brb", "same time tomorrow?", "this is the best", "send the pics later", "wait who has the charger", "can't stop laughing", "everyone's here!!"];

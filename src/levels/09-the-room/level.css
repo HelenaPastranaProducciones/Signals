@@ -67,8 +67,8 @@
 
 .level-09 .me {
   position: absolute;
-  left: 40%;
-  top: 80%;
+  left: 31%;
+  top: 72%;
   width: 7%;
   translate: -50% -100%;
   z-index: 3;
@@ -238,3 +238,66 @@
 /* On the sofa, the middle bubble sits higher so the three don't cover each other. */
 .level-09 .seat.sofa:nth-child(2) .sitter .bubble { bottom: 150%; }
 .level-09 .seat.sofa:nth-child(1) .sitter .bubble { left: -10%; }
+
+/* ---------- Corners by topic (Helena, 01/11/2026) ---------- */
+
+.level-09 .zones { position: absolute; inset: 0; }
+
+.level-09 .zone {
+  position: absolute;
+  border: 3px dashed rgba(43, 38, 48, 0.35);
+  border-radius: 22px;
+  background: rgba(255, 248, 238, 0.14);
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.level-09 .zone.hover { background: rgba(233, 194, 74, 0.35); border-color: #2b2630; border-style: solid; }
+.level-09 .zone.private { opacity: 0; pointer-events: none; }
+.level-09 .zone.private.open { opacity: 1; animation: level-09-pop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1); }
+
+/* Seats and sitters are sized by the stage, not by the corner. */
+.level-09 .zone .seat { width: calc(1000% / var(--w)); }
+.level-09 .zone .seat:has(.sitter) { z-index: 3; }
+
+.level-09 .zone-label {
+  position: absolute;
+  left: 50%;
+  top: -14px;
+  translate: -50% 0;
+  z-index: 4;
+  padding: 2px 12px;
+  border: 2.5px solid #2b2630;
+  border-radius: 14px;
+  background: #fff8ee;
+  color: #2b2630;
+  font-size: 15px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 2px 3px 0 #2b2630;
+}
+
+.level-09 .memes .zone-label { background: #e9c24a; }
+.level-09 .plans .zone-label { background: #9fd3b4; }
+.level-09 .deep .zone-label { background: #c9b8ec; }
+.level-09 .private .zone-label { background: #f2a1b8; }
+
+/* A private message looks different: a lock-ish pink bubble. */
+.level-09 .bubble.dm { background: #ffe1ea; }
+.level-09 .person.wrong { animation: level-09-wrong 0.4s; }
+@keyframes level-09-wrong { 25% { margin-left: -8px; } 75% { margin-left: 8px; } }
+
+/* Phones (portrait): bigger people and corners rearranged for a tall screen (Helena, 01/11/2026). */
+@media (max-aspect-ratio: 1 / 1) {
+  .level-09 .person,
+  .level-09 .me { width: 14%; }
+  .level-09 .me { left: 14%; top: 98%; }
+  .level-09 .zone.memes { left: 34% !important; top: 45% !important; width: 64% !important; height: 17% !important; --w: 64 !important; }
+  .level-09 .zone.plans { left: 62% !important; top: 66% !important; width: 36% !important; height: 32% !important; --w: 36 !important; }
+  .level-09 .zone.deep { left: 27% !important; top: 66% !important; width: 33% !important; height: 32% !important; --w: 33 !important; }
+  .level-09 .zone.private { left: 2% !important; top: 44% !important; width: 30% !important; height: 16% !important; --w: 30 !important; }
+  .level-09 .zone .seat { width: calc(1500% / var(--w)); }
+  .level-09 .zone-label { font-size: 12px; padding: 1px 8px; top: -11px; }
+  .level-09 .zone.deep .seat:nth-child(1) { left: 26% !important; top: 30% !important; }
+  .level-09 .zone.deep .seat:nth-child(2) { left: 74% !important; top: 55% !important; }
+  .level-09 .zone.deep .seat:nth-child(3) { left: 30% !important; top: 85% !important; }
+}
