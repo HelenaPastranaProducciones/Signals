@@ -60,6 +60,8 @@ Els detalls de cada nivell són a la seva llibreta
   canvis, fets). Següent: ajustar la dificultat si cal (pas 3).
 - **Nivell 12 (Spot the Difference):** pas 2 fet (Helena hi ha jugat; ara
   molt més difícil). Següent: ajustar la dificultat si cal (pas 3).
+- **Nivell 13 (Watch Party):** pas 1 fet i primera versió jugable feta.
+  Falta que Helena hi jugui.
 - **Nivell 14 (Tidy Up):** pas 1 fet (idea proposada per Claude i aprovada) i
   primera versió jugable feta. Falta que Helena hi jugui.
 - **Nivell 15 (Phone Off):** pas 1 fet. Només un missatge sobre fons negre:
@@ -67,14 +69,13 @@ Els detalls de cada nivell són a la seva llibreta
   el vegi.
 - **Nivell 16 (Most Likely To):** pas 1 fet i primera versió jugable feta.
   Falta que Helena hi jugui.
-- **Nivell 13 (Watch Party):** pas 1 fet i primera versió jugable feta.
-  Falta que Helena hi jugui.
 - **Nivell 17 (Collectibles Match-3):** pas 1 fet i primera versió jugable
   feta. Falta que Helena hi jugui.
 - **Nivell 18 (Odd One Out):** pas 1 fet i primera versió jugable feta.
   Falta que Helena hi jugui.
-- **Nivell 19:** idea aprovada el 01/11 (proposta de
-  Claude), en construcció.
+- **Nivell 19 (Jigsaw):** pas 1 fet i primera versió jugable feta. Falta
+  que Helena hi jugui.
+- **Tots els 19 nivells** ja tenen una primera versió jugable.
 - **Estètica:** tot el joc té la nova estètica pintada (menús, avatar i
   nivells 1 a 5), amb la lletra Schoolbell. Només tenen la
   proposta inicial a la seva llibreta.
@@ -496,6 +497,9 @@ Els detalls de cada nivell són a la seva llibreta
   salutació secreta i una frase). Rondes alternes: "Finish the code" (quin
   moviment ve ara) i "Who's not one of us?" (qui diu malament la frase). 4
   rondes en 40 segons, 3 cors.
+- Nivell 19 (Jigsaw, el final): reconstrueixes una captura del xat del grup
+  arrossegant 12 peces en 45 segons. Quan està feta, s'imprimeix com una
+  polaroid i es penja en una paret amb un record de cada nivell del joc.
 
 ## Coses pendents de decidir
 

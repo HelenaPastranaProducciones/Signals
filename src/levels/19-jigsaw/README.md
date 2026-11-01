@@ -11,7 +11,7 @@ Claude keeps it up to date in plain words while working on the level with Helena
 
 Tick a step only when Helena agrees it is done.
 
-- [ ] 1. Idea agreed: what the player sees and does, the social twist, how you win or lose
+- [x] 1. Idea agreed: what the player sees and does, the social twist, how you win or lose
 - [ ] 2. First playable version: simple shapes, playable from start to end
 - [ ] 3. Rules and difficulty tuned: it feels right to play
 - [ ] 4. Look and feel: final art in the Signals style, with animations
@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-Not started. Next: agree on the idea (step 1).
+01/11/2026: first playable version built and published. Next: Helena plays it and says how it feels (step 2).
 
 ## The idea
 
@@ -32,16 +32,16 @@ _Note: The PDF cuts the title off at "...leaves physical"; "traces" was added._
 
 ### What we agreed
 
-- **What the player sees:** _to agree_
-- **What the player does:** _to agree_
-- **The social twist:** _to agree_
-- **How you win:** _to agree_
-- **How you lose:** _to agree_
-- **How long it lasts:** _to agree_
+- **What the player sees:** A painted desk with an empty frame shaped like a phone screen, and 12 pieces of a group-chat screenshot scattered around it. The chat uses your name and three friends; every attempt brings another chat, cut and scattered differently.
+- **What the player does:** Drags every piece to its place on the frame; a piece close enough to its spot snaps in.
+- **The social twist:** When the screenshot is complete, it is printed as a polaroid ("us, forever") and pinned in the middle of a wall full of little polaroids with a memory of every level of the game (the race, the gig, the claw prize, a letter, our code…).
+- **How you win:** Finish the screenshot in 45 seconds.
+- **How you lose:** The time runs out first.
+- **How long it lasts:** 45 seconds.
 
 ## Decisions
 
-_None yet. Each decision goes here with its date, in plain words._
+- 01/11/2026: Helena approved the idea proposed by Claude (rebuild a chat screenshot, then it's printed and pinned on a wall of memories from every level) and asked to build it straight away. 12 pieces (3 × 4) in 45 seconds.
 
 ## Open questions
 
@@ -50,4 +50,4 @@ _None yet._
 ## Try it
 
 - Online: https://helenapastranaproducciones.github.io/Signals/?level=19
-- Files: `level.js` (texts, settings and the minigame), `level.css` (its look, from step 2), `assets/` (images, if any)
+- Files: `level.js` (rules), `art.js` (the chat screenshot and the memories wall), `level.css`
