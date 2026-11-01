@@ -578,3 +578,4 @@ Els detalls de cada nivell són a la seva llibreta
 
 - **Mòbil:** com saltar i ajupir-se sense teclat al nivell 1.
 - Les preguntes obertes generals són a `CLAUDE.md`, a "Open questions".
+- Pantalla d'inici: en lloc de l'avatar, un ventall de 5 polaroids de signals (a l'atzar a cada visita).

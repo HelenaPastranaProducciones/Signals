@@ -552,3 +552,29 @@ main:has(.level-frame) {
 .finale-avatar { width: min(170px, 36vw); animation: finale-hop 0.6s ease-in-out infinite alternate; }
 .finale-count { font-size: 26px; text-transform: uppercase; }
 @keyframes finale-hop { to { translate: 0 -10px; } }
+
+/* Title screen: a fan of signal polaroids instead of the avatar (Helena, 01/11/2026). */
+.title-collage {
+  position: relative;
+  width: min(560px, 92vw);
+  height: min(250px, 42vw, 32vh);
+  margin: 10px 0 14px;
+}
+
+.title-collage figure {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 38%;
+  margin: 0;
+  padding: 6px 6px 0;
+  background: #fbf6ee;
+  box-shadow: 3px 4px 0 rgba(43, 38, 48, 0.35);
+  translate: calc(-50% + var(--i) * 58%) calc(-50% + var(--i) * var(--i) * 6%);
+  rotate: calc(var(--i) * 7deg);
+  z-index: calc(10 - var(--i) * var(--i));
+}
+
+.title-collage svg { display: block; width: 100%; height: auto; }
+.title-collage figcaption { padding: 3px 0 5px; font-size: clamp(10px, 1.6vw, 14px); color: #2b2630; text-align: center; text-transform: uppercase; }
+
