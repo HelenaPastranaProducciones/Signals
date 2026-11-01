@@ -512,6 +512,14 @@ Els detalls de cada nivell són a la seva llibreta
   i l'has de trobar. 4 fotos en 40 segons, 3 cors. Descartades: B "dins o
   fora" i C "el xat del grup".
 
+**Pantalla de càrrega de cada nivell**
+- Helena va passar un document amb l'explicació de les 19 signals (què
+  significa, per què és una signal, per què és al journal i què observar).
+  Ara surt traduït a l'anglès a la pantalla de càrrega de cada nivell, amb un
+  dibuix pintat de la signal al costat (en lloc d'una foto: són dibuixos del
+  joc, sense problemes de drets). Com que hi ha molt a llegir, la pantalla ja
+  no passa sola: quan s'omple la barra surt un botó Play.
+
 ## Coses pendents de decidir
 
 - **Mòbil:** com saltar i ajupir-se sense teclat al nivell 1.

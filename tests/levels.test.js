@@ -61,3 +61,12 @@ test("getLevel is 1-based", () => {
   assert.equal(getLevel(1).minigame, "Game & Chat");
   assert.equal(getLevel(19).minigame, "Jigsaw");
 });
+
+test("every signal has its journal explanation and a picture for the loading screen", async () => {
+  const { SIGNAL_JOURNAL, JOURNAL_SECTIONS } = await import("../src/data/signal-journal.js");
+  const { signalPicture } = await import("../src/data/signal-pictures.js");
+  for (let n = 1; n <= 19; n += 1) {
+    for (const [key] of JOURNAL_SECTIONS) assert.ok(SIGNAL_JOURNAL[n]?.[key], `signal ${n}: ${key}`);
+    assert.match(signalPicture(n), /^<svg/, `signal ${n}: picture`);
+  }
+});

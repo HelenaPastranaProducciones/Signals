@@ -443,3 +443,52 @@ main:has(.level-frame) {
   padding: 30px;
   text-align: center;
 }
+
+/* Loading screen before a level: picture and Signals Journal text (Helena, 01/11/2026). */
+.signal-splash {
+  justify-content: safe center;
+  gap: 14px;
+  overflow-y: auto;
+  padding: 24px 24px 28px;
+}
+
+.signal-head { display: grid; justify-items: center; gap: 6px; }
+.signal-splash .signal-title { font-size: clamp(26px, 4vw, 46px); }
+
+.signal-body {
+  display: grid;
+  grid-template-columns: minmax(200px, 340px) minmax(0, 560px);
+  align-items: center;
+  gap: 28px;
+  max-width: 960px;
+  text-align: left;
+}
+
+.signal-figure {
+  margin: 0;
+  padding: 8px 8px 26px;
+  background: #fbf6ee;
+  box-shadow: 5px 6px 0 rgba(43, 38, 48, 0.3);
+  rotate: -2deg;
+}
+
+.signal-picture { display: block; width: 100%; height: auto; }
+
+.journal { display: grid; gap: 10px; margin: 0; }
+.journal dt { font-size: 15px; text-transform: uppercase; color: var(--accent); }
+.journal dd { margin: 2px 0 0; font-size: 17px; line-height: 1.25; }
+
+.signal-go { display: grid; justify-items: center; gap: 8px; width: 100%; }
+.signal-go .loader { margin-top: 4px; }
+.signal-go .skip-button { margin-top: 0; }
+.signal-splash .play-signal { display: none; }
+.signal-splash.ready .loader { display: none; }
+.signal-splash.ready .play-signal { display: inline-flex; animation: signal-play-in 0.35s ease-out; }
+.signal-splash.ready .skip-button { display: none; }
+
+@keyframes signal-play-in { from { scale: 0.6; opacity: 0; } }
+
+@media (max-width: 760px) {
+  .signal-body { grid-template-columns: 1fr; justify-items: center; gap: 16px; }
+  .signal-figure { width: min(280px, 80%); }
+}

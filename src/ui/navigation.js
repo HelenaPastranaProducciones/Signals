@@ -28,6 +28,11 @@ function startLoading(ms, nextScreen) {
     bar.style.width = "100%";
   }));
   loadingTimer = setTimeout(() => {
+    // Before a level there is a lot to read: wait for the Play button instead (Helena, 01/11/2026).
+    if (nextScreen === "level") {
+      document.querySelector(".signal-splash")?.classList.add("ready");
+      return;
+    }
     goTo(nextScreen);
     // After the opening loading screen, the player first meets their avatar and
     // writes their name; "Back to map" then shows the levels (Helena, 31/10/2026).

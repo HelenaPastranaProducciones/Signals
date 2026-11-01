@@ -154,8 +154,11 @@ https://claude.ai/artifact/Kz5CaVyjyNMNNEcypQ6XRx
    31/10/2026); "Go to the map" shows the levels.
 3. **Level map:** grid of 19 levels (locked, available, completed). They open
    in order.
-4. **Fake 5-second loading screen before each level** with the signal's
-   number, title and explanation. It has a **Skip** button during
+4. **Loading screen before each level** with the signal's number and title,
+   a painted picture of the signal (`src/data/signal-pictures.js`) and its
+   Signals Journal explanation in four parts (`src/data/signal-journal.js`,
+   from Helena's document of 01/11/2026). The bar fills in 5 seconds, then a
+   **Play** button (or Enter) starts the level, so there's time to read. It has a **Skip** button during
    development (`SHOW_SKIP_BUTTON` in `src/config.js`).
 5. **Level:** the minigame, under a bar with its name, info, clock, Restart
    and Exit. Winning shows the closing line and the unlocked avatar pieces;
