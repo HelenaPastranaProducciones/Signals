@@ -2,6 +2,7 @@ import { defineLevel } from "../../engine/define-level.js";
 import { pick, randomBetween, shuffle } from "../../engine/random.js";
 import { randomFriends } from "../../data/friends.js";
 import { MARKERS, OBJECTS, PAINTS, PLAIN, STICKERS, objectSvg, stickerSvg } from "./art.js";
+import { randomInt } from "../../engine/random.js";
 
 /**
  * Level 10 · Customizer
@@ -11,8 +12,9 @@ import { MARKERS, OBJECTS, PAINTS, PLAIN, STICKERS, objectSvg, stickerSvg } from
  * water bottle, laptop, backpack), then make it yours for 45 seconds: drag
  * stickers onto it, click a paint pot to change its colour, pick a marker
  * and draw on it. The twist: when time is up it drops into a pile of
- * identical plain ones, and a friend spots yours at once, if you decorated it
- * enough (at least 5 things). If not, they can't tell which one is yours.
+ * identical ones that other people decorated too, and a friend spots yours at
+ * once if you decorated it enough (at least 5 things). If not, they can't tell
+ * which one is yours.
  */
 export default defineLevel({
   number: 10,
@@ -24,10 +26,10 @@ export default defineLevel({
 
   // Numbers that tune the level. First proposal: adjust while playing.
   settings: {
-    duration: 45, // seconds to decorate
+    duration: 30, // seconds to decorate
     decorationsToWin: 5, // things you must add (stickers, a new colour, drawings) for friends to recognise it
-    stickersOnSheet: 8, // stickers to choose from (a different set each time)
-    pileSize: 8, // identical objects in the pile at the end (yours included)
+    stickersOnSheet: 12, // stickers to choose from (a different set each time)
+    pileSize: 8, // objects in the pile at the end (yours included); the others are decorated too
   },
 
   play(game) {
@@ -195,7 +197,8 @@ export default defineLevel({
       const total = decorations + (colourChanged ? 1 : 0);
       const recognised = total >= s.decorationsToWin;
       const mine = svg.outerHTML.replace(/level-10-mine/g, "level-10-pile-mine");
-      const plain = Array.from({ length: s.pileSize - 1 }, (_, i) => objectSvg(object, { id: `level-10-pile-${i}` }));
+      // Everyone else decorated theirs too (Helena): yours must stand out among them.
+      const plain = Array.from({ length: s.pileSize - 1 }, (_, i) => objectSvg(object, { id: `level-10-pile-${i}`, ...someoneElses(object) }));
       const pile = shuffle([...plain.map((p) => ({ html: p, mine: false })), { html: mine, mine: true }]);
       box.innerHTML = `
         <div class="pile">${pile.map((p, i) => `<div class="heap${p.mine ? " yours" : ""}" style="--r:${randomBetween(-14, 14).toFixed(0)}deg;--d:${(i * 0.06).toFixed(2)}s">${p.html}</div>`).join("")}</div>
@@ -218,3 +221,13 @@ export default defineLevel({
     };
   },
 });
+
+/** Someone else's object in the pile: a colour (or still plain) and a few stickers. */
+function someoneElses(object) {
+  const [x0, y0, x1, y1] = object.area;
+  const deco = Array.from({ length: randomInt(1, 3) }, () => {
+    const st = pick(STICKERS);
+    return `<g transform="translate(${randomBetween(x0, x1).toFixed(0)} ${randomBetween(y0, y1).toFixed(0)}) rotate(${randomBetween(-25, 25).toFixed(0)}) scale(${randomBetween(1.2, 1.6).toFixed(2)})">${st.body}</g>`;
+  }).join("");
+  return { colour: Math.random() < 0.7 ? pick(PAINTS) : PLAIN, deco };
+}
