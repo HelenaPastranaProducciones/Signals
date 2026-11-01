@@ -506,7 +506,11 @@ Els detalls de cada nivell són a la seva llibreta
   botó ara diu "I wrote it, keep playing" i surt als 4 segons (abans 20).
 - Nivell 16: més temps per respondre, 8 segons per pregunta (abans 5).
 - Nivell 18: costa d'entendre i és massa fàcil trobar qui no és del grup.
-  Cal repensar-lo.
+  Es refà amb l'opció A, "la foto del grup": al principi surt el codi del
+  grup (postura, gorra i peça al coll, cadascuna del color del grup) i queda
+  a la vista; a cada foto de 8 a 11 persones, una s'equivoca en un sol detall
+  i l'has de trobar. 4 fotos en 40 segons, 3 cors. Descartades: B "dins o
+  fora" i C "el xat del grup".
 
 ## Coses pendents de decidir
 

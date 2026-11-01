@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-01/11/2026: first playable version built and published. Next: Helena plays it and says how it feels (step 2).
+01/11/2026: rebuilt as "the group photo" (option A) and published. Next: Helena plays it and says how it feels (step 2).
 
 ## The idea
 
@@ -32,11 +32,11 @@ _Note: Not in the Signals Journal PDF: the explanation text is provisional._
 
 ### What we agreed
 
-- **What the player sees:** Your friend group's name on top (Team Toast, The Pigeons, Bus Stop Club…) on a painted sticker wall, and three hearts. Every attempt invents another group, with its own secret handshake and catchphrase.
-- **What the player does:** Two kinds of rounds take turns. "Finish the code": the group's secret handshake is a sequence of moves (SNAP, CLAP, FIST…); click the move that comes next. "Who's not one of us?": five people say the group's catchphrase, one gets it slightly wrong ("toast time" instead of "toast o'clock"); click them.
-- **The social twist:** The codes only make sense inside the group: an outsider gives themselves away by a tiny detail. When you get all the rounds right: "TEAM TOAST FOREVER".
-- **How you win:** Get 4 rounds right in 40 seconds.
-- **How you lose:** Make 3 mistakes, or the time runs out.
+- **What the player sees:** A group photo in a park, in a white print border, with 8 to 11 friends. On the side, the card with your group's code: its name (Team Toast, The Frogs, Lunch Table 4…), a little figure and three details: a pose, a hat and something round the neck, each in the group's colour. Every attempt invents a new group and code.
+- **What the player does:** Before starting, reads the group's code. In every photo, everyone follows it except one person, who gets one small detail wrong (another pose, the hat or the neck piece in another colour): click them.
+- **The social twist:** The code only makes sense inside the group: an outsider gives themselves away by one tiny detail. When you find all of them: "TEAM TOAST FOREVER".
+- **How you win:** Find the outsider in 4 photos in 40 seconds.
+- **How you lose:** 3 wrong clicks, or the time runs out.
 - **How long it lasts:** 40 seconds.
 
 ## Shares its mechanic
@@ -46,6 +46,7 @@ Same mechanic family as **level 3 (Spot the Impostor)**. Reuse the shared part i
 ## Decisions
 
 - 01/11/2026: Helena approved the idea proposed by Claude (the group's inside codes: complete the pattern or find who doesn't fit; 4 rounds in 40 seconds, 3 hearts) and asked to build it straight away. It uses the hearts shared with level 3.
+- 01/11/2026: Helena played the first version (handshake sequences and catchphrases): hard to understand and too easy to find the outsider. Rebuilt with her option A, "the group photo": the code is shown first and stays in sight, and the outsider differs in one small detail. Rejected: B "in or out" (sorting people by the rules) and C "the group chat" (spotting who uses the inside jokes wrong).
 
 ## Open questions
 
@@ -54,4 +55,4 @@ _None yet._
 ## Try it
 
 - Online: https://helenapastranaproducciones.github.io/Signals/?level=18
-- Files: `level.js` (groups, codes and rules), `level.css`; hearts shared with level 3 (`src/mechanics/odd-one-out.js`)
+- Files: `level.js` (the group code and the photos), `level.css`; hearts and the way people are spread out shared with level 3 (`src/mechanics/odd-one-out.js`)

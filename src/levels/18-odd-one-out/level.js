@@ -1,44 +1,63 @@
 import { defineLevel } from "../../engine/define-level.js";
 import { pick, shuffle } from "../../engine/random.js";
-import { randomFriends } from "../../data/friends.js";
-import { createLives } from "../../mechanics/odd-one-out.js";
+import { randomAvatar } from "../../data/avatar-catalog.js";
+import { createLives, spreadOut } from "../../mechanics/odd-one-out.js";
 
 /**
  * Level 18 · Odd One Out
  * Design notes, progress and decisions: README.md in this folder.
  *
- * Your friend group has its own codes: a secret handshake (a sequence of
- * moves), a catchphrase and a sticker. Two kinds of rounds take turns:
- * "Finish the code" (which move comes next in the handshake?) and "Who's
- * not one of us?" (everybody says the catchphrase, one of them gets it a
- * bit wrong: click them). Shares the hearts with level 3
- * (src/mechanics/odd-one-out.js). Every attempt invents a new group, with
- * new codes.
+ * Helena (01/11/2026), option A "the group photo": your friend group has its
+ * own code, shown on a card at the start and kept in a corner: a pose, a hat
+ * and something round the neck, each in the group's colour. Then come group
+ * photos of 8 to 11 people: everybody follows the code except one, who gets
+ * a single small detail wrong (another pose, the hat or the neck piece in
+ * another colour). Click them. Shares the hearts and the way people are
+ * spread out with level 3 (src/mechanics/odd-one-out.js). Every attempt
+ * invents a new group with a new code.
  */
 
-// Moves of the secret handshake, each a painted sticker with a word.
-const MOVES = [
-  { word: "SNAP", colour: "#e9c24a" },
-  { word: "CLAP", colour: "#6f9fd8" },
-  { word: "FIST", colour: "#d9573f" },
-  { word: "SPIN", colour: "#9c8ad0" },
-  { word: "WAVE", colour: "#6fbf8c" },
-  { word: "WIGGLE", colour: "#e07aa6" },
-  { word: "BOW", colour: "#e2a04a" },
-  { word: "POINT", colour: "#5c9aa0" },
+const GROUP_NAMES = ["The Pigeons", "Night Owls", "The Noodles", "Bus Stop Club", "The Gremlins", "Team Toast", "The Frogs", "Lunch Table 4"];
+
+const POSES = [
+  { id: "down", name: "arms down" },
+  { id: "hips", name: "hands on hips" },
+  { id: "wave", name: "one hand up" },
 ];
 
-// Shapes the handshake can follow: letters are moves, "?" is the missing one.
-const PATTERNS = ["ABAB?", "AABAA?", "ABCABC?", "ABBABB?", "ABCAB?", "AABBAA?"];
-
-// Each group and its catchphrase, with the near-misses an outsider would say.
-const GROUPS = [
-  { group: "Team Same", right: "no because SAME", wrong: ["no cause same", "no because SAME!!!", "yes because same", "no because SAEM"] },
-  { group: "The Pigeons", right: "it's giving pigeon", wrong: ["it's giving pidgeon", "it gives pigeon", "it's giving pigeons", "its giving dove"] },
-  { group: "Team Toast", right: "toast o'clock", wrong: ["toast time", "toast o'clok", "toast at o'clock", "toasty o'clock"] },
-  { group: "The Noodles", right: "big noodle energy", wrong: ["big noodles energy", "huge noodle energy", "big noodle vibes", "big nodle energy"] },
-  { group: "Bus Stop Club", right: "see you on the bus", wrong: ["see you on a bus", "see ya on the bus", "see you in the bus", "see you on the bud"] },
+const HATS = [
+  { id: "beanie", name: "beanie" },
+  { id: "bucket", name: "bucket hat" },
+  { id: "cap", name: "cap" },
+  { id: "backcap", name: "backwards cap" },
 ];
+
+const HAT_COLOURS = [
+  { id: "#e8503a", name: "red" },
+  { id: "#3d6fe0", name: "blue" },
+  { id: "#f2c12e", name: "yellow" },
+  { id: "#2a2b3d", name: "black" },
+  { id: "#3f9e4a", name: "green" },
+  { id: "#ff7ab0", name: "pink" },
+  { id: "#ff8a3c", name: "orange" },
+];
+
+const NECKS = [
+  { id: "scarf", name: "scarf" },
+  { id: "phones", name: "headphones" },
+  { id: "bag", name: "crossbody bag" },
+];
+
+const NECK_COLOURS = [
+  { id: "#ffe36b", name: "yellow" },
+  { id: "#e8503a", name: "red" },
+  { id: "#3d6fe0", name: "blue" },
+  { id: "#ff7ab0", name: "pink" },
+  { id: "#7fe3c0", name: "mint" },
+  { id: "#ff8a3c", name: "orange" },
+];
+
+const FLOOR = { top: 50, bottom: 94, left: 8, right: 92 };
 
 export default defineLevel({
   number: 18,
@@ -51,102 +70,108 @@ export default defineLevel({
 
   // Numbers that tune the level. First proposal: adjust while playing.
   settings: {
-    patterns: 4, // rounds to complete
-    duration: 40, // seconds to complete them
+    patterns: 4, // group photos to get right
+    duration: 40, // seconds for all of them
     mistakesAllowed: 3, // hearts
-    graceSeconds: 0, // no grace: every slip counts
-    people: 5, // friends in a "Who's not one of us?" round
+    graceSeconds: 0.4, // a double click counts as one mistake
+    peopleFirst: 8, // people in the first photo
+    peopleLast: 11, // people in the last photo
   },
 
   play(game) {
     const s = game.settings;
-    // Every attempt invents another group with other codes.
-    const phrase = pick(GROUPS);
-    const groupName = phrase.group;
-    const friends = randomFriends(s.people);
-    const sticker = (move, cls = "") => `<span class="sticker ${cls}" style="--c:${move.colour}">${move.word}</span>`;
+    // Every attempt invents another group with another code.
+    const groupName = pick(GROUP_NAMES);
+    const code = {
+      pose: pick(POSES),
+      hat: pick(HATS),
+      hatC: pick(HAT_COLOURS),
+      neck: pick(NECKS),
+      neckC: pick(NECK_COLOURS),
+    };
+    const dressed = (look, c = code) => ({ ...look, hat: c.hat.id, hatC: c.hatC.id, acc: c.neck.id, acC: c.neckC.id });
+    const model = dressed(randomAvatar());
+    const rules = `<li><b>Pose:</b> ${code.pose.name}</li><li><b>Hat:</b> ${code.hatC.name} ${code.hat.name}</li><li><b>Neck:</b> ${code.neckC.name} ${code.neck.name}</li>`;
 
     game.root.innerHTML = `
       <div class="codes">
+        <div class="photo"><div class="scene"></div></div>
+        <div class="code-card">
+          <b>Our code</b>
+          <span class="model">${game.avatar(model, { label: groupName, pose: code.pose.id, backdrop: false })}</span>
+          <ul>${rules}</ul>
+        </div>
         <div class="lives"></div>
-        <div class="group">${groupName}</div>
-        <div class="round"></div>
         <div class="start">
-          <b>Do you know the code?</b>
-          <span>You're in <b>${groupName}</b>. Every group has its own codes. Two kinds of rounds:</span>
-          <span><b>Finish the code:</b> click the move that comes next in the secret handshake.</span>
-          <span><b>Who's not one of us?</b> Everyone says the group's catchphrase. Click the one who gets it wrong.</span>
-          <span class="rules"><b>Win:</b> get ${s.patterns} rounds right in ${s.duration} seconds</span>
-          <span class="rules"><b>Lose:</b> make ${s.mistakesAllowed} mistakes, or the time runs out</span>
+          <b>${groupName}</b>
+          <span>Every friend group has its own code. This is yours:</span>
+          <div class="start-code"><span class="model">${game.avatar(model, { label: groupName, pose: code.pose.id, backdrop: false })}</span><ul>${rules}</ul></div>
+          <span>In every group photo, everyone follows the code except one person, who gets <b>one small detail wrong</b>. <b>Click them.</b></span>
+          <span class="rules"><b>Win:</b> find the outsider in ${s.patterns} photos in ${s.duration} seconds</span>
+          <span class="rules"><b>Lose:</b> ${s.mistakesAllowed} wrong clicks, or the time runs out</span>
           <span><b>Click to start</b></span>
         </div>
       </div>`;
 
     const box = game.root.querySelector(".codes");
-    const roundEl = box.querySelector(".round");
+    const scene = box.querySelector(".scene");
     const lives = createLives(box.querySelector(".lives"), s);
     let done = 0;
-    let current = null; // { answer: element that is right }
+    let playing = false;
     let clock = null;
 
-    const info = () => game.showInfo(`Codes ${done} / ${s.patterns}`);
+    const info = () => game.showInfo(`Photos ${done} / ${s.patterns}`);
     info();
 
-    // Round type 1: what comes next in the handshake?
-    const finishTheCode = () => {
-      const pattern = pick(PATTERNS);
-      const moves = shuffle(MOVES);
-      const byLetter = { A: moves[0], B: moves[1], C: moves[2] };
-      const seen = pattern.slice(0, -1).split("").map((l) => byLetter[l]);
-      // The missing move continues the pattern: find how often it repeats.
-      const n = pattern.length - 1;
-      const period = [1, 2, 3, 4].find((p) => [...pattern.slice(p, n)].every((l, i) => l === pattern[i]));
-      const right = byLetter[pattern[n - period]];
-      const options = shuffle([right, ...shuffle(MOVES.filter((m) => m !== right)).slice(0, 2)]);
-      roundEl.innerHTML = `<p class="title">Finish the code</p>` +
-        `<div class="sequence">${seen.map((m) => sticker(m)).join("")}<span class="sticker missing">?</span></div>` +
-        `<div class="options">${options.map((m, i) => `<button class="option" data-i="${i}">${sticker(m)}</button>`).join("")}</div>`;
-      current = { answer: roundEl.querySelectorAll(".option")[options.indexOf(right)] };
+    /** The same code with one detail changed, for the outsider. */
+    const almost = () => {
+      const other = (list, current) => pick(list.filter((item) => item !== current));
+      const slip = pick(["pose", "hat", "neck"]);
+      if (slip === "pose") return { ...code, pose: other(POSES, code.pose) };
+      if (slip === "hat") return { ...code, hatC: other(HAT_COLOURS, code.hatC) };
+      return { ...code, neckC: other(NECK_COLOURS, code.neckC) };
     };
 
-    // Round type 2: who says the catchphrase wrong?
-    const notOneOfUs = () => {
-      const odd = Math.floor(Math.random() * friends.length);
-      const people = shuffle(friends);
-      roundEl.innerHTML = `<p class="title">Who's not one of us?</p>` +
-        `<div class="people">${people.map((f, i) => `<button class="person" data-i="${i}"><span class="said">${i === odd ? pick(phrase.wrong) : phrase.right}</span>${game.avatar(f.avatar, { label: f.name, crop: "bust", backdrop: false })}</button>`).join("")}</div>`;
-      current = { answer: roundEl.querySelectorAll(".person")[odd] };
-    };
-
-    const nextRound = () => {
-      info();
-      roundEl.classList.remove("right");
-      (done % 2 === 0 ? finishTheCode : notOneOfUs)();
+    const photo = () => {
+      const count = Math.round(s.peopleFirst + ((s.peopleLast - s.peopleFirst) * done) / Math.max(1, s.patterns - 1));
+      const odd = Math.floor(Math.random() * count);
+      const spots = spreadOut(count, FLOOR);
+      scene.innerHTML = spots.map((spot, i) => {
+        const c = i === odd ? almost() : code;
+        const look = dressed(randomAvatar(), c);
+        return `<button class="person${i === odd ? " odd" : ""}" style="left:${spot.x.toFixed(1)}%;top:${spot.y.toFixed(1)}%;--depth:${spot.depth.toFixed(2)};z-index:${Math.round(spot.y)}">` +
+          `${game.avatar(look, { label: "Friend", pose: c.pose.id, backdrop: false })}</button>`;
+      }).join("");
+      scene.classList.remove("flash");
+      void scene.offsetWidth;
+      scene.classList.add("flash");
     };
 
     const choose = (el) => {
-      if (!current) return;
-      if (el === current.answer) {
-        current = null;
+      if (el.classList.contains("odd")) {
+        playing = false;
         done++;
-        el.classList.add("yes");
-        roundEl.classList.add("right");
+        el.classList.add("found");
         game.vibrate(25);
         info();
         if (done >= s.patterns) {
           clock?.stop();
-          roundEl.insertAdjacentHTML("beforeend", `<p class="cheer">${groupName.toUpperCase()} FOREVER</p>`);
+          box.insertAdjacentHTML("beforeend", `<p class="cheer">${groupName.toUpperCase()} FOREVER</p>`);
           return game.after(1600, () => game.win());
         }
-        game.after(700, nextRound);
+        game.after(800, () => {
+          playing = true;
+          photo();
+        });
       } else {
         el.classList.add("no");
         game.vibrate(80);
         lives.lose();
         if (lives.mistakes >= s.mistakesAllowed) {
-          current = null;
+          playing = false;
           clock?.stop();
-          game.after(500, () => game.lose(`That's not how ${groupName} do it… Try again!`));
+          scene.querySelector(".odd")?.classList.add("found");
+          game.after(900, () => game.lose(`That one follows the code… Try again!`));
         }
       }
     };
@@ -155,14 +180,17 @@ export default defineLevel({
       const start = box.querySelector(".start");
       if (start) {
         start.remove();
+        playing = true;
+        photo();
         clock = game.countdown(s.duration, () => {
-          current = null;
-          game.lose("Time's up! The code is still a mystery… Try again!");
+          playing = false;
+          scene.querySelector(".odd")?.classList.add("found");
+          game.lose("Time's up! The outsider blended in… Try again!");
         });
-        return nextRound();
+        return;
       }
-      const el = event.target.closest(".option, .person");
-      if (el && !el.classList.contains("no")) choose(el);
+      const el = event.target.closest(".person");
+      if (el && playing && !el.classList.contains("no")) choose(el);
     });
   },
 });
