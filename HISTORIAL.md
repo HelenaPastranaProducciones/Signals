@@ -71,7 +71,9 @@ Els detalls de cada nivell són a la seva llibreta
   Falta que Helena hi jugui.
 - **Nivell 17 (Collectibles Match-3):** pas 1 fet i primera versió jugable
   feta. Falta que Helena hi jugui.
-- **Nivells 18 i 19:** idea aprovada el 01/11 (proposta de
+- **Nivell 18 (Odd One Out):** pas 1 fet i primera versió jugable feta.
+  Falta que Helena hi jugui.
+- **Nivell 19:** idea aprovada el 01/11 (proposta de
   Claude), en construcció.
 - **Estètica:** tot el joc té la nova estètica pintada (menús, avatar i
   nivells 1 a 5), amb la lletra Schoolbell. Només tenen la
@@ -490,6 +492,10 @@ Els detalls de cada nivell són a la seva llibreta
   és una línia d'una època just després d'una de l'altra; en calen 5 en 45
   segons. La germana o el germà gran ho comenta al xat i acabeu quedant per
   fer intercanvis.
+- Nivell 18 (Odd One Out): el teu grup d'amics té els seus codis (una
+  salutació secreta i una frase). Rondes alternes: "Finish the code" (quin
+  moviment ve ara) i "Who's not one of us?" (qui diu malament la frase). 4
+  rondes en 40 segons, 3 cors.
 
 ## Coses pendents de decidir
 

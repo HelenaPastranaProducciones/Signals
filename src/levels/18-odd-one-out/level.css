@@ -1,0 +1,133 @@
+/* Level 18 · Odd One Out. The group's codes on a painted wall of stickers. */
+
+.level-18 .codes {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  overflow: hidden;
+  user-select: none;
+  background:
+    radial-gradient(circle at 15% 20%, #f2a1b833 0 60px, transparent 61px),
+    radial-gradient(circle at 85% 75%, #6f9fd833 0 90px, transparent 91px),
+    #f3e6d3;
+}
+
+.level-18 .codes::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background-image: var(--grain);
+  pointer-events: none;
+}
+
+.level-18 .lives { position: absolute; top: 14px; right: 16px; display: flex; gap: 4px; font-size: 26px; line-height: 1; z-index: 5; }
+.level-18 .lives b { color: #d9573f; text-shadow: 0 3px 0 rgba(0, 0, 0, 0.2); transition: transform 0.3s, opacity 0.3s, filter 0.3s; }
+.level-18 .lives b.lost { transform: scale(0.7) rotate(-20deg); opacity: 0.35; filter: grayscale(1); }
+.level-18 .lives.recovering b:not(.lost) { animation: level-18-blink 0.25s steps(2) 4; }
+
+.level-18 .group {
+  margin: 4px 0 10px;
+  padding: 3px 18px;
+  border: 3px solid #2b2630;
+  border-radius: 20px 26px 18px 28px / 26px 18px 28px 20px;
+  background: #2b2630;
+  color: #e9c24a;
+  font-size: 22px;
+  rotate: -2deg;
+}
+
+.level-18 .round { display: flex; flex-direction: column; align-items: center; gap: 16px; width: min(100%, 720px); }
+.level-18 .title { margin: 0; font-size: clamp(24px, 4vh, 34px); color: #2b2630; }
+
+.level-18 .sticker {
+  display: inline-grid;
+  place-items: center;
+  min-width: 64px;
+  padding: 10px 10px;
+  border: 3px solid #2b2630;
+  border-radius: 16px 20px 14px 22px / 20px 14px 22px 16px;
+  background: var(--c, #fbf6ee);
+  color: #2b2630;
+  font-size: 17px;
+  box-shadow: 3px 4px 0 #2b2630;
+}
+
+.level-18 .sticker:nth-child(odd) { rotate: -3deg; }
+.level-18 .sticker:nth-child(even) { rotate: 2deg; }
+.level-18 .sticker.missing { background: #fbf6ee; border-style: dashed; font-size: 26px; }
+
+.level-18 .sequence { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.level-18 .options { display: flex; gap: 16px; }
+
+.level-18 .option,
+.level-18 .person {
+  padding: 4px;
+  border: 0;
+  border-radius: 18px;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  transition: scale 0.15s;
+}
+
+.level-18 .option:hover,
+.level-18 .person:hover { scale: 1.06; }
+.level-18 .option .sticker { font-size: 22px; padding: 14px 14px; }
+.level-18 .yes { background: #6fbf8c66; }
+.level-18 .no { opacity: 0.4; animation: level-18-shake 0.3s; cursor: default; }
+
+.level-18 .people { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.level-18 .person { display: grid; justify-items: center; width: clamp(76px, 15vw, 124px); }
+.level-18 .person svg { display: block; width: 100%; }
+
+.level-18 .said {
+  position: relative;
+  z-index: 1;
+  margin-bottom: -6px;
+  padding: 5px 8px;
+  border: 2px solid #2b2630;
+  border-radius: 12px 12px 12px 4px;
+  background: #fff;
+  color: #2b2630;
+  font-size: 14px;
+  line-height: 1.1;
+}
+
+.level-18 .cheer {
+  margin: 0;
+  padding: 4px 20px;
+  border: 3px solid #2b2630;
+  border-radius: 20px;
+  background: #e9c24a;
+  color: #2b2630;
+  font-size: 26px;
+  box-shadow: 4px 5px 0 #2b2630;
+  rotate: -2deg;
+  animation: level-18-pop 0.4s ease-out;
+}
+
+.level-18 .start {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  text-align: center;
+  background: #2b2630cc;
+  color: #fff;
+  cursor: pointer;
+}
+
+.level-18 .start > b { font-size: clamp(24px, 4.5vh, 38px); color: #e9c24a; }
+
+@keyframes level-18-blink { 50% { opacity: 0.2; } }
+@keyframes level-18-shake { 25% { translate: -6px 0; } 75% { translate: 6px 0; } }
+@keyframes level-18-pop { from { scale: 0.4; opacity: 0; } }
