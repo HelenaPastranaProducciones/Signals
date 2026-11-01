@@ -3,6 +3,11 @@ import { defineLevel } from "../../engine/define-level.js";
 /**
  * Level 15 · Phone Off
  * Design notes, progress and decisions: README.md in this folder.
+ *
+ * Helena (01/11/2026): just a message on a black screen. The game asks you
+ * to put it down for a while: grab a paper and a pen and write a letter to
+ * someone you love. When you're back, a quiet button lets you go on.
+ * There is no way to lose.
  */
 export default defineLevel({
   number: 15,
@@ -10,10 +15,23 @@ export default defineLevel({
   minigame: "Phone Off",
   explanation: "In a world of instant screens, a letter, a printed photo or a handmade gift shows time and intention. They become keepsakes.",
   closingLine: "Paper carries your pulse.",
+  stylesheet: new URL("./level.css", import.meta.url).href,
 
-  // Numbers that tune the level. First proposal from the brief: adjust while playing.
-  settings: {},
+  // Numbers that tune the level.
+  settings: {
+    buttonAfterSeconds: 20, // the "I wrote it" button appears after this long, so you take your time
+  },
 
-  // play(game) { ... }  Not built yet, so the game shows a "coming soon" card.
-  // To start building it, follow src/levels/README.md (step 2 copies src/levels/_template).
+  play(game) {
+    const s = game.settings;
+    game.root.innerHTML = `
+      <div class="paper-time">
+        <p class="message">Grab a paper and a pen<br>and write a letter<br>to someone you love.</p>
+        <p class="hint">Take your time. The game will wait.</p>
+        <button class="done" hidden>I wrote it</button>
+      </div>`;
+    const done = game.root.querySelector(".done");
+    game.after(s.buttonAfterSeconds * 1000, () => (done.hidden = false));
+    game.listen(done, "pointerdown", () => game.win());
+  },
 });

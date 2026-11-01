@@ -18,7 +18,7 @@ Els detalls de cada nivell són a la seva llibreta
 
 ---
 
-## On som ara (actualitzat el 29/10/2026)
+## On som ara (actualitzat el 01/11/2026)
 
 - **Nivell 1 (Game & Chat):** pas 2 de 6. Es pot jugar de principi a final.
   Cada partida és diferent (llocs, cel, amics, missatges). L'avatar de perfil
@@ -60,7 +60,13 @@ Els detalls de cada nivell són a la seva llibreta
   canvis, fets). Següent: ajustar la dificultat si cal (pas 3).
 - **Nivell 12 (Spot the Difference):** pas 2 fet (Helena hi ha jugat; ara
   molt més difícil). Següent: ajustar la dificultat si cal (pas 3).
-- **Nivells 13 a 19:** encara no s'han començat (pas 0).
+- **Nivell 14 (Tidy Up):** pas 1 fet (idea proposada per Claude i aprovada) i
+  primera versió jugable feta. Falta que Helena hi jugui.
+- **Nivell 15 (Phone Off):** pas 1 fet. Només un missatge sobre fons negre:
+  agafa paper i boli i escriu una carta a algú que estimes. Falta que Helena
+  el vegi.
+- **Nivells 13, 16, 17, 18 i 19:** idea aprovada el 01/11 (proposta de
+  Claude), en construcció.
 - **Estètica:** tot el joc té la nova estètica pintada (menús, avatar i
   nivells 1 a 5), amb la lletra Schoolbell. Només tenen la
   proposta inicial a la seva llibreta.
@@ -449,6 +455,20 @@ Els detalls de cada nivell són a la seva llibreta
   sobre de tot. Continua anant fluid.
 
 ---
+### 01/11/2026
+
+**Els nivells que queden, d'una tirada**
+- Helena va demanar que Claude proposés i construís els nivells 13 a 19 a
+  partir del que ella havia triat als altres. Va aprovar les propostes, amb
+  un canvi: el nivell 15 només ha de ser un missatge sobre fons negre.
+- Nivell 15 (Phone Off): pantalla negra amb "Grab a paper and a pen and
+  write a letter to someone you love." Al cap de 20 segons surt un botó
+  "I wrote it" per continuar. No es pot perdre. Descartat: la idea inicial
+  de mantenir premut per apagar el mòbil.
+- Nivell 14 (Tidy Up): 12 objectes a terra i només 5 caben al prestatge; els
+  arrossegues (o hi fas clic) en 30 segons. Quan és ple, un amic diu "this is
+  SO you" i reps una etiqueta segons el que has triat (The Gamer, The
+  Bookworm, The Cozy One…).
 
 ## Coses pendents de decidir
 

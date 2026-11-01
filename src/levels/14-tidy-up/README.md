@@ -11,7 +11,7 @@ Claude keeps it up to date in plain words while working on the level with Helena
 
 Tick a step only when Helena agrees it is done.
 
-- [ ] 1. Idea agreed: what the player sees and does, the social twist, how you win or lose
+- [x] 1. Idea agreed: what the player sees and does, the social twist, how you win or lose
 - [ ] 2. First playable version: simple shapes, playable from start to end
 - [ ] 3. Rules and difficulty tuned: it feels right to play
 - [ ] 4. Look and feel: final art in the Signals style, with animations
@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-Not started. Next: agree on the idea (step 1).
+01/11/2026: first playable version built and published. Next: Helena plays it and says how it feels (step 2).
 
 ## The idea
 
@@ -30,16 +30,16 @@ Not started. Next: agree on the idea (step 1).
 
 ### What we agreed
 
-- **What the player sees:** _to agree_
-- **What the player does:** _to agree_
-- **The social twist:** _to agree_
-- **How you win:** _to agree_
-- **How you lose:** _to agree_
-- **How long it lasts:** _to agree_
+- **What the player sees:** A wall shelf with 5 empty spots and a floor with 12 things scattered around (vinyl, controller, plant, novel, trophy…), painted like the avatar. Every attempt brings other things in other places.
+- **What the player does:** Drags (or clicks) the things that say who they are onto the shelf. Clicking one on the shelf puts it back on the floor.
+- **The social twist:** When the shelf is full, a friend drops by, says "ok this is SO you" and the shelf gets a style label (The Gamer, The Bookworm, The Cozy One…) from what you picked most.
+- **How you win:** Fill the shelf (5 things) in 30 seconds.
+- **How you lose:** The time runs out before the shelf is full.
+- **How long it lasts:** 30 seconds.
 
 ## Decisions
 
-_None yet. Each decision goes here with its date, in plain words._
+- 01/11/2026: Helena approved the idea proposed by Claude (12 things, 5 fit, a friend reads your shelf) and asked to build it straight away.
 
 ## Open questions
 
@@ -48,4 +48,4 @@ _None yet._
 ## Try it
 
 - Online: https://helenapastranaproducciones.github.io/Signals/?level=14
-- Files: `level.js` (texts, settings and the minigame), `level.css` (its look, from step 2), `assets/` (images, if any)
+- Files: `level.js` (rules), `art.js` (the 20 painted things and the style labels), `level.css`
