@@ -536,6 +536,9 @@ Els detalls de cada nivell són a la seva llibreta
   adolescents i moltes passen jugant). També espera un botó Continue.
 - Al lobby hi ha un botó Start game que porta directament al següent nivell
   per jugar, sense passar pel mapa.
+- Presentació de 5 minuts (11 diapositives, en català, amb l'estètica del
+  joc) que explica el joc, com s'ha fet, GitHub i els documents:
+  https://claude.ai/artifact/4jZVcGNtSTWocVqPqapSy7
 
 ## Coses pendents de decidir
 
