@@ -1,0 +1,154 @@
+/* Level 12 · Spot the Difference. Painted look: flat colours, hard shadows, paper grain. */
+
+.level-12 .spot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 2%;
+  overflow: hidden;
+  user-select: none;
+  background: linear-gradient(90deg, transparent 72%, rgba(43, 38, 48, 0.06) 72%), #f1ece4;
+}
+
+.level-12 .spot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background-image: var(--grain);
+  pointer-events: none;
+}
+
+.level-12 .photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5%;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.level-12 .photo {
+  position: relative;
+  padding: 2% 2% 6%;
+  background: #fff8ee;
+  box-shadow: 4px 6px 0 rgba(43, 38, 48, 0.25);
+  cursor: crosshair;
+}
+
+.level-12 .photo:first-child { rotate: -1.2deg; }
+.level-12 .photo:last-child { rotate: 1deg; }
+.level-12 .photo-svg { display: block; width: 100%; height: auto; pointer-events: none; }
+
+/* Circles over the photo, in % of the drawing (the frame's padding is added). */
+.level-12 .marks {
+  position: absolute;
+  left: 2%;
+  right: 2%;
+  top: 2%;
+  bottom: 6%;
+  pointer-events: none;
+}
+
+.level-12 .marks i {
+  position: absolute;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border: 3px solid #d9573f;
+  border-radius: 50%;
+  animation: level-12-circle 0.35s ease-out;
+}
+
+.level-12 .missed .marks i { border-color: #6f9fd8; border-style: dashed; }
+
+.level-12 .miss {
+  position: absolute;
+  translate: -50% -50%;
+  color: #d9573f;
+  font-size: 22px;
+  font-style: normal;
+  pointer-events: none;
+  animation: level-12-pop 0.3s ease-out;
+}
+
+.level-12 .bottom {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.level-12 .hearts { display: flex; gap: 6px; font-size: 26px; color: #d9576f; }
+.level-12 .hearts b.lost { color: #b7aeb8; scale: 0.8; transition: scale 0.2s; }
+
+.level-12 .found { display: flex; gap: 8px; }
+
+.level-12 .found i {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid #2b2630;
+  border-radius: 50%;
+  background: #fff8ee;
+}
+
+.level-12 .found i.on { background: #e9c24a; animation: level-12-pop 0.3s ease-out; }
+
+/* Friends' texts, in the corner. */
+.level-12 .texts {
+  position: absolute;
+  right: 2%;
+  bottom: 3%;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  max-width: 340px;
+  pointer-events: none;
+}
+
+.level-12 .texts p {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  margin: 0;
+  animation: level-12-in 0.3s ease-out;
+}
+
+.level-12 .texts p > span:last-child {
+  padding: 6px 10px;
+  border-radius: 14px 14px 14px 4px;
+  background: #fff;
+  box-shadow: 0 2px 0 rgba(43, 38, 48, 0.2);
+  color: #2b2630;
+  font-size: 15px;
+}
+
+.level-12 .texts b { display: block; font-size: 12px; }
+
+.level-12 .face { flex: none; width: 34px; height: 34px; border-radius: 50%; overflow: hidden; background: #e8d9c4; }
+.level-12 .face svg { display: block; width: 100%; height: 100%; }
+
+.level-12 .start {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  text-align: center;
+  background: #2b2630cc;
+  color: #fff;
+  cursor: pointer;
+}
+
+.level-12 .start > b { font-size: clamp(24px, 4.5vh, 38px); color: #e9c24a; }
+
+@keyframes level-12-circle { from { scale: 1.8; opacity: 0; } }
+@keyframes level-12-pop { from { scale: 0.4; } }
+@keyframes level-12-in { from { opacity: 0; translate: 0 10px; } }
