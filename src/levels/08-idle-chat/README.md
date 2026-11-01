@@ -12,7 +12,7 @@ Claude keeps it up to date in plain words while working on the level with Helena
 Tick a step only when Helena agrees it is done.
 
 - [x] 1. Idea agreed: what the player sees and does, the social twist, how you win or lose
-- [ ] 2. First playable version: simple shapes, playable from start to end
+- [x] 2. First playable version: simple shapes, playable from start to end
 - [ ] 3. Rules and difficulty tuned: it feels right to play
 - [ ] 4. Look and feel: final art in the Signals style, with animations
 - [ ] 5. Texts and details: final texts, and sound or vibration if wanted
@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-01/11/2026: idea agreed with Helena (step 1). First playable version built straight away in the painted look: a dark bedroom with you in bed (sleepy eyes, then closed), the group chat on a big phone with messages from four random friends, three drawn reactions (heart, "lol", star) under the latest message, a glow bar that empties in 8 s and darkens the room, and the goodnight messages at the end. Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
+01/11/2026: idea agreed with Helena (step 1). First playable version built straight away in the painted look: a dark bedroom with you in bed (sleepy eyes, then closed), the group chat on a big phone with messages from four random friends, three drawn reactions (heart, "lol", star) under the latest message, a glow bar that empties in 8 s and darkens the room, and the goodnight messages at the end. Helena is happy with it (step 2 done, 01/11/2026). Next: tune difficulty if needed (step 3).
 
 ## The idea
 

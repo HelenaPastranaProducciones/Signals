@@ -1,0 +1,204 @@
+/* Level 9 · The Room. Painted look: flat colours, hard shadows, paper grain. */
+
+.level-09 .room {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+  background: #c08a5a;
+}
+
+.level-09 .room::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background-image: var(--grain);
+  pointer-events: none;
+}
+
+.level-09 .room-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.level-09 .sign {
+  position: absolute;
+  left: 42%;
+  top: 9%;
+  padding: 4px 16px 6px;
+  border: 2.5px solid #2b2630;
+  border-radius: 14px 18px 12px 16px;
+  background: #fff8ee;
+  box-shadow: 3px 4px 0 rgba(43, 38, 48, 0.35);
+  color: #2b2630;
+  font-size: clamp(16px, 3vh, 24px);
+  text-align: center;
+  rotate: -2deg;
+}
+
+.level-09 .sign small { display: block; font-size: 11px; color: #8a8090; text-transform: uppercase; }
+
+/* ---------- Seats ---------- */
+
+.level-09 .seat {
+  position: absolute;
+  width: 10%;
+  translate: -50% -60%;
+  z-index: 2;
+}
+
+.level-09 .seat svg { display: block; width: 100%; }
+.level-09 .seat.hover svg { filter: drop-shadow(0 0 6px #fff8ee) drop-shadow(0 0 3px #e9c24a); }
+.level-09 .seat.pop { animation: level-09-pop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1); }
+
+/* Someone sitting: their head and shoulders, just above the seat. */
+.level-09 .sitter {
+  position: absolute;
+  left: 50%;
+  bottom: 42%;
+  width: 78%;
+  translate: -50% 0;
+  animation: level-09-sit 0.3s ease-out;
+}
+
+.level-09 .sitter svg { display: block; width: 100%; }
+
+.level-09 .said {
+  position: absolute;
+  left: 50%;
+  bottom: 96%;
+  translate: -50% 0;
+  padding: 3px 10px;
+  border: 2px solid #2b2630;
+  border-radius: 12px 12px 12px 4px;
+  background: #fff8ee;
+  color: #2b2630;
+  font-size: 14px;
+  font-style: normal;
+  white-space: nowrap;
+  animation: level-09-pop 0.35s ease-out;
+}
+
+/* ---------- You and the people coming in ---------- */
+
+.level-09 .me {
+  position: absolute;
+  left: 40%;
+  top: 80%;
+  width: 7%;
+  translate: -50% -100%;
+  z-index: 3;
+}
+
+.level-09 .me svg { display: block; width: 100%; }
+
+.level-09 .me span,
+.level-09 .person span {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  translate: -50% -20%;
+  padding: 0 8px;
+  border-radius: 10px;
+  background: #d9573f;
+  color: #fff8ee;
+  font-size: 12px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.level-09 .person span small { display: block; font-size: 10px; opacity: 0.85; }
+
+.level-09 .person {
+  position: absolute;
+  width: 7%;
+  translate: -50% -100%;
+  z-index: 5;
+  cursor: grab;
+  animation: level-09-in 0.4s ease-out;
+}
+
+.level-09 .person svg { display: block; width: 100%; pointer-events: none; }
+.level-09 .person.dragging { z-index: 20; cursor: grabbing; scale: 1.08; }
+.level-09 .person.leaving { opacity: 0; translate: -120% -100%; transition: opacity 0.5s, translate 0.5s; }
+
+.level-09 .person em {
+  position: absolute;
+  left: 60%;
+  top: -8%;
+  padding: 2px 9px;
+  border: 2px solid #2b2630;
+  border-radius: 12px 12px 12px 4px;
+  background: #fff8ee;
+  color: #2b2630;
+  font-size: 13px;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+/* The ring of patience around them, emptying. */
+.level-09 .ring {
+  position: absolute;
+  left: 50%;
+  top: 2%;
+  width: 70%;
+  aspect-ratio: 1;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: conic-gradient(#e9c24a calc(var(--p, 1) * 360deg), transparent 0);
+  -webkit-mask: radial-gradient(circle, transparent 60%, #000 62%);
+  mask: radial-gradient(circle, transparent 60%, #000 62%);
+  animation: level-09-patience var(--t) linear forwards;
+  pointer-events: none;
+}
+
+.level-09 .person.new .ring { background: conic-gradient(#e07aa6 calc(var(--p, 1) * 360deg), transparent 0); }
+
+@property --p { syntax: "<number>"; inherits: false; initial-value: 1; }
+
+/* ---------- Messages ---------- */
+
+.level-09 .toast {
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  z-index: 25;
+  translate: -50% 0;
+  padding: 6px 16px;
+  border: 2px solid #2b2630;
+  border-radius: 14px;
+  background: #fff8ee;
+  color: #2b2630;
+  opacity: 0;
+}
+
+.level-09 .toast.show { animation: level-09-toast 2.2s ease-out; }
+
+.level-09 .start {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  text-align: center;
+  background: #2b2630cc;
+  color: #fff;
+  cursor: pointer;
+}
+
+.level-09 .start > b { font-size: clamp(24px, 4.5vh, 38px); color: #e9c24a; }
+
+@keyframes level-09-in { from { opacity: 0; translate: -120% -100%; } }
+@keyframes level-09-sit { from { translate: -50% -30%; opacity: 0; } }
+@keyframes level-09-pop { from { scale: 0.4; } }
+@keyframes level-09-patience { to { --p: 0; } }
+@keyframes level-09-toast { 10%, 80% { opacity: 1; } 100% { opacity: 0; } }
+
+/* The patience timer sits by the "hi?" bubble, not over the face. */
+.level-09 .ring { left: auto; right: -18%; top: -12%; width: 30%; translate: 0 0; }
+.level-09 .person,
+.level-09 .me { width: 8.5%; }
+.level-09 .person em { left: 70%; top: -14%; }
