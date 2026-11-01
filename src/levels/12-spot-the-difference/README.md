@@ -39,6 +39,7 @@ Two images with 5 small, meaningful differences (an emoji, a rotated photo, a st
 
 ## Decisions
 
+- 01/11/2026: Helena: clicking shouldn't need to be so precise: a click roughly next to a difference counts (more room around each one). The differences stay as subtle.
 - 01/11/2026: Helena: quite a lot harder. Now 7 differences (was 5) in 40 seconds (was 45), subtler changes (the bulb and the book only change shade, the crooked photo turns less, the flower and the pin are tiny) and smaller areas to click.
 - 01/11/2026: two photos of your room, with meaningful details (rejected: two screenshots of a chat).
 - 01/11/2026: a wrong click costs a heart, 3 hearts (rejected: losing 3 seconds of the clock).

@@ -27,7 +27,7 @@ export default defineLevel({
     differences: 7, // differences to find
     duration: 40, // seconds to find them
     hearts: 3, // wrong clicks you can make; the last one ends the game
-    clickSlack: 1, // how forgiving a click is around a difference (drawing units; the photo is 400 wide)
+    clickSlack: 14, // how forgiving a click is around a difference (drawing units; the photo is 400 wide)
   },
 
   play(game) {
