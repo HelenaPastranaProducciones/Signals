@@ -153,7 +153,8 @@ https://claude.ai/artifact/Kz5CaVyjyNMNNEcypQ6XRx
    text is provisional. Then the **lobby opens first** (avatar and name, Helena
    31/10/2026); "Go to the map" shows the levels.
 3. **Level map:** grid of 19 levels (locked, available, completed). They open
-   in order.
+   in order. Each tile shows its signal's painted picture, faded, behind the
+   number (Helena, 01/11/2026).
 4. **Loading screen before each level** with the signal's number and title,
    a painted picture of the signal (`src/data/signal-pictures.js`) and its
    Signals Journal explanation in four parts (`src/data/signal-journal.js`,

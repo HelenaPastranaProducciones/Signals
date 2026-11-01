@@ -1,6 +1,7 @@
 import { LEVELS, TOTAL_LEVELS } from "../../levels/index.js";
 import { isLevelAvailable } from "../../game/progress.js";
 import { ICONS, progressBar, screenHeader } from "../components.js";
+import { signalPicture } from "../../data/signal-pictures.js";
 
 /** Warm, paper-like backgrounds for the level tiles, repeated in order. */
 const TILE_COLOURS = ["#f4c7b0", "#c9d9e8", "#d3e6c5", "#e8cfe0", "#f3dfa2", "#c6e2dc"];
@@ -12,7 +13,8 @@ function levelTile(level, progress, testMode) {
   return `<button class="level-tile${locked ? " is-locked" : ""}${done ? " is-done" : ""}"
     style="background:${TILE_COLOURS[(level.number - 1) % TILE_COLOURS.length]}" ${locked ? "disabled" : ""}
     data-action="open-level" data-level="${level.number}" aria-label="Signal ${level.number}: ${level.minigame}${status}">
-    <b>${locked ? ICONS.lock : level.number}</b>${level.minigame}</button>`;
+    <span class="tile-picture" aria-hidden="true">${signalPicture(level.number, { cover: true })}</span>
+    <b>${locked ? ICONS.lock : level.number}</b><span class="tile-name">${level.minigame}</span></button>`;
 }
 
 /** @param {import("../../state.js").state} state */

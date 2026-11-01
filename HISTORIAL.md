@@ -519,6 +519,11 @@ Els detalls de cada nivell són a la seva llibreta
   dibuix pintat de la signal al costat (en lloc d'una foto: són dibuixos del
   joc, sense problemes de drets). Com que hi ha molt a llegir, la pantalla ja
   no passa sola: quan s'omple la barra surt un botó Play.
+- Al mapa, cada casella de nivell té el dibuix de la seva signal de fons,
+  amb poca opacitat perquè es vegi el número.
+- Arreglat: abans de començar cada nivell es veia un instant una imatge
+  enorme. Era el nivell dibuixant-se abans de carregar el seu aspecte; ara
+  espera que estigui carregat.
 
 ## Coses pendents de decidir
 

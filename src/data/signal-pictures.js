@@ -92,10 +92,13 @@ const SCENES = {
 
 let count = 0;
 
-/** The painted picture for a signal, or an empty string if there is none. */
-export function signalPicture(number) {
+/**
+ * The painted picture for a signal, or an empty string if there is none.
+ * `cover` crops it to fill its box (the map tiles).
+ */
+export function signalPicture(number, { cover = false } = {}) {
   const scene = SCENES[number];
   if (!scene) return "";
   const k = createPaintKit(`signal-picture-${++count}`, { grain: 0.9, wobble: 2 });
-  return `<svg class="signal-picture" viewBox="0 0 240 180" role="img" aria-label="Signal ${number}">${k.defs()}<g filter="url(#${k.ids.paint})">${k.path("M0 0h240v180H0Z", scene.bg)}${scene.draw(k)}</g></svg>`;
+  return `<svg class="signal-picture" viewBox="0 0 240 180" ${cover ? ' preserveAspectRatio="xMidYMid slice"' : ""} role="img" aria-label="Signal ${number}">${k.defs()}<g filter="url(#${k.ids.paint})">${k.path("M0 0h240v180H0Z", scene.bg)}${scene.draw(k)}</g></svg>`;
 }

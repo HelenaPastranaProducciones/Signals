@@ -21,7 +21,22 @@ export const levelSession = {
     if (ui.screen !== "level" || ui.levelResult || !root) return;
 
     const level = getLevel(ui.level);
-    loadStylesheet(level.stylesheet);
+    // Start only once the level's look has loaded: otherwise its drawings
+    // flash for a moment at full size, unstyled (Helena, 01/11/2026).
+    const sheet = loadStylesheet(level.stylesheet);
+    if (sheet && !sheet.dataset.loaded) {
+      root.style.visibility = "hidden";
+      const go = () => {
+        sheet.dataset.loaded = "true";
+        // Still the same level screen, nothing else drawn meanwhile?
+        if (!root.isConnected || ui.screen !== "level" || ui.levelResult) return;
+        root.style.visibility = "";
+        levelSession.afterRender(app);
+      };
+      sheet.addEventListener("load", go, { once: true });
+      sheet.addEventListener("error", go, { once: true });
+      return;
+    }
     const info = app.querySelector(".hud-info");
     const time = app.querySelector(".hud-time");
     try {
@@ -60,11 +75,17 @@ function showResult(root, level, result, message) {
   root.querySelector(".result-overlay .btn")?.focus({ preventScroll: true });
 }
 
-/** Adds a level's stylesheet to the page the first time the level is played. */
+/**
+ * Adds a level's stylesheet to the page the first time the level is played.
+ * Returns its link (`dataset.loaded` is set once it has loaded), or null.
+ */
 function loadStylesheet(href) {
-  if (!href || document.querySelector(`link[href="${href}"]`)) return;
+  if (!href) return null;
+  const existing = document.querySelector(`link[href="${href}"]`);
+  if (existing) return existing;
   const link = document.createElement("link");
   link.rel = "stylesheet";
   link.href = href;
   document.head.append(link);
+  return link;
 }

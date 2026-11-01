@@ -66,6 +66,22 @@
   transition: transform 0.12s;
 }
 
+/* Each tile shows its signal's picture, faded, behind the number (Helena, 01/11/2026). */
+.level-tile { overflow: hidden; }
+
+.tile-picture {
+  position: absolute;
+  inset: 0;
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.tile-picture svg { display: block; width: 100%; height: 100%; }
+.level-tile:not(.is-locked):hover .tile-picture { opacity: 0.55; }
+
+.level-tile b,
+.level-tile .tile-name { position: relative; text-shadow: 0 0 6px #fbf6ee, 0 0 2px #fbf6ee; }
+
 .level-tile b {
   display: block;
   font-size: 36px;
