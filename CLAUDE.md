@@ -171,7 +171,7 @@ https://claude.ai/artifact/Kz5CaVyjyNMNNEcypQ6XRx
    and Exit. Winning shows the closing line and the unlocked avatar pieces;
    losing shows the level's message and "Try again". Levels not built yet
    show a "coming soon" card with a "Complete (demo)" button.
-6. **Lobby:** a **floating house icon** (bottom right of the map) opens a menu
+7. **Lobby:** a **floating house icon** (bottom right of the map) opens a menu
    with:
    - the avatar, shown large
    - the editable nickname
@@ -180,7 +180,7 @@ https://claude.ai/artifact/Kz5CaVyjyNMNNEcypQ6XRx
      play, without the map
    - two buttons, **Customize avatar** and **Options**
    - "← Lobby" on every sub-screen to go back; **Esc** also goes back one step.
-7. **Options:** sound, vibration, fullscreen, light/dark theme and reset
+8. **Options:** sound, vibration, fullscreen, light/dark theme and reset
    progress.
 
 **Test addresses:** `?level=7` opens level 7 straight away; `?test` opens
