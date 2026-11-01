@@ -87,8 +87,8 @@ test("a lost level shows its message and a Try again button", () => {
   assert.match(html, /data-action="restart-level"/);
 });
 
-test("levels without a minigame show the coming soon card", () => {
-  assert.match(levelScreen(makeState({ level: 19 })), /Mini-game coming soon/);
+test("every level has its minigame (no coming soon cards left)", () => {
+  for (let n = 1; n <= 19; n += 1) assert.doesNotMatch(levelScreen(makeState({ level: n })), /Mini-game coming soon/, `level ${n}`);
 });
 
 test("levels with a minigame show an empty stage for it", () => {
