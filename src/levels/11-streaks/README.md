@@ -12,7 +12,7 @@ Claude keeps it up to date in plain words while working on the level with Helena
 Tick a step only when Helena agrees it is done.
 
 - [x] 1. Idea agreed: what the player sees and does, the social twist, how you win or lose
-- [ ] 2. First playable version: simple shapes, playable from start to end
+- [x] 2. First playable version: simple shapes, playable from start to end
 - [ ] 3. Rules and difficulty tuned: it feels right to play
 - [ ] 4. Look and feel: final art in the Signals style, with animations
 - [ ] 5. Texts and details: final texts, and sound or vibration if wanted
@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-01/11/2026: idea agreed with Helena (step 1). First playable version built straight away in the painted look and a bit hard, as she asked: a window and a sill with four painted pots, plants that droop and lose leaves as they dry (11 s from full to dry), posts every 1.1 s that last 2.4 s (the thirstiest friend posts more often, so it's hard but fair), a heart or "haha" to water, the quiet friend at 14 s with "hey, you ok?", and every plant flowering at the end. Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
+01/11/2026: idea agreed with Helena (step 1). First playable version built straight away in the painted look and a bit hard, as she asked: a window and a sill with four painted pots, plants that droop and lose leaves as they dry (11 s from full to dry), posts every 1.1 s that last 2.4 s (the thirstiest friend posts more often, so it's hard but fair), a heart or "haha" to water, the quiet friend at 14 s with "hey, you ok?", and every plant flowering at the end. Helena played it (step 2 done) and asked for bigger plants and posts all over the screen (done). Next: tune difficulty if needed (step 3).
 
 ## The idea
 
@@ -39,6 +39,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Decisions
 
+- 01/11/2026: Helena: bigger plants, and posts anywhere on the screen to make it harder. Posts now pop up at random spots (not over their plant) with the friend's face and name, so you have to see whose it is.
 - 01/11/2026: friends as plants on a windowsill (rejected: streak flames).
 - 01/11/2026: you water a plant by reacting to that friend's post (rejected: clicking the plant with a watering can).
 - 01/11/2026: social twist: a friend goes quiet and you have to write to them first (rejected: a fifth pot, yours, that friends water at the end).

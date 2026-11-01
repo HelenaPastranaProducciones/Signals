@@ -50,9 +50,10 @@ export default defineLevel({
             <div class="water"><i></i></div>
           </div>`).join("")}
         </div>
+        <div class="posts-layer"></div>
         <div class="start">
           <b>Keep your friendships growing</b>
-          <span>Your friends post things over their plants. <b>Tap a reaction</b> before the post disappears to water their plant.</span>
+          <span>Your friends post things anywhere on the screen. <b>Tap a reaction</b> before the post disappears to water <b>that friend's</b> plant.</span>
           <span class="rules"><b>Win:</b> keep all ${s.friends} plants alive for ${s.duration} seconds</span>
           <span class="rules"><b>Lose:</b> one plant dries out completely</span>
           <span><b>Click to start</b></span>
@@ -86,10 +87,27 @@ export default defineLevel({
       const kind = pick(POSTS);
       const el = document.createElement("div");
       el.className = "post";
-      el.innerHTML = `<div class="pic" style="background:${kind.bg}">${kind.art}</div><small>${kind.text}</small>` +
+      el.dataset.i = String(i);
+      el.innerHTML = `<header><span class="face">${game.avatar(f.avatar, { label: f.name, crop: "head" })}</span><b style="color:${f.colour}">${f.name}</b></header><div class="pic" style="background:${kind.bg}">${kind.art}</div><small>${kind.text}</small>` +
         `<div class="react"><button data-r="heart" aria-label="Heart">${HEART}</button><button data-r="haha">haha</button></div>`;
-      slots[i].querySelector(".post-area").append(el);
+      // Posts pop up anywhere on the screen (Helena: harder), not over their plant.
+      place(el);
       f.post = { el, cancel: game.after(s.postSeconds * 1000, () => drop(f, false)) };
+    };
+
+    /** Puts a post somewhere on the screen, trying not to cover the other posts. */
+    const place = (el) => {
+      const layer = box.querySelector(".posts-layer");
+      layer.append(el);
+      const others = [...layer.children].filter((o) => o !== el).map((o) => [parseFloat(o.style.left), parseFloat(o.style.top)]);
+      let best = null;
+      for (let n = 0; n < 12; n += 1) {
+        const spot = [randomBetween(3, 78), randomBetween(3, 50)];
+        const room = Math.min(99, ...others.map(([x, y]) => Math.hypot((x - spot[0]) * 1.2, (y - spot[1]) * 1.6)));
+        if (!best || room > best.room) best = { spot, room };
+      }
+      el.style.left = `${best.spot[0].toFixed(1)}%`;
+      el.style.top = `${best.spot[1].toFixed(1)}%`;
     };
 
     const drop = (f, reacted) => {
@@ -172,8 +190,8 @@ export default defineLevel({
       if (reach) return reachOut(reach.closest(".pot-slot"));
       const button = event.target.closest(".react button");
       if (!button) return;
-      const slot = button.closest(".pot-slot");
-      const i = Number(slot.dataset.i);
+      const i = Number(button.closest(".post").dataset.i);
+      const slot = slots[i];
       const f = friends[i];
       f.water = Math.min(1, f.water + s.waterPerReaction);
       showPlant(i);
