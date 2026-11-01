@@ -1,0 +1,207 @@
+/* Level 10 · Customizer. A worktable, painted: flat colours, hard shadows, paper grain. */
+
+.level-10 .workshop {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3%;
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 18%, rgba(43, 38, 48, 0.06) 18% 18.4%),
+    #d9b48a;
+}
+
+.level-10 .workshop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background-image: var(--grain);
+  pointer-events: none;
+}
+
+.level-10 .object-svg { display: block; width: 100%; height: auto; }
+
+/* ---------- Choosing ---------- */
+
+.level-10 .choose {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  text-align: center;
+  color: #2b2630;
+}
+
+.level-10 .choose > b { font-size: clamp(24px, 4.5vh, 38px); }
+
+.level-10 .choices {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  width: min(900px, 92vw);
+}
+
+.level-10 .choices button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 6px;
+  border: 2.5px solid #2b2630;
+  border-radius: 18px 24px 16px 22px / 22px 16px 24px 18px;
+  background: #fff8ee;
+  box-shadow: 3px 4px 0 #2b2630;
+  font: inherit;
+  color: #2b2630;
+  cursor: pointer;
+}
+
+.level-10 .choices button:hover { translate: 0 -3px; }
+
+/* ---------- The table ---------- */
+
+.level-10 .mat {
+  width: min(52%, 86vh);
+  padding: 2%;
+  border-radius: 20px;
+  background: #6fa38a;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.25), 4px 6px 0 rgba(43, 38, 48, 0.25);
+}
+
+.level-10 .drawing .mat { cursor: crosshair; }
+
+.level-10 .pots,
+.level-10 .sheet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border: 2.5px solid #2b2630;
+  border-radius: 18px 24px 16px 22px / 22px 16px 24px 18px;
+  background: #fff8ee;
+  box-shadow: 3px 4px 0 #2b2630;
+  color: #2b2630;
+}
+
+.level-10 .pots { display: grid; grid-template-columns: repeat(2, 40px); }
+.level-10 .pots small,
+.level-10 .sheet small { grid-column: 1 / -1; text-transform: uppercase; font-size: 12px; color: #8a8090; }
+
+.level-10 .pot,
+.level-10 .marker {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #2b2630;
+  cursor: pointer;
+}
+
+.level-10 .pot {
+  border-radius: 6px 6px 14px 14px;
+  background: linear-gradient(90deg, transparent 60%, rgba(58, 30, 42, 0.2) 60%), var(--c);
+}
+
+.level-10 .marker {
+  border-radius: 6px;
+  background: linear-gradient(transparent 0 30%, var(--c) 30% 100%), #f1ece4;
+  rotate: -12deg;
+}
+
+.level-10 .marker.on { outline: 3px solid #2b2630; outline-offset: 2px; rotate: 0deg; scale: 1.1; }
+
+.level-10 .stickers {
+  display: grid;
+  grid-template-columns: repeat(2, 64px);
+  gap: 8px;
+}
+
+.level-10 .sticker {
+  width: 64px;
+  height: 64px;
+  padding: 6px;
+  border: 2px dashed #c9bfae;
+  border-radius: 12px;
+  background: #fbf6ee;
+  cursor: grab;
+}
+
+.level-10 .sticker svg { display: block; width: 100%; height: 100%; pointer-events: none; }
+
+/* The sticker you're dragging. */
+.level-10 .ghost {
+  position: absolute;
+  z-index: 25;
+  width: 70px;
+  translate: -50% -50%;
+  pointer-events: none;
+  filter: drop-shadow(3px 4px 0 rgba(43, 38, 48, 0.3));
+}
+
+.level-10 .ghost svg { display: block; width: 100%; }
+
+/* ---------- The pile ---------- */
+
+.level-10 .pile {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2%;
+  width: min(80%, 120vh);
+}
+
+.level-10 .heap {
+  rotate: var(--r);
+  animation: level-10-drop 0.5s cubic-bezier(0.3, 1.4, 0.5, 1) backwards;
+  animation-delay: var(--d);
+}
+
+.level-10 .heap.found {
+  scale: 1.15;
+  z-index: 2;
+  filter: drop-shadow(0 0 0 #e9c24a) drop-shadow(0 0 10px #e9c24a);
+  transition: scale 0.3s, filter 0.3s;
+}
+
+.level-10 .lost .heap { animation: level-10-shrug 0.6s ease-in-out 2; }
+
+.level-10 .friend {
+  position: absolute;
+  left: 50%;
+  bottom: 6%;
+  z-index: 20;
+  translate: -50% 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.level-10 .face {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #e8d9c4;
+  border: 2px solid #2b2630;
+}
+
+.level-10 .face svg { display: block; width: 100%; height: 100%; }
+
+.level-10 .friend p {
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: 16px 16px 16px 4px;
+  background: #fff;
+  color: #2b2630;
+  font-size: 18px;
+  box-shadow: 0 2px 0 rgba(43, 38, 48, 0.2);
+}
+
+.level-10 .friend p b { display: block; font-size: 12px; }
+
+@keyframes level-10-drop { from { translate: 0 -120%; opacity: 0; } }
+@keyframes level-10-shrug { 50% { translate: 4px 0; } }

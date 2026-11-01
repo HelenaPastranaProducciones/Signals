@@ -52,9 +52,11 @@ Els detalls de cada nivell són a la seva llibreta
   ajustar la dificultat si cal (pas 3).
 - **Nivell 8 (Idle Chat):** pas 2 fet (a Helena li agrada). Següent:
   ajustar la dificultat si cal (pas 3).
-- **Nivell 9 (The Room):** pas 1 fet (idea acordada) i primera versió jugable
-  feta. Falta que Helena hi jugui.
-- **Nivells 10 a 19:** encara no s'han començat (pas 0).
+- **Nivell 9 (The Room):** pas 2 fet (Helena hi ha jugat; bombolles de xat).
+  Següent: ajustar la dificultat si cal (pas 3).
+- **Nivell 10 (Customizer):** pas 1 fet (idea acordada) i primera versió
+  jugable feta. Falta que Helena hi jugui.
+- **Nivells 11 a 19:** encara no s'han començat (pas 0).
 - **Estètica:** tot el joc té la nova estètica pintada (menús, avatar i
   nivells 1 a 5), amb la lletra Schoolbell. Només tenen la
   proposta inicial a la seva llibreta.
