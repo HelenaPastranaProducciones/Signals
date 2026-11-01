@@ -12,7 +12,7 @@ Claude keeps it up to date in plain words while working on the level with Helena
 Tick a step only when Helena agrees it is done.
 
 - [x] 1. Idea agreed: what the player sees and does, the social twist, how you win or lose
-- [ ] 2. First playable version: simple shapes, playable from start to end
+- [x] 2. First playable version: simple shapes, playable from start to end
 - [ ] 3. Rules and difficulty tuned: it feels right to play
 - [ ] 4. Look and feel: final art in the Signals style, with animations
 - [ ] 5. Texts and details: final texts, and sound or vibration if wanted
@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-01/11/2026: idea agreed with Helena (step 1). First playable version built straight away in the painted look: a Simon board with four painted gesture buttons (from a pool of nine: high five, AYYY!, fist bump, peace, heart hands, thumbs up, the dab, the wiggle, snap), which slide to new places every round; the group (three painted friends and you) at the side; the sequence grows from 2 to 6; in the round of 4 a friend makes up a fifth gesture; 3 hearts. Next: Helena plays it (to tick step 2), then we tune difficulty (step 3).
+01/11/2026: idea agreed with Helena (step 1). First playable version built straight away in the painted look: a Simon board with four painted gesture buttons (from a pool of nine: high five, AYYY!, fist bump, peace, heart hands, thumbs up, the dab, the wiggle, snap), which slide to new places every round; the group (three painted friends and you) at the side; the sequence grows from 2 to 6; in the round of 4 a friend makes up a fifth gesture; 3 hearts. Helena is happy with it (step 2 done, 01/11/2026). Next: tune difficulty if needed (step 3).
 
 ## The idea
 
