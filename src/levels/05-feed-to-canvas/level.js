@@ -2,7 +2,7 @@ import { defineLevel } from "../../engine/define-level.js";
 import { pick, randomInt, shuffle } from "../../engine/random.js";
 import { randomFriends } from "../../data/friends.js";
 import { escapeHtml } from "../../ui/html.js";
-import { CAPTIONS, PALETTE, PRAISE, SHRUGS, TEMPLATES, feedPicture, likesFor } from "./art.js";
+import { CAPTIONS, PALETTE, PRAISE, SHRUGS, feedPicture, likesFor, nextTemplate } from "./art.js";
 
 /**
  * Level 5 · Feed to Canvas
@@ -40,7 +40,7 @@ export default defineLevel({
     const nickname = escapeHtml(game.player.nickname);
     // Every attempt is a different run: other friends, posts and drawing to copy.
     const friends = randomFriends(5);
-    const template = pick(TEMPLATES);
+    const template = nextTemplate();
     const colours = Object.keys(PALETTE).slice(0, s.paletteColours);
 
     game.root.innerHTML = `

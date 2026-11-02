@@ -1,5 +1,5 @@
 import { createPaintKit } from "../../avatar/svg-kit.js";
-import { pick, randomBetween, randomInt } from "../../engine/random.js";
+import { pick, randomBetween, randomInt, shuffle } from "../../engine/random.js";
 
 /**
  * Level 5's drawings: the pictures in the feed (painted like the avatar) and
@@ -20,8 +20,7 @@ export const PALETTE = {
 
 /**
  * Pixel drawings to copy, 16 × 16 (Helena, 31/10/2026: more pixels, more fun
- * and harder drawings): one letter of PALETTE per pixel, "." for empty. Each
- * attempt picks one.
+ * and harder drawings): one letter of PALETTE per pixel, "." for empty.
  */
 export const TEMPLATES = [
   { name: "strawberry", rows: [
@@ -132,7 +131,94 @@ export const TEMPLATES = [
     "................",
     "................",
   ] },
+  { name: "fish", rows: [
+    "................",
+    "................",
+    "................",
+    "......oooo......",
+    "....oooyyooo...o",
+    "..ooooyyyyooo.oo",
+    ".owkoooyyooooooo",
+    ".owwoooyyooooooo",
+    "..ooooyyyyooo.oo",
+    "....oooyyooo...o",
+    "......oooo......",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+  ] },
+  { name: "cactus", rows: [
+    "................",
+    ".......pp.......",
+    "......gggg......",
+    "......gggg......",
+    "..gg..gkgg......",
+    "..gg..gggg..gg..",
+    "..gg..ggkg..gg..",
+    "..gggggggg..gg..",
+    "...ggggggggggg..",
+    "......gkgggggg..",
+    "......gggg......",
+    "......gggg......",
+    "...oooooooooo...",
+    "...oyyyyyyyyo...",
+    "....oooooooo....",
+    "................",
+  ] },
+  { name: "cassette", rows: [
+    "................",
+    "................",
+    ".kkkkkkkkkkkkkk.",
+    ".kppppppppppppk.",
+    ".kpwwwwwwwwwwpk.",
+    ".kpwrrrrrrrrwpk.",
+    ".kpwwwwwwwwwwpk.",
+    ".kppkkkkkkkkppk.",
+    ".kppkwkkkkwkppk.",
+    ".kppkkkkkkkkppk.",
+    ".kppppppppppppk.",
+    ".kpppyyyyyypppk.",
+    ".kkkkkkkkkkkkkk.",
+    "................",
+    "................",
+    "................",
+  ] },
+  { name: "love letter", rows: [
+    "................",
+    "................",
+    "................",
+    ".wwwwwwwwwwwwww.",
+    ".bwwwwwwwwwwwwb.",
+    ".wbbwwwwwwwwbbw.",
+    ".wwwbbwwwwbbwww.",
+    ".wwwwwbbbbwwwww.",
+    ".wwwwwrwwrwwwww.",
+    ".wwwwrrrrrrwwww.",
+    ".wwwwwrrrrwwwww.",
+    ".wwwwwwrrwwwwww.",
+    "................",
+    "................",
+    "................",
+    "................",
+  ] },
 ];
+
+// Drawings still to show. Helena (02/11/2026): always a different drawing, so
+// all of them come up, in random order, before any repeats.
+let drawingsLeft = [];
+let lastDrawing = null;
+
+/** The drawing to copy in this attempt: never the same as the one before. */
+export function nextTemplate() {
+  if (drawingsLeft.length === 0) {
+    drawingsLeft = shuffle(TEMPLATES);
+    if (drawingsLeft.at(-1) === lastDrawing) drawingsLeft.unshift(drawingsLeft.pop());
+  }
+  lastDrawing = drawingsLeft.pop();
+  return lastDrawing;
+}
 
 let count = 0;
 

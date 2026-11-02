@@ -20,7 +20,7 @@ Tick a step only when Helena agrees it is done.
 
 ## Where we left off
 
-31/10/2026: idea agreed with Helena (step 1). First playable version built straight away in the painted look: the phone, the feed scrolling faster and faster with painted posts from random friends, the Create button after 2.5 s, a 10×10 canvas with 8 colours and an eraser, six templates (heart, star, cat, smiley, mushroom, flower), and the published post with likes and comments. Helena played it (step 2 done) and asked for grey empty pixels and a 16×16 canvas with harder drawings (done). Next: tune difficulty if needed (step 3).
+31/10/2026: idea agreed with Helena (step 1). First playable version built straight away in the painted look: the phone, the feed scrolling faster and faster with painted posts from random friends, the Create button after 2.5 s, a 10×10 canvas with 8 colours and an eraser, six templates (heart, star, cat, smiley, mushroom, flower), and the published post with likes and comments. Helena played it (step 2 done) and asked for grey empty pixels and a 16×16 canvas with harder drawings (done). 02/11/2026: ten drawings now, and a different one every attempt. Next: tune difficulty if needed (step 3).
 
 ## The idea
 
@@ -41,6 +41,7 @@ Phase 1: endless feed you swipe through (Consumed/Created counter). Phase 2: pix
 
 - 31/10/2026: Helena: the empty pixels looked white, so it seemed you had to paint them white. Empty pixels are now a grey chequer ("nothing here"), with a hint "Grey squares stay empty". And a bigger canvas with harder, more fun drawings: 16 × 16 with six new templates (strawberry, cat, ice cream, mushroom, rocket, frog), each using 3–6 colours.
 - 31/10/2026: Helena: a small cross on the pixels where nothing goes (instead of the grey chequer); the tip says "Squares with a cross stay empty".
+- 02/11/2026: Helena: it kept showing the mushroom. Now all the drawings come up, in random order, before any repeats, and never the same one twice in a row. Four new drawings (fish, cactus, cassette, love letter), ten in all.
 - 31/10/2026: everything happens inside one big phone (feed, then canvas, then published) (rejected: a split screen with the feed and the canvas side by side).
 - 31/10/2026: the feed scrolls by itself and hooks you; you have to press Create to break out (rejected: scrolling it yourself until a friend says "your turn").
 - 31/10/2026: drawing = filling a faint pixel template with the right colours, so there is a clear goal (rejected: free drawing with a minimum of pixels).
