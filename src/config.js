@@ -15,5 +15,5 @@ export const DEFAULT_NICKNAME = "";
 export const NAMELESS = "You";
 export const NICKNAME_MAX_LENGTH = 14;
 
-/** Every level open on the map for everyone, for reviewing the game. false: they open in order, only level 1 at the start (Helena, 02/11/2026). */
-export const UNLOCK_ALL_LEVELS = false;
+/** Every level open on the map for everyone (Helena, 02/11/2026). Set to false to open them in order again, with only level 1 at the start. */
+export const UNLOCK_ALL_LEVELS = true;
