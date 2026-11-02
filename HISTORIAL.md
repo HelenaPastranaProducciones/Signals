@@ -574,6 +574,10 @@ Els detalls de cada nivell són a la seva llibreta
   3 errors per perdre. Descartada l'opció C (trencaclosques de seients).
 - Pendent: saber quins nivells "es bloquegen" una mica al principi.
 
+### 02/11/2026
+
+- Presentació refeta seguint l'índex de 12 apartats d'Helena, amb un to més formal (4t de Disseny, assignatura New Trends): títols en Schoolbell i text en Hanken Grotesk. Falta que Helena afegeixi les fonts de la recerca (diapositiva 02) i revisi les conclusions.
+
 ## Coses pendents de decidir
 
 - **Mòbil:** com saltar i ajupir-se sense teclat al nivell 1.
