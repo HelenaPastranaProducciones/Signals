@@ -575,6 +575,8 @@ main:has(.level-frame) {
   z-index: calc(10 - var(--i) * var(--i));
 }
 
+.title-credit { margin-top: 10px; font-size: clamp(16px, 2.2vw, 20px); color: var(--muted); }
+.title-credit b { font-weight: inherit; color: var(--ink); }
 .title-collage svg { display: block; width: 100%; height: auto; }
 .title-collage figcaption { padding: 3px 0 5px; font-size: clamp(10px, 1.6vw, 14px); color: #2b2630; text-align: center; text-transform: uppercase; }
 

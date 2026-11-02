@@ -148,7 +148,8 @@ https://claude.ai/artifact/Kz5CaVyjyNMNNEcypQ6XRx
 
 ## Game flow
 
-1. **Title screen:** avatar and a Play button (Enter also works).
+1. **Title screen:** a fan of 5 random signal polaroids, a Play button (Enter also
+   works) and the credit "A project by Helena Pastrana" (Helena, 02/11/2026).
 2. **Opening loading screen "Signals Journal"** (Helena, 01/11/2026): what a
    signal is and why the journal is a video game (her final degree project is
    about teenagers in hospital; she looked for signals of how teens connect,

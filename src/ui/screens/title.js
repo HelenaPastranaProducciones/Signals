@@ -16,5 +16,6 @@ export function titleScreen() {
     </div>
     <button class="btn" data-action="start">Play</button>
     <p class="muted hint keys-only">Press Enter</p>
+    <p class="title-credit">A project by <b>Helena Pastrana</b></p>
   </div>`;
 }

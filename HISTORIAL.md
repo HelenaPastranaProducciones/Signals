@@ -583,4 +583,5 @@ Els detalls de cada nivell són a la seva llibreta
 - **Mòbil:** com saltar i ajupir-se sense teclat al nivell 1.
 - Les preguntes obertes generals són a `CLAUDE.md`, a "Open questions".
 - Pantalla d'inici: en lloc de l'avatar, un ventall de 5 polaroids de signals (a l'atzar a cada visita).
+- Pantalla d'inici: ara hi posa "A project by Helena Pastrana", sota el botó de jugar (02/11/2026).
 - Nivells tancats de nou (02/11/2026): al principi només el nivell 1 està obert i els altres s'obren en ordre. Encara no es guarda el progrés: si es recarrega la pàgina, es torna a començar pel nivell 1.
