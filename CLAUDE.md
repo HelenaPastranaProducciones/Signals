@@ -156,8 +156,8 @@ https://claude.ai/artifact/Kz5CaVyjyNMNNEcypQ6XRx
    **Continue** button (or Enter). Then the **lobby opens first** (avatar and name, Helena
    31/10/2026); "Go to the map" shows the levels.
 3. **Level map:** grid of 19 levels (locked, available, completed). They open
-   in order. **For now every level is open** while Helena reviews the game
-   (`UNLOCK_ALL_LEVELS` in `src/config.js`, 01/11/2026). Each tile shows its signal's painted picture, faded, behind the
+   in order: at the start only level 1 is open (Helena, 02/11/2026; to open
+   them all for a review, `UNLOCK_ALL_LEVELS` in `src/config.js`). Each tile shows its signal's painted picture, faded, behind the
    number (Helena, 01/11/2026).
 4. **Loading screen before each level** with the signal's number and title,
    a painted picture of the signal (`src/data/signal-pictures.js`) and its
